@@ -1,21 +1,10 @@
 {
   "pages": {
-    "/page": [
+    "/campaigns/[id]/edit/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/campaigns/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/campaigns/page.css",
-      "static/chunks/app/campaigns/page.js"
+      "static/css/app/campaigns/[id]/edit/page.css",
+      "static/chunks/app/campaigns/[id]/edit/page.js"
     ],
     "/campaigns/layout": [
       "static/chunks/webpack.js",
@@ -23,17 +12,39 @@
       "static/css/app/campaigns/layout.css",
       "static/chunks/app/campaigns/layout.js"
     ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
     "/campaigns/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/campaigns/[id]/page.css",
       "static/chunks/app/campaigns/[id]/page.js"
     ],
-    "/campaigns/[id]/edit/page": [
+    "/campaigns/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/campaigns/[id]/edit/page.css",
-      "static/chunks/app/campaigns/[id]/edit/page.js"
+      "static/css/app/campaigns/page.css",
+      "static/chunks/app/campaigns/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/campaigns/new/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/campaigns/new/page.css",
+      "static/chunks/app/campaigns/new/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

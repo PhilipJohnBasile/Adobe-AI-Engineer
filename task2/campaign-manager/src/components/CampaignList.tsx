@@ -53,8 +53,8 @@ export default function CampaignList({
 
   const determineStatus = (campaign: Campaign) => {
     const now = new Date();
-    const startDate = new Date(campaign.campaign_start_date);
-    const endDate = new Date(campaign.campaign_end_date);
+    const startDate = new Date(campaign.start_date || campaign.campaign_start_date || '');
+    const endDate = new Date(campaign.end_date || campaign.campaign_end_date || '');
     
     if (now < startDate) {
       return 'pending';
@@ -192,9 +192,9 @@ export default function CampaignList({
 
   const filteredCampaigns = campaigns.filter(campaign => {
     const matchesSearch = searchQuery === '' || 
-      campaign.campaign_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (campaign.name || campaign.campaign_name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
       campaign.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      campaign.campaign_id.toLowerCase().includes(searchQuery.toLowerCase());
+      (campaign.id || campaign.campaign_id || '').toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesStatus = statusFilter === 'all' || campaign.status === statusFilter;
     
@@ -204,14 +204,14 @@ export default function CampaignList({
   const sortedCampaigns = [...filteredCampaigns].sort((a, b) => {
     switch (sortBy) {
       case 'name':
-        return a.campaign_name.localeCompare(b.campaign_name);
+        return (a.name || a.campaign_name || '').localeCompare(b.name || b.campaign_name || '');
       case 'client':
         return a.client.localeCompare(b.client);
       case 'budget':
         return (b.budget?.total || 0) - (a.budget?.total || 0);
       case 'created_date':
       default:
-        return new Date(b.created_date || '').getTime() - new Date(a.created_date || '').getTime();
+        return new Date(b.created_date || b.start_date || b.campaign_start_date || '').getTime() - new Date(a.created_date || a.start_date || a.campaign_start_date || '').getTime();
     }
   });
 
@@ -356,7 +356,7 @@ export default function CampaignList({
             
             return (
               <div
-                key={campaign.campaign_id}
+                key={campaign.id || campaign.campaign_id}
                 onClick={() => onSelectCampaign?.(campaign)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -366,8 +366,8 @@ export default function CampaignList({
                 }}
                 tabIndex={0}
                 role="button"
-                aria-label={`View campaign ${campaign.campaign_name} for ${campaign.client}`}
-                aria-describedby={`campaign-status-${campaign.campaign_id}`}
+                aria-label={`View campaign ${campaign.name || campaign.campaign_name} for ${campaign.client}`}
+                aria-describedby={`campaign-status-${campaign.id || campaign.campaign_id}`}
                 aria-live="polite"
                 style={{
                   cursor: 'pointer',
@@ -428,7 +428,7 @@ export default function CampaignList({
                     <StatusLight 
                       variant={getStatusVariant(campaign.status)} 
                       size="m"
-                      id={`campaign-status-${campaign.campaign_id}`}
+                      id={`campaign-status-${campaign.id || campaign.campaign_id}`}
                       UNSAFE_style={{
                         color: campaign.status === 'pending' ? 'var(--spectrum-global-color-orange-900)' : 
                                campaign.status === 'active' ? 'var(--spectrum-global-color-green-900)' : 
@@ -444,7 +444,7 @@ export default function CampaignList({
                   <MenuTrigger>
                     <ActionButton 
                       isQuiet 
-                      aria-label={`More actions for ${campaign.campaign_name}`}
+                      aria-label={`More actions for ${campaign.name || campaign.campaign_name}`}
                       UNSAFE_style={{
                         minWidth: 'var(--spectrum-global-dimension-size-400)'
                       }}
@@ -454,7 +454,7 @@ export default function CampaignList({
                     <Menu onAction={(key) => {
                       if (key === 'edit') onEditCampaign?.(campaign);
                       if (key === 'view') onSelectCampaign?.(campaign);
-                      if (key === 'copy') navigator.clipboard.writeText(campaign.campaign_id);
+                      if (key === 'copy') navigator.clipboard.writeText(campaign.id || campaign.campaign_id || '');
                     }}>
                       <Item key="view">View Details</Item>
                       <Item key="edit">Edit Campaign</Item>
@@ -478,9 +478,9 @@ export default function CampaignList({
                     maxWidth: '100%',
                     lineHeight: '1.3'
                   }}
-                  title={campaign.campaign_name}
+                  title={campaign.name || campaign.campaign_name}
                 >
-                  {campaign.campaign_name}
+                  {campaign.name || campaign.campaign_name}
                 </Heading>
                 <Text 
                   UNSAFE_style={{
@@ -533,7 +533,7 @@ export default function CampaignList({
                     }}>
                       {formatCurrency((() => {
                         // Generate realistic budgets between 42M - 2.4B
-                        const seed = campaign.campaign_id.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+                        const seed = (campaign.id || campaign.campaign_id || '').split('').reduce((a, b) => a + b.charCodeAt(0), 0);
                         const budgetValues = [42500000, 98000000, 156000000, 234000000, 387000000, 504000000, 720000000, 1200000000, 1800000000, 2400000000];
                         return budgetValues[seed % budgetValues.length];
                       })())}
@@ -620,7 +620,7 @@ export default function CampaignList({
                     letterSpacing: '0.5px',
                     opacity: '0.8'
                   }}>
-                    {campaign.campaign_id}
+                    {campaign.id || campaign.campaign_id}
                   </Text>
                   <ActionButton
                     variant="accent"
@@ -631,7 +631,7 @@ export default function CampaignList({
                         onRunPipeline(campaign);
                       }
                     }}
-                    isDisabled={runningPipelines.has(campaign.campaign_id)}
+                    isDisabled={runningPipelines.has(campaign.id || campaign.campaign_id || '')}
                     UNSAFE_style={{
                       fontWeight: '600',
                       minWidth: '120px',
@@ -639,7 +639,7 @@ export default function CampaignList({
                     }}
                     UNSAFE_className="cta-button"
                   >
-                    {runningPipelines.has(campaign.campaign_id) 
+                    {runningPipelines.has(campaign.id || campaign.campaign_id || '') 
                       ? 'Running...' 
                       : campaign.status === 'completed' 
                         ? 'View results' 

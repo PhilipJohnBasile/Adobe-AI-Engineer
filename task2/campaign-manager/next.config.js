@@ -13,14 +13,7 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*'
-      }
-    ]
-  }
+  // Removed API rewrites to use built-in Next.js API routes
 }
 
 module.exports = nextConfig

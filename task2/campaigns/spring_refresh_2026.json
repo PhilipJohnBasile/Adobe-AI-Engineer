@@ -176,8 +176,16 @@
   "target_regions": [
     {
       "region": "North America",
-      "countries": ["United States", "Canada", "Mexico"],
-      "languages": ["en", "es", "fr"],
+      "countries": [
+        "United States",
+        "Canada",
+        "Mexico"
+      ],
+      "languages": [
+        "en",
+        "es",
+        "fr"
+      ],
       "cultural_notes": "Spring break season, outdoor activities resuming, fitness culture, spring training",
       "messaging_adaptation": {
         "tone": "energetic and motivational",
@@ -192,8 +200,19 @@
     },
     {
       "region": "Latin America",
-      "countries": ["Brazil", "Argentina", "Chile", "Colombia", "Peru", "Venezuela", "Costa Rica"],
-      "languages": ["pt", "es"],
+      "countries": [
+        "Brazil",
+        "Argentina",
+        "Chile",
+        "Colombia",
+        "Peru",
+        "Venezuela",
+        "Costa Rica"
+      ],
+      "languages": [
+        "pt",
+        "es"
+      ],
       "cultural_notes": "Autumn season (southern hemisphere), harvest festivals, cooler weather refreshment",
       "messaging_adaptation": {
         "tone": "refreshing and seasonal",
@@ -208,8 +227,25 @@
     },
     {
       "region": "Europe",
-      "countries": ["United Kingdom", "France", "Spain", "Italy", "Germany", "Netherlands", "Greece", "Portugal"],
-      "languages": ["en", "fr", "es", "it", "de", "nl", "el"],
+      "countries": [
+        "United Kingdom",
+        "France",
+        "Spain",
+        "Italy",
+        "Germany",
+        "Netherlands",
+        "Greece",
+        "Portugal"
+      ],
+      "languages": [
+        "en",
+        "fr",
+        "es",
+        "it",
+        "de",
+        "nl",
+        "el"
+      ],
       "cultural_notes": "Spring awakening, café culture, outdoor dining season, Easter celebrations",
       "messaging_adaptation": {
         "tone": "sophisticated and refreshing",
@@ -224,8 +260,26 @@
     },
     {
       "region": "Asia Pacific",
-      "countries": ["Australia", "Japan", "South Korea", "Thailand", "Philippines", "Indonesia", "Malaysia", "Singapore"],
-      "languages": ["en", "ja", "ko", "th", "tl", "id", "ms", "zh"],
+      "countries": [
+        "Australia",
+        "Japan",
+        "South Korea",
+        "Thailand",
+        "Philippines",
+        "Indonesia",
+        "Malaysia",
+        "Singapore"
+      ],
+      "languages": [
+        "en",
+        "ja",
+        "ko",
+        "th",
+        "tl",
+        "id",
+        "ms",
+        "zh"
+      ],
       "cultural_notes": "Autumn season (southern hemisphere), spring season (northern), cherry blossoms, monsoon preparation",
       "messaging_adaptation": {
         "tone": "balanced and seasonal",
@@ -240,8 +294,23 @@
     },
     {
       "region": "Middle East & Africa",
-      "countries": ["South Africa", "Nigeria", "Kenya", "UAE", "Saudi Arabia", "Egypt", "Morocco"],
-      "languages": ["en", "ar", "fr", "sw", "zu", "am"],
+      "countries": [
+        "South Africa",
+        "Nigeria",
+        "Kenya",
+        "UAE",
+        "Saudi Arabia",
+        "Egypt",
+        "Morocco"
+      ],
+      "languages": [
+        "en",
+        "ar",
+        "fr",
+        "sw",
+        "zu",
+        "am"
+      ],
       "cultural_notes": "Autumn harvest (southern), spring warmth (northern), Ramadan season, outdoor gathering season",
       "messaging_adaptation": {
         "tone": "refreshing and community-focused",
@@ -256,8 +325,15 @@
     },
     {
       "region": "Greater China",
-      "countries": ["China", "Hong Kong", "Taiwan"],
-      "languages": ["zh", "en"],
+      "countries": [
+        "China",
+        "Hong Kong",
+        "Taiwan"
+      ],
+      "languages": [
+        "zh",
+        "en"
+      ],
       "cultural_notes": "Spring festival aftermath, outdoor activity season, business renewal period",
       "messaging_adaptation": {
         "tone": "modern and aspirational",
@@ -272,8 +348,20 @@
     },
     {
       "region": "India & South Asia",
-      "countries": ["India", "Bangladesh", "Sri Lanka", "Pakistan"],
-      "languages": ["hi", "en", "bn", "ta", "te", "ur"],
+      "countries": [
+        "India",
+        "Bangladesh",
+        "Sri Lanka",
+        "Pakistan"
+      ],
+      "languages": [
+        "hi",
+        "en",
+        "bn",
+        "ta",
+        "te",
+        "ur"
+      ],
       "cultural_notes": "Spring festivals (Holi), pre-summer season, outdoor celebration time, cricket season",
       "messaging_adaptation": {
         "tone": "vibrant and celebratory",
@@ -288,8 +376,22 @@
     },
     {
       "region": "Eastern Europe",
-      "countries": ["Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Ukraine"],
-      "languages": ["ru", "pl", "cs", "hu", "ro", "uk"],
+      "countries": [
+        "Russia",
+        "Poland",
+        "Czech Republic",
+        "Hungary",
+        "Romania",
+        "Ukraine"
+      ],
+      "languages": [
+        "ru",
+        "pl",
+        "cs",
+        "hu",
+        "ro",
+        "uk"
+      ],
       "cultural_notes": "Spring awakening after winter, Easter traditions, outdoor season beginning, garden culture",
       "messaging_adaptation": {
         "tone": "hopeful and seasonal",

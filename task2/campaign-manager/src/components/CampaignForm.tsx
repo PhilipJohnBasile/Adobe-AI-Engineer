@@ -457,28 +457,55 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
       </View>
 
       <View padding="size-300" UNSAFE_style={{ flex: '1', overflowY: 'scroll', height: '100%' }}>
-        {/* Simple test to see if data is loading */}
-        <Heading level={3}>Campaign Editor</Heading>
-        <Text>Campaign Name: {formData.campaign_name || 'NOT LOADED'}</Text>
-        <Text>Number of Products: {formData.products?.length || 0}</Text>
-        <Text>Number of Regions: {formData.target_regions?.length || 0}</Text>
-
-        {/* Simple form fields */}
-        <View marginTop="size-200">
-          <TextField
-            label="Campaign Name"
-            value={formData.campaign_name || ''}
-            onChange={(value) => handleInputChange('campaign_name', value)}
-          />
-        </View>
-
-        <View marginTop="size-200">
-          <TextField
-            label="Client"
-            value={formData.client || ''}
-            onChange={(value) => handleInputChange('client', value)}
-          />
-        </View>
+        <Section>
+          <Heading level={3}>Campaign Overview</Heading>
+          <Flex direction="column" gap="size-200">
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Campaign ID"
+                  value={formData.campaign_id || ''}
+                  onChange={(value) => handleInputChange('campaign_id', value)}
+                  placeholder="e.g., SPRING_REFRESH_2026"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Campaign Name"
+                  value={formData.campaign_name || ''}
+                  onChange={(value) => handleInputChange('campaign_name', value)}
+                  placeholder="Campaign display name"
+                />
+              </View>
+            </Flex>
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Client"
+                  value={formData.client || ''}
+                  onChange={(value) => handleInputChange('client', value)}
+                  placeholder="Client company name"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Campaign Start Date"
+                  value={formData.campaign_start_date || ''}
+                  onChange={(value) => handleInputChange('campaign_start_date', value)}
+                  placeholder="YYYY-MM-DD"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Campaign End Date"
+                  value={formData.campaign_end_date || ''}
+                  onChange={(value) => handleInputChange('campaign_end_date', value)}
+                  placeholder="YYYY-MM-DD"
+                />
+              </View>
+            </Flex>
+          </Flex>
+        </Section>
 
         <Section>
           <Heading level={3}>Campaign Message</Heading>
@@ -501,11 +528,50 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
                 />
               </View>
             </Flex>
-            <TextField
-              label="Seasonal Theme"
-              value={formData.campaign_message?.seasonal_theme || ''}
-              onChange={(value) => handleInputChange('campaign_message.seasonal_theme', value)}
-              placeholder="e.g., autumn comfort, warm gatherings, back-to-routine energy"
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Brand Voice"
+                  value={formData.campaign_message?.brand_voice || ''}
+                  onChange={(value) => handleInputChange('campaign_message.brand_voice', value)}
+                  placeholder="e.g., energetic, optimistic, fresh, inspiring"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Seasonal Theme"
+                  value={formData.campaign_message?.seasonal_theme || ''}
+                  onChange={(value) => handleInputChange('campaign_message.seasonal_theme', value)}
+                  placeholder="e.g., renewal, fresh starts, outdoor activities"
+                />
+              </View>
+            </Flex>
+          </Flex>
+        </Section>
+
+        <Section>
+          <Heading level={3}>Target Audience</Heading>
+          <Flex direction="column" gap="size-200">
+            <TextArea
+              label="Demographics"
+              value={formData.target_audience?.primary?.demographics || ''}
+              onChange={(value) => handleInputChange('target_audience.primary.demographics', value)}
+              placeholder="e.g., 18-35 year olds, active lifestyle, young professionals"
+              height="size-600"
+            />
+            <TextArea
+              label="Psychographics"
+              value={formData.target_audience?.primary?.psychographics || ''}
+              onChange={(value) => handleInputChange('target_audience.primary.psychographics', value)}
+              placeholder="e.g., health-conscious, social, optimistic"
+              height="size-600"
+            />
+            <TextArea
+              label="Behavior"
+              value={formData.target_audience?.primary?.behavior || ''}
+              onChange={(value) => handleInputChange('target_audience.primary.behavior', value)}
+              placeholder="e.g., outdoor enthusiasts, fitness-oriented, social media active"
+              height="size-600"
             />
           </Flex>
         </Section>
@@ -532,18 +598,26 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
                   </ActionButton>
                 </Flex>
                 <Flex direction="row" gap="size-200" wrap>
-                  <View flex={1} minWidth="size-2400">
+                  <View flex={1} minWidth="size-2000">
+                    <TextField
+                      label="Product ID"
+                      value={product.id || ''}
+                      onChange={(value) => handleArrayChange('products', index, 'id', value)}
+                      placeholder="e.g., coca_cola_classic"
+                    />
+                  </View>
+                  <View flex={1} minWidth="size-2000">
                     <TextField
                       label="Name"
-                      value={product.name}
+                      value={product.name || ''}
                       onChange={(value) => handleArrayChange('products', index, 'name', value)}
                       placeholder="Product name"
                     />
                   </View>
-                  <View flex={1} minWidth="size-2400">
+                  <View flex={1} minWidth="size-2000">
                     <TextField
                       label="Category"
-                      value={product.category}
+                      value={product.category || ''}
                       onChange={(value) => handleArrayChange('products', index, 'category', value)}
                       placeholder="Product category"
                     />
@@ -551,10 +625,50 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
                 </Flex>
                 <TextArea
                   label="Description"
-                  value={product.description}
+                  value={product.description || ''}
                   onChange={(value) => handleArrayChange('products', index, 'description', value)}
                   placeholder="Product description"
                   height="size-800"
+                />
+                <Flex direction="row" gap="size-200" wrap>
+                  <View flex={1} minWidth="size-2400">
+                    <TextField
+                      label="Target Price"
+                      value={product.target_price || ''}
+                      onChange={(value) => handleArrayChange('products', index, 'target_price', value)}
+                      placeholder="e.g., $1.50"
+                    />
+                  </View>
+                  <View flex={1} minWidth="size-2400">
+                    <TextField
+                      label="Primary Message"
+                      value={product.messaging?.primary || ''}
+                      onChange={(value) => handleArrayChange('products', index, 'messaging', { ...product.messaging, primary: value })}
+                      placeholder="Main product message"
+                    />
+                  </View>
+                  <View flex={1} minWidth="size-2400">
+                    <TextField
+                      label="Secondary Message"
+                      value={product.messaging?.secondary || ''}
+                      onChange={(value) => handleArrayChange('products', index, 'messaging', { ...product.messaging, secondary: value })}
+                      placeholder="Supporting message"
+                    />
+                  </View>
+                </Flex>
+                <TextArea
+                  label="Key Benefits (one per line)"
+                  value={product.key_benefits?.join('\n') || ''}
+                  onChange={(value) => handleArrayChange('products', index, 'key_benefits', value.split('\n').filter(b => b.trim()))}
+                  placeholder="Enter each benefit on a new line"
+                  height="size-800"
+                />
+                <TextArea
+                  label="Existing Assets (one per line)"
+                  value={product.existing_assets?.join('\n') || ''}
+                  onChange={(value) => handleArrayChange('products', index, 'existing_assets', value.split('\n').filter(a => a.trim()))}
+                  placeholder="Enter each asset filename on a new line"
+                  height="size-600"
                 />
               </Flex>
             </Well>
@@ -586,23 +700,205 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
                   <View flex={1} minWidth="size-2400">
                     <TextField
                       label="Region Name"
-                      value={region.region}
+                      value={region.region || ''}
                       onChange={(value) => handleArrayChange('target_regions', index, 'region', value)}
                       placeholder="e.g., North America, Europe"
                     />
                   </View>
                   <View flex={1} minWidth="size-2400">
-                    <TextField
+                    <TextArea
                       label="Cultural Notes"
-                      value={region.cultural_notes}
+                      value={region.cultural_notes || ''}
                       onChange={(value) => handleArrayChange('target_regions', index, 'cultural_notes', value)}
                       placeholder="Cultural context and considerations"
+                      height="size-600"
                     />
                   </View>
+                </Flex>
+                <TextArea
+                  label="Countries (one per line)"
+                  value={region.countries?.join('\n') || ''}
+                  onChange={(value) => handleArrayChange('target_regions', index, 'countries', value.split('\n').filter(c => c.trim()))}
+                  placeholder="Enter each country on a new line"
+                  height="size-800"
+                />
+                <TextArea
+                  label="Languages (one per line)"
+                  value={region.languages?.join('\n') || ''}
+                  onChange={(value) => handleArrayChange('target_regions', index, 'languages', value.split('\n').filter(l => l.trim()))}
+                  placeholder="Enter each language code on a new line (e.g., en, es, fr)"
+                  height="size-600"
+                />
+                <Heading level={5} marginTop="size-200">Messaging Adaptation</Heading>
+                <Flex direction="column" gap="size-150">
+                  <TextField
+                    label="Tone"
+                    value={region.messaging_adaptation?.tone || ''}
+                    onChange={(value) => handleArrayChange('target_regions', index, 'messaging_adaptation', { ...region.messaging_adaptation, tone: value })}
+                    placeholder="e.g., energetic and motivational"
+                  />
+                  <TextArea
+                    label="Themes (one per line)"
+                    value={region.messaging_adaptation?.themes?.join('\n') || ''}
+                    onChange={(value) => handleArrayChange('target_regions', index, 'messaging_adaptation', { 
+                      ...region.messaging_adaptation, 
+                      themes: value.split('\n').filter(t => t.trim()) 
+                    })}
+                    placeholder="Enter each theme on a new line"
+                    height="size-800"
+                  />
+                  <TextArea
+                    label="Local Context"
+                    value={region.messaging_adaptation?.local_context || ''}
+                    onChange={(value) => handleArrayChange('target_regions', index, 'messaging_adaptation', { ...region.messaging_adaptation, local_context: value })}
+                    placeholder="Local cultural context and adaptations"
+                    height="size-600"
+                  />
                 </Flex>
               </Flex>
             </Well>
           ))}
+        </Section>
+
+        <Section>
+          <Heading level={3}>Creative Requirements</Heading>
+          <Flex direction="column" gap="size-200">
+            <Heading level={4}>Brand Requirements</Heading>
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Logo Placement"
+                  value={formData.creative_requirements?.brand_requirements?.logo_placement || ''}
+                  onChange={(value) => handleInputChange('creative_requirements.brand_requirements.logo_placement', value)}
+                  placeholder="e.g., bottom-right or top-left"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Color Compliance"
+                  value={formData.creative_requirements?.brand_requirements?.color_compliance || ''}
+                  onChange={(value) => handleInputChange('creative_requirements.brand_requirements.color_compliance', value)}
+                  placeholder="e.g., must use coca_cola_red #DA020E"
+                />
+              </View>
+            </Flex>
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Typography"
+                  value={formData.creative_requirements?.brand_requirements?.typography || ''}
+                  onChange={(value) => handleInputChange('creative_requirements.brand_requirements.typography', value)}
+                  placeholder="e.g., Spencerian Script for headlines, Gotham for body"
+                />
+              </View>
+              <View flex={1} minWidth="size-2400">
+                <TextField
+                  label="Messaging Guidelines"
+                  value={formData.creative_requirements?.brand_requirements?.messaging || ''}
+                  onChange={(value) => handleInputChange('creative_requirements.brand_requirements.messaging', value)}
+                  placeholder="e.g., energetic, optimistic, fresh tone"
+                />
+              </View>
+            </Flex>
+          </Flex>
+        </Section>
+
+        <Section>
+          <Heading level={3}>Budget Allocation</Heading>
+          <Flex direction="column" gap="size-200">
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Total Budget"
+                  value={formData.budget_allocation?.total_budget || ''}
+                  onChange={(value) => handleInputChange('budget_allocation.total_budget', value)}
+                  placeholder="e.g., $98000"
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="GenAI Budget"
+                  value={formData.budget_allocation?.genai_budget || ''}
+                  onChange={(value) => handleInputChange('budget_allocation.genai_budget', value)}
+                  placeholder="e.g., $1960"
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <NumberField
+                  label="Estimated Assets"
+                  value={formData.budget_allocation?.estimated_assets || 0}
+                  onChange={(value) => handleInputChange('budget_allocation.estimated_assets', value)}
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Cost Per Asset"
+                  value={formData.budget_allocation?.cost_per_asset || ''}
+                  onChange={(value) => handleInputChange('budget_allocation.cost_per_asset', value)}
+                  placeholder="e.g., $25.00"
+                />
+              </View>
+            </Flex>
+          </Flex>
+        </Section>
+
+        <Section>
+          <Heading level={3}>Success Metrics</Heading>
+          <Flex direction="column" gap="size-200">
+            <TextArea
+              label="Primary KPIs (one per line)"
+              value={formData.success_metrics?.primary_kpis?.join('\n') || ''}
+              onChange={(value) => handleInputChange('success_metrics.primary_kpis', value.split('\n').filter(k => k.trim()))}
+              placeholder="Enter each KPI on a new line"
+              height="size-800"
+            />
+            <Heading level={4}>Target Metrics</Heading>
+            <Flex direction="row" gap="size-200" wrap>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Awareness Lift"
+                  value={formData.success_metrics?.target_metrics?.awareness_lift || ''}
+                  onChange={(value) => handleInputChange('success_metrics.target_metrics.awareness_lift', value)}
+                  placeholder="e.g., 22%"
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Engagement Rate"
+                  value={formData.success_metrics?.target_metrics?.engagement_rate || ''}
+                  onChange={(value) => handleInputChange('success_metrics.target_metrics.engagement_rate', value)}
+                  placeholder="e.g., 5.8%"
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Seasonal Conversion"
+                  value={formData.success_metrics?.target_metrics?.seasonal_conversion || ''}
+                  onChange={(value) => handleInputChange('success_metrics.target_metrics.seasonal_conversion', value)}
+                  placeholder="e.g., 15%"
+                />
+              </View>
+              <View flex={1} minWidth="size-2000">
+                <TextField
+                  label="Global Reach"
+                  value={formData.success_metrics?.target_metrics?.global_reach || ''}
+                  onChange={(value) => handleInputChange('success_metrics.target_metrics.global_reach', value)}
+                  placeholder="e.g., 78%"
+                />
+              </View>
+            </Flex>
+          </Flex>
+        </Section>
+
+        <Section>
+          <Heading level={3}>Deliverables</Heading>
+          <Flex direction="column" gap="size-200">
+            <NumberField
+              label="Total Assets"
+              value={formData.deliverables?.total_assets || 0}
+              onChange={(value) => handleInputChange('deliverables.total_assets', value)}
+            />
+          </Flex>
         </Section>
       </View>
 

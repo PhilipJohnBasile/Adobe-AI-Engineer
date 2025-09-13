@@ -1,6 +1,9 @@
 {
-  "/page": "app/page.js",
-  "/campaigns/page": "app/campaigns/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/campaigns/route": "app/api/campaigns/route.js",
+  "/api/campaigns/[id]/route": "app/api/campaigns/[id]/route.js",
   "/campaigns/[id]/edit/page": "app/campaigns/[id]/edit/page.js",
-  "/campaigns/[id]/page": "app/campaigns/[id]/page.js"
+  "/campaigns/[id]/page": "app/campaigns/[id]/page.js",
+  "/campaigns/page": "app/campaigns/page.js",
+  "/campaigns/new/page": "app/campaigns/new/page.js"
 }

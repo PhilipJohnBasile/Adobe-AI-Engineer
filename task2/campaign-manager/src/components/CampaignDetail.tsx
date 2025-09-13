@@ -35,7 +35,7 @@ import Alert from '@spectrum-icons/workflow/Alert';
 import CheckmarkCircle from '@spectrum-icons/workflow/CheckmarkCircle';
 import Clock from '@spectrum-icons/workflow/Clock';
 import FileTemplate from '@spectrum-icons/workflow/FileTemplate';
-import Download from '@spectrum-icons/workflow/Download';
+import Export from '@spectrum-icons/workflow/Export';
 import ViewIcon from '@spectrum-icons/workflow/ViewGrid';
 import ChevronLeft from '@spectrum-icons/workflow/ChevronLeft';
 import ChevronRight from '@spectrum-icons/workflow/ChevronRight';
@@ -151,10 +151,10 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
   };
 
   const getAssetCounts = () => {
-    if (!assets) return { generated: 0, planned: campaign.deliverables.total_assets };
+    if (!assets) return { generated: 0, planned: campaign.deliverables?.total_assets || 0 };
     return {
       generated: assets.total_assets || 0,
-      planned: campaign.deliverables.total_assets
+      planned: campaign.deliverables?.total_assets || 0
     };
   };
 
@@ -320,12 +320,12 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                         </Flex>
                         
                         <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>Brand Voice:</Text>
-                        <Text>{campaign.campaign_message.brand_voice}</Text>
+                        <Text>{campaign.campaign_message?.brand_voice || 'Not specified'}</Text>
                         
                         <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>Target Audience:</Text>
                         <View>
-                          <Text><strong>Demographics:</strong> {campaign.target_audience.primary.demographics}</Text>
-                          <Text><strong>Psychographics:</strong> {campaign.target_audience.primary.psychographics}</Text>
+                          <Text><strong>Demographics:</strong> {campaign.target_audience?.primary?.demographics || 'Not specified'}</Text>
+                          <Text><strong>Psychographics:</strong> {campaign.target_audience?.primary?.psychographics || 'Not specified'}</Text>
                         </View>
                       </Grid>
 
@@ -333,10 +333,10 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                       <View>
                         <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', marginBottom: '8px', display: 'block' }}>Campaign Message</Text>
                         <Well marginY="size-100">
-                          <Heading level={4}>{campaign.campaign_message.primary_headline}</Heading>
-                          <Text>{campaign.campaign_message.secondary_headline}</Text>
+                          <Heading level={4}>{campaign.campaign_message?.primary_headline || 'No headline'}</Heading>
+                          <Text>{campaign.campaign_message?.secondary_headline || 'No secondary headline'}</Text>
                           <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-600)', fontSize: '14px', marginTop: '8px' }}>
-                            {campaign.campaign_message.seasonal_theme}
+                            {campaign.campaign_message?.seasonal_theme || 'No theme specified'}
                           </Text>
                         </Well>
                       </View>
@@ -352,12 +352,12 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                         <Flex direction="column" gap="size-200">
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Products</Text>
-                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.products.length}</Text>
+                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.products?.length || 0}</Text>
                           </Flex>
                           
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Regions</Text>
-                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.target_regions.length}</Text>
+                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.target_regions?.length || 0}</Text>
                           </Flex>
                           
                           <View>
@@ -379,14 +379,14 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Budget</Text>
                             <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>
-                              {formatCurrency(campaign.budget_allocation.total_budget)}
+                              {formatCurrency(campaign.budget_allocation?.total_budget || '0')}
                             </Text>
                           </Flex>
                           
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Cost per Asset</Text>
                             <Badge variant="neutral" UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>
-                              {formatCurrency(campaign.budget_allocation.cost_per_asset)}
+                              {formatCurrency(campaign.budget_allocation?.cost_per_asset || '0')}
                             </Badge>
                           </Flex>
                         </Flex>
@@ -454,7 +454,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                     gap="size-300"
                     marginTop="size-200"
                   >
-                    {campaign.products.map((product, index) => (
+                    {(campaign.products || []).map((product, index) => (
                       <View 
                         key={index} 
                         backgroundColor="gray-25"
@@ -518,7 +518,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                               
                               {expandedProducts.has(index) && (
                                 <View marginTop="size-75">
-                                  {product.key_benefits.slice(0, 3).map((benefit, i) => (
+                                  {(product.key_benefits || []).slice(0, 3).map((benefit, i) => (
                                     <Text key={i} UNSAFE_style={{ 
                                       fontSize: '12px', 
                                       color: 'var(--spectrum-global-color-gray-600)',
@@ -544,7 +544,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                               {formatCurrency(product.target_price)}
                             </Text>
                             <Badge variant="neutral" UNSAFE_style={{ fontSize: '11px' }}>
-                              {product.existing_assets.length} Assets
+                              {(product.existing_assets || []).length} Assets
                             </Badge>
                           </Flex>
                         </Flex>
@@ -558,7 +558,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                   <Divider size="S" />
                   <View marginTop="size-200">
                     <Flex direction="column" gap="size-100">
-                      {campaign.target_regions.map((region, index) => (
+                      {(campaign.target_regions || []).map((region, index) => (
                         <View 
                           key={index} 
                           backgroundColor="gray-25"
@@ -573,7 +573,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                               <Flex direction="row" alignItems="center" gap="size-150">
                                 <Heading level={3}>{region.region}</Heading>
                                 <Badge variant="neutral" UNSAFE_style={{ fontSize: '11px' }}>
-                                  {region.countries.length} {region.countries.length === 1 ? 'Country' : 'Countries'}
+                                  {(region.countries || []).length} {(region.countries || []).length === 1 ? 'Country' : 'Countries'}
                                 </Badge>
                               </Flex>
                               <Text UNSAFE_style={{ 
@@ -594,12 +594,12 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                                 marginBottom: '4px'
                               }}>Countries & Languages</Text>
                               <Flex direction="row" gap="size-100" wrap aria-label={`Countries and languages for ${region.region}`}>
-                                {region.countries.map((country, i) => (
+                                {(region.countries || []).map((country, i) => (
                                   <Badge key={`country-${i}`} variant="accent">
                                     {country}
                                   </Badge>
                                 ))}
-                                {region.languages.map((language, i) => (
+                                {(region.languages || []).map((language, i) => (
                                   <Badge key={`lang-${i}`} variant="positive">
                                     {language}
                                   </Badge>
@@ -839,7 +839,7 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                           borderColor: 'var(--spectrum-global-color-blue-400)',
                           color: 'var(--spectrum-global-color-blue-600)'
                         }}>
-                          <Download />
+                          <Export />
                           <Text>Download Report</Text>
                         </ActionButton>
                       )}

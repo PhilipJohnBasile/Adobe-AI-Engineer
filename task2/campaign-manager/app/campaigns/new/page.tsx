@@ -1,16 +1,26 @@
 'use client';
 
 import React from 'react';
-import { Provider, defaultTheme, View } from '@adobe/react-spectrum';
-import { CampaignForm } from '../../../src/components/CampaignForm';
+import { Provider, defaultTheme } from '@adobe/react-spectrum';
+import CampaignFormCreator from '../../../src/components/CampaignFormCreator';
 import { Campaign } from '../../../src/types/Campaign';
 import { useRouter } from 'next/navigation';
 
 export default function NewCampaignPage() {
   const router = useRouter();
 
-  const handleSave = (campaign: Campaign) => {
-    router.push('/campaigns');
+  const handleSave = async (campaign: Campaign) => {
+    const response = await fetch('/api/campaigns', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(campaign)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create campaign');
+    }
+
+    router.push(`/campaigns/${campaign.campaign_id}`);
   };
 
   const handleCancel = () => {
@@ -18,9 +28,11 @@ export default function NewCampaignPage() {
   };
 
   return (
-    <CampaignForm
-      onSave={handleSave}
-      onCancel={handleCancel}
-    />
+    <Provider theme={defaultTheme}>
+      <CampaignFormCreator
+        onSave={handleSave}
+        onCancel={handleCancel}
+      />
+    </Provider>
   );
 }

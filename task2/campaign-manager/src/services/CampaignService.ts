@@ -1,7 +1,7 @@
 import { Campaign, CampaignValidation, ComplianceCheck } from '../types/Campaign';
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = '/api';
 
 export class CampaignService {
   // Campaign CRUD operations
@@ -125,7 +125,7 @@ export class ComplianceService {
 
     // Check for brand color compliance requirement
     const requiredColor = '#DA020E';
-    const hasRequiredColor = campaign.creative_requirements.brand_requirements.color_compliance.includes(requiredColor);
+    const hasRequiredColor = campaign.creative_requirements?.brand_requirements?.color_compliance?.includes?.(requiredColor) || false;
     
     checks.push({
       type: 'brand_color',
@@ -135,9 +135,9 @@ export class ComplianceService {
     });
 
     // Check logo placement requirements
-    const logoPlacement = campaign.creative_requirements.brand_requirements.logo_placement;
+    const logoPlacement = campaign.creative_requirements?.brand_requirements?.logo_placement;
     const validPlacements = ['bottom-right', 'top-left', 'bottom-left', 'top-right'];
-    const hasValidPlacement = validPlacements.some(placement => logoPlacement.includes(placement));
+    const hasValidPlacement = logoPlacement ? validPlacements.some(placement => logoPlacement.includes(placement)) : false;
 
     checks.push({
       type: 'logo_placement',
@@ -147,7 +147,7 @@ export class ComplianceService {
     });
 
     // Check brand voice compliance
-    const brandVoice = campaign.campaign_message.brand_voice.toLowerCase();
+    const brandVoice = campaign.campaign_message?.brand_voice?.toLowerCase() || '';
     const cocaColaBrandKeywords = ['uplifting', 'inclusive', 'joyful', 'authentic', 'refreshing', 'classic'];
     const brandVoiceScore = cocaColaBrandKeywords.filter(keyword => brandVoice.includes(keyword)).length;
 
@@ -172,13 +172,13 @@ export class ComplianceService {
 
     // Check all text content
     const allText = [
-      campaign.campaign_name,
-      campaign.campaign_message.primary_headline,
-      campaign.campaign_message.secondary_headline,
-      campaign.campaign_message.brand_voice,
-      campaign.campaign_message.seasonal_theme,
-      ...campaign.products.flatMap(p => [p.name, p.description, p.messaging.primary, p.messaging.secondary]),
-      ...campaign.products.flatMap(p => p.key_benefits)
+      campaign.campaign_name || '',
+      campaign.campaign_message?.primary_headline || '',
+      campaign.campaign_message?.secondary_headline || '',
+      campaign.campaign_message?.brand_voice || '',
+      campaign.campaign_message?.seasonal_theme || '',
+      ...(campaign.products || []).flatMap(p => [p.name || '', p.description || '', p.messaging?.primary || '', p.messaging?.secondary || '']),
+      ...(campaign.products || []).flatMap(p => p.key_benefits || [])
     ].join(' ').toLowerCase();
 
     const foundForbiddenWords = forbiddenWords.filter(word => allText.includes(word));

@@ -15,7 +15,7 @@ export default function CampaignsPage() {
   const [toastVariant, setToastVariant] = useState<'positive' | 'negative' | 'info'>('info');
 
   const handleSelectCampaign = (campaign: Campaign) => {
-    router.push(`/campaigns/${campaign.campaign_id}`);
+    router.push(`/campaigns/${campaign.id || campaign.campaign_id}`);
   };
 
   const handleCreateNew = () => {
@@ -23,30 +23,30 @@ export default function CampaignsPage() {
   };
 
   const handleEditCampaign = (campaign: Campaign) => {
-    router.push(`/campaigns/${campaign.campaign_id}/edit`);
+    router.push(`/campaigns/${campaign.id || campaign.campaign_id}/edit`);
   };
 
   const handleRunPipeline = async (campaign: Campaign) => {
     try {
-      setRunningPipelines(prev => new Set([...prev, campaign.campaign_id]));
-      setToastMessage(`Starting pipeline for ${campaign.campaign_name}...`);
+      setRunningPipelines(prev => new Set([...prev, campaign.id || campaign.campaign_id]));
+      setToastMessage(`Starting pipeline for ${campaign.name || campaign.campaign_name}...`);
       setToastVariant('info');
       
-      await CampaignService.runPipeline(campaign.campaign_id);
+      await CampaignService.runPipeline(campaign.id || campaign.campaign_id);
       
-      setToastMessage(`Pipeline completed successfully for ${campaign.campaign_name}!`);
+      setToastMessage(`Pipeline completed successfully for ${campaign.name || campaign.campaign_name}!`);
       setToastVariant('positive');
       
       setRefreshTrigger(prev => prev + 1);
       
     } catch (error) {
       console.error('Pipeline execution failed:', error);
-      setToastMessage(`Pipeline failed for ${campaign.campaign_name}. Please try again.`);
+      setToastMessage(`Pipeline failed for ${campaign.name || campaign.campaign_name}. Please try again.`);
       setToastVariant('negative');
     } finally {
       setRunningPipelines(prev => {
         const newSet = new Set(prev);
-        newSet.delete(campaign.campaign_id);
+        newSet.delete(campaign.id || campaign.campaign_id);
         return newSet;
       });
       
