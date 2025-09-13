@@ -1,0 +1,466 @@
+{
+  "campaign_id": "GUINNESS_ST_PATRICKS_2026",
+  "campaign_name": "Guinness - St. Patrick's Celebration",
+  "client": "Diageo2",
+  "campaign_start_date": "2026-02-01",
+  "campaign_end_date": "2026-03-31",
+  "campaign_message": {
+    "primary_headline": "Good Things Come to Those Who Wait",
+    "secondary_headline": "Celebrate the Spirit of Ireland",
+    "brand_voice": "authentic, patient, proud, traditional",
+    "seasonal_theme": "Irish heritage, St. Patrick's Day, patience and craft, community celebration"
+  },
+  "target_audience": {
+    "primary": {
+      "demographics": "25-55 year olds, beer enthusiasts, Irish heritage",
+      "psychographics": "values tradition, authenticity, and craftsmanship",
+      "behavior": "pub-goers, heritage celebrants, quality beer drinkers"
+    }
+  },
+  "products": [
+    {
+      "id": "guinness_draught",
+      "name": "Guinness Draught",
+      "category": "Irish Stout",
+      "description": "The perfect pint with its iconic cascading surge and rich, creamy head",
+      "key_benefits": [
+        "Iconic taste profile",
+        "Perfect pour ritual",
+        "Irish heritage authenticity",
+        "Community experience"
+      ],
+      "target_price": "$11.99",
+      "messaging": {
+        "primary": "The Perfect Pint",
+        "secondary": "Patience Rewarded"
+      },
+      "existing_assets": [
+        "product_pint.png",
+        "lifestyle_pub.png",
+        "lifestyle_heritage.png"
+      ]
+    },
+    {
+      "id": "guinness_0",
+      "name": "Guinness 0.0",
+      "category": "Non-Alcoholic Stout",
+      "description": "All the taste of Guinness with 0.0% alcohol for inclusive celebration",
+      "key_benefits": [
+        "Zero alcohol content",
+        "Same great taste",
+        "Inclusive celebration",
+        "Health conscious choice"
+      ],
+      "target_price": "$9.99",
+      "messaging": {
+        "primary": "Same Spirit, New Choice",
+        "secondary": "Inclusive Celebration"
+      },
+      "existing_assets": [
+        "product_can.png",
+        "lifestyle_inclusive.png",
+        "lifestyle_heritage.png"
+      ]
+    },
+    {
+      "id": "guinness_foreign_extra_stout",
+      "name": "Guinness Foreign Extra Stout",
+      "category": "Extra Stout",
+      "description": "Bold, intense flavor with a rich history, perfect for St. Patrick's celebrations",
+      "key_benefits": [
+        "Intense bold flavor",
+        "Higher alcohol content",
+        "International heritage",
+        "Celebration strength"
+      ],
+      "target_price": "$13.99",
+      "messaging": {
+        "primary": "Bold Irish Spirit",
+        "secondary": "Heritage Strength"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_celebration.png",
+        "lifestyle_heritage.png"
+      ]
+    },
+    {
+      "id": "guinness_nitro_ipa",
+      "name": "Guinness Nitro IPA",
+      "category": "Nitro IPA",
+      "description": "Modern Irish brewing meets hop innovation with signature smooth nitro finish",
+      "key_benefits": [
+        "Hop innovation",
+        "Smooth nitro texture",
+        "Modern Irish brewing",
+        "Unique flavor profile"
+      ],
+      "target_price": "$12.99",
+      "messaging": {
+        "primary": "Modern Irish Innovation",
+        "secondary": "Hop Forward Heritage"
+      },
+      "existing_assets": [
+        "product_can.png",
+        "lifestyle_modern.png",
+        "lifestyle_innovation.png"
+      ]
+    },
+    {
+      "id": "guinness_blonde",
+      "name": "Guinness Blonde American Lager",
+      "category": "American Lager",
+      "description": "Crisp, golden lager brewed with Guinness heritage for broader celebration",
+      "key_benefits": [
+        "Crisp golden taste",
+        "Guinness heritage",
+        "Broad appeal",
+        "Celebration friendly"
+      ],
+      "target_price": "$10.99",
+      "messaging": {
+        "primary": "Golden Irish Heritage",
+        "secondary": "Crisp Celebration"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_golden.png",
+        "lifestyle_celebration.png"
+      ]
+    },
+    {
+      "id": "guinness_extra_stout",
+      "name": "Guinness Extra Stout",
+      "category": "Extra Stout",
+      "description": "The original export stout with distinctive sharp flavor and Irish character",
+      "key_benefits": [
+        "Original export recipe",
+        "Sharp distinctive flavor",
+        "Export heritage",
+        "Authentic Irish character"
+      ],
+      "target_price": "$12.49",
+      "messaging": {
+        "primary": "Original Export Heritage",
+        "secondary": "Sharp Irish Character"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_heritage.png",
+        "lifestyle_export.png"
+      ]
+    }
+  ],
+  "target_regions": [
+    {
+      "region": "Ireland & United Kingdom",
+      "countries": [
+        "Ireland",
+        "United Kingdom",
+        "Northern Ireland",
+        "Scotland",
+        "Wales"
+      ],
+      "languages": [
+        "en",
+        "ga",
+        "cy"
+      ],
+      "cultural_notes": "Home market, St. Patrick's Day origins, authentic pub culture, Celtic heritage, traditional brewing culture",
+      "messaging_adaptation": {
+        "tone": "proud and authentic",
+        "themes": [
+          "authentic irish heritage",
+          "celtic pride and tradition",
+          "pub culture authenticity",
+          "community spirit gathering"
+        ],
+        "local_context": "authentic irish pub culture, celtic heritage celebration, traditional brewing heritage"
+      }
+    },
+    {
+      "region": "North America Irish Heritage",
+      "countries": [
+        "United States",
+        "Canada"
+      ],
+      "languages": [
+        "en",
+        "fr"
+      ],
+      "cultural_notes": "Large Irish diaspora, massive St. Patrick's Day celebrations, strong pub culture, Irish-American heritage pride",
+      "messaging_adaptation": {
+        "tone": "heritage-focused and celebratory",
+        "themes": [
+          "irish-american pride",
+          "st. patrick's day traditions",
+          "diaspora community connection",
+          "heritage celebration unity"
+        ],
+        "local_context": "irish-american communities, st. patrick's day parades, pub culture traditions"
+      }
+    },
+    {
+      "region": "Australia & New Zealand",
+      "countries": [
+        "Australia",
+        "New Zealand"
+      ],
+      "languages": [
+        "en"
+      ],
+      "cultural_notes": "Strong Irish heritage, pub culture, St. Patrick's Day celebrations, premium beer appreciation",
+      "messaging_adaptation": {
+        "tone": "heritage-proud and social",
+        "themes": [
+          "irish heritage down under",
+          "pub culture tradition",
+          "st. patrick's celebration",
+          "premium beer appreciation"
+        ],
+        "local_context": "australian irish heritage, pub culture traditions, st. patrick's day festivities"
+      }
+    },
+    {
+      "region": "Continental Europe Premium",
+      "countries": [
+        "Germany",
+        "France",
+        "Netherlands",
+        "Belgium",
+        "Italy",
+        "Spain",
+        "Switzerland",
+        "Austria"
+      ],
+      "languages": [
+        "de",
+        "fr",
+        "nl",
+        "it",
+        "es"
+      ],
+      "cultural_notes": "Premium beer culture, St. Patrick's celebrations, pub culture adoption, international heritage appreciation",
+      "messaging_adaptation": {
+        "tone": "premium and heritage-focused",
+        "themes": [
+          "premium irish brewing heritage",
+          "international st. patrick's celebration",
+          "authentic beer craftsmanship",
+          "european heritage appreciation"
+        ],
+        "local_context": "european premium beer culture, international st. patrick's festivities, heritage beer appreciation"
+      }
+    },
+    {
+      "region": "Latin America Premium",
+      "countries": [
+        "Mexico",
+        "Brazil",
+        "Argentina",
+        "Chile",
+        "Colombia",
+        "Costa Rica"
+      ],
+      "languages": [
+        "es",
+        "pt"
+      ],
+      "cultural_notes": "Growing St. Patrick's celebrations, premium imported beer market, Irish pub culture adoption",
+      "messaging_adaptation": {
+        "tone": "premium and celebratory",
+        "themes": [
+          "premium irish import heritage",
+          "st. patrick's celebration adoption",
+          "irish pub culture appreciation",
+          "international beer sophistication"
+        ],
+        "local_context": "latin american premium beer markets, growing st. patrick's celebrations, irish pub culture"
+      }
+    },
+    {
+      "region": "Asia Pacific Premium",
+      "countries": [
+        "Japan",
+        "South Korea",
+        "Singapore",
+        "Hong Kong",
+        "Malaysia",
+        "Thailand"
+      ],
+      "languages": [
+        "ja",
+        "ko",
+        "zh",
+        "ms",
+        "th",
+        "en"
+      ],
+      "cultural_notes": "Premium imported beer appreciation, international celebration culture, Irish pub presence, heritage brand respect",
+      "messaging_adaptation": {
+        "tone": "premium and sophisticated",
+        "themes": [
+          "premium irish heritage import",
+          "international celebration sophistication",
+          "authentic brewing craftsmanship",
+          "heritage brand appreciation"
+        ],
+        "local_context": "asia pacific premium beer culture, international celebration adoption, irish pub appreciation"
+      }
+    },
+    {
+      "region": "Nordic Countries",
+      "countries": [
+        "Sweden",
+        "Norway",
+        "Denmark",
+        "Finland",
+        "Iceland"
+      ],
+      "languages": [
+        "sv",
+        "no",
+        "da",
+        "fi",
+        "is",
+        "en"
+      ],
+      "cultural_notes": "Premium beer culture, St. Patrick's celebration adoption, pub culture appreciation, heritage brewing respect",
+      "messaging_adaptation": {
+        "tone": "premium and heritage-focused",
+        "themes": [
+          "nordic premium beer appreciation",
+          "authentic irish brewing heritage",
+          "st. patrick's celebration culture",
+          "heritage craftsmanship respect"
+        ],
+        "local_context": "nordic premium beer culture, heritage brewing appreciation, international celebration adoption"
+      }
+    },
+    {
+      "region": "Eastern Europe Emerging",
+      "countries": [
+        "Poland",
+        "Czech Republic",
+        "Hungary",
+        "Russia",
+        "Romania",
+        "Ukraine"
+      ],
+      "languages": [
+        "pl",
+        "cs",
+        "hu",
+        "ru",
+        "ro",
+        "uk"
+      ],
+      "cultural_notes": "Growing premium beer culture, St. Patrick's celebration emergence, Irish heritage appreciation, pub culture development",
+      "messaging_adaptation": {
+        "tone": "heritage-focused and premium",
+        "themes": [
+          "authentic irish heritage",
+          "premium brewing tradition",
+          "st. patrick's celebration emergence",
+          "international beer sophistication"
+        ],
+        "local_context": "eastern european premium beer development, heritage appreciation, emerging celebration culture"
+      }
+    },
+    {
+      "region": "Africa Premium Markets",
+      "countries": [
+        "South Africa",
+        "Kenya",
+        "Nigeria",
+        "Ghana"
+      ],
+      "languages": [
+        "en",
+        "af",
+        "sw",
+        "yo",
+        "tw"
+      ],
+      "cultural_notes": "Premium imported beer market, St. Patrick's celebration adoption, Irish heritage respect, international brand appreciation",
+      "messaging_adaptation": {
+        "tone": "premium and heritage-focused",
+        "themes": [
+          "premium irish heritage import",
+          "authentic brewing tradition",
+          "international celebration adoption",
+          "heritage brand respect"
+        ],
+        "local_context": "african premium beer markets, international heritage appreciation, celebration culture adoption"
+      }
+    }
+  ],
+  "creative_requirements": {
+    "formats": [
+      {
+        "name": "square",
+        "dimensions": "1080x1080",
+        "platform": "Instagram Post",
+        "usage": "Main feed posts, heritage moments"
+      },
+      {
+        "name": "story",
+        "dimensions": "1080x1920",
+        "platform": "Instagram/Facebook Stories",
+        "usage": "Vertical stories, celebration experiences"
+      },
+      {
+        "name": "landscape",
+        "dimensions": "1920x1080",
+        "platform": "Facebook/YouTube Ads",
+        "usage": "Horizontal video ads, heritage storytelling"
+      }
+    ],
+    "brand_requirements": {
+      "logo_placement": "center-bottom",
+      "color_compliance": "must use Guinness black #000000 and cream #FFF8DC",
+      "typography": "Classic serif for headers, traditional fonts",
+      "messaging": "authentic, patient, proud tone"
+    }
+  },
+  "budget_allocation": {
+    "total_budget": "$1800000",
+    "genai_budget": "$36000",
+    "estimated_assets": 162,
+    "cost_per_asset": "$222.22"
+  },
+  "success_metrics": {
+    "primary_kpis": [
+      "Global St. Patrick's market penetration",
+      "Irish heritage brand association worldwide",
+      "Premium stout category leadership",
+      "International pub culture engagement",
+      "Heritage celebration participation lift"
+    ],
+    "target_metrics": {
+      "awareness_lift": "32%",
+      "engagement_rate": "6.8%",
+      "seasonal_conversion": "48%",
+      "global_reach": "78%",
+      "heritage_association": "85%"
+    }
+  },
+  "deliverables": {
+    "total_assets": 162,
+    "breakdown": {
+      "guinness_draught": 36,
+      "guinness_0": 24,
+      "guinness_foreign_extra_stout": 30,
+      "guinness_nitro_ipa": 24,
+      "guinness_blonde": 24,
+      "guinness_extra_stout": 24
+    },
+    "formats_per_product": {
+      "square": 6,
+      "story": 6,
+      "landscape": 6,
+      "mobile_banner": 6
+    }
+  },
+  "updated_at": "2025-09-13T05:19:40.865Z"
+}

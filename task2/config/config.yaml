@@ -1,0 +1,185 @@
+# Creative Automation Pipeline Configuration
+
+# Aspect Ratios for Social Media Formats
+aspect_ratios:
+  square:
+    name: "Square (Instagram Post)"
+    width: 1080
+    height: 1080
+    description: "Standard Instagram post format"
+  
+  story:
+    name: "Story (Instagram/Facebook)"
+    width: 1080
+    height: 1920
+    description: "Vertical story format for Instagram and Facebook"
+  
+  landscape:
+    name: "Landscape (Facebook Post)"
+    width: 1920
+    height: 1080
+    description: "Horizontal format for Facebook posts and ads"
+
+# Brand Guidelines
+brand:
+  primary_colors:
+    - "#FF6B35"  # Orange
+    - "#004E89"  # Navy Blue
+    - "#1A659E"  # Medium Blue
+    - "#F7931E"  # Golden Yellow
+  
+  secondary_colors:
+    - "#FFFFFF"  # White
+    - "#F8F9FA"  # Light Gray
+    - "#343A40"  # Dark Gray
+    - "#000000"  # Black
+  
+  fonts:
+    primary: "Montserrat"
+    secondary: "Open Sans"
+    fallback: ["Arial", "Helvetica", "sans-serif"]
+  
+  logo:
+    required: true
+    min_size_percent: 8  # Minimum 8% of image area
+    preferred_positions: ["top-right", "bottom-right", "bottom-left"]
+  
+  spacing:
+    margin: 60  # pixels from edge
+    text_padding: 40  # pixels around text blocks
+
+# GenAI Configuration - OpenAI Only (Cheapest Options)
+genai:
+  primary_service: "openai"
+  concurrent_generations: 2    # Reduce concurrent calls for cost control
+  
+  # Cost optimization settings
+  cost_tracking:
+    enabled: true
+    daily_budget_limit: 2.00   # Very low budget for demo
+    alert_threshold: 0.80      # Alert at 80% of budget
+    
+  # Caching for demo efficiency  
+  cache:
+    enabled: true
+    ttl: 7200  # 2 hour cache for demo
+    semantic_similarity_threshold: 0.90
+  
+  services:
+    openai:
+      model: "dall-e-2"        # Cheapest OpenAI image model
+      cost_per_image: 0.016    # $0.016 for 512x512, $0.020 for 1024x1024
+      style: "vivid"
+      quality: "standard"      # Use standard quality (no "hd")
+      max_retries: 2
+      timeout: 60
+      rate_limit_per_minute: 5
+      size: "1024x1024"        # Standard size for cost control
+      fallback_model: "dall-e-2"
+    
+    fallback_chain:
+      enabled: false           # Single provider for simplicity
+      priority_order: ["openai"]
+      failure_threshold: 2
+      rate_limit_backoff: true
+      cost_aware_fallback: false
+
+# Text Generation and Localization - OpenAI Only (Cheapest Options)
+text_generation:
+  primary_service: "openai"
+  
+  services:
+    openai:
+      model: "gpt-4o-mini"     # Cheapest quality model ($0.15/$0.60 per M tokens)
+      max_tokens: 300          # Reduced for cost control
+      temperature: 0.7
+      cost_per_million_tokens:
+        input: 0.15
+        output: 0.60
+      fallback_model: "gpt-3.5-turbo"  # Even cheaper fallback ($0.50/$1.50)
+      rate_limit_per_minute: 30
+    
+    fallback_enabled: false    # Single provider for simplicity
+    priority_order: ["openai"]
+  
+  supported_languages:
+    - en: "English"
+    - es: "Spanish"
+    - fr: "French"
+    - de: "German"
+    - it: "Italian"
+    - pt: "Portuguese"
+
+# Validation Rules
+validation:
+  brand_compliance:
+    logo_detection:
+      enabled: true
+      confidence_threshold: 0.8
+    
+    color_analysis:
+      enabled: true
+      tolerance: 10  # Color matching tolerance
+    
+    text_readability:
+      min_contrast_ratio: 4.5
+      max_text_coverage: 40  # Max 40% of image can be text
+  
+  content_compliance:
+    prohibited_words:
+      - "inappropriate"
+      - "offensive"
+      - "banned"
+    
+    required_disclaimers:
+      - "*Terms and conditions apply"
+    
+    max_claim_strength: "moderate"  # weak, moderate, strong
+
+# Output Configuration  
+output:
+  directory_structure: "product/format/region"
+  filename_pattern: "{product}_{format}_{region}_{timestamp}"
+  
+  formats:
+    - "png"
+    - "jpg"
+  
+  quality:
+    png_compression: 6
+    jpg_quality: 95
+  
+  metadata:
+    include_generation_data: true
+    include_validation_results: true
+
+# Performance Settings
+performance:
+  concurrent_generations: 3
+  cache_enabled: true
+  cache_duration: 3600  # seconds
+  
+  image_processing:
+    max_resolution: 2048
+    compression_quality: 0.95
+  
+  timeout:
+    generation: 300  # seconds
+    validation: 60   # seconds
+    total_pipeline: 600  # seconds
+
+# Monitoring and Logging
+monitoring:
+  metrics:
+    track_generation_time: true
+    track_validation_scores: true
+    track_api_usage: true
+  
+  alerts:
+    failure_threshold: 3  # consecutive failures
+    quality_threshold: 0.7
+    performance_threshold: 300  # seconds
+  
+  logging:
+    level: "INFO"
+    include_sensitive_data: false

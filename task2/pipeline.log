@@ -1,0 +1,1560 @@
+2025-09-13 01:25:26,361 - __main__ - INFO - Configuration loaded from config/config.yaml
+2025-09-13 01:25:26,639 - generators.image_generator - INFO - OpenAI API configured successfully
+2025-09-13 01:25:26,639 - utils.cost_tracker - INFO - CostTracker initialized with $5.00 daily budget
+2025-09-13 01:25:26,639 - generators.image_generator - INFO - ImageGenerator initialized with primary service: openai
+2025-09-13 01:25:26,859 - generators.text_generator - INFO - OpenAI API configured for text generation
+2025-09-13 01:25:26,860 - generators.text_generator - INFO - TextGenerator initialized
+2025-09-13 01:25:27,110 - generators.text_generator - INFO - OpenAI API configured for text generation
+2025-09-13 01:25:27,110 - generators.text_generator - INFO - TextGenerator initialized
+2025-09-13 01:25:27,110 - processors.asset_processor - INFO - No brand logo found, will create text-based logo
+2025-09-13 01:25:27,111 - processors.asset_processor - INFO - Available fonts: ['arial']
+2025-09-13 01:25:27,111 - processors.asset_processor - INFO - AssetProcessor initialized
+2025-09-13 01:25:27,111 - validators.brand_validator - INFO - Loaded 8 brand colors for validation
+2025-09-13 01:25:27,111 - validators.brand_validator - INFO - BrandValidator initialized
+2025-09-13 01:25:27,111 - validators.compliance_validator - INFO - Loaded 18 prohibited terms
+2025-09-13 01:25:27,111 - validators.compliance_validator - INFO - Loaded 3 required patterns
+2025-09-13 01:25:27,111 - validators.compliance_validator - INFO - OCR (Tesseract) available for text extraction
+2025-09-13 01:25:27,111 - validators.compliance_validator - INFO - ComplianceValidator initialized
+2025-09-13 01:25:27,111 - __main__ - INFO - Creative Automation Pipeline initialized
+2025-09-13 01:25:27,112 - __main__ - INFO - Starting campaign processing for: C:\Users\Phili\Git\interviews\Adobe AI Engineer\task2\campaigns\guinness_st_patricks_2026.json
+2025-09-13 01:25:27,112 - __main__ - INFO - Campaign brief loaded: Guinness - St. Patrick's Celebration
+2025-09-13 01:25:27,112 - __main__ - INFO - Processing product: Guinness Draught
+2025-09-13 01:25:27,113 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:27,113 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:27,113 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:27,113 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:27,113 - generators.image_generator - INFO - OpenAI DALL-E attempt 1/2
+2025-09-13 01:25:29,233 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:29,235 - generators.image_generator - WARNING - OpenAI attempt 1 failed: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-09-13 01:25:30,236 - generators.image_generator - INFO - OpenAI DALL-E attempt 2/2
+2025-09-13 01:25:30,761 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:30,761 - generators.image_generator - WARNING - OpenAI attempt 2 failed: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-09-13 01:25:30,761 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:30,761 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:30,761 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:30,761 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:30,761 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:30,761 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:30,761 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:30,762 - generators.image_generator - INFO - OpenAI DALL-E attempt 1/2
+2025-09-13 01:25:31,048 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:31,048 - generators.image_generator - WARNING - OpenAI attempt 1 failed: Error code: 400 - {'error': {'message': "Invalid value: '1024x1792'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:32,048 - generators.image_generator - INFO - OpenAI DALL-E attempt 2/2
+2025-09-13 01:25:32,101 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:32,101 - generators.image_generator - WARNING - OpenAI attempt 2 failed: Error code: 400 - {'error': {'message': "Invalid value: '1024x1792'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:32,101 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:32,102 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:32,102 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:32,102 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:32,102 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:32,102 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:32,102 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:32,102 - generators.image_generator - INFO - OpenAI DALL-E attempt 1/2
+2025-09-13 01:25:32,158 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:32,159 - generators.image_generator - WARNING - OpenAI attempt 1 failed: Error code: 400 - {'error': {'message': "Invalid value: '1792x1024'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:33,159 - generators.image_generator - INFO - OpenAI DALL-E attempt 2/2
+2025-09-13 01:25:33,207 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:33,208 - generators.image_generator - WARNING - OpenAI attempt 2 failed: Error code: 400 - {'error': {'message': "Invalid value: '1792x1024'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:33,208 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:33,208 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:33,208 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:33,208 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:33,208 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:33,208 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:33,208 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:33,208 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:33,208 - generators.image_generator - INFO - OpenAI DALL-E attempt 1/2
+2025-09-13 01:25:34,072 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:34,074 - generators.image_generator - WARNING - OpenAI attempt 1 failed: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-09-13 01:25:35,075 - generators.image_generator - INFO - OpenAI DALL-E attempt 2/2
+2025-09-13 01:25:35,527 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:35,527 - generators.image_generator - WARNING - OpenAI attempt 2 failed: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-09-13 01:25:35,527 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:35,527 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:35,527 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:35,527 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:35,527 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:35,527 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:35,527 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:35,527 - generators.image_generator - INFO - OpenAI DALL-E attempt 1/2
+2025-09-13 01:25:35,581 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:35,581 - generators.image_generator - WARNING - OpenAI attempt 1 failed: Error code: 400 - {'error': {'message': "Invalid value: '1024x1792'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:36,582 - generators.image_generator - INFO - OpenAI DALL-E attempt 2/2
+2025-09-13 01:25:36,904 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-09-13 01:25:36,905 - generators.image_generator - WARNING - OpenAI attempt 2 failed: Error code: 400 - {'error': {'message': "Invalid value: '1024x1792'. Supported values are: '256x256', '512x512', and '1024x1024'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-09-13 01:25:36,905 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,905 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,905 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,905 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,905 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,905 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,905 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,905 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,905 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,905 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,905 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,905 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,905 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,905 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,905 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,905 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,905 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,905 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,905 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,905 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,905 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,905 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,906 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,906 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,906 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,906 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,906 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,906 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,906 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,906 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,906 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,906 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,906 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,906 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,906 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,906 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,906 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,906 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,906 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,906 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,906 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,906 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,906 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,906 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,906 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,906 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,906 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,907 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,907 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,907 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,907 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,907 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,907 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,907 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,907 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,907 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,907 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,907 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,907 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,907 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,907 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,907 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,907 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,907 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,907 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,907 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,907 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,907 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,907 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,907 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,908 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,908 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,908 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,908 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,908 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,908 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,908 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,908 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,908 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,908 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,908 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,908 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,908 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,908 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,908 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,908 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,908 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,908 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,908 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,908 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,908 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,908 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,908 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,908 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,909 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,909 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,909 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,909 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,909 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,909 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,909 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,909 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,909 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,909 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,909 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,909 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,909 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,909 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,909 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,909 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,909 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,909 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,909 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,909 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,909 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,909 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,909 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,909 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,910 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,910 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,910 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,910 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,910 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,910 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,910 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,910 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,910 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,910 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,910 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,910 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,910 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,910 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,910 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,910 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,910 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,910 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,910 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,910 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,910 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,910 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,910 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,910 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,910 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,910 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,911 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,911 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,911 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,911 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,911 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,911 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,911 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,911 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,911 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,911 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,911 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,911 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,911 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,911 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,911 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,911 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,911 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,911 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,911 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,911 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,911 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,911 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,912 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,912 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,912 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,912 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,912 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,912 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,912 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,912 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,912 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,912 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,912 - generators.image_generator - INFO - Generating image for product: Guinness Draught
+2025-09-13 01:25:36,912 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,912 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,912 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,912 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,912 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,912 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,912 - __main__ - INFO - Processing product: Guinness 0.0
+2025-09-13 01:25:36,913 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:36,913 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:36,913 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,913 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,913 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,913 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,913 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,913 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,913 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:36,913 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,913 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,913 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,913 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,913 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,913 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,913 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:36,913 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,913 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,913 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,914 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,914 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,914 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,914 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,914 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:36,914 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:36,914 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,914 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,914 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,914 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,914 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,914 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,914 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,914 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,914 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:36,914 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,914 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,914 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,914 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,914 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,914 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,914 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,914 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,914 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,914 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,914 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,915 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,915 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,915 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,915 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,915 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,915 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,915 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,915 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,915 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,915 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,915 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,915 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,915 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,915 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,915 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,915 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,915 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,915 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,915 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,915 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,915 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,915 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,915 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,916 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,916 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,916 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,916 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,916 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,916 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,916 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,916 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,916 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,916 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,916 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,916 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,916 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,916 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,916 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,916 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,916 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,916 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,916 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,916 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,916 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,916 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,916 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,916 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,917 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,917 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,917 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,917 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,917 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,917 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,917 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,917 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,917 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,917 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,917 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,917 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,917 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,917 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,917 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,917 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,917 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,917 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,917 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,917 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,917 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,917 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,918 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,918 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,918 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,918 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,918 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,918 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,918 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,918 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,918 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,918 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,918 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,918 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,918 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,918 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,918 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,918 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,918 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,918 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,918 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,918 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,918 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,918 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,919 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,919 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,919 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,919 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,919 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,919 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,919 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,919 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,919 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,919 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,919 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,919 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,919 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,919 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,919 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,919 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,919 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,919 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,919 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,919 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,919 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,919 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,919 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,920 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,920 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,920 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,920 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,920 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,920 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,920 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,920 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,920 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,920 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,920 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,920 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,920 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,920 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,920 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,920 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,920 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,920 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,920 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,920 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,920 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,921 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,921 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,921 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,921 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,921 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,921 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,921 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,921 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,921 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,921 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,921 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,921 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,921 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,921 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,921 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,921 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,921 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,921 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,921 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,921 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,922 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,922 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,922 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,922 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,922 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,922 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,922 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,922 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,922 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,922 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,922 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,922 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,922 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,922 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,922 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,922 - generators.image_generator - INFO - Generating image for product: Guinness 0.0
+2025-09-13 01:25:36,922 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,922 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,922 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,922 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,922 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,922 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,922 - __main__ - INFO - Processing product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,924 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:36,924 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:36,924 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,924 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,924 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,924 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,924 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,924 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,924 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,924 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,924 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:36,924 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,924 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,924 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,924 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,925 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,925 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,925 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,925 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,925 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:36,925 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,925 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,925 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,925 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,925 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,925 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,926 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,926 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,926 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:36,926 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:36,926 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,926 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,926 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,926 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,926 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,926 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,926 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,927 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,927 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:36,927 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,927 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,927 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,927 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,927 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,927 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,927 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,927 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,927 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,928 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,928 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,928 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,928 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,928 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,928 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,928 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,928 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,928 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,928 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,928 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,928 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,929 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,929 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,929 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,929 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,929 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,929 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,929 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,929 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,929 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,929 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,929 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,929 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,929 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,929 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,929 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,930 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,930 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,930 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,930 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,930 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,930 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,930 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,930 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,930 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,930 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,930 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,930 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,930 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,930 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,930 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,930 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,930 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,930 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,930 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,930 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,931 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,931 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,931 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,931 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,931 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,931 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,931 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,931 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,931 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,931 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,931 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,931 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,931 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,931 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,931 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,931 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,931 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,931 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,931 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,932 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,932 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,932 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,932 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,932 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,932 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,932 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,932 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,932 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,932 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,932 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,932 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,932 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,932 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,932 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,932 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,932 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,932 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,932 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,932 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,933 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,933 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,933 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,933 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,933 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,933 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,933 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,933 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,933 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,933 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,933 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,933 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,933 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,933 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,933 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,933 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,933 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,933 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,933 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,934 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,934 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,934 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,934 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,934 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,934 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,934 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,934 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,934 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,934 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,934 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,934 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,934 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,934 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,934 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,934 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,934 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,934 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,934 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,934 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,934 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,935 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,935 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,935 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,935 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,935 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,935 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,935 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,935 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,935 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,935 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,935 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,935 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,935 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,935 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,935 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,935 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,935 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,935 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,935 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,935 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,935 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,935 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,935 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,935 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,936 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,936 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,936 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,936 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,936 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,936 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,936 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,936 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,936 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,936 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,936 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,936 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,936 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,936 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,936 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,936 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,936 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,937 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,937 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,937 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,937 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,937 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,937 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,937 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,937 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,937 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,937 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,937 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,937 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,937 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,937 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,937 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,937 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,937 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,937 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,937 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,937 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,937 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,937 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,938 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,938 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,938 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,938 - generators.image_generator - INFO - Generating image for product: Guinness Foreign Extra Stout
+2025-09-13 01:25:36,938 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,938 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,938 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,938 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,938 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,938 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,938 - __main__ - INFO - Processing product: Guinness Nitro IPA
+2025-09-13 01:25:36,939 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:36,939 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:36,939 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,939 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,939 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,939 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,939 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,939 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,939 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,939 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,939 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:36,939 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,939 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,939 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,939 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,939 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,940 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,940 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,940 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,940 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:36,940 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,940 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,940 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,940 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,940 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,940 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,940 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,940 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,940 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:36,940 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:36,940 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,940 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,940 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,940 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,940 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,940 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,940 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,940 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,941 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:36,941 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,941 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,941 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,941 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,941 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,941 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,941 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,941 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,941 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,941 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,941 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,941 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,941 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,941 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,941 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,941 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,941 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,941 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,941 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,941 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,941 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,942 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,942 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,942 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,942 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,942 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,942 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,942 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,942 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,942 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,942 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,942 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,942 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,942 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,942 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,942 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,942 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,942 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,942 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,942 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,942 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,942 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,942 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,942 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,942 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,942 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,943 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,943 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,943 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,943 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,943 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,943 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,943 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,943 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,943 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,943 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,943 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,943 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,943 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,943 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,943 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,943 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,943 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,943 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,943 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,943 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,943 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,943 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,944 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,944 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,944 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,944 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,944 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,944 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,944 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,944 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,944 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,944 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,944 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,944 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,944 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,944 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,944 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,944 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,944 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,944 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,944 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,944 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,944 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,944 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,944 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,944 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,944 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,945 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,945 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,945 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,945 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,945 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,945 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,945 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,945 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,945 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,945 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,945 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,945 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,945 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,945 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,945 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,945 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,945 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,945 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,945 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,946 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,946 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,946 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,946 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,946 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,946 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,946 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,946 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,946 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,946 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,946 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,946 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,946 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,946 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,946 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,946 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,946 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,946 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,946 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,946 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,946 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,946 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,947 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,947 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,947 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,947 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,947 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,947 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,947 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,947 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,947 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,947 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,947 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,947 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,947 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,947 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,947 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,947 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,947 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,948 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,948 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,948 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,948 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,948 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,948 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,948 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,948 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,948 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,948 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,948 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,948 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,948 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,948 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,948 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,948 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,948 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,949 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,949 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,949 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,949 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,949 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,949 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,949 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,949 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,949 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,949 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,949 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,949 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,949 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,949 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,949 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,949 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,949 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,950 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,950 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,950 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,950 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,950 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,950 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,950 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,950 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,950 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,950 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,950 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,950 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,950 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,950 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,950 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,950 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,950 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,950 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,950 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,951 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,951 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,951 - generators.image_generator - INFO - Generating image for product: Guinness Nitro IPA
+2025-09-13 01:25:36,951 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,951 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,951 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,951 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,951 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,951 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,951 - __main__ - INFO - Processing product: Guinness Blonde American Lager
+2025-09-13 01:25:36,952 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:36,952 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:36,952 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,952 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,952 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,952 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,952 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,953 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,953 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,953 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,953 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:36,953 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,953 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,953 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,953 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,953 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,953 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,953 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,953 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,953 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:36,953 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,953 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,953 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,953 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,954 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,954 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,954 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,954 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,954 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:36,954 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:36,954 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,954 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,954 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,954 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,954 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,954 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,954 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,954 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,954 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:36,954 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,954 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,955 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,955 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,955 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,955 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,955 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,955 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,955 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,955 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,955 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,955 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,955 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,955 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,955 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,955 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,955 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,955 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,955 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,955 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,956 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,956 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,956 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,956 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,956 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,956 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,956 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,956 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,956 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,956 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,956 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,956 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,956 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,956 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,956 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,956 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,956 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,956 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,957 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,957 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,957 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,957 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,957 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,957 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,957 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,957 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,957 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,957 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,957 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,957 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,957 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,957 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,957 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,958 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,958 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,958 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,958 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,958 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,958 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,958 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,958 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,958 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,958 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,958 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,958 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,958 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,958 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,958 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,958 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,958 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,958 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,959 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,959 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,959 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,959 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,959 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,959 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,959 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,959 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,959 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,959 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,959 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,959 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,959 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,959 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,959 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,959 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,960 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,960 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,960 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,960 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,960 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,960 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,960 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,960 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,960 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,960 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,960 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,960 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,960 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,960 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,960 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,960 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,960 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,960 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,960 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,960 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,960 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,960 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,960 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,960 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,960 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,961 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,961 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,961 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,961 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,961 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,961 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,961 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,961 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,961 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,961 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,961 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,961 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,961 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,961 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,961 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,961 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,961 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,961 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,961 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,961 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,961 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,961 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,962 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,962 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,962 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,962 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,962 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,962 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,962 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,962 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,962 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,962 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,962 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,962 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,962 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,962 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,962 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,962 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,962 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,962 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,962 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,962 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,962 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,962 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,962 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,962 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,962 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,963 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,963 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,963 - generators.image_generator - WARNING - Rate limit hit, waiting 50.2s
+2025-09-13 01:25:36,963 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,963 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,963 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,963 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,963 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,963 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,963 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,963 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,963 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,963 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,963 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,963 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,963 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,963 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,963 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,964 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,964 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,964 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,964 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,964 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,964 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,964 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,964 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,964 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,964 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,964 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,964 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,964 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,964 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,964 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,964 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,964 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,964 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,964 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,965 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,965 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,965 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,965 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,965 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,965 - generators.image_generator - INFO - Generating image for product: Guinness Blonde American Lager
+2025-09-13 01:25:36,965 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,965 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,965 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,965 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,965 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,965 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,965 - __main__ - INFO - Processing product: Guinness Extra Stout
+2025-09-13 01:25:36,966 - __main__ - INFO - Processing region: Ireland & United Kingdom
+2025-09-13 01:25:36,966 - __main__ - INFO - Generating square asset for Ireland & United Kingdom
+2025-09-13 01:25:36,966 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,966 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,966 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,966 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,966 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,966 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,966 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,966 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,966 - __main__ - INFO - Generating story asset for Ireland & United Kingdom
+2025-09-13 01:25:36,966 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,966 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,966 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,966 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,966 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,966 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,966 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,966 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,967 - __main__ - INFO - Generating landscape asset for Ireland & United Kingdom
+2025-09-13 01:25:36,967 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,967 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,967 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,967 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,967 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,967 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,967 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,967 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,967 - __main__ - INFO - Processing region: North America Irish Heritage
+2025-09-13 01:25:36,967 - __main__ - INFO - Generating square asset for North America Irish Heritage
+2025-09-13 01:25:36,967 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,967 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,967 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,967 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,967 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,967 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,967 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,967 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,967 - __main__ - INFO - Generating story asset for North America Irish Heritage
+2025-09-13 01:25:36,968 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,968 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,968 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,968 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,968 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,968 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,968 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,968 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,968 - __main__ - INFO - Generating landscape asset for North America Irish Heritage
+2025-09-13 01:25:36,968 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,968 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,968 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,968 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,968 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,968 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,968 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,968 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,968 - __main__ - INFO - Processing region: Australia & New Zealand
+2025-09-13 01:25:36,968 - __main__ - INFO - Generating square asset for Australia & New Zealand
+2025-09-13 01:25:36,968 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,968 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,969 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,969 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,969 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,969 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,969 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,969 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,969 - __main__ - INFO - Generating story asset for Australia & New Zealand
+2025-09-13 01:25:36,969 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,969 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,969 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,969 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,969 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,969 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,969 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,969 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,969 - __main__ - INFO - Generating landscape asset for Australia & New Zealand
+2025-09-13 01:25:36,969 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,969 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,969 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,969 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,970 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,970 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,970 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,970 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,970 - __main__ - INFO - Processing region: Continental Europe Premium
+2025-09-13 01:25:36,970 - __main__ - INFO - Generating square asset for Continental Europe Premium
+2025-09-13 01:25:36,970 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,970 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,970 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,970 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,970 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,970 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,970 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,970 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,970 - __main__ - INFO - Generating story asset for Continental Europe Premium
+2025-09-13 01:25:36,970 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,970 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,970 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,970 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,970 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,970 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,971 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,971 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,971 - __main__ - INFO - Generating landscape asset for Continental Europe Premium
+2025-09-13 01:25:36,971 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,971 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,971 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,971 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,971 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,971 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,971 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,971 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,971 - __main__ - INFO - Processing region: Latin America Premium
+2025-09-13 01:25:36,971 - __main__ - INFO - Generating square asset for Latin America Premium
+2025-09-13 01:25:36,971 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,971 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,971 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,971 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,971 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,971 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,971 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,971 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,971 - __main__ - INFO - Generating story asset for Latin America Premium
+2025-09-13 01:25:36,972 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,972 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,972 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,972 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,972 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,972 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,972 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,972 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,972 - __main__ - INFO - Generating landscape asset for Latin America Premium
+2025-09-13 01:25:36,972 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,972 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,972 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,972 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,972 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,972 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,972 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,972 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,972 - __main__ - INFO - Processing region: Asia Pacific Premium
+2025-09-13 01:25:36,972 - __main__ - INFO - Generating square asset for Asia Pacific Premium
+2025-09-13 01:25:36,973 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,973 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,973 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,973 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,973 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,973 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,973 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,973 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,973 - __main__ - INFO - Generating story asset for Asia Pacific Premium
+2025-09-13 01:25:36,973 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,973 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,973 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,973 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,973 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,973 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,973 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,973 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,973 - __main__ - INFO - Generating landscape asset for Asia Pacific Premium
+2025-09-13 01:25:36,973 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,973 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,973 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,974 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,974 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,974 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,974 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,974 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,974 - __main__ - INFO - Processing region: Nordic Countries
+2025-09-13 01:25:36,974 - __main__ - INFO - Generating square asset for Nordic Countries
+2025-09-13 01:25:36,974 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,974 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,974 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,974 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,974 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,974 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,974 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,974 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,974 - __main__ - INFO - Generating story asset for Nordic Countries
+2025-09-13 01:25:36,974 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,974 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,974 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,974 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,974 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,974 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,974 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,974 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,974 - __main__ - INFO - Generating landscape asset for Nordic Countries
+2025-09-13 01:25:36,975 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,975 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,975 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,975 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,975 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,975 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,975 - __main__ - INFO - Processing region: Eastern Europe Emerging
+2025-09-13 01:25:36,975 - __main__ - INFO - Generating square asset for Eastern Europe Emerging
+2025-09-13 01:25:36,975 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,975 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,975 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,975 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,975 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,975 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,975 - __main__ - INFO - Generating story asset for Eastern Europe Emerging
+2025-09-13 01:25:36,975 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,975 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,975 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,976 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,976 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,976 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,976 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,976 - __main__ - INFO - Generating landscape asset for Eastern Europe Emerging
+2025-09-13 01:25:36,976 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,976 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,976 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,976 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,976 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,976 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,976 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,976 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,976 - __main__ - INFO - Processing region: Africa Premium Markets
+2025-09-13 01:25:36,976 - __main__ - INFO - Generating square asset for Africa Premium Markets
+2025-09-13 01:25:36,976 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,976 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,976 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,976 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,976 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,976 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,976 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,976 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,976 - __main__ - INFO - Generating story asset for Africa Premium Markets
+2025-09-13 01:25:36,976 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,977 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,977 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,977 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,977 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,977 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,977 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,977 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,977 - __main__ - INFO - Generating landscape asset for Africa Premium Markets
+2025-09-13 01:25:36,977 - __main__ - INFO - No existing asset found, generating new image
+2025-09-13 01:25:36,977 - generators.image_generator - INFO - Generating image for product: Guinness Extra Stout
+2025-09-13 01:25:36,977 - generators.image_generator - WARNING - Rate limit hit, waiting 50.1s
+2025-09-13 01:25:36,977 - generators.image_generator - INFO - Skipping due to long wait time
+2025-09-13 01:25:36,977 - generators.image_generator - ERROR - Image generation failed after all retries
+2025-09-13 01:25:36,977 - processors.asset_processor - INFO - Processing generated asset
+2025-09-13 01:25:36,977 - processors.asset_processor - ERROR - Failed to process generated asset: 'NoneType' object has no attribute 'convert'
+2025-09-13 01:25:36,977 - __main__ - ERROR - Failed to process asset
+2025-09-13 01:25:36,979 - __main__ - INFO - Campaign report saved: output\campaign_report_20250913_012526.json
+2025-09-13 01:25:36,979 - __main__ - INFO - Campaign processing completed successfully

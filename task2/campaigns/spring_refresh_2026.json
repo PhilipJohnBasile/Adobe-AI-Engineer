@@ -1,0 +1,378 @@
+{
+  "campaign_id": "SPRING_REFRESH_2026",
+  "campaign_name": "Spring Refresh - Coca-Cola Global",
+  "client": "The Coca-Cola Company",
+  "campaign_start_date": "2026-03-01",
+  "campaign_end_date": "2026-05-31",
+  "campaign_message": {
+    "primary_headline": "Refresh Your Spring",
+    "secondary_headline": "New Beginnings Start Here",
+    "brand_voice": "energetic, optimistic, fresh, inspiring",
+    "seasonal_theme": "renewal, fresh starts, outdoor activities, vibrant energy"
+  },
+  "target_audience": {
+    "primary": {
+      "demographics": "18-35 year olds, active lifestyle, young professionals",
+      "psychographics": "health-conscious, social, optimistic",
+      "behavior": "outdoor enthusiasts, fitness-oriented, social media active"
+    }
+  },
+  "products": [
+    {
+      "id": "coca_cola_classic",
+      "name": "Coca-Cola Classic",
+      "category": "Cola",
+      "description": "The original and iconic cola taste perfect for spring celebrations",
+      "key_benefits": [
+        "Classic refreshing taste",
+        "Perfect for spring gatherings",
+        "Iconic brand heritage",
+        "Social connection"
+      ],
+      "target_price": "$1.50",
+      "messaging": {
+        "primary": "Taste the Feeling",
+        "secondary": "Spring Awakening"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_outdoor.png",
+        "lifestyle_spring.png"
+      ]
+    },
+    {
+      "id": "coca_cola_zero",
+      "name": "Coca-Cola Zero Sugar",
+      "category": "Zero Sugar Cola",
+      "description": "Great Coke taste with zero sugar for active spring lifestyles",
+      "key_benefits": [
+        "Zero sugar",
+        "Great taste",
+        "Active lifestyle friendly",
+        "No compromise refreshment"
+      ],
+      "target_price": "$1.75",
+      "messaging": {
+        "primary": "Zero Compromise",
+        "secondary": "Spring Into Action"
+      },
+      "existing_assets": [
+        "product_can.png",
+        "lifestyle_fitness.png",
+        "lifestyle_outdoor.png"
+      ]
+    },
+    {
+      "id": "sprite",
+      "name": "Sprite",
+      "category": "Lemon-Lime Soda",
+      "description": "Crisp, clear lemon-lime taste that refreshes spring moments",
+      "key_benefits": [
+        "Clear refreshment",
+        "Lemon-lime twist",
+        "Spring-perfect taste",
+        "Natural clarity"
+      ],
+      "target_price": "$1.50",
+      "messaging": {
+        "primary": "Clear Cool Crisp",
+        "secondary": "Spring Clarity"
+      },
+      "existing_assets": [
+        "product_can.png",
+        "lifestyle_outdoor.png",
+        "lifestyle_spring.png"
+      ]
+    },
+    {
+      "id": "fanta_orange",
+      "name": "Fanta Orange",
+      "category": "Orange Soda",
+      "description": "Bright, citrusy orange flavor perfect for spring energy",
+      "key_benefits": [
+        "Bright orange taste",
+        "Fun and energetic",
+        "Spring vibrancy",
+        "Uplifting citrus"
+      ],
+      "target_price": "$1.50",
+      "messaging": {
+        "primary": "Wanta Fanta",
+        "secondary": "Spring Energy"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_outdoor.png",
+        "lifestyle_spring.png"
+      ]
+    },
+    {
+      "id": "smartwater",
+      "name": "smartwater",
+      "category": "Premium Water",
+      "description": "Vapor-distilled premium water for spring hydration and wellness",
+      "key_benefits": [
+        "Pure hydration",
+        "Electrolyte enhanced",
+        "Premium quality",
+        "Spring wellness"
+      ],
+      "target_price": "$2.25",
+      "messaging": {
+        "primary": "Pure Spring Hydration",
+        "secondary": "Smart Refresh"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_fitness.png",
+        "lifestyle_wellness.png"
+      ]
+    },
+    {
+      "id": "powerade",
+      "name": "Powerade",
+      "category": "Sports Drink",
+      "description": "Advanced electrolyte sports drink for spring training and outdoor activities",
+      "key_benefits": [
+        "Electrolyte replenishment",
+        "Spring training support",
+        "Recovery enhancement",
+        "Active hydration"
+      ],
+      "target_price": "$2.00",
+      "messaging": {
+        "primary": "Power Through Spring",
+        "secondary": "Training Season"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_sports.png",
+        "lifestyle_training.png"
+      ]
+    },
+    {
+      "id": "vitaminwater",
+      "name": "vitaminwater",
+      "category": "Enhanced Water",
+      "description": "Nutrient-enhanced water with vitamins for spring wellness goals",
+      "key_benefits": [
+        "Vitamin enhanced",
+        "Functional hydration",
+        "Wellness support",
+        "Spring nutrition"
+      ],
+      "target_price": "$2.50",
+      "messaging": {
+        "primary": "Hydrate & Elevate",
+        "secondary": "Spring Wellness"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_wellness.png",
+        "lifestyle_yoga.png"
+      ]
+    }
+  ],
+  "target_regions": [
+    {
+      "region": "North America",
+      "countries": ["United States", "Canada", "Mexico"],
+      "languages": ["en", "es", "fr"],
+      "cultural_notes": "Spring break season, outdoor activities resuming, fitness culture, spring training",
+      "messaging_adaptation": {
+        "tone": "energetic and motivational",
+        "themes": [
+          "spring training season",
+          "outdoor fitness revival",
+          "fresh starts and goals",
+          "spring break energy"
+        ],
+        "local_context": "american spring training culture, canadian outdoor revival, mexican spring festivals"
+      }
+    },
+    {
+      "region": "Latin America",
+      "countries": ["Brazil", "Argentina", "Chile", "Colombia", "Peru", "Venezuela", "Costa Rica"],
+      "languages": ["pt", "es"],
+      "cultural_notes": "Autumn season (southern hemisphere), harvest festivals, cooler weather refreshment",
+      "messaging_adaptation": {
+        "tone": "refreshing and seasonal",
+        "themes": [
+          "autumn refresh",
+          "harvest celebrations",
+          "seasonal transition",
+          "crisp weather enjoyment"
+        ],
+        "local_context": "brazilian autumn culture, argentine harvest season, chilean wine country traditions"
+      }
+    },
+    {
+      "region": "Europe",
+      "countries": ["United Kingdom", "France", "Spain", "Italy", "Germany", "Netherlands", "Greece", "Portugal"],
+      "languages": ["en", "fr", "es", "it", "de", "nl", "el"],
+      "cultural_notes": "Spring awakening, café culture, outdoor dining season, Easter celebrations",
+      "messaging_adaptation": {
+        "tone": "sophisticated and refreshing",
+        "themes": [
+          "european spring awakening",
+          "outdoor café culture",
+          "seasonal renewal rituals",
+          "easter celebrations"
+        ],
+        "local_context": "british spring gardens, french café terraces, italian piazzas, german outdoor biergartens"
+      }
+    },
+    {
+      "region": "Asia Pacific",
+      "countries": ["Australia", "Japan", "South Korea", "Thailand", "Philippines", "Indonesia", "Malaysia", "Singapore"],
+      "languages": ["en", "ja", "ko", "th", "tl", "id", "ms", "zh"],
+      "cultural_notes": "Autumn season (southern hemisphere), spring season (northern), cherry blossoms, monsoon preparation",
+      "messaging_adaptation": {
+        "tone": "balanced and seasonal",
+        "themes": [
+          "seasonal harmony",
+          "cherry blossom beauty",
+          "monsoon readiness",
+          "outdoor balance"
+        ],
+        "local_context": "australian autumn, japanese cherry blossom season, korean spring festivals, southeast asian pre-monsoon"
+      }
+    },
+    {
+      "region": "Middle East & Africa",
+      "countries": ["South Africa", "Nigeria", "Kenya", "UAE", "Saudi Arabia", "Egypt", "Morocco"],
+      "languages": ["en", "ar", "fr", "sw", "zu", "am"],
+      "cultural_notes": "Autumn harvest (southern), spring warmth (northern), Ramadan season, outdoor gathering season",
+      "messaging_adaptation": {
+        "tone": "refreshing and community-focused",
+        "themes": [
+          "seasonal refreshment",
+          "community gatherings",
+          "harvest celebrations",
+          "cooling comfort"
+        ],
+        "local_context": "south african harvest season, middle eastern spring warmth, north african seasonal traditions"
+      }
+    },
+    {
+      "region": "Greater China",
+      "countries": ["China", "Hong Kong", "Taiwan"],
+      "languages": ["zh", "en"],
+      "cultural_notes": "Spring festival aftermath, outdoor activity season, business renewal period",
+      "messaging_adaptation": {
+        "tone": "modern and aspirational",
+        "themes": [
+          "spring renewal energy",
+          "outdoor urban lifestyle",
+          "business fresh starts",
+          "modern wellness"
+        ],
+        "local_context": "chinese spring revival, hong kong outdoor culture, taiwanese spring festivals"
+      }
+    },
+    {
+      "region": "India & South Asia",
+      "countries": ["India", "Bangladesh", "Sri Lanka", "Pakistan"],
+      "languages": ["hi", "en", "bn", "ta", "te", "ur"],
+      "cultural_notes": "Spring festivals (Holi), pre-summer season, outdoor celebration time, cricket season",
+      "messaging_adaptation": {
+        "tone": "vibrant and celebratory",
+        "themes": [
+          "holi celebrations",
+          "spring festivals",
+          "outdoor sports season",
+          "family gatherings"
+        ],
+        "local_context": "indian spring festivals, cricket season celebrations, family outdoor traditions"
+      }
+    },
+    {
+      "region": "Eastern Europe",
+      "countries": ["Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Ukraine"],
+      "languages": ["ru", "pl", "cs", "hu", "ro", "uk"],
+      "cultural_notes": "Spring awakening after winter, Easter traditions, outdoor season beginning, garden culture",
+      "messaging_adaptation": {
+        "tone": "hopeful and seasonal",
+        "themes": [
+          "winter's end celebration",
+          "easter traditions",
+          "garden revival",
+          "outdoor season start"
+        ],
+        "local_context": "russian spring awakening, polish easter traditions, czech garden culture"
+      }
+    }
+  ],
+  "creative_requirements": {
+    "formats": [
+      {
+        "name": "square",
+        "dimensions": "1080x1080",
+        "platform": "Instagram Post",
+        "usage": "Main feed posts, spring activities"
+      },
+      {
+        "name": "story",
+        "dimensions": "1080x1920",
+        "platform": "Instagram/Facebook Stories",
+        "usage": "Vertical stories, outdoor moments"
+      },
+      {
+        "name": "landscape",
+        "dimensions": "1920x1080",
+        "platform": "Facebook/YouTube Ads",
+        "usage": "Horizontal video ads, spring campaigns"
+      },
+      {
+        "name": "mobile_banner",
+        "dimensions": "320x480",
+        "platform": "Mobile Apps",
+        "usage": "In-app advertising, mobile spring campaigns"
+      }
+    ],
+    "brand_requirements": {
+      "logo_placement": "bottom-right or top-left",
+      "color_compliance": "must use coca_cola_red #DA020E",
+      "typography": "Spencerian Script for headlines, Gotham for body",
+      "messaging": "energetic, optimistic, fresh tone"
+    }
+  },
+  "budget_allocation": {
+    "total_budget": "$98000",
+    "genai_budget": "$1960",
+    "estimated_assets": 168,
+    "cost_per_asset": "$25.00"
+  },
+  "success_metrics": {
+    "primary_kpis": [
+      "Global spring market penetration",
+      "Health-conscious segment growth",
+      "Outdoor activity association",
+      "Seasonal brand activation"
+    ],
+    "target_metrics": {
+      "awareness_lift": "22%",
+      "engagement_rate": "5.8%",
+      "seasonal_conversion": "15%",
+      "global_reach": "78%"
+    }
+  },
+  "deliverables": {
+    "total_assets": 168,
+    "breakdown": {
+      "coca_cola_classic": 32,
+      "coca_cola_zero": 28,
+      "sprite": 24,
+      "fanta_orange": 24,
+      "smartwater": 20,
+      "powerade": 20,
+      "vitaminwater": 20
+    },
+    "formats_per_product": {
+      "square": 6,
+      "story": 6,
+      "landscape": 6,
+      "mobile_banner": 6
+    }
+  }
+}

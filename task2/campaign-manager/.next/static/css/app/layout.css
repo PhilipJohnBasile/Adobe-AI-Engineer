@@ -1,0 +1,37 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+/* Adobe React Spectrum Design System - CSS is included via Provider */
+
+/* Coca-Cola brand demonstration colors */
+.demo-brand-coca-cola {
+  background-color: #DA020E;
+}
+
+.demo-brand-sprite {
+  background-color: #00A651;
+}
+
+.demo-brand-fanta {
+  background-color: #FF8C00;
+}
+
+/* Custom styling for campaign-specific elements */
+.campaign-status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.campaign-status-active {
+  background-color: var(--spectrum-global-color-green-500);
+}
+
+.campaign-status-pending {
+  background-color: var(--spectrum-global-color-orange-500);
+}
+
+.campaign-status-completed {
+  background-color: var(--spectrum-global-color-gray-500);
+}
