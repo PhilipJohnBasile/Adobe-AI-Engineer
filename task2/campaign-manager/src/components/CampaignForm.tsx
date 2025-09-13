@@ -55,7 +55,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
     return {
       campaign_id: '',
       campaign_name: '',
-      client: 'The Coca-Cola Company',
+      client: '',
       campaign_start_date: '',
       campaign_end_date: '',
       campaign_message: {
@@ -121,7 +121,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
       const defaultData = {
         campaign_id: '',
         campaign_name: '',
-        client: 'The Coca-Cola Company',
+        client: '',
         campaign_start_date: '',
         campaign_end_date: '',
         campaign_message: {

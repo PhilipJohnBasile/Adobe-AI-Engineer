@@ -3,7 +3,6 @@
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
     "/layout": [
@@ -12,10 +11,29 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/_not-found/page": [
+    "/campaigns/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/css/app/campaigns/page.css",
+      "static/chunks/app/campaigns/page.js"
+    ],
+    "/campaigns/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/campaigns/layout.css",
+      "static/chunks/app/campaigns/layout.js"
+    ],
+    "/campaigns/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/campaigns/[id]/page.css",
+      "static/chunks/app/campaigns/[id]/page.js"
+    ],
+    "/campaigns/[id]/edit/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/campaigns/[id]/edit/page.css",
+      "static/chunks/app/campaigns/[id]/edit/page.js"
     ]
   }
 }
