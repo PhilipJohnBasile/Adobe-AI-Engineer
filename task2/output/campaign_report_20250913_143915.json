@@ -1,0 +1,63 @@
+{
+  "campaign_summary": {
+    "campaign_id": "SPRING_REFRESH_2026",
+    "campaign_name": "Spring Refresh - Coca-Cola Global",
+    "processing_date": "20250913_143915",
+    "total_products": 7,
+    "total_regions": 8,
+    "total_assets_generated": 0
+  },
+  "generation_results": [
+    {
+      "product_id": "coca_cola_classic",
+      "product_name": "Coca-Cola Classic",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "coca_cola_zero",
+      "product_name": "Coca-Cola Zero Sugar",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "sprite",
+      "product_name": "Sprite",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "fanta_orange",
+      "product_name": "Fanta Orange",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "smartwater",
+      "product_name": "smartwater",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "powerade",
+      "product_name": "Powerade",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    },
+    {
+      "product_id": "vitaminwater",
+      "product_name": "vitaminwater",
+      "assets_generated": [],
+      "validation_passed": true,
+      "errors": []
+    }
+  ],
+  "validation_summary": {},
+  "errors": []
+}

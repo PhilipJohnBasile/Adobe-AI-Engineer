@@ -43,7 +43,10 @@
       "Bash(cp:*)",
       "Bash(python3:*)",
       "Bash(pkill:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(npm run lint)",
+      "Bash(sed:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": []

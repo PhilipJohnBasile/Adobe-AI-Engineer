@@ -33,6 +33,8 @@ import Alert from '@spectrum-icons/workflow/Alert';
 import CheckmarkCircle from '@spectrum-icons/workflow/CheckmarkCircle';
 import Clock from '@spectrum-icons/workflow/Clock';
 import Remove from '@spectrum-icons/workflow/Remove';
+import FolderAdd from '@spectrum-icons/workflow/FolderAdd';
+import Export from '@spectrum-icons/workflow/Export';
 
 interface CampaignFormProps {
   campaign?: Campaign;
@@ -45,6 +47,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
   onSave,
   onCancel
 }) => {
+  console.log('CampaignForm received campaign prop:', campaign);
   const getInitialFormData = () => {
     if (campaign) {
       return campaign;
@@ -105,12 +108,71 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
     };
   };
 
-  const [formData, setFormData] = useState<Partial<Campaign>>(getInitialFormData());
+  const [formData, setFormData] = useState<Partial<Campaign>>(() => getInitialFormData());
 
   // Update form data when campaign prop changes
   useEffect(() => {
+    console.log('useEffect triggered, campaign:', campaign);
     if (campaign) {
+      console.log('Setting form data to campaign:', campaign);
       setFormData(campaign);
+    } else {
+      console.log('Setting form data to default values');
+      const defaultData = {
+        campaign_id: '',
+        campaign_name: '',
+        client: 'The Coca-Cola Company',
+        campaign_start_date: '',
+        campaign_end_date: '',
+        campaign_message: {
+          primary_headline: '',
+          secondary_headline: '',
+          brand_voice: 'uplifting, inclusive, joyful, authentic',
+          seasonal_theme: ''
+        },
+        target_audience: {
+          primary: {
+            demographics: '',
+            psychographics: '',
+            behavior: ''
+          }
+        },
+        products: [],
+        target_regions: [],
+        creative_requirements: {
+          formats: [
+            { name: 'square', dimensions: '1080x1080', platform: 'Instagram Post', usage: 'Main feed posts' },
+            { name: 'story', dimensions: '1080x1920', platform: 'Instagram/Facebook Stories', usage: 'Vertical stories' },
+            { name: 'landscape', dimensions: '1920x1080', platform: 'Facebook/YouTube Ads', usage: 'Horizontal video ads' }
+          ],
+          brand_requirements: {
+            logo_placement: 'bottom-right or top-left',
+            color_compliance: 'must use coca_cola_red #DA020E',
+            typography: 'Spencerian Script for headlines, Gotham for body',
+            messaging: 'uplifting, inclusive, joyful tone'
+          }
+        },
+        budget_allocation: {
+          total_budget: '',
+          genai_budget: '',
+          estimated_assets: 0,
+          cost_per_asset: '$18.50'
+        },
+        success_metrics: {
+          primary_kpis: ['Brand awareness lift', 'Purchase intent', 'Social engagement rate'],
+          target_metrics: {
+            awareness_lift: '',
+            engagement_rate: '',
+            seasonal_conversion: ''
+          }
+        },
+        deliverables: {
+          total_assets: 0,
+          breakdown: {},
+          formats_per_product: {}
+        }
+      };
+      setFormData(defaultData);
     }
   }, [campaign]);
 
@@ -118,6 +180,37 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
   const [generating, setGenerating] = useState(false);
   const [validation, setValidation] = useState<any>(null);
   const [showValidation, setShowValidation] = useState(false);
+
+  // JSON file handlers
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.type === 'application/json') {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const jsonData = JSON.parse(e.target?.result as string);
+          console.log('Loaded JSON campaign:', jsonData);
+          setFormData(jsonData);
+        } catch (error) {
+          alert('Invalid JSON file. Please upload a valid campaign JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      alert('Please upload a JSON file.');
+    }
+  };
+
+  const handleExportJSON = () => {
+    const jsonString = JSON.stringify(formData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${formData.campaign_id || 'campaign'}_${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   const handleInputChange = (path: string, value: any) => {
     setFormData(prev => {
@@ -281,6 +374,8 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
       borderColor="gray-300"
       maxWidth="size-6000"
       margin="auto"
+      height="calc(100vh - 100px)"
+      UNSAFE_style={{ display: 'flex', flexDirection: 'column' }}
     >
       <View
         backgroundColor="gray-75"
@@ -299,6 +394,24 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
             </Text>
           </View>
           <ButtonGroup>
+            <ActionButton onPress={handleExportJSON} variant="secondary">
+              <Export />
+              <Text>Export JSON</Text>
+            </ActionButton>
+            <ActionButton 
+              onPress={() => document.getElementById('json-upload')?.click()}
+              variant="secondary"
+            >
+              <FolderAdd />
+              <Text>Upload JSON</Text>
+            </ActionButton>
+            <input
+              id="json-upload"
+              type="file"
+              accept=".json"
+              onChange={handleFileUpload}
+              style={{ display: 'none' }}
+            />
             <ActionButton
               onPress={generateCampaignIdea}
               isDisabled={generating}
@@ -343,7 +456,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
         </Flex>
       </View>
 
-      <View padding="size-300">
+      <View padding="size-300" UNSAFE_style={{ flex: '1', overflowY: 'scroll', height: '100%' }}>
         {/* Simple test to see if data is loading */}
         <Heading level={3}>Campaign Editor</Heading>
         <Text>Campaign Name: {formData.campaign_name || 'NOT LOADED'}</Text>

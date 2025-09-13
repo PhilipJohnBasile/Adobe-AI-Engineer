@@ -20,6 +20,9 @@ import { Play, Image, CheckCircle, AlertCircle, Clock } from 'lucide-react';
 interface LivePipelineViewProps {
   campaignId: string;
   onClose?: () => void;
+  runningPipelines: Set<string>;
+  onRunPipeline: (campaign: any) => Promise<void>;
+  campaign: any;
 }
 
 interface GeneratedAsset {
@@ -28,7 +31,13 @@ interface GeneratedAsset {
   timestamp: Date;
 }
 
-export const LivePipelineView: React.FC<LivePipelineViewProps> = ({ campaignId, onClose }) => {
+export const LivePipelineView: React.FC<LivePipelineViewProps> = ({ 
+  campaignId, 
+  onClose, 
+  runningPipelines, 
+  onRunPipeline, 
+  campaign 
+}) => {
   const [isRunning, setIsRunning] = useState(false);
   const [assets, setAssets] = useState<GeneratedAsset[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
@@ -36,7 +45,11 @@ export const LivePipelineView: React.FC<LivePipelineViewProps> = ({ campaignId, 
   const [assetCount, setAssetCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const runPipeline = () => {
+  const runPipeline = async () => {
+    // Use the shared pipeline function
+    await onRunPipeline(campaign);
+    
+    // Local state for live view updates
     setIsRunning(true);
     setAssets([]);
     setLogs([]);
@@ -139,10 +152,14 @@ export const LivePipelineView: React.FC<LivePipelineViewProps> = ({ campaignId, 
           <Button
             variant="cta"
             onPress={runPipeline}
-            isDisabled={isRunning}
+            isDisabled={runningPipelines.has(campaignId)}
           >
-            <Play size={16} />
-            <Text>Run Pipeline</Text>
+            {runningPipelines.has(campaignId) ? (
+              <ProgressCircle size="S" isIndeterminate />
+            ) : (
+              <Play size={16} />
+            )}
+            <Text>{runningPipelines.has(campaignId) ? 'Running...' : 'Run Pipeline'}</Text>
           </Button>
           {onClose && (
             <Button variant="secondary" onPress={onClose}>

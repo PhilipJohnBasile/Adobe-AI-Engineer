@@ -22,7 +22,10 @@ import {
   Tabs,
   Text,
   View,
-  Well
+  Well,
+  Meter,
+  SearchField,
+  Switch
 } from '@adobe/react-spectrum';
 import ArrowLeft from '@spectrum-icons/workflow/ArrowLeft';
 import Play from '@spectrum-icons/workflow/Play';
@@ -41,12 +44,16 @@ interface CampaignDetailProps {
   campaign: Campaign;
   onBack: () => void;
   onEdit: (campaign: Campaign) => void;
+  runningPipelines: Set<string>;
+  onRunPipeline: (campaign: Campaign) => Promise<void>;
 }
 
 export const CampaignDetail: React.FC<CampaignDetailProps> = ({
   campaign,
   onBack,
-  onEdit
+  onEdit,
+  runningPipelines,
+  onRunPipeline
 }) => {
   const [validation, setValidation] = useState<CampaignValidation | null>(null);
   const [logs, setLogs] = useState<any>(null);
@@ -57,12 +64,14 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
   const [logsView, setLogsView] = useState<'assets' | 'logs'>('assets');
   const [currentPage, setCurrentPage] = useState(1);
   const [assetsPerPage, setAssetsPerPage] = useState(20);
+  const [expandedProducts, setExpandedProducts] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     runValidation();
     loadLogs();
     loadAssets();
   }, [campaign]);
+
 
   const runValidation = () => {
     const brandChecks = ComplianceService.validateBrandCompliance(campaign);
@@ -101,17 +110,9 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
   };
 
   const handleRunPipeline = async () => {
-    setLoading(true);
-    try {
-      const result = await CampaignService.runPipeline(campaign.campaign_id);
-      alert(`Pipeline completed! Generated ${result.assets_generated?.length || 0} assets.`);
-      loadLogs(); // Refresh logs after pipeline run
-    } catch (error) {
-      alert('Pipeline failed to run. Check console for details.');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    await onRunPipeline(campaign);
+    loadLogs(); // Refresh logs after pipeline run
+    loadAssets(); // Refresh assets after pipeline run
   };
 
 
@@ -120,9 +121,41 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
     const startDate = new Date(campaign.campaign_start_date);
     const endDate = new Date(campaign.campaign_end_date);
 
-    if (now < startDate) return 'Upcoming';
+    if (now < startDate) return 'Pending';
     if (now > endDate) return 'Completed';
     return 'Active';
+  };
+
+  const getStatusVariant = (status: string) => {
+    switch (status) {
+      case 'Active': return 'positive';
+      case 'Pending': return 'info';
+      case 'Completed': return 'neutral';
+      default: return 'neutral';
+    }
+  };
+
+  const formatCurrency = (amount: string) => {
+    const num = parseFloat(amount.replace(/[^0-9.]/g, ''));
+    if (num >= 1000000) return `$${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `$${(num / 1000).toFixed(0)}K`;
+    return `$${num.toFixed(2)}`;
+  };
+
+  const getValidationCounts = () => {
+    if (!validation) return { warnings: 0, errors: 0, passed: 0 };
+    const warnings = validation.compliance_checks.filter(c => c.status === 'warning').length;
+    const errors = validation.compliance_checks.filter(c => c.status === 'failed').length;
+    const passed = validation.compliance_checks.filter(c => c.status === 'passed').length;
+    return { warnings, errors, passed };
+  };
+
+  const getAssetCounts = () => {
+    if (!assets) return { generated: 0, planned: campaign.deliverables.total_assets };
+    return {
+      generated: assets.total_assets || 0,
+      planned: campaign.deliverables.total_assets
+    };
   };
 
   const getValidationIcon = (score: number) => {
@@ -178,30 +211,38 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
               border: '1px solid var(--spectrum-global-color-gray-200)'
             }}>
-              <StatusLight variant={getStatusText() === 'Active' ? 'positive' : getStatusText() === 'Upcoming' ? 'notice' : 'neutral'}>
+              <StatusLight variant={getStatusVariant(getStatusText())} aria-label={`Campaign status: ${getStatusText()}`}>
                 {getStatusText()}
               </StatusLight>
               {validation && (
-                <Badge variant={validation.overall_score >= 85 ? 'positive' : validation.overall_score >= 70 ? 'notice' : 'negative'}>
+                <Badge 
+                  variant={validation.overall_score >= 85 ? 'positive' : validation.overall_score >= 70 ? 'notice' : 'negative'}
+                  aria-label={`Compliance score: ${validation.overall_score} percent`}
+                >
                   {validation.overall_score}% Compliant
                 </Badge>
               )}
               <ButtonGroup>
-                <ActionButton onPress={() => onEdit(campaign)} variant="secondary">
+                <ActionButton 
+                  onPress={() => onEdit(campaign)} 
+                  variant="secondary"
+                  aria-label={`Edit ${campaign.campaign_name} campaign`}
+                >
                   <Edit />
                   <Text>Edit</Text>
                 </ActionButton>
                 <ActionButton
                   onPress={handleRunPipeline}
-                  isDisabled={loading}
+                  isDisabled={runningPipelines.has(campaign.campaign_id)}
                   variant="accent"
+                  aria-label={`${runningPipelines.has(campaign.campaign_id) ? 'Pipeline running for' : 'Run pipeline for'} ${campaign.campaign_name}`}
                 >
-                  {loading ? (
+                  {runningPipelines.has(campaign.campaign_id) ? (
                     <ProgressCircle size="S" isIndeterminate />
                   ) : (
                     <Play />
                   )}
-                  <Text>Run Pipeline</Text>
+                  <Text>{runningPipelines.has(campaign.campaign_id) ? 'Running...' : 'Run pipeline'}</Text>
                 </ActionButton>
               </ButtonGroup>
             </Flex>
@@ -225,11 +266,28 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
               </Item>
               <Item key="validation">
                 <Shield />
-                <Text>Compliance & Validation</Text>
+                <Flex alignItems="center" gap="size-100">
+                  <Text>Compliance</Text>
+                  {validation && (() => {
+                    const counts = getValidationCounts();
+                    return (counts.warnings + counts.errors) > 0 ? (
+                      <Badge variant="notice" UNSAFE_style={{ fontSize: '11px', minWidth: '20px' }}>
+                        {counts.warnings + counts.errors}
+                      </Badge>
+                    ) : null;
+                  })()}
+                </Flex>
               </Item>
               <Item key="logs">
                 <FileTemplate />
-                <Text>Generation Logs</Text>
+                <Flex alignItems="center" gap="size-100">
+                  <Text>Logs</Text>
+                  {assets && assets.total_assets > 0 && (
+                    <Badge variant="info" UNSAFE_style={{ fontSize: '11px', minWidth: '20px' }}>
+                      {assets.total_assets}
+                    </Badge>
+                  )}
+                </Flex>
               </Item>
               <Item key="live">
                 <Play />
@@ -250,43 +308,39 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                     <Well>
                       <Heading level={2}>Campaign Details</Heading>
                       <Divider size="S" />
-                      <Flex direction="column" gap="size-200">
-                        <Flex direction="row" gap="size-400">
-                          <View>
-                            <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Start Date</Text>
-                            <Text>{campaign.campaign_start_date}</Text>
-                          </View>
-                          <View>
-                            <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>End Date</Text>
-                            <Text>{campaign.campaign_end_date}</Text>
-                          </View>
+                      <Grid columns={['120px', '1fr']} gap="size-200" rowGap="size-150">
+                        <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>Start Date:</Text>
+                        <Flex alignItems="center" gap="size-100">
+                          <Text>{new Date(campaign.campaign_start_date).toLocaleDateString()}</Text>
                         </Flex>
-
+                        
+                        <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>End Date:</Text>
+                        <Flex alignItems="center" gap="size-100">
+                          <Text>{new Date(campaign.campaign_end_date).toLocaleDateString()}</Text>
+                        </Flex>
+                        
+                        <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>Brand Voice:</Text>
+                        <Text>{campaign.campaign_message.brand_voice}</Text>
+                        
+                        <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', textAlign: 'right' }}>Target Audience:</Text>
                         <View>
-                          <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Campaign Message</Text>
-                          <Well marginY="size-100">
-                            <Heading level={4}>{campaign.campaign_message.primary_headline}</Heading>
-                            <Text>{campaign.campaign_message.secondary_headline}</Text>
-                            <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-600)', fontSize: '14px', marginTop: '8px' }}>
-                              {campaign.campaign_message.seasonal_theme}
-                            </Text>
-                          </Well>
+                          <Text><strong>Demographics:</strong> {campaign.target_audience.primary.demographics}</Text>
+                          <Text><strong>Psychographics:</strong> {campaign.target_audience.primary.psychographics}</Text>
                         </View>
+                      </Grid>
 
-                        <View>
-                          <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Brand Voice</Text>
-                          <Text>{campaign.campaign_message.brand_voice}</Text>
-                        </View>
+                      <Divider size="S" marginY="size-200" />
+                      <View>
+                        <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)', marginBottom: '8px', display: 'block' }}>Campaign Message</Text>
+                        <Well marginY="size-100">
+                          <Heading level={4}>{campaign.campaign_message.primary_headline}</Heading>
+                          <Text>{campaign.campaign_message.secondary_headline}</Text>
+                          <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-600)', fontSize: '14px', marginTop: '8px' }}>
+                            {campaign.campaign_message.seasonal_theme}
+                          </Text>
+                        </Well>
+                      </View>
 
-                        <View>
-                          <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Target Audience</Text>
-                          <Well marginY="size-100">
-                            <Text><strong>Demographics:</strong> {campaign.target_audience.primary.demographics}</Text>
-                            <Text><strong>Psychographics:</strong> {campaign.target_audience.primary.psychographics}</Text>
-                            <Text><strong>Behavior:</strong> {campaign.target_audience.primary.behavior}</Text>
-                          </Well>
-                        </View>
-                      </Flex>
                     </Well>
                   </View>
 
@@ -295,26 +349,45 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                       <Well>
                         <Heading level={2}>Campaign Stats</Heading>
                         <Divider size="S" />
-                        <Flex direction="column" gap="size-150">
+                        <Flex direction="column" gap="size-200">
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Products</Text>
-                            <Text>{campaign.products.length}</Text>
+                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.products.length}</Text>
                           </Flex>
+                          
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Regions</Text>
-                            <Text>{campaign.target_regions.length}</Text>
+                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>{campaign.target_regions.length}</Text>
                           </Flex>
-                          <Flex direction="row" justifyContent="space-between">
-                            <Text>Total Assets</Text>
-                            <Text>{campaign.deliverables.total_assets}</Text>
-                          </Flex>
+                          
+                          <View>
+                            <Flex direction="row" justifyContent="space-between" marginBottom="size-75">
+                              <Text>Assets Progress</Text>
+                              <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>
+                                {getAssetCounts().generated} / {getAssetCounts().planned}
+                              </Text>
+                            </Flex>
+                            <Meter 
+                              value={getAssetCounts().generated} 
+                              maxValue={getAssetCounts().planned}
+                              size="S"
+                              variant="positive"
+                              aria-label={`${getAssetCounts().generated} of ${getAssetCounts().planned} assets generated`}
+                            />
+                          </View>
+                          
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Budget</Text>
-                            <Text>{campaign.budget_allocation.total_budget}</Text>
+                            <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>
+                              {formatCurrency(campaign.budget_allocation.total_budget)}
+                            </Text>
                           </Flex>
+                          
                           <Flex direction="row" justifyContent="space-between">
                             <Text>Cost per Asset</Text>
-                            <Text>{campaign.budget_allocation.cost_per_asset}</Text>
+                            <Badge variant="neutral" UNSAFE_style={{ fontVariantNumeric: 'tabular-nums' }}>
+                              {formatCurrency(campaign.budget_allocation.cost_per_asset)}
+                            </Badge>
                           </Flex>
                         </Flex>
                       </Well>
@@ -323,27 +396,48 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                         <Well>
                           <Heading level={2}>Compliance Status</Heading>
                           <Divider size="S" />
-                          <Flex direction="column" gap="size-150">
-                            <Flex direction="row" justifyContent="space-between" alignItems="center">
-                              <Text>Overall Score</Text>
-                              <Flex direction="row" alignItems="center" gap="size-100">
-                                {validation.overall_score >= 85 ? (
-                                  <CheckmarkCircle color="positive" />
-                                ) : validation.overall_score >= 70 ? (
-                                  <Clock color="notice" />
-                                ) : (
-                                  <Alert color="negative" />
-                                )}
-                                <Text>{validation.overall_score}%</Text>
+                          <Flex direction="column" gap="size-200">
+                            <View>
+                              <Flex direction="row" justifyContent="space-between" alignItems="center" marginBottom="size-75">
+                                <Text>Overall Score</Text>
+                                <Flex direction="row" alignItems="center" gap="size-100">
+                                  <Text UNSAFE_style={{ fontVariantNumeric: 'tabular-nums', fontWeight: '600' }}>
+                                    {validation.overall_score}%
+                                  </Text>
+                                </Flex>
                               </Flex>
-                            </Flex>
-                            <Flex direction="row" justifyContent="space-between">
-                              <Text>Brand Checks</Text>
-                              <Text>{validation.brand_checks.filter(c => c.status === 'passed').length}/{validation.brand_checks.length}</Text>
-                            </Flex>
-                            <Flex direction="row" justifyContent="space-between">
-                              <Text>Legal Checks</Text>
-                              <Text>{validation.legal_checks.filter(c => c.status === 'passed').length}/{validation.legal_checks.length}</Text>
+                              <Meter 
+                                value={validation.overall_score} 
+                                maxValue={100}
+                                size="S"
+                                variant={validation.overall_score >= 85 ? 'positive' : validation.overall_score >= 70 ? 'notice' : 'critical'}
+                                aria-label={`Compliance score: ${validation.overall_score} percent`}
+                              />
+                            </View>
+                            
+                            <Flex direction="row" gap="size-100" wrap>
+                              {(() => {
+                                const counts = getValidationCounts();
+                                return (
+                                  <>
+                                    {counts.warnings > 0 && (
+                                      <Badge variant="notice" UNSAFE_style={{ fontSize: '12px' }}>
+                                        {counts.warnings} Warnings
+                                      </Badge>
+                                    )}
+                                    {counts.errors > 0 && (
+                                      <Badge variant="negative" UNSAFE_style={{ fontSize: '12px' }}>
+                                        {counts.errors} Errors
+                                      </Badge>
+                                    )}
+                                    {counts.passed > 0 && (
+                                      <Badge variant="positive" UNSAFE_style={{ fontSize: '12px' }}>
+                                        {counts.passed} Passed
+                                      </Badge>
+                                    )}
+                                  </>
+                                );
+                              })()}
                             </Flex>
                           </Flex>
                         </Well>
@@ -357,35 +451,104 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                   <Divider size="S" />
                   <Grid
                     columns={['1fr', '1fr', '1fr']}
-                    gap="size-200"
+                    gap="size-300"
                     marginTop="size-200"
                   >
                     {campaign.products.map((product, index) => (
-                      <Well key={index} UNSAFE_style={{ border: '1px solid var(--spectrum-global-color-gray-300)' }}>
-                        <Heading level={3}>{product.name}</Heading>
-                        <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-600)', fontSize: '14px' }}>
-                          {product.category}
-                        </Text>
-                        <Text UNSAFE_style={{ fontSize: '14px', marginTop: '8px' }}>
-                          {product.description}
-                        </Text>
-                        <View marginTop="size-150">
-                          <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Key Benefits:</Text>
-                          {product.key_benefits.map((benefit, i) => (
-                            <Text key={i} UNSAFE_style={{ fontSize: '14px', color: 'var(--spectrum-global-color-gray-600)' }}>
-                              • {benefit}
+                      <View 
+                        key={index} 
+                        backgroundColor="gray-25"
+                        padding="size-200"
+                        borderRadius="medium"
+                        borderWidth="thin"
+                        borderColor="gray-300"
+                        UNSAFE_style={{
+                          transition: 'all 0.2s ease',
+                          ':hover': {
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                          }
+                        }}
+                      >
+                        <Flex direction="column" height="100%">
+                          <View flex="1">
+                            <Heading level={3} marginBottom="size-75">{product.name}</Heading>
+                            <Badge variant="neutral" UNSAFE_style={{ marginBottom: '8px', fontSize: '11px' }}>
+                              {product.category}
+                            </Badge>
+                            <Text UNSAFE_style={{ 
+                              fontSize: '14px', 
+                              lineHeight: '1.4',
+                              display: '-webkit-box',
+                              WebkitLineClamp: '2',
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden'
+                            }}>
+                              {product.description}
                             </Text>
-                          ))}
-                        </View>
-                        <Flex direction="row" justifyContent="space-between" alignItems="center" marginTop="size-150">
-                          <Text UNSAFE_style={{ fontSize: '12px', color: 'var(--spectrum-global-color-gray-600)' }}>
-                            Price: {product.target_price}
-                          </Text>
-                          <Text UNSAFE_style={{ fontSize: '12px', color: 'var(--spectrum-global-color-gray-600)' }}>
-                            Assets: {product.existing_assets.length}
-                          </Text>
+                            
+                            {/* Collapsible Key Benefits */}
+                            <View marginTop="size-150">
+                              <ActionButton 
+                                isQuiet
+                                onPress={() => {
+                                  const newExpanded = new Set(expandedProducts);
+                                  if (expandedProducts.has(index)) {
+                                    newExpanded.delete(index);
+                                  } else {
+                                    newExpanded.add(index);
+                                  }
+                                  setExpandedProducts(newExpanded);
+                                }}
+                                UNSAFE_style={{ 
+                                  fontSize: '12px', 
+                                  padding: '4px 0',
+                                  justifyContent: 'flex-start'
+                                }}
+                                aria-label={`${expandedProducts.has(index) ? 'Hide' : 'Show'} key benefits for ${product.name}`}
+                              >
+                                <Text UNSAFE_style={{ 
+                                  fontWeight: '500', 
+                                  fontSize: '12px',
+                                  color: 'var(--spectrum-global-color-blue-600)'
+                                }}>
+                                  {expandedProducts.has(index) ? 'Hide benefits' : 'Show benefits'}
+                                </Text>
+                              </ActionButton>
+                              
+                              {expandedProducts.has(index) && (
+                                <View marginTop="size-75">
+                                  {product.key_benefits.slice(0, 3).map((benefit, i) => (
+                                    <Text key={i} UNSAFE_style={{ 
+                                      fontSize: '12px', 
+                                      color: 'var(--spectrum-global-color-gray-600)',
+                                      display: 'block',
+                                      marginBottom: '4px'
+                                    }}>
+                                      • {benefit}
+                                    </Text>
+                                  ))}
+                                </View>
+                              )}
+                            </View>
+                          </View>
+                          
+                          {/* Footer with price and assets */}
+                          <Flex direction="row" justifyContent="space-between" alignItems="center" marginTop="size-200">
+                            <Text UNSAFE_style={{ 
+                              fontSize: '12px', 
+                              fontWeight: '600',
+                              color: 'var(--spectrum-global-color-gray-700)',
+                              fontVariantNumeric: 'tabular-nums'
+                            }}>
+                              {formatCurrency(product.target_price)}
+                            </Text>
+                            <Badge variant="neutral" UNSAFE_style={{ fontSize: '11px' }}>
+                              {product.existing_assets.length} Assets
+                            </Badge>
+                          </Flex>
                         </Flex>
-                      </Well>
+                      </View>
                     ))}
                   </Grid>
                 </Well>
@@ -393,29 +556,80 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                 <Well marginY="size-300">
                   <Heading level={2}>Target Regions</Heading>
                   <Divider size="S" />
-                  <Grid
-                    columns={['1fr', '1fr', '1fr']}
-                    gap="size-200"
-                    marginTop="size-200"
-                  >
-                    {campaign.target_regions.map((region, index) => (
-                      <Well key={index} UNSAFE_style={{ border: '1px solid var(--spectrum-global-color-gray-300)' }}>
-                        <Heading level={3}>{region.region}</Heading>
-                        <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-600)', fontSize: '14px' }}>
-                          {region.countries.join(', ')} • {region.languages.join(', ')}
-                        </Text>
-                        <Text UNSAFE_style={{ fontSize: '14px', marginTop: '8px' }}>
-                          {region.cultural_notes}
-                        </Text>
-                        <View marginTop="size-150">
-                          <Text UNSAFE_style={{ fontWeight: '600', color: 'var(--spectrum-global-color-gray-700)' }}>Messaging Tone:</Text>
-                          <Text UNSAFE_style={{ fontSize: '14px', color: 'var(--spectrum-global-color-gray-600)' }}>
-                            {region.messaging_adaptation.tone}
-                          </Text>
+                  <View marginTop="size-200">
+                    <Flex direction="column" gap="size-100">
+                      {campaign.target_regions.map((region, index) => (
+                        <View 
+                          key={index} 
+                          backgroundColor="gray-25"
+                          borderRadius="medium"
+                          borderWidth="thin"
+                          borderColor="gray-300"
+                          padding="size-200"
+                        >
+                          <Flex direction="column" gap="size-150">
+                            {/* Region Header */}
+                            <Flex direction="row" justifyContent="space-between" alignItems="center">
+                              <Flex direction="row" alignItems="center" gap="size-150">
+                                <Heading level={3}>{region.region}</Heading>
+                                <Badge variant="neutral" UNSAFE_style={{ fontSize: '11px' }}>
+                                  {region.countries.length} {region.countries.length === 1 ? 'Country' : 'Countries'}
+                                </Badge>
+                              </Flex>
+                              <Text UNSAFE_style={{ 
+                                fontSize: '12px', 
+                                color: 'var(--spectrum-global-color-gray-600)',
+                                fontFamily: 'monospace'
+                              }}>
+                                {region.region.substring(0, 3).toUpperCase()}
+                              </Text>
+                            </Flex>
+                            
+                            {/* Countries and Languages */}
+                            <View>
+                              <Text UNSAFE_style={{ 
+                                fontSize: '12px', 
+                                fontWeight: '600', 
+                                color: 'var(--spectrum-global-color-gray-700)',
+                                marginBottom: '4px'
+                              }}>Countries & Languages</Text>
+                              <Flex direction="row" gap="size-100" wrap aria-label={`Countries and languages for ${region.region}`}>
+                                {region.countries.map((country, i) => (
+                                  <Badge key={`country-${i}`} variant="accent">
+                                    {country}
+                                  </Badge>
+                                ))}
+                                {region.languages.map((language, i) => (
+                                  <Badge key={`lang-${i}`} variant="positive">
+                                    {language}
+                                  </Badge>
+                                ))}
+                              </Flex>
+                            </View>
+                            
+                            {/* Cultural Notes */}
+                            <View>
+                              <Text UNSAFE_style={{ fontSize: '14px', lineHeight: '1.4' }}>
+                                {region.cultural_notes}
+                              </Text>
+                            </View>
+                            
+                            {/* Messaging Tone */}
+                            <Flex direction="row" alignItems="center" gap="size-150">
+                              <Text UNSAFE_style={{ 
+                                fontSize: '12px', 
+                                fontWeight: '600',
+                                color: 'var(--spectrum-global-color-gray-700)'
+                              }}>Messaging Tone:</Text>
+                              <Badge variant="info" UNSAFE_style={{ fontSize: '12px' }}>
+                                {region.messaging_adaptation.tone}
+                              </Badge>
+                            </Flex>
+                          </Flex>
                         </View>
-                      </Well>
-                    ))}
-                  </Grid>
+                      ))}
+                    </Flex>
+                  </View>
                 </Well>
               </View>
             </Item>
@@ -455,8 +669,8 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     backgroundColor:
-                                      check.status === 'passed' ? '#D4EDDA' :
-                                      check.status === 'warning' ? '#FFF3CD' : '#F8D7DA'
+                                      check.status === 'passed' ? 'var(--spectrum-global-color-green-100)' :
+                                      check.status === 'warning' ? 'var(--spectrum-global-color-orange-100)' : 'var(--spectrum-global-color-red-100)'
                                   }}
                                 >
                                   {check.status === 'passed' ? (
@@ -467,14 +681,28 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                                     <Alert size="S" color="negative" />
                                   )}
                                 </View>
-                                <View>
-                                  <Heading level={4}>{check.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</Heading>
+                                <View flex="1">
+                                  <Flex direction="row" justifyContent="space-between" alignItems="center">
+                                    <Heading level={4}>{check.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</Heading>
+                                    <StatusLight variant={check.status === 'passed' ? 'positive' : check.status === 'warning' ? 'notice' : 'negative'}>
+                                      {check.status === 'passed' ? 'Pass' : check.status === 'warning' ? 'Warning' : 'Error'}
+                                    </StatusLight>
+                                  </Flex>
                                   <Text>{check.message}</Text>
                                   {check.score && (
                                     <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-500)', fontSize: '12px' }}>
                                       Score: {check.score}%
                                     </Text>
                                   )}
+                                  
+                                  <ActionButton 
+                                    isQuiet 
+                                    marginTop="size-100"
+                                    UNSAFE_style={{ fontSize: '12px', alignSelf: 'flex-start' }}
+                                    aria-label={`Mark ${check.type} check as acknowledged`}
+                                  >
+                                    <Text>Mark as acknowledged</Text>
+                                  </ActionButton>
                                 </View>
                               </Flex>
                             </Well>
@@ -497,8 +725,8 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     backgroundColor:
-                                      check.status === 'passed' ? '#D4EDDA' :
-                                      check.status === 'warning' ? '#FFF3CD' : '#F8D7DA'
+                                      check.status === 'passed' ? 'var(--spectrum-global-color-green-100)' :
+                                      check.status === 'warning' ? 'var(--spectrum-global-color-orange-100)' : 'var(--spectrum-global-color-red-100)'
                                   }}
                                 >
                                   {check.status === 'passed' ? (
@@ -509,14 +737,28 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                                     <Alert size="S" color="negative" />
                                   )}
                                 </View>
-                                <View>
-                                  <Heading level={4}>{check.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</Heading>
+                                <View flex="1">
+                                  <Flex direction="row" justifyContent="space-between" alignItems="center">
+                                    <Heading level={4}>{check.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</Heading>
+                                    <StatusLight variant={check.status === 'passed' ? 'positive' : check.status === 'warning' ? 'notice' : 'negative'}>
+                                      {check.status === 'passed' ? 'Pass' : check.status === 'warning' ? 'Warning' : 'Error'}
+                                    </StatusLight>
+                                  </Flex>
                                   <Text>{check.message}</Text>
                                   {check.score && (
                                     <Text UNSAFE_style={{ color: 'var(--spectrum-global-color-gray-500)', fontSize: '12px' }}>
                                       Score: {check.score}%
                                     </Text>
                                   )}
+                                  
+                                  <ActionButton 
+                                    isQuiet 
+                                    marginTop="size-100"
+                                    UNSAFE_style={{ fontSize: '12px', alignSelf: 'flex-start' }}
+                                    aria-label={`Mark ${check.type} check as acknowledged`}
+                                  >
+                                    <Text>Mark as acknowledged</Text>
+                                  </ActionButton>
                                 </View>
                               </Flex>
                             </Well>
@@ -635,9 +877,10 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                               fontSize: '42px', 
                               fontWeight: '700', 
                               color: 'var(--spectrum-global-color-green-600)',
-                              lineHeight: '1'
+                              lineHeight: '1',
+                              fontVariantNumeric: 'tabular-nums'
                             }}>
-                              {assets.total_assets}
+                              {assets.total_assets.toLocaleString()}
                             </Text>
                             <Badge variant="positive" UNSAFE_style={{ marginTop: '8px' }}>
                               Ready
@@ -660,14 +903,19 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                             }}>
                               Campaign ID
                             </Text>
-                            <Text UNSAFE_style={{ 
-                              fontSize: '14px', 
-                              fontWeight: '600', 
-                              color: 'var(--spectrum-global-color-blue-600)',
-                              wordBreak: 'break-all'
-                            }}>
-                              {assets.campaign_id}
-                            </Text>
+                            <Flex alignItems="center" gap="size-100">
+                              <Text UNSAFE_style={{ 
+                                fontSize: '14px', 
+                                fontWeight: '600', 
+                                color: 'var(--spectrum-global-color-blue-600)',
+                                fontFamily: 'monospace'
+                              }}>
+                                {assets.campaign_id}
+                              </Text>
+                              <ActionButton isQuiet UNSAFE_style={{ minWidth: 'auto', padding: '2px' }} aria-label="Copy campaign ID">
+                                <Text UNSAFE_style={{ fontSize: '10px' }}>Copy</Text>
+                              </ActionButton>
+                            </Flex>
                           </View>
 
                           {/* Formats Card */}
@@ -686,10 +934,10 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                             }}>
                               Formats
                             </Text>
-                            <Flex direction="column" gap="size-75">
-                              <Badge variant="info" UNSAFE_style={{ alignSelf: 'flex-start' }}>Square</Badge>
-                              <Badge variant="info" UNSAFE_style={{ alignSelf: 'flex-start' }}>Story</Badge>
-                              <Badge variant="info" UNSAFE_style={{ alignSelf: 'flex-start' }}>Landscape</Badge>
+                            <Flex direction="row" gap="size-100" wrap aria-label="Asset formats">
+                              <Badge variant="positive">Square</Badge>
+                              <Badge variant="notice">Story</Badge>
+                              <Badge variant="info">Landscape</Badge>
                             </Flex>
                           </View>
 
@@ -951,21 +1199,51 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                       <Flex direction="column" gap="size-300" marginTop="size-300">
                         <Grid columns={['1fr', '1fr', '1fr']} gap="size-200">
                           <Well UNSAFE_style={{ backgroundColor: 'var(--spectrum-global-color-gray-75)' }}>
-                            <Heading level={3}>Assets Generated</Heading>
-                            <Text UNSAFE_style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--spectrum-global-color-green-600)' }}>
-                              {logs.assets_generated?.length || 0}
+                            <Text UNSAFE_style={{ fontSize: '12px', fontWeight: '500', color: 'var(--spectrum-global-color-gray-600)', marginBottom: '4px' }}>
+                              Assets Generated
+                            </Text>
+                            <Text UNSAFE_style={{ 
+                              fontSize: '24px', 
+                              fontWeight: '700', 
+                              color: 'var(--spectrum-global-color-green-600)',
+                              fontVariantNumeric: 'tabular-nums'
+                            }}>
+                              {(logs.assets_generated?.length || 0).toLocaleString()}
+                            </Text>
+                            <Badge variant="positive" UNSAFE_style={{ marginTop: '4px', fontSize: '10px' }}>
+                              Ready
+                            </Badge>
+                          </Well>
+                          <Well UNSAFE_style={{ backgroundColor: 'var(--spectrum-global-color-gray-75)' }}>
+                            <Text UNSAFE_style={{ fontSize: '12px', fontWeight: '500', color: 'var(--spectrum-global-color-gray-600)', marginBottom: '4px' }}>
+                              Total Cost
+                            </Text>
+                            <Text UNSAFE_style={{ 
+                              fontSize: '24px', 
+                              fontWeight: '700', 
+                              color: 'var(--spectrum-global-color-blue-600)',
+                              fontVariantNumeric: 'tabular-nums'
+                            }}>
+                              ${(parseFloat(logs.total_cost || '0')).toFixed(2)}
+                            </Text>
+                            <Text UNSAFE_style={{ fontSize: '10px', color: 'var(--spectrum-global-color-gray-500)', marginTop: '4px' }}>
+                              USD
                             </Text>
                           </Well>
                           <Well UNSAFE_style={{ backgroundColor: 'var(--spectrum-global-color-gray-75)' }}>
-                            <Heading level={3}>Total Cost</Heading>
-                            <Text UNSAFE_style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--spectrum-global-color-blue-600)' }}>
-                              ${logs.total_cost || '0.00'}
+                            <Text UNSAFE_style={{ fontSize: '12px', fontWeight: '500', color: 'var(--spectrum-global-color-gray-600)', marginBottom: '4px' }}>
+                              Processing Time
                             </Text>
-                          </Well>
-                          <Well UNSAFE_style={{ backgroundColor: 'var(--spectrum-global-color-gray-75)' }}>
-                            <Heading level={3}>Processing Time</Heading>
-                            <Text UNSAFE_style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--spectrum-global-color-purple-600)' }}>
+                            <Text UNSAFE_style={{ 
+                              fontSize: '24px', 
+                              fontWeight: '700', 
+                              color: 'var(--spectrum-global-color-purple-600)',
+                              fontVariantNumeric: 'tabular-nums'
+                            }}>
                               {logs.processing_time || 'N/A'}
+                            </Text>
+                            <Text UNSAFE_style={{ fontSize: '10px', color: 'var(--spectrum-global-color-gray-500)', marginTop: '4px' }}>
+                              Duration
                             </Text>
                           </Well>
                         </Grid>
@@ -1002,15 +1280,15 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
                           <Content>Run the pipeline to generate logs and reports.</Content>
                           <ActionButton
                             onPress={handleRunPipeline}
-                            isDisabled={loading}
+                            isDisabled={runningPipelines.has(campaign.campaign_id)}
                             variant="accent"
                           >
-                            {loading ? (
+                            {runningPipelines.has(campaign.campaign_id) ? (
                               <ProgressCircle size="S" isIndeterminate />
                             ) : (
                               <Play />
                             )}
-                            <Text>Run Pipeline</Text>
+                            <Text>{runningPipelines.has(campaign.campaign_id) ? 'Running...' : 'Run Pipeline'}</Text>
                           </ActionButton>
                         </IllustratedMessage>
                       </View>
@@ -1022,7 +1300,12 @@ export const CampaignDetail: React.FC<CampaignDetailProps> = ({
             
             <Item key="live">
               <View paddingY="size-300">
-                <LivePipelineView campaignId={campaign.campaign_id} />
+                <LivePipelineView 
+                  campaignId={campaign.campaign_id} 
+                  runningPipelines={runningPipelines}
+                  onRunPipeline={onRunPipeline}
+                  campaign={campaign}
+                />
               </View>
             </Item>
           </TabPanels>
