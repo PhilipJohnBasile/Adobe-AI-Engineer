@@ -2,7 +2,10 @@ import './globals.css'
 
 export const metadata = {
   title: 'Adobe Creative Automation - Campaign Manager',
-  description: 'Coca-Cola Campaign Management Demo',
+  description: 'AI-powered creative automation platform for multi-brand campaigns',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

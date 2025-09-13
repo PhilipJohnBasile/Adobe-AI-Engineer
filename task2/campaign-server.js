@@ -246,6 +246,109 @@ app.post('/api/campaigns/validate', async (req, res) => {
   }
 });
 
+// POST /api/campaigns/:id/generate-live - Run pipeline with live updates
+app.post('/api/campaigns/:id/generate-live', async (req, res) => {
+  // Set up Server-Sent Events
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
+  });
+
+  try {
+    const campaignId = req.params.id;
+    const campaignPath = getCampaignPath(campaignId);
+    
+    await fs.access(campaignPath);
+    
+    // Send initial status
+    res.write(`data: ${JSON.stringify({ type: 'status', message: 'Starting pipeline...' })}\n\n`);
+    
+    // Run pipeline
+    const pythonProcess = spawn('python3', ['src/pipeline.py', campaignPath], {
+      cwd: __dirname,
+      stdio: 'pipe'
+    });
+    
+    let generatedAssets = [];
+    
+    // Process stdout line by line for real-time updates
+    pythonProcess.stdout.on('data', (data) => {
+      const lines = data.toString().split('\n');
+      for (const line of lines) {
+        if (line.includes('Saved:') || line.includes('Generated:')) {
+          // Extract filename from the log
+          const match = line.match(/Saved:\s+(.+\.png)|Generated:\s+(.+\.png)/);
+          if (match) {
+            const filename = match[1] || match[2];
+            generatedAssets.push(filename);
+            
+            // Send real-time update
+            res.write(`data: ${JSON.stringify({
+              type: 'asset_generated',
+              filename: filename,
+              url: `/api/assets/FALL_COKE_2025_001/${filename}`,
+              count: generatedAssets.length
+            })}\n\n`);
+          }
+        }
+        
+        // Send log updates
+        if (line.trim()) {
+          res.write(`data: ${JSON.stringify({
+            type: 'log',
+            message: line.trim()
+          })}\n\n`);
+        }
+      }
+    });
+    
+    pythonProcess.stderr.on('data', (data) => {
+      const lines = data.toString().split('\n');
+      for (const line of lines) {
+        if (line.includes('INFO') && (line.includes('Saved') || line.includes('Generated'))) {
+          const match = line.match(/Saved:\s+(.+\.png)|Generated:\s+(.+\.png)/);
+          if (match) {
+            const filename = match[1] || match[2];
+            generatedAssets.push(filename);
+            res.write(`data: ${JSON.stringify({
+              type: 'asset_generated',
+              filename: filename,
+              url: `/api/assets/output/${filename}`,
+              count: generatedAssets.length
+            })}\n\n`);
+          }
+        }
+      }
+    });
+    
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        res.write(`data: ${JSON.stringify({
+          type: 'complete',
+          success: true,
+          totalAssets: generatedAssets.length,
+          assets: generatedAssets
+        })}\n\n`);
+      } else {
+        res.write(`data: ${JSON.stringify({
+          type: 'error',
+          message: 'Pipeline failed'
+        })}\n\n`);
+      }
+      res.end();
+    });
+    
+  } catch (error) {
+    res.write(`data: ${JSON.stringify({
+      type: 'error',
+      message: error.message
+    })}\n\n`);
+    res.end();
+  }
+});
+
 // POST /api/campaigns/:id/generate - Run pipeline for campaign
 app.post('/api/campaigns/:id/generate', async (req, res) => {
   try {
@@ -258,7 +361,7 @@ app.post('/api/campaigns/:id/generate', async (req, res) => {
     console.log(`Running pipeline for campaign: ${campaignId}`);
 
     // Run the Python pipeline
-    const pythonProcess = spawn('python', ['src/pipeline.py', campaignPath], {
+    const pythonProcess = spawn('python3', ['src/pipeline.py', campaignPath], {
       cwd: __dirname,
       stdio: 'pipe'
     });
@@ -274,26 +377,76 @@ app.post('/api/campaigns/:id/generate', async (req, res) => {
       errorOutput += data.toString();
     });
 
-    pythonProcess.on('close', (code) => {
+    pythonProcess.on('close', async (code) => {
       if (code === 0) {
         console.log(`Pipeline completed successfully for ${campaignId}`);
         
-        // Mock result for demo
-        const result = {
-          success: true,
-          campaign_id: campaignId,
-          assets_generated: Array.from({ length: 27 }, (_, i) => ({
-            filename: `asset_${i + 1}.png`,
-            product: 'Mock Product',
-            region: 'Mock Region',
-            format: 'square'
-          })),
-          total_cost: 0.54,
-          processing_time: '21 seconds',
-          timestamp: new Date().toISOString()
-        };
-        
-        res.json(result);
+        // Read actual results from output directory
+        try {
+          // Find the most recent campaign report
+          const outputDir = path.join(__dirname, 'output');
+          const files = await fs.readdir(outputDir);
+          const reportFiles = files.filter(f => f.startsWith('campaign_report_') && f.endsWith('.json'));
+          
+          let assets_generated = [];
+          let reportData = null;
+          
+          if (reportFiles.length > 0) {
+            // Get the most recent report
+            const latestReport = reportFiles.sort().pop();
+            const reportPath = path.join(outputDir, latestReport);
+            const reportContent = await fs.readFile(reportPath, 'utf-8');
+            reportData = JSON.parse(reportContent);
+          }
+          
+          // Scan output directories for actual generated assets
+          const productDirs = files.filter(f => !f.includes('.json') && !f.includes('.'));
+          for (const productDir of productDirs) {
+            const productPath = path.join(outputDir, productDir);
+            try {
+              const stats = await fs.stat(productPath);
+              if (stats.isDirectory()) {
+                const assetFiles = await fs.readdir(productPath);
+                for (const assetFile of assetFiles) {
+                  if (assetFile.endsWith('.png') || assetFile.endsWith('.jpg')) {
+                    assets_generated.push({
+                      filename: assetFile,
+                      product: productDir.replace(/_/g, ' '),
+                      path: path.join('output', productDir, assetFile),
+                      format: assetFile.includes('square') ? 'square' : 
+                              assetFile.includes('story') ? 'story' : 
+                              assetFile.includes('landscape') ? 'landscape' : 'unknown'
+                    });
+                  }
+                }
+              }
+            } catch (e) {
+              // Skip if not a directory
+            }
+          }
+          
+          const result = {
+            success: true,
+            campaign_id: campaignId,
+            assets_generated: assets_generated.slice(0, 50), // Limit to 50 for display
+            total_assets: assets_generated.length,
+            total_cost: reportData?.total_cost || 0,
+            processing_time: reportData?.processing_time || 'N/A',
+            timestamp: new Date().toISOString(),
+            output_directory: outputDir
+          };
+          
+          res.json(result);
+        } catch (error) {
+          console.error('Error reading pipeline results:', error);
+          // Fallback to basic success message
+          res.json({
+            success: true,
+            campaign_id: campaignId,
+            message: 'Pipeline completed but could not read detailed results',
+            timestamp: new Date().toISOString()
+          });
+        }
       } else {
         console.error(`Pipeline failed for ${campaignId}:`, errorOutput);
         res.status(500).json({ 
@@ -310,6 +463,66 @@ app.post('/api/campaigns/:id/generate', async (req, res) => {
       console.error('Error running pipeline:', error);
       res.status(500).json({ error: 'Failed to run pipeline' });
     }
+  }
+});
+
+// GET /api/campaigns/:id/assets - List existing assets
+app.get('/api/campaigns/:id/assets', async (req, res) => {
+  try {
+    const campaignId = req.params.id;
+    const outputDir = path.join(__dirname, 'output');
+    const assets = [];
+
+    // Check multiple possible output directories
+    const possibleDirs = [
+      path.join(outputDir, campaignId.toUpperCase()),
+      path.join(outputDir, `${campaignId.toUpperCase()}_001`),
+      path.join(outputDir, 'FALL_COKE_2025_001'), // Hardcoded for demo
+      outputDir // Also check root output dir
+    ];
+
+    for (const dir of possibleDirs) {
+      try {
+        const files = await fs.readdir(dir);
+        for (const file of files) {
+          if (file.endsWith('.png') || file.endsWith('.jpg')) {
+            const filePath = path.join(dir, file);
+            const stats = await fs.stat(filePath);
+            
+            // Parse filename for metadata
+            const parts = file.replace('.png', '').replace('.jpg', '').split('_');
+            
+            assets.push({
+              filename: file,
+              path: path.relative(outputDir, filePath),
+              url: `/api/assets/${path.relative(outputDir, filePath)}`,
+              size: stats.size,
+              created: stats.birthtime,
+              modified: stats.mtime,
+              product: parts[0] + (parts[1] ? '_' + parts[1] : ''),
+              format: parts.includes('square') ? 'square' : 
+                      parts.includes('story') ? 'story' : 
+                      parts.includes('landscape') ? 'landscape' : 'unknown',
+              region: parts.find(p => ['usa', 'germany', 'japan', 'canada', 'uk'].includes(p.toLowerCase())) || 'unknown'
+            });
+          }
+        }
+        break; // Stop at first successful directory
+      } catch (error) {
+        // Directory doesn't exist, try next one
+        continue;
+      }
+    }
+
+    res.json({
+      campaign_id: campaignId,
+      total_assets: assets.length,
+      assets: assets.sort((a, b) => b.modified - a.modified) // Most recent first
+    });
+
+  } catch (error) {
+    console.error('Error listing assets:', error);
+    res.status(500).json({ error: 'Failed to list assets' });
   }
 });
 
@@ -350,6 +563,9 @@ app.get('/api/campaigns/:id/logs', async (req, res) => {
     res.status(500).json({ error: 'Failed to read logs' });
   }
 });
+
+// Serve generated assets
+app.use('/api/assets', express.static(path.join(__dirname, 'output')));
 
 // Health check endpoint
 app.get('/health', (req, res) => {

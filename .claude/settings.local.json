@@ -37,7 +37,13 @@
       "Bash(node:*)",
       "WebSearch",
       "Bash(del /s /q \".next\")",
-      "Bash(del \"C:\\Users\\Phili\\Git\\interviews\\Adobe AI Engineer\\task2\\test_api.js\")"
+      "Bash(del \"C:\\Users\\Phili\\Git\\interviews\\Adobe AI Engineer\\task2\\test_api.js\")",
+      "Bash(pip install:*)",
+      "Bash(python3 -m pip install:*)",
+      "Bash(cp:*)",
+      "Bash(python3:*)",
+      "Bash(pkill:*)",
+      "Bash(kill:*)"
     ],
     "deny": [],
     "ask": []

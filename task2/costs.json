@@ -1,0 +1,107 @@
+{
+  "daily_totals": {
+    "2025-09-13": 0.21999999999999997
+  },
+  "transactions": [
+    {
+      "timestamp": "2025-09-13T10:05:01.526844",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:05:20.805592",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:06:02.627436",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:06:22.753618",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:07:09.152962",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:07:28.506883",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:08:06.544500",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:08:30.032540",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:09:04.916014",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:09:30.710566",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-13T10:09:51.326113",
+      "service": "openai",
+      "type": "image_generation",
+      "model": "dall-e-2",
+      "size": "1024x1024",
+      "cost": 0.02,
+      "success": true
+    }
+  ],
+  "alerts_sent": []
+}

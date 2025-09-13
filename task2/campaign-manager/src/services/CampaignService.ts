@@ -106,20 +106,31 @@ export class CampaignService {
       throw error;
     }
   }
+
+  // Get existing generated assets
+  static async getGeneratedAssets(campaignId: string): Promise<any> {
+    try {
+      const response = await axios.get(`${API_BASE}/campaigns/${campaignId}/assets`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching assets:', error);
+      throw error;
+    }
+  }
 }
 
 export class ComplianceService {
   static validateBrandCompliance(campaign: Campaign): ComplianceCheck[] {
     const checks: ComplianceCheck[] = [];
 
-    // Check for Coca-Cola red color requirement
+    // Check for brand color compliance requirement
     const requiredColor = '#DA020E';
     const hasRequiredColor = campaign.creative_requirements.brand_requirements.color_compliance.includes(requiredColor);
     
     checks.push({
       type: 'brand_color',
       status: hasRequiredColor ? 'passed' : 'failed',
-      message: hasRequiredColor ? 'Coca-Cola red color compliance verified' : `Missing required color ${requiredColor}`,
+      message: hasRequiredColor ? 'Brand color compliance verified' : `Missing required color ${requiredColor}`,
       score: hasRequiredColor ? 100 : 0
     });
 
@@ -153,7 +164,7 @@ export class ComplianceService {
   static validateLegalContent(campaign: Campaign): ComplianceCheck[] {
     const checks: ComplianceCheck[] = [];
     
-    // Forbidden words for Coca-Cola
+    // Forbidden words for brand compliance
     const forbiddenWords = [
       'pepsi', 'mountain dew', 'dr pepper', 'alcohol', 'beer', 'wine', 
       'competitor', 'unhealthy', 'sugar-free', 'diet', 'zero calories'

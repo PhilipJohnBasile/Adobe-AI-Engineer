@@ -1,5 +1,5 @@
 {
-  "name": "coca-cola-campaign-automation",
+  "name": "campaign-automation-pipeline",
   "version": "1.0.0",
   "description": "Creative Automation Pipeline with React Campaign Manager",
   "main": "campaign-server.js",
@@ -11,11 +11,11 @@
     "dev": "node campaign-server.js",
     "frontend": "cd campaign-manager && npm start",
     "build": "cd campaign-manager && npm run build",
-    "pipeline": "python coca_cola_pipeline.py",
+    "pipeline": "python campaign_pipeline.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "coca-cola",
+    "campaign-automation",
     "creative-automation",
     "react",
     "campaigns",

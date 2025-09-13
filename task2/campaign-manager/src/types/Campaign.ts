@@ -37,6 +37,7 @@ export interface Campaign {
   client: string;
   campaign_start_date: string;
   campaign_end_date: string;
+  status?: 'active' | 'pending' | 'completed' | 'draft';
   campaign_message: {
     primary_headline: string;
     secondary_headline: string;

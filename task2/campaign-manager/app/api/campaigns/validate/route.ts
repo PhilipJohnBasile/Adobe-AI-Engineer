@@ -18,7 +18,7 @@ const validateBrandCompliance = (campaign: any) => {
   }
   
   // Check brand colors
-  const allowedColors = ['#DA020E', '#FFFFFF', '#000000']; // Coca-Cola brand colors
+  const allowedColors = ['#DA020E', '#FFFFFF', '#000000']; // Brand compliance colors
   if (campaign.brandElements?.colors) {
     const validColors = campaign.brandElements.colors.filter((color: string) => 
       allowedColors.includes(color.toUpperCase())
