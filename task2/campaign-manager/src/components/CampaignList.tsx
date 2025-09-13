@@ -139,12 +139,40 @@ export default function CampaignList({ onSelectCampaign, onCreateNew, onEditCamp
 
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
+    if (amount >= 1000000000) {
+      const billions = amount / 1000000000;
+      // Always show as decimal for billions unless it's a clean multiple
+      if (billions >= 10 && billions % 1 === 0) {
+        return `$${Math.round(billions)}B`;
+      } else {
+        return `$${billions.toFixed(1)}B`;
+      }
+    } else if (amount >= 1000000) {
+      const millions = amount / 1000000;
+      // For millions: if >= 1000M, convert to billions
+      if (millions >= 1000) {
+        return formatCurrency(amount); // This will hit the billions case
+      }
+      // Show clean numbers without decimals when appropriate
+      if (millions >= 100 && millions % 1 === 0) {
+        return `$${Math.round(millions)}M`;
+      } else if (millions % 1 === 0) {
+        return `$${Math.round(millions)}M`;
+      } else {
+        return `$${millions.toFixed(1)}M`;
+      }
+    } else if (amount >= 1000) {
+      return `$${Math.round(amount / 1000)}K`;
+    } else {
+      return `$${amount.toLocaleString()}`;
+    }
+  };
+
+  const formatAssetCount = (count: number) => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1).replace('.0', '')}K`;
+    }
+    return count.toLocaleString();
   };
 
   const filteredCampaigns = campaigns.filter(campaign => {
@@ -197,7 +225,17 @@ export default function CampaignList({ onSelectCampaign, onCreateNew, onEditCamp
   return (
     <View backgroundColor="gray-50" minHeight="100vh" padding="size-300" maxWidth="1200px" marginX="auto">
       {/* Header */}
-      <View padding="size-300" marginBottom="size-300" UNSAFE_style={{ boxShadow: 'var(--spectrum-drop-shadow-color-medium)' }}>
+      <View 
+        padding="size-300" 
+        marginBottom="size-300" 
+        backgroundColor="gray-50"
+        UNSAFE_style={{ 
+          boxShadow: 'var(--spectrum-drop-shadow-color-low)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 10
+        }}
+      >
         <Flex justifyContent="space-between" alignItems="center" marginBottom="size-300">
           <View>
             <Heading level={1} margin={0}>Campaign Manager</Heading>
@@ -212,39 +250,61 @@ export default function CampaignList({ onSelectCampaign, onCreateNew, onEditCamp
         </Flex>
 
         {/* Search and Filters */}
-        <Flex gap="size-200" wrap>
-          <SearchField
-            isQuiet
-            placeholder="Search by client, campaign, or ID..."
-            value={searchQuery}
-            onChange={setSearchQuery}
-            width="size-3600"
-          />
-          <Picker
-            isQuiet
-            label="Status"
-            selectedKey={statusFilter}
-            onSelectionChange={(key) => setStatusFilter(key as string)}
-          >
-            <Item key="all">All</Item>
-            <Item key="pending">Pending</Item>
-            <Item key="active">Active</Item>
-            <Item key="completed">Completed</Item>
-          </Picker>
-          <Picker
-            isQuiet
-            label="Sort By"
-            selectedKey={sortBy}
-            onSelectionChange={(key) => setSortBy(key as string)}
-          >
-            <Item key="created_date">Latest</Item>
-            <Item key="name">Name</Item>
-            <Item key="client">Assets</Item>
-            <Item key="budget">Budget</Item>
-          </Picker>
-          <ActionButton isQuiet onPress={loadCampaigns}>
-            <Refresh />
-          </ActionButton>
+        <Flex justifyContent="space-between" alignItems="end" gap="size-300" wrap>
+          <Flex gap="size-200" alignItems="end" flex="1">
+            <SearchField
+              isQuiet
+              placeholder="Search by client, campaign, or ID..."
+              value={searchQuery}
+              onChange={setSearchQuery}
+              width="size-4600"
+            />
+            <Picker
+              isQuiet
+              label="Status"
+              selectedKey={statusFilter}
+              onSelectionChange={(key) => setStatusFilter(key as string)}
+              width="size-1200"
+            >
+              <Item key="all">All</Item>
+              <Item key="pending">Pending</Item>
+              <Item key="active">Active</Item>
+              <Item key="completed">Completed</Item>
+            </Picker>
+            <Picker
+              isQuiet
+              label="Sort by"
+              selectedKey={sortBy}
+              onSelectionChange={(key) => setSortBy(key as string)}
+              width="size-1200"
+            >
+              <Item key="created_date">Latest</Item>
+              <Item key="name">Name</Item>
+              <Item key="client">Client</Item>
+              <Item key="budget">Budget</Item>
+            </Picker>
+          </Flex>
+          <Flex alignItems="center" gap="size-100">
+            <Text UNSAFE_style={{
+              fontSize: 'var(--spectrum-global-dimension-font-size-75)',
+              color: 'var(--spectrum-alias-text-color-secondary)'
+            }}>
+              Last updated 10:03 ·
+            </Text>
+            <ActionButton 
+              isQuiet 
+              onPress={loadCampaigns}
+              aria-label="Refresh campaigns"
+            >
+              <Text UNSAFE_style={{
+                fontSize: 'var(--spectrum-global-dimension-font-size-75)',
+                color: 'var(--spectrum-alias-text-color-secondary)',
+                textDecoration: 'underline'
+              }}>
+                Refresh
+              </Text>
+            </ActionButton>
+          </Flex>
         </Flex>
       </View>
 
@@ -281,10 +341,25 @@ export default function CampaignList({ onSelectCampaign, onCreateNew, onEditCamp
                 onClick={() => onSelectCampaign?.(campaign)}
                 style={{
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  borderRadius: 'var(--spectrum-alias-border-radius-large)',
+                  position: 'relative'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = 'var(--spectrum-drop-shadow-color-medium)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <Well>
+                <Well
+                  UNSAFE_style={{
+                    padding: 'var(--spectrum-global-dimension-size-300)',
+                    borderRadius: 'var(--spectrum-alias-border-radius-large)'
+                  }}
+                >
                 {/* Top Row: Brand Tile + Status */}
                 <Flex justifyContent="space-between" alignItems="center" marginBottom="size-200">
                   <Flex alignItems="center" gap="size-150">
@@ -312,115 +387,200 @@ export default function CampaignList({ onSelectCampaign, onCreateNew, onEditCamp
                         <Text>{clientLogo.value}</Text>
                       )}
                     </View>
-                    <StatusLight variant={getStatusVariant(campaign.status)} size="m">
-                      {campaign.status}
+                    <StatusLight 
+                      variant={getStatusVariant(campaign.status)} 
+                      size="m"
+                      UNSAFE_style={{
+                        color: campaign.status === 'pending' ? 'var(--spectrum-global-color-orange-900)' : 'var(--spectrum-alias-text-color)',
+                        fontWeight: '600'
+                      }}
+                    >
+                      {campaign.status?.charAt(0).toUpperCase() + campaign.status?.slice(1) || 'Draft'}
                     </StatusLight>
                   </Flex>
                   <MenuTrigger>
-                    <ActionButton isQuiet>
+                    <ActionButton 
+                      isQuiet 
+                      aria-label={`More actions for ${campaign.campaign_name}`}
+                      UNSAFE_style={{
+                        minWidth: 'var(--spectrum-global-dimension-size-400)'
+                      }}
+                    >
                       <More />
                     </ActionButton>
                     <Menu onAction={(key) => {
                       if (key === 'edit') onEditCampaign?.(campaign);
                       if (key === 'view') onSelectCampaign?.(campaign);
+                      if (key === 'copy') navigator.clipboard.writeText(campaign.campaign_id);
                     }}>
                       <Item key="view">View Details</Item>
                       <Item key="edit">Edit Campaign</Item>
+                      <Item key="copy" textValue="Copy ID">
+                        <Text>Copy ID</Text>
+                      </Item>
                     </Menu>
                   </MenuTrigger>
                 </Flex>
 
                 {/* Campaign Title */}
-                <Heading level={4} marginBottom="size-100">
+                <Heading 
+                  level={4} 
+                  marginBottom="size-200"
+                  UNSAFE_style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '100%',
+                    lineHeight: '1.3'
+                  }}
+                  title={campaign.campaign_name}
+                >
                   {campaign.campaign_name}
                 </Heading>
-                <Text UNSAFE_style={{color: 'var(--spectrum-alias-text-color-secondary)'}} marginBottom="size-200">
+                <Text 
+                  UNSAFE_style={{
+                    color: 'var(--spectrum-alias-text-color-secondary)',
+                    fontSize: 'var(--spectrum-global-dimension-font-size-100)',
+                    fontWeight: '500'
+                  }} 
+                  marginBottom="size-350"
+                >
                   {campaign.client}
                 </Text>
 
-                <Divider size="S" marginBottom="size-200" />
+                <Divider 
+                  size="S" 
+                  marginBottom="size-200" 
+                  UNSAFE_style={{
+                    opacity: '0.3'
+                  }}
+                />
 
-                {/* Metrics Row */}
-                <Flex justifyContent="space-between" marginBottom="size-200">
-                  <View>
+                {/* KPI Grid */}
+                <Grid 
+                  areas={['budget assets']} 
+                  columns={['1fr', '1fr']} 
+                  gap="size-300" 
+                  marginBottom="size-200"
+                  height="size-1000"
+                  alignItems="end"
+                >
+                  <View gridArea="budget">
                     <Text UNSAFE_style={{
                       fontSize: 'var(--spectrum-global-dimension-font-size-75)',
-                      color: 'var(--spectrum-alias-text-color-secondary)',
+                      color: 'var(--spectrum-alias-text-color)',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
+                      letterSpacing: '0.75px',
+                      fontWeight: '600',
+                      display: 'block',
+                      marginBottom: 'var(--spectrum-global-dimension-size-50)'
                     }}>
-                      Budget
+                      BUDGET
                     </Text>
                     <Text UNSAFE_style={{
-                      fontSize: 'var(--spectrum-global-dimension-font-size-200)',
+                      fontSize: 'var(--spectrum-global-dimension-font-size-300)',
                       fontWeight: '700',
-                      color: 'var(--spectrum-alias-text-color)'
+                      color: 'var(--spectrum-alias-text-color)',
+                      fontVariantNumeric: 'tabular-nums',
+                      fontFeatureSettings: '"tnum" 1',
+                      lineHeight: '1.2',
+                      minWidth: '60px'
                     }}>
-                      {formatCurrency(parseFloat(campaign.budget_allocation?.total_budget?.replace(/[^\d.-]/g, '') || '125000') * 1000)}
+                      {formatCurrency(parseFloat(campaign.budget_allocation?.total_budget?.replace(/[^\d.-]/g, '') || '50') * 1000000)}
                     </Text>
                   </View>
-                  <View UNSAFE_style={{ textAlign: 'right' }}>
+                  <View gridArea="assets" UNSAFE_style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', height: '100%', justifyContent: 'flex-end' }}>
                     <Text UNSAFE_style={{
                       fontSize: 'var(--spectrum-global-dimension-font-size-75)',
-                      color: 'var(--spectrum-alias-text-color-secondary)',
+                      color: 'var(--spectrum-alias-text-color)',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
+                      letterSpacing: '0.75px',
+                      fontWeight: '600',
+                      display: 'block',
+                      marginBottom: 'var(--spectrum-global-dimension-size-50)'
                     }}>
-                      Assets
+                      ASSETS
                     </Text>
                     <Text UNSAFE_style={{
-                      fontSize: 'var(--spectrum-global-dimension-font-size-200)',
+                      fontSize: 'var(--spectrum-global-dimension-font-size-300)',
                       fontWeight: '700',
-                      color: 'var(--spectrum-alias-text-color)'
+                      color: 'var(--spectrum-alias-text-color)',
+                      fontVariantNumeric: 'tabular-nums',
+                      fontFeatureSettings: '"tnum" 1',
+                      lineHeight: '1.2',
+                      minWidth: '40px'
                     }}>
-                      {campaign.deliverables?.total_assets || campaign.products?.length * 9 || 27}
+                      {formatAssetCount(campaign.deliverables?.total_assets || campaign.products?.length * 9 || 27)}
                     </Text>
                   </View>
-                </Flex>
+                </Grid>
 
-                {/* Progress Bar for Active Campaigns */}
-                {campaign.status === 'active' && (
-                  <View marginBottom="size-200">
-                    <Flex justifyContent="space-between" alignItems="center" marginBottom="size-100">
-                      <Text UNSAFE_style={{
-                        fontSize: 'var(--spectrum-global-dimension-font-size-75)',
-                        color: 'var(--spectrum-alias-text-color-secondary)'
-                      }}>
-                        Progress
-                      </Text>
-                      <Text UNSAFE_style={{
-                        fontSize: 'var(--spectrum-global-dimension-font-size-75)',
-                        fontWeight: '600',
-                        color: 'var(--spectrum-alias-text-color)'
-                      }}>
-                        72%
-                      </Text>
-                    </Flex>
-                    <ProgressBar
-                      label="Campaign Progress"
-                      value={72}
-                      showValueLabel={false}
-                      size="S"
-                    />
-                  </View>
-                )}
+                {/* Campaign Progress - Always Present */}
+                <View marginBottom="size-200" height="size-700">
+                  <Flex justifyContent="space-between" alignItems="center" marginBottom="size-100">
+                    <Text UNSAFE_style={{
+                      fontSize: 'var(--spectrum-global-dimension-font-size-75)',
+                      color: campaign.status === 'pending' ? 'var(--spectrum-alias-text-color-disabled)' : 'var(--spectrum-alias-text-color)',
+                      fontWeight: '600'
+                    }}>
+                      Campaign progress
+                    </Text>
+                    <Text UNSAFE_style={{
+                      fontSize: 'var(--spectrum-global-dimension-font-size-75)',
+                      fontWeight: '700',
+                      color: campaign.status === 'pending' ? 'var(--spectrum-alias-text-color-disabled)' : 'var(--spectrum-alias-text-color)',
+                      fontVariantNumeric: 'tabular-nums',
+                      fontFeatureSettings: '"tnum" 1'
+                    }}>
+                      {campaign.status === 'active' ? '18 / 27 assets (67%)' :
+                       campaign.status === 'completed' ? 'Completed' : 
+                       'Not started'}
+                    </Text>
+                  </Flex>
+                  <ProgressBar
+                    aria-label="Campaign progress"
+                    value={campaign.status === 'active' ? 67 : campaign.status === 'completed' ? 100 : 0}
+                    showValueLabel={false}
+                    variant={campaign.status === 'completed' ? 'neutral' : campaign.status === 'active' ? 'positive' : 'notice'}
+                    size="S"
+                    isIndeterminate={false}
+                  />
+                </View>
 
-                <Divider size="S" marginBottom="size-200" />
+                <Divider 
+                  size="S" 
+                  marginBottom="size-200" 
+                  UNSAFE_style={{
+                    opacity: '0.3'
+                  }}
+                />
 
                 {/* Footer Row */}
-                <Flex justifyContent="space-between" alignItems="center">
+                <Flex 
+                  justifyContent="space-between" 
+                  alignItems="center"
+                  minHeight="size-500"
+                >
                   <Text UNSAFE_style={{
                     fontSize: 'var(--spectrum-global-dimension-font-size-75)',
                     color: 'var(--spectrum-alias-text-color-secondary)',
-                    fontFamily: 'monospace'
+                    fontFamily: 'var(--spectrum-font-family-code)',
+                    fontVariantNumeric: 'tabular-nums',
+                    fontFeatureSettings: '"tnum" 1',
+                    letterSpacing: '0.5px',
+                    opacity: '0.8'
                   }}>
                     {campaign.campaign_id}
                   </Text>
                   <ActionButton
                     variant="accent"
                     onPress={() => onSelectCampaign?.(campaign)}
+                    UNSAFE_style={{
+                      fontWeight: '600',
+                      minWidth: '120px'
+                    }}
                   >
-                    {campaign.status === 'completed' ? 'View Results' : 'Run Pipeline'}
+                    {campaign.status === 'completed' ? 'View results' : 'Run pipeline'}
                   </ActionButton>
                 </Flex>
               </Well>
