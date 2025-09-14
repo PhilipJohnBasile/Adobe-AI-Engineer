@@ -1,6 +1,0 @@
-{
-  "/api/campaigns/route": "app/api/campaigns/route.js",
-  "/api/campaigns/[id]/generate/route": "app/api/campaigns/[id]/generate/route.js",
-  "/campaigns/[id]/page": "app/campaigns/[id]/page.js",
-  "/campaigns/page": "app/campaigns/page.js"
-}

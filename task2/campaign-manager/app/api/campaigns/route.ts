@@ -1,63 +1,95 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { readdir, readFile } from 'fs/promises';
-import { CAMPAIGN_DIR } from '@/lib/campaignFs';
-import { existsSync } from 'fs';
+import { json } from "@remix-run/node";
+import { readCampaign, writeCampaign, CAMPAIGN_DIR } from "~/lib/campaignFs";
+import { CampaignSchema } from "~/lib/campaignSchema";
+import type { Campaign } from "~/lib/campaignSchema";
+import * as fs from 'fs';
+import * as path from 'path';
 
-// GET /api/campaigns
+// GET /api/campaigns - List all campaigns from filesystem
 export async function GET() {
   try {
-    if (!existsSync(CAMPAIGN_DIR)) {
-      return NextResponse.json([]);
-    }
-
-    const files = await readdir(CAMPAIGN_DIR);
+    // Read all JSON files from the campaigns directory
+    const files = fs.readdirSync(CAMPAIGN_DIR);
     const jsonFiles = files.filter(file => file.endsWith('.json'));
     
     const campaigns = await Promise.all(
-      jsonFiles.map(async (file) => {
+      jsonFiles.map(async (filename) => {
         try {
-          const filePath = `${CAMPAIGN_DIR}/${file}`;
-          const content = await readFile(filePath, 'utf8');
-          const campaign = JSON.parse(content);
+          const campaignId = path.basename(filename, '.json');
+          const campaignData = await readCampaign(campaignId);
+          const validatedCampaign = CampaignSchema.parse(campaignData);
+          
+          const filePath = path.join(CAMPAIGN_DIR, filename);
           return {
-            id: campaign.campaign_id,
-            name: campaign.campaign_name,
-            client: campaign.client,
-            start_date: campaign.campaign_start_date,
-            end_date: campaign.campaign_end_date
+            ...validatedCampaign,
+            id: validatedCampaign.campaign_id || campaignId,
+            name: validatedCampaign.campaign_name,
+            status: determineStatus(validatedCampaign),
+            created_date: fs.statSync(filePath).ctime.toISOString()
           };
         } catch (error) {
-          console.error(`Error reading campaign file ${file}:`, error);
+          console.warn(`Failed to load ${filename}:`, error);
           return null;
         }
       })
     );
-
-    return NextResponse.json(campaigns.filter(Boolean));
+    
+    // Filter out failed loads
+    const validCampaigns = campaigns.filter(campaign => campaign !== null);
+    console.log(`Loaded ${validCampaigns.length} campaigns from filesystem`);
+    
+    return json(validCampaigns);
   } catch (error) {
-    console.error('Error listing campaigns:', error);
-    return NextResponse.json({ error: 'Failed to read campaigns' }, { status: 500 });
+    console.error('Error loading campaigns:', error);
+    return json({ error: 'Failed to load campaigns' }, { status: 500 });
   }
 }
 
-// POST /api/campaigns
-export async function POST(request: NextRequest) {
+// POST /api/campaigns - Create new campaign JSON file
+export async function POST({ request }: { request: Request }) {
   try {
-    const campaign = await request.json();
+    // Parse the request body
+    const campaignData = await request.json();
     
-    // Use the writeCampaign function to save to filesystem
-    const { writeCampaign } = await import('@/lib/campaignFs');
-    const { CampaignSchema } = await import('@/lib/campaignSchema');
+    // Generate campaign ID if not provided
+    if (!campaignData.campaign_id) {
+      campaignData.campaign_id = `CAMPAIGN_${Date.now()}`;
+    }
     
-    // Validate the campaign data
-    const validatedCampaign = CampaignSchema.parse(campaign);
+    const campaignId = campaignData.campaign_id;
+    const filePath = path.join(CAMPAIGN_DIR, `${campaignId}.json`);
     
-    // Write the campaign to filesystem
-    await writeCampaign(validatedCampaign.campaign_id, validatedCampaign);
+    // Check if file already exists
+    if (fs.existsSync(filePath)) {
+      return json({ error: 'Campaign already exists' }, { status: 409 });
+    }
     
-    return NextResponse.json(validatedCampaign);
+    // Validate with Zod schema
+    const validatedCampaign = CampaignSchema.parse(campaignData);
+    
+    // Use the proper filesystem utility
+    await writeCampaign(campaignId, validatedCampaign);
+    
+    console.log(`Created new campaign ${campaignId} in filesystem`);
+    
+    return json({ success: true, campaign: validatedCampaign }, { status: 201 });
   } catch (error) {
     console.error('Error creating campaign:', error);
-    return NextResponse.json({ error: 'Failed to create campaign' }, { status: 500 });
+    return json({ error: 'Failed to create campaign' }, { status: 500 });
+  }
+}
+
+// Helper function to determine campaign status
+function determineStatus(campaign: any): 'pending' | 'active' | 'completed' {
+  const now = new Date();
+  const startDate = new Date(campaign.campaign_start_date || '');
+  const endDate = new Date(campaign.campaign_end_date || '');
+  
+  if (now < startDate) {
+    return 'pending';
+  } else if (now >= startDate && now <= endDate) {
+    return 'active';
+  } else {
+    return 'completed';
   }
 }

@@ -5,6 +5,9 @@ pyyaml==6.0.1
 requests==2.31.0
 python-dotenv==1.0.0
 
+# Azure cloud storage
+azure-storage-blob==12.19.0
+
 # Image processing and computer vision
 opencv-python==4.8.1.78
 numpy==1.24.3

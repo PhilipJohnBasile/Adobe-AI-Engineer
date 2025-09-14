@@ -1,0 +1,33 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/*",
+      "serve": "/index.html",
+      "statusCode": 200
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/*.{css,js,png,jpg,jpeg,gif,svg,ico,woff,woff2}"]
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Content-Security-Policy": "default-src 'self' https://*.azure.com https://*.windows.net; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+  },
+  "responseOverrides": {
+    "401": {
+      "rewrite": "/unauthorized.html"
+    },
+    "404": {
+      "rewrite": "/index.html"
+    }
+  }
+}

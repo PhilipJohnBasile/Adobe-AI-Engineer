@@ -1,0 +1,333 @@
+{
+  "campaign_id": "BAILEYS_HOLIDAY_INDULGENCE_2025",
+  "campaign_name": "Baileys - Holiday Indulgence",
+  "client": "Diageo",
+  "campaign_start_date": "2025-11-01",
+  "campaign_end_date": "2026-02-14",
+  "campaign_message": {
+    "primary_headline": "Treat Yourself",
+    "secondary_headline": "Indulge in Life's Sweet Moments",
+    "brand_voice": "indulgent, warm, comforting, luxurious",
+    "seasonal_theme": "holiday treats, cozy moments, indulgent desserts, romantic occasions"
+  },
+  "target_audience": {
+    "primary": {
+      "demographics": "25-50 year olds, treat enthusiasts, gift buyers",
+      "psychographics": "values comfort, indulgence, and special moments",
+      "behavior": "dessert lovers, holiday entertainers, romantic occasion celebrants"
+    }
+  },
+  "products": [
+    {
+      "id": "baileys_original",
+      "name": "Baileys Original Irish Cream",
+      "category": "Cream Liqueur",
+      "description": "The original and best-loved Irish cream liqueur with smooth whiskey and cream",
+      "key_benefits": [
+        "Original recipe",
+        "Smooth cream texture",
+        "Premium Irish whiskey",
+        "Perfect for desserts"
+      ],
+      "target_price": "$24.99",
+      "messaging": {
+        "primary": "Original Indulgence",
+        "secondary": "Smooth as Silk"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_cozy.png",
+        "lifestyle_dessert.png"
+      ]
+    },
+    {
+      "id": "baileys_vanilla",
+      "name": "Baileys Vanilla Cinnamon",
+      "category": "Flavored Cream Liqueur",
+      "description": "Seasonal vanilla and cinnamon flavored cream liqueur perfect for winter",
+      "key_benefits": [
+        "Seasonal flavors",
+        "Warm spice notes",
+        "Holiday perfect",
+        "Limited edition"
+      ],
+      "target_price": "$26.99",
+      "messaging": {
+        "primary": "Warm Winter Nights",
+        "secondary": "Seasonal Perfection"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_cozy.png",
+        "lifestyle_holiday.png"
+      ]
+    },
+    {
+      "id": "baileys_salted_caramel",
+      "name": "Baileys Salted Caramel",
+      "category": "Flavored Cream Liqueur",
+      "description": "Rich salted caramel flavored Irish cream perfect for holiday indulgence",
+      "key_benefits": [
+        "Rich caramel flavor",
+        "Perfect salt balance",
+        "Dessert complement",
+        "Premium indulgence"
+      ],
+      "target_price": "$27.99",
+      "messaging": {
+        "primary": "Sweet Indulgence",
+        "secondary": "Caramel Dreams"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_dessert.png",
+        "lifestyle_indulgent.png"
+      ]
+    },
+    {
+      "id": "baileys_espresso",
+      "name": "Baileys Espresso Creme",
+      "category": "Coffee Cream Liqueur",
+      "description": "Rich espresso and cream combination perfect for after-dinner moments",
+      "key_benefits": [
+        "Real espresso flavor",
+        "Smooth cream texture",
+        "After-dinner perfect",
+        "Coffee lover's dream"
+      ],
+      "target_price": "$26.99",
+      "messaging": {
+        "primary": "Coffee Perfection",
+        "secondary": "After-Dinner Luxury"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_coffee.png",
+        "lifestyle_sophisticated.png"
+      ]
+    },
+    {
+      "id": "baileys_strawberries",
+      "name": "Baileys Strawberries & Cream",
+      "category": "Fruit Cream Liqueur",
+      "description": "Luscious strawberry and cream flavors perfect for romantic occasions",
+      "key_benefits": [
+        "Fresh strawberry taste",
+        "Romantic appeal",
+        "Valentine's perfect",
+        "Luxury dessert flavor"
+      ],
+      "target_price": "$27.99",
+      "messaging": {
+        "primary": "Romantic Indulgence",
+        "secondary": "Strawberry Dreams"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_romantic.png",
+        "lifestyle_dessert.png"
+      ]
+    },
+    {
+      "id": "baileys_chocolat_luxe",
+      "name": "Baileys Chocolat Luxe",
+      "category": "Chocolate Cream Liqueur",
+      "description": "Premium chocolate cream liqueur for the ultimate luxury experience",
+      "key_benefits": [
+        "Premium chocolate flavor",
+        "Ultra-luxury experience",
+        "Gift-worthy presentation",
+        "Dessert perfection"
+      ],
+      "target_price": "$34.99",
+      "messaging": {
+        "primary": "Ultimate Luxury",
+        "secondary": "Chocolate Perfection"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_luxury.png",
+        "lifestyle_chocolate.png"
+      ]
+    }
+  ],
+  "target_regions": [
+    {
+      "region": "North America",
+      "countries": ["United States", "Canada", "Mexico"],
+      "languages": ["en", "fr", "es"],
+      "cultural_notes": "Holiday season traditions, winter comfort culture, Valentine's Day romance, Thanksgiving gatherings",
+      "messaging_adaptation": {
+        "tone": "warm and indulgent",
+        "themes": [
+          "holiday comfort traditions",
+          "winter warmth indulgence",
+          "romantic moments",
+          "family gathering luxury"
+        ],
+        "local_context": "american thanksgiving and christmas, canadian winter traditions, mexican holiday celebrations"
+      }
+    },
+    {
+      "region": "Ireland & United Kingdom",
+      "countries": ["Ireland", "United Kingdom"],
+      "languages": ["en"],
+      "cultural_notes": "Irish heritage pride, winter pub culture, holiday celebrations, Boxing Day traditions",
+      "messaging_adaptation": {
+        "tone": "heritage-focused and cozy",
+        "themes": [
+          "authentic irish tradition",
+          "pub comfort culture",
+          "winter fireside indulgence",
+          "christmas heritage"
+        ],
+        "local_context": "irish cream heritage, british holiday traditions, winter warming culture"
+      }
+    },
+    {
+      "region": "Continental Europe",
+      "countries": ["Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Switzerland", "Austria"],
+      "languages": ["de", "fr", "it", "es", "nl"],
+      "cultural_notes": "Christmas market culture, winter indulgence, sophisticated dessert appreciation, Valentine's romance",
+      "messaging_adaptation": {
+        "tone": "sophisticated and indulgent",
+        "themes": [
+          "christmas market sophistication",
+          "winter luxury traditions",
+          "dessert culture excellence",
+          "european holiday elegance"
+        ],
+        "local_context": "german christmas markets, french dessert culture, italian indulgence, swiss luxury"
+      }
+    },
+    {
+      "region": "Nordic Countries",
+      "countries": ["Sweden", "Norway", "Denmark", "Finland"],
+      "languages": ["sv", "no", "da", "fi", "en"],
+      "cultural_notes": "Hygge culture, long winter comfort, luxury indulgence, festive traditions",
+      "messaging_adaptation": {
+        "tone": "cozy and luxurious",
+        "themes": [
+          "hygge winter comfort",
+          "luxury warmth traditions",
+          "festive indulgence",
+          "long night luxury"
+        ],
+        "local_context": "scandinavian hygge culture, winter comfort traditions, luxury indulgence appreciation"
+      }
+    },
+    {
+      "region": "Asia Pacific Premium",
+      "countries": ["Australia", "New Zealand", "Japan", "South Korea", "Singapore", "Hong Kong"],
+      "languages": ["en", "ja", "ko", "zh"],
+      "cultural_notes": "Premium spirits appreciation, luxury gifting culture, winter season (southern hemisphere), sophisticated dessert culture",
+      "messaging_adaptation": {
+        "tone": "premium and sophisticated",
+        "themes": [
+          "luxury gifting traditions",
+          "premium indulgence culture",
+          "sophisticated dessert pairing",
+          "exclusive moments"
+        ],
+        "local_context": "australian luxury market, japanese premium culture, korean gift traditions, singapore sophistication"
+      }
+    },
+    {
+      "region": "Eastern Europe",
+      "countries": ["Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Ukraine"],
+      "languages": ["ru", "pl", "cs", "hu", "ro", "uk"],
+      "cultural_notes": "Orthodox Christmas celebrations, winter indulgence culture, premium spirits appreciation, traditional desserts",
+      "messaging_adaptation": {
+        "tone": "traditional and luxurious",
+        "themes": [
+          "orthodox christmas luxury",
+          "traditional indulgence",
+          "winter warming traditions",
+          "premium celebration"
+        ],
+        "local_context": "russian premium culture, polish christmas traditions, czech dessert appreciation"
+      }
+    },
+    {
+      "region": "Latin America Premium",
+      "countries": ["Brazil", "Argentina", "Chile", "Colombia"],
+      "languages": ["pt", "es"],
+      "cultural_notes": "New Year celebrations, premium spirits culture, dessert indulgence, romantic traditions",
+      "messaging_adaptation": {
+        "tone": "celebratory and romantic",
+        "themes": [
+          "new year luxury",
+          "romantic celebrations",
+          "premium indulgence",
+          "dessert culture sophistication"
+        ],
+        "local_context": "brazilian new year traditions, argentine premium culture, chilean wine country sophistication"
+      }
+    }
+  ],
+  "creative_requirements": {
+    "formats": [
+      {
+        "name": "square",
+        "dimensions": "1080x1080",
+        "platform": "Instagram Post",
+        "usage": "Main feed posts, indulgent moments"
+      },
+      {
+        "name": "story",
+        "dimensions": "1080x1920",
+        "platform": "Instagram/Facebook Stories",
+        "usage": "Vertical stories, cozy experiences"
+      },
+      {
+        "name": "landscape",
+        "dimensions": "1920x1080",
+        "platform": "Facebook/YouTube Ads",
+        "usage": "Horizontal video ads, luxury indulgence"
+      }
+    ],
+    "brand_requirements": {
+      "logo_placement": "bottom-center",
+      "color_compliance": "must use Baileys cream #F5E6D3 and deep brown #4A3728",
+      "typography": "Elegant script for headers, warm serif for body",
+      "messaging": "indulgent, warm, luxurious tone"
+    }
+  },
+  "budget_allocation": {
+    "total_budget": "$3200000",
+    "genai_budget": "$64000",
+    "estimated_assets": 168,
+    "cost_per_asset": "$380.95"
+  },
+  "success_metrics": {
+    "primary_kpis": [
+      "Global holiday market penetration",
+      "Premium indulgence brand association",
+      "Luxury gift consideration lift",
+      "Winter comfort category leadership"
+    ],
+    "target_metrics": {
+      "awareness_lift": "26%",
+      "engagement_rate": "5.8%",
+      "seasonal_conversion": "42%",
+      "global_reach": "76%"
+    }
+  },
+  "deliverables": {
+    "total_assets": 168,
+    "breakdown": {
+      "baileys_original": 36,
+      "baileys_vanilla": 28,
+      "baileys_salted_caramel": 28,
+      "baileys_espresso": 24,
+      "baileys_strawberries": 24,
+      "baileys_chocolat_luxe": 28
+    },
+    "formats_per_product": {
+      "square": 7,
+      "story": 7,
+      "landscape": 7,
+      "mobile_banner": 7
+    }
+  }
+}

@@ -15,6 +15,16 @@ from PIL import Image, ImageDraw, ImageFont
 import openai
 import os
 
+# Import Azure storage helper
+sys.path.append(str(Path(__file__).parent / 'campaign-manager' / 'python'))
+try:
+    from azure_storage import load_campaign_from_file_or_azure
+    AZURE_AVAILABLE = True
+except ImportError:
+    AZURE_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning("Azure storage not available - using local files only")
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -81,9 +91,12 @@ class CocaColaPipeline:
         """Process a complete Coca-Cola campaign."""
         logger.info(f"Processing campaign: {campaign_file}")
         
-        # Load campaign brief
-        with open(campaign_file) as f:
-            campaign = json.load(f)
+        # Load campaign brief (supports both local files and Azure Blob Storage)
+        if AZURE_AVAILABLE:
+            campaign = load_campaign_from_file_or_azure(campaign_file)
+        else:
+            with open(campaign_file) as f:
+                campaign = json.load(f)
         
         campaign_id = campaign["campaign_id"]
         campaign_output = self.output_dir / campaign_id

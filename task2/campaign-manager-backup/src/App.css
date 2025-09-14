@@ -1,0 +1,223 @@
+/* Enhanced Adobe Spectrum theming for Campaign Manager - Adobe.com Homepage Style */
+
+/* Adobe brand colors and theming inspired by adobe.com */
+.adobe-brand-primary {
+  background: linear-gradient(135deg, #FF0000 0%, #FF6600 50%, #FA0F00 100%);
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.25);
+}
+
+.adobe-brand-accent {
+  background: linear-gradient(135deg, #1473E6 0%, #0D66D0 50%, #378EF0 100%);
+  box-shadow: 0 4px 20px rgba(20, 115, 230, 0.25);
+}
+
+/* Adobe.com style hero gradients */
+.adobe-hero-gradient {
+  background: linear-gradient(135deg, #FF0000 0%, #FF6600 25%, #1473E6 50%, #9A4AE2 75%, #FF0000 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Campaign status indicators using Spectrum design tokens */
+.campaign-status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.campaign-status-active {
+  background-color: var(--spectrum-global-color-green-500);
+}
+
+.campaign-status-pending {
+  background-color: var(--spectrum-global-color-orange-500);
+}
+
+.campaign-status-completed {
+  background-color: var(--spectrum-global-color-gray-500);
+}
+
+/* Enhanced card hover effects - Adobe.com style */
+.spectrum-Card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spectrum-Card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(20, 115, 230, 0.2);
+}
+
+/* Adobe.com style glassmorphism effects */
+.adobe-glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Adobe logo styling - Adobe.com homepage style */
+.adobe-logo {
+  background: linear-gradient(135deg, #FF0000 0%, #FF6600 50%, #FA0F00 100%);
+  color: white;
+  font-family: 'Adobe Clean', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.75px;
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.adobe-logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: logoShimmer 3s infinite;
+}
+
+@keyframes logoShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Brand demonstration colors for client examples */
+.demo-brand-coca-cola {
+  background-color: #DA020E;
+}
+
+.demo-brand-sprite {
+  background-color: #00A651;
+}
+
+.demo-brand-fanta {
+  background-color: #FF8C00;
+}
+
+/* Enhanced typography - Adobe.com style */
+.spectrum-Heading {
+  font-family: 'Adobe Clean', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Improved spacing and layout - Adobe.com homepage inspiration */
+.campaign-manager-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg,
+    #FAFAFA 0%,
+    #F5F5F5 25%,
+    #EEEEEE 50%,
+    #F0F0F0 75%,
+    #FAFAFA 100%);
+  background-size: 400% 400%;
+  animation: backgroundFlow 12s ease-in-out infinite;
+}
+
+@keyframes backgroundFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Adobe.com style card enhancements */
+.adobe-enhanced-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.adobe-enhanced-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Responsive campaign grid */
+.campaign-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1200px) {
+  .campaign-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .campaign-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Adobe.com style buttons */
+.adobe-cta-button {
+  background: linear-gradient(135deg, #1473E6 0%, #0D66D0 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-family: 'Adobe Clean', sans-serif;
+  padding: 12px 24px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(20, 115, 230, 0.3);
+}
+
+.adobe-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 115, 230, 0.4);
+  background: linear-gradient(135deg, #0D66D0 0%, #1473E6 100%);
+}
+
+/* Adobe.com style text effects */
+.adobe-gradient-text {
+  background: linear-gradient(135deg, #FF0000 0%, #FF6600 50%, #1473E6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Adobe.com style status indicators */
+.adobe-status-indicator {
+  position: relative;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.adobe-status-active {
+  background: linear-gradient(135deg, #00D084 0%, #00B574 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 208, 132, 0.3);
+}
+
+.adobe-status-pending {
+  background: linear-gradient(135deg, #FFB000 0%, #FF8C00 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 176, 0, 0.3);
+}
+
+.adobe-status-completed {
+  background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+}

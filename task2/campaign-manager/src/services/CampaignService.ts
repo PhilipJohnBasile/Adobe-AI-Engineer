@@ -1,25 +1,31 @@
 import { Campaign, CampaignValidation, ComplianceCheck } from '../types/Campaign';
 import axios from 'axios';
 
-const API_BASE = '/api';
+function determineStatus(campaign: any): 'pending' | 'active' | 'completed' {
+  const now = new Date();
+  const startDate = new Date(campaign.campaign_start_date || '');
+  const endDate = new Date(campaign.campaign_end_date || '');
+  
+  if (now < startDate) {
+    return 'pending';
+  } else if (now >= startDate && now <= endDate) {
+    return 'active';
+  } else {
+    return 'completed';
+  }
+}
+
+const API_BASE = 'http://localhost:3002/api';
 
 export class CampaignService {
+
   // Campaign CRUD operations
   static async getAllCampaigns(): Promise<Campaign[]> {
     try {
-      console.log('Attempting to fetch campaigns from:', `${API_BASE}/campaigns`);
       const response = await axios.get(`${API_BASE}/campaigns`);
-      console.log('Campaigns fetched successfully:', response.data.length, 'campaigns');
       return response.data;
     } catch (error) {
-      console.error('Error fetching campaigns:', error);
-      console.error('Error details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        code: (error as any)?.code,
-        status: (error as any)?.response?.status,
-        statusText: (error as any)?.response?.statusText,
-        responseData: (error as any)?.response?.data
-      });
+      console.error('Error loading campaigns:', error);
       throw error;
     }
   }
