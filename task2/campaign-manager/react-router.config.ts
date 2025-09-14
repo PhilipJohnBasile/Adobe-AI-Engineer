@@ -5,11 +5,7 @@ export default {
   appDirectory: 'app',
   buildDirectory: 'build',
   publicPath: '/',
-  serverBuildPath: 'build/server/index.js',
   
-  // Enable SSR and pre-rendering
-  ssr: true,
-  async prerender() {
-    return ["/", "/campaigns"];
-  },
+  // Disable SSR for client-side only app
+  ssr: false,
 } satisfies Config;

@@ -193,7 +193,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
         const formData = new FormData();
         formData.append('file', file);
         
-        const response = await fetch(`http://localhost:3002/api/campaigns/${campaign.campaign_id}/upload`, {
+        const response = await fetch(`/api/campaigns/${campaign.campaign_id}/upload`, {
           method: 'POST',
           body: formData
         });
@@ -218,7 +218,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({
 
   const handleExportJSON = () => {
     if (campaign?.campaign_id) {
-      window.location.href = `http://localhost:3002/api/campaigns/${campaign.campaign_id}/export`;
+      window.location.href = `/api/campaigns/${campaign.campaign_id}/export`;
     }
   };
 

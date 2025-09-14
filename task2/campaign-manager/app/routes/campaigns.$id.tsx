@@ -5,7 +5,8 @@ export async function loader({ params }: Route.LoaderArgs): Promise<Route.Loader
   const { id } = params;
   
   try {
-    const response = await fetch(`http://localhost:3002/api/campaigns/${id}`);
+    // Use relative path for Azure deployment
+    const response = await fetch(`/api/campaigns/${id}`);
     if (!response.ok) {
       throw new Response('Campaign not found', { status: 404 });
     }

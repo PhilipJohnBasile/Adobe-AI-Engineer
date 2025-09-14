@@ -1,0 +1,378 @@
+{
+  "campaign_id": "JOHNNIE_WALKER_HOLIDAY_2025",
+  "campaign_name": "Johnnie Walker - Holiday Heritage",
+  "client": "Diageo",
+  "campaign_start_date": "2025-11-15",
+  "campaign_end_date": "2026-01-05",
+  "campaign_message": {
+    "primary_headline": "Keep Walking Forward",
+    "secondary_headline": "Celebrate Heritage, Embrace Tomorrow",
+    "brand_voice": "sophisticated, confident, progressive, timeless",
+    "seasonal_theme": "holiday celebrations, luxury gifting, year-end reflection, new beginnings"
+  },
+  "target_audience": {
+    "primary": {
+      "demographics": "25-55 year olds, professionals, gift buyers",
+      "psychographics": "values quality, tradition, and progress",
+      "behavior": "premium spirit consumers, gift purchasers, social entertainers"
+    }
+  },
+  "products": [
+    {
+      "id": "johnnie_walker_red",
+      "name": "Johnnie Walker Red Label",
+      "category": "Blended Scotch Whisky",
+      "description": "The world's best-selling Scotch whisky, bold and vibrant with a spicy edge",
+      "key_benefits": [
+        "World's best-selling Scotch",
+        "Bold and versatile flavor",
+        "Perfect for mixing",
+        "Accessible luxury"
+      ],
+      "target_price": "$24.99",
+      "messaging": {
+        "primary": "Keep Walking",
+        "secondary": "Bold Beginnings"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_party.png",
+        "lifestyle_celebration.png"
+      ]
+    },
+    {
+      "id": "johnnie_walker_black",
+      "name": "Johnnie Walker Black Label",
+      "category": "Blended Scotch Whisky",
+      "description": "Rich, smooth, and complex 12-year-old whisky with hints of honey and vanilla",
+      "key_benefits": [
+        "12 years aged",
+        "Complex flavor profile",
+        "Premium quality craftsmanship",
+        "Perfect for gifting"
+      ],
+      "target_price": "$45.99",
+      "messaging": {
+        "primary": "The Perfect Gift of Progress",
+        "secondary": "Celebrate Every Step Forward"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_sophisticated.png",
+        "lifestyle_celebration.png"
+      ]
+    },
+    {
+      "id": "johnnie_walker_green",
+      "name": "Johnnie Walker Green Label",
+      "category": "Blended Malt Scotch Whisky",
+      "description": "A harmonious blend of single malts aged at least 15 years from all four corners of Scotland",
+      "key_benefits": [
+        "15 years minimum age",
+        "Pure malt blend",
+        "Four whisky regions",
+        "Complex single malt character"
+      ],
+      "target_price": "$74.99",
+      "messaging": {
+        "primary": "Malt Masterpiece",
+        "secondary": "Celebrate Complexity"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_sophisticated.png",
+        "lifestyle_connoisseur.png"
+      ]
+    },
+    {
+      "id": "johnnie_walker_gold",
+      "name": "Johnnie Walker Gold Label Reserve",
+      "category": "Blended Scotch Whisky",
+      "description": "A luxurious blend with honey sweetness and signature smokiness",
+      "key_benefits": [
+        "Luxurious honey notes",
+        "Signature smokiness",
+        "Gift-worthy presentation",
+        "Smooth finish"
+      ],
+      "target_price": "$89.99",
+      "messaging": {
+        "primary": "Golden Celebration",
+        "secondary": "Luxury Redefined"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_luxury.png",
+        "lifestyle_celebration.png"
+      ]
+    },
+    {
+      "id": "johnnie_walker_blue",
+      "name": "Johnnie Walker Blue Label",
+      "category": "Premium Blended Scotch Whisky",
+      "description": "Ultra-premium whisky crafted from rare casks for exceptional smoothness",
+      "key_benefits": [
+        "Ultra-premium quality",
+        "Rare cask selection",
+        "Exceptional smoothness",
+        "Ultimate luxury gift"
+      ],
+      "target_price": "$199.99",
+      "messaging": {
+        "primary": "Uncompromising Excellence",
+        "secondary": "For Life's Most Important Moments"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_luxury.png",
+        "lifestyle_executive.png"
+      ]
+    },
+    {
+      "id": "macallan_12",
+      "name": "The Macallan 12 Year Old Sherry Oak",
+      "category": "Single Malt Scotch Whisky",
+      "description": "The flagship single malt from Speyside, matured exclusively in sherry seasoned oak casks",
+      "key_benefits": [
+        "12 years sherry oak maturation",
+        "Rich dried fruits and spice",
+        "Speyside heritage",
+        "Premium gift option"
+      ],
+      "target_price": "$89.99",
+      "messaging": {
+        "primary": "Sherry Oak Excellence",
+        "secondary": "Heritage in Every Drop"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_heritage.png",
+        "lifestyle_sophisticated.png"
+      ]
+    },
+    {
+      "id": "crown_royal",
+      "name": "Crown Royal Canadian Whisky",
+      "category": "Canadian Whisky",
+      "description": "Canada's most famous whisky, blended to perfection with a smooth, elegant taste",
+      "key_benefits": [
+        "Canadian heritage",
+        "Smooth and elegant",
+        "Iconic purple bag",
+        "Premium gift presentation"
+      ],
+      "target_price": "$34.99",
+      "messaging": {
+        "primary": "Reign Supreme",
+        "secondary": "Canadian Elegance"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_canadian.png",
+        "lifestyle_celebration.png"
+      ]
+    }
+  ],
+  "target_regions": [
+    {
+      "region": "North America",
+      "countries": ["United States", "Canada", "Mexico"],
+      "languages": ["en", "fr", "es"],
+      "cultural_notes": "Holiday gifting season, year-end celebrations, corporate entertaining culture, thanksgiving traditions",
+      "messaging_adaptation": {
+        "tone": "sophisticated and aspirational",
+        "themes": [
+          "achievement and success",
+          "holiday tradition excellence",
+          "sophisticated celebration",
+          "premium gift-giving"
+        ],
+        "local_context": "american corporate culture, canadian whisky heritage, mexican celebration traditions"
+      }
+    },
+    {
+      "region": "United Kingdom & Ireland",
+      "countries": ["United Kingdom", "Ireland"],
+      "languages": ["en"],
+      "cultural_notes": "Scottish heritage appreciation, premium spirit culture, traditional celebrations, Christmas markets",
+      "messaging_adaptation": {
+        "tone": "heritage-focused and refined",
+        "themes": [
+          "scottish whisky tradition",
+          "craftsmanship excellence",
+          "timeless legacy",
+          "home of whisky"
+        ],
+        "local_context": "home market appreciation for scotch whisky heritage, irish whiskey culture"
+      }
+    },
+    {
+      "region": "Continental Europe",
+      "countries": ["France", "Germany", "Italy", "Spain", "Netherlands", "Belgium", "Switzerland", "Austria"],
+      "languages": ["fr", "de", "it", "es", "nl"],
+      "cultural_notes": "Christmas market culture, luxury appreciation, premium spirits consumption, sophisticated gifting",
+      "messaging_adaptation": {
+        "tone": "luxury-focused and sophisticated",
+        "themes": [
+          "european luxury traditions",
+          "premium craftsmanship",
+          "holiday sophistication",
+          "continental elegance"
+        ],
+        "local_context": "french luxury culture, german christmas markets, italian sophistication, spanish celebration"
+      }
+    },
+    {
+      "region": "Asia Pacific Premium",
+      "countries": ["Japan", "South Korea", "Singapore", "Hong Kong", "Taiwan", "Australia", "New Zealand"],
+      "languages": ["ja", "ko", "en", "zh"],
+      "cultural_notes": "Premium spirits appreciation, luxury gifting culture, year-end business entertainment, whisky connoisseur markets",
+      "messaging_adaptation": {
+        "tone": "premium and respectful",
+        "themes": [
+          "japanese whisky appreciation",
+          "premium business entertainment",
+          "luxury gift culture",
+          "sophisticated tasting"
+        ],
+        "local_context": "japanese whisky culture, korean business entertainment, singapore duty-free, australian premium market"
+      }
+    },
+    {
+      "region": "Latin America",
+      "countries": ["Brazil", "Argentina", "Chile", "Colombia", "Peru", "Venezuela"],
+      "languages": ["pt", "es"],
+      "cultural_notes": "New Year celebrations, premium spirits status, business entertainment, festive season traditions",
+      "messaging_adaptation": {
+        "tone": "celebratory and prestigious",
+        "themes": [
+          "new year prosperity",
+          "success celebration",
+          "premium status",
+          "festive sophistication"
+        ],
+        "local_context": "brazilian new year traditions, argentine business culture, chilean wine and spirits appreciation"
+      }
+    },
+    {
+      "region": "Middle East & Africa",
+      "countries": ["South Africa", "Nigeria", "Kenya", "UAE", "Saudi Arabia", "Egypt"],
+      "languages": ["en", "ar", "fr", "zu", "sw"],
+      "cultural_notes": "Luxury consumption, business entertainment, celebration culture, premium gifting traditions",
+      "messaging_adaptation": {
+        "tone": "prestigious and respectful",
+        "themes": [
+          "luxury celebration",
+          "business excellence",
+          "premium traditions",
+          "sophisticated hospitality"
+        ],
+        "local_context": "middle eastern hospitality, south african luxury market, african celebration culture"
+      }
+    },
+    {
+      "region": "Eastern Europe",
+      "countries": ["Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Ukraine"],
+      "languages": ["ru", "pl", "cs", "hu", "ro", "uk"],
+      "cultural_notes": "Premium spirits appreciation, orthodox Christmas celebrations, new year traditions, business entertaining",
+      "messaging_adaptation": {
+        "tone": "traditional and prestigious",
+        "themes": [
+          "premium celebration",
+          "traditional values",
+          "success achievement",
+          "sophisticated gathering"
+        ],
+        "local_context": "russian premium spirit culture, polish celebration traditions, czech sophisticated dining"
+      }
+    },
+    {
+      "region": "Nordic Region",
+      "countries": ["Sweden", "Norway", "Denmark", "Finland"],
+      "languages": ["sv", "no", "da", "fi", "en"],
+      "cultural_notes": "Premium spirits monopoly markets, holiday traditions, sophisticated consumption, hygge culture",
+      "messaging_adaptation": {
+        "tone": "refined and cozy",
+        "themes": [
+          "nordic sophistication",
+          "cozy celebrations",
+          "premium quality appreciation",
+          "traditional holiday warmth"
+        ],
+        "local_context": "scandinavian hygge culture, systembolaget traditions, premium spirits appreciation"
+      }
+    }
+  ],
+  "creative_requirements": {
+    "formats": [
+      {
+        "name": "square",
+        "dimensions": "1080x1080",
+        "platform": "Instagram Post",
+        "usage": "Main feed posts, luxury lifestyle content"
+      },
+      {
+        "name": "story",
+        "dimensions": "1080x1920",
+        "platform": "Instagram/Facebook Stories",
+        "usage": "Vertical stories, premium moments"
+      },
+      {
+        "name": "landscape",
+        "dimensions": "1920x1080",
+        "platform": "Facebook/YouTube Ads",
+        "usage": "Horizontal video ads, premium advertising"
+      },
+      {
+        "name": "mobile_banner",
+        "dimensions": "320x480",
+        "platform": "Mobile Apps",
+        "usage": "In-app advertising, premium mobile campaigns"
+      }
+    ],
+    "brand_requirements": {
+      "logo_placement": "bottom-right corner",
+      "color_compliance": "must use Johnnie Walker gold #FFD700 and black #000000",
+      "typography": "Johnnie Walker custom font for headers, clean sans-serif for body",
+      "messaging": "sophisticated, confident, progressive tone"
+    }
+  },
+  "budget_allocation": {
+    "total_budget": "$280000",
+    "genai_budget": "$5600",
+    "estimated_assets": 224,
+    "cost_per_asset": "$25.00"
+  },
+  "success_metrics": {
+    "primary_kpis": [
+      "Global brand perception lift",
+      "Premium purchase consideration",
+      "Holiday season market share",
+      "Luxury gifting association"
+    ],
+    "target_metrics": {
+      "awareness_lift": "24%",
+      "engagement_rate": "4.2%",
+      "seasonal_conversion": "28%",
+      "global_reach": "82%"
+    }
+  },
+  "deliverables": {
+    "total_assets": 224,
+    "breakdown": {
+      "johnnie_walker_red": 28,
+      "johnnie_walker_black": 40,
+      "johnnie_walker_green": 32,
+      "johnnie_walker_gold": 36,
+      "johnnie_walker_blue": 44,
+      "macallan_12": 24,
+      "crown_royal": 20
+    },
+    "formats_per_product": {
+      "square": 8,
+      "story": 8,
+      "landscape": 8,
+      "mobile_banner": 8
+    }
+  }
+}

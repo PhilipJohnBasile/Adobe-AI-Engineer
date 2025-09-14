@@ -3,7 +3,8 @@ import type { Route } from './+types/campaigns';
 
 export async function loader(): Promise<Route.LoaderData> {
   try {
-    const response = await fetch('http://localhost:3002/api/campaigns');
+    // Use relative path for Azure deployment
+    const response = await fetch('/api/campaigns');
     if (!response.ok) {
       throw new Error('Failed to load campaigns');
     }
