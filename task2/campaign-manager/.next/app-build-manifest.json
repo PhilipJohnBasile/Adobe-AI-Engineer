@@ -1,22 +1,16 @@
 {
   "pages": {
-    "/campaigns/[id]/edit/page": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/campaigns/[id]/edit/page.css",
-      "static/chunks/app/campaigns/[id]/edit/page.js"
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/campaigns/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/campaigns/layout.css",
       "static/chunks/app/campaigns/layout.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
     ],
     "/campaigns/[id]/page": [
       "static/chunks/webpack.js",
@@ -30,21 +24,15 @@
       "static/css/app/campaigns/page.css",
       "static/chunks/app/campaigns/page.js"
     ],
-    "/page": [
+    "/api/campaigns/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/api/campaigns/route.js"
     ],
-    "/campaigns/new/page": [
+    "/api/campaigns/[id]/generate/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/campaigns/new/page.css",
-      "static/chunks/app/campaigns/new/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/api/campaigns/[id]/generate/route.js"
     ]
   }
 }

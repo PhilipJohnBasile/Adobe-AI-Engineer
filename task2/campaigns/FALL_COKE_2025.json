@@ -1,0 +1,211 @@
+{
+  "campaign_id": "FALL_COKE_2025",
+  "campaign_name": "Fall Into Flavor - October 2025",
+  "client": "The Coca-Cola Company",
+  "campaign_start_date": "2025-10-01",
+  "campaign_end_date": "2025-11-30",
+  "campaign_message": {
+    "primary_headline": "Fall Into Flavor",
+    "secondary_headline": "Cozy Moments, Classic Taste",
+    "brand_voice": "uplifting, inclusive, joyful, authentic",
+    "seasonal_theme": "autumn comfort, warm gatherings, back-to-routine energy"
+  },
+  "target_audience": {
+    "primary": {
+      "demographics": "18-45 year olds, families, working professionals",
+      "psychographics": "value tradition, seek comfort, enjoy seasonal moments",
+      "behavior": "social media active, brand loyal, seasonal purchasers"
+    }
+  },
+  "products": [
+    {
+      "id": "coca_cola_classic",
+      "name": "Coca-Cola Classic",
+      "category": "Cola",
+      "description": "The original and iconic Coca-Cola taste that brings people together",
+      "key_benefits": [
+        "Classic refreshing taste",
+        "Perfect for sharing moments",
+        "Timeless tradition",
+        "Instantly recognizable"
+      ],
+      "target_price": "$1.99",
+      "messaging": {
+        "primary": "Classic Fall Comfort",
+        "secondary": "Share the Tradition"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_usa.png",
+        "lifestyle_germany.png",
+        "lifestyle_japan.png"
+      ]
+    },
+    {
+      "id": "sprite",
+      "name": "Sprite",
+      "category": "Lemon-Lime Soda",
+      "description": "Crisp, clear, refreshing lemon-lime flavor that cuts through the season",
+      "key_benefits": [
+        "Crisp refreshing taste",
+        "Clear and clean flavor",
+        "Perfect mixer for fall drinks",
+        "Thirst quenching"
+      ],
+      "target_price": "$1.79",
+      "messaging": {
+        "primary": "Crisp Fall Refresher",
+        "secondary": "Clear Your Mind"
+      },
+      "existing_assets": [
+        "product_can.png",
+        "lifestyle_usa.png",
+        "lifestyle_germany.png",
+        "lifestyle_japan.png"
+      ]
+    },
+    {
+      "id": "fanta_apple",
+      "name": "Fanta Apple",
+      "category": "Flavored Soda",
+      "description": "Seasonal apple flavor that captures the essence of fall harvest",
+      "key_benefits": [
+        "Seasonal apple taste",
+        "Limited fall availability",
+        "Fun and fruity",
+        "Perfect autumn flavor"
+      ],
+      "target_price": "$1.89",
+      "messaging": {
+        "primary": "Seasonal Fall Favorite",
+        "secondary": "Taste the Harvest"
+      },
+      "existing_assets": [
+        "product_bottle.png",
+        "lifestyle_usa.png",
+        "lifestyle_germany.png",
+        "lifestyle_japan.png"
+      ]
+    }
+  ],
+  "target_regions": [
+    {
+      "region": "USA",
+      "countries": [
+        "United States"
+      ],
+      "languages": [
+        "en"
+      ],
+      "cultural_notes": "Individualistic, bold, achievement-focused. Football season, back-to-school energy, Thanksgiving preparation.",
+      "messaging_adaptation": {
+        "tone": "confident, energetic, personal achievement",
+        "themes": [
+          "fuel your fall hustle",
+          "game day ready",
+          "thanksgiving traditions"
+        ],
+        "local_context": "football season, pumpkin spice culture, individual success"
+      }
+    },
+    {
+      "region": "Germany",
+      "countries": [
+        "Germany",
+        "Austria",
+        "Switzerland"
+      ],
+      "languages": [
+        "de"
+      ],
+      "cultural_notes": "Quality-focused, efficient, precise. Autumn harvest, beer gardens, early Christmas markets.",
+      "messaging_adaptation": {
+        "tone": "quality-focused, reliable, traditional",
+        "themes": [
+          "perfekt f\u00c3\u00bcr jeden moment",
+          "qualit\u00c3\u00a4t und tradition",
+          "herbstliche gem\u00c3\u00bctlichkeit"
+        ],
+        "local_context": "oktoberfest aftermath, harvest festivals, precision valued"
+      }
+    },
+    {
+      "region": "Japan",
+      "countries": [
+        "Japan"
+      ],
+      "languages": [
+        "ja"
+      ],
+      "cultural_notes": "Group harmony, subtle elegance, seasonal awareness. Autumn leaves viewing, group activities.",
+      "messaging_adaptation": {
+        "tone": "harmonious, respectful, seasonal appreciation",
+        "themes": [
+          "aki no odayaka na hitotoki",
+          "minna de tanoshimu",
+          "kisetsu no ajiwai"
+        ],
+        "local_context": "momiji season, group harmony, seasonal ceremonies"
+      }
+    }
+  ],
+  "creative_requirements": {
+    "formats": [
+      {
+        "name": "square",
+        "dimensions": "1080x1080",
+        "platform": "Instagram Post",
+        "usage": "Main feed posts, general social sharing"
+      },
+      {
+        "name": "story",
+        "dimensions": "1080x1920",
+        "platform": "Instagram/Facebook Stories",
+        "usage": "Vertical stories, temporary content"
+      },
+      {
+        "name": "landscape",
+        "dimensions": "1920x1080",
+        "platform": "Facebook/YouTube Ads",
+        "usage": "Horizontal video ads, desktop display"
+      }
+    ],
+    "brand_requirements": {
+      "logo_placement": "bottom-right or top-left",
+      "color_compliance": "must use coca_cola_red #DA020E",
+      "typography": "Spencerian Script for headlines, Gotham for body",
+      "messaging": "uplifting, inclusive, joyful tone"
+    }
+  },
+  "budget_allocation": {
+    "total_budget": "$50000",
+    "genai_budget": "$500",
+    "estimated_assets": 27,
+    "cost_per_asset": "$18.50"
+  },
+  "success_metrics": {
+    "primary_kpis": [
+      "Brand awareness lift",
+      "Seasonal purchase intent",
+      "Social engagement rate"
+    ],
+    "target_metrics": {
+      "awareness_lift": "12%",
+      "engagement_rate": "5.2%",
+      "seasonal_conversion": "8.5%"
+    }
+  },
+  "deliverables": {
+    "total_assets": 27,
+    "breakdown": {
+      "coca_cola_classic": 9,
+      "sprite": 9,
+      "fanta_apple": 9
+    },
+    "formats_per_product": {
+      "square": 3,
+      "story": 3,
+      "landscape": 3
+    }
+  }
+}

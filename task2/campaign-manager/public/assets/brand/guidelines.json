@@ -1,0 +1,32 @@
+{
+  "brand": "Coca-Cola",
+  "primary_colors": {
+    "coca_cola_red": "#DA020E",
+    "white": "#FFFFFF",
+    "black": "#000000"
+  },
+  "secondary_colors": {
+    "silver": "#C0C0C0",
+    "gold": "#FFD700"
+  },
+  "typography": {
+    "primary": "Spencerian Script",
+    "secondary": "Gotham",
+    "fallback": "Arial, sans-serif"
+  },
+  "logo_requirements": {
+    "minimum_size": "100px",
+    "clear_space": "50px",
+    "placement": "top-right or bottom-center",
+    "backgrounds": [
+      "white",
+      "transparent",
+      "coca_cola_red"
+    ]
+  },
+  "brand_voice": {
+    "tone": "uplifting, inclusive, joyful, optimistic",
+    "personality": "authentic, human, refreshing",
+    "messaging": "focus on sharing happiness and connection"
+  }
+}
