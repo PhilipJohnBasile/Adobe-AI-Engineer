@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from 'react-router';
-import type { loader } from './campaigns';
 import { 
   View, 
   Heading, 
@@ -18,7 +17,7 @@ function getStatusColor(status: string) {
     case 'active':
       return 'positive';
     case 'pending':
-      return 'notice';
+      return 'info';
     case 'completed':
       return 'neutral';
     default:
@@ -27,8 +26,17 @@ function getStatusColor(status: string) {
 }
 
 export default function CampaignsIndex() {
-  const { campaigns } = useLoaderData<typeof loader>();
-  
+  const loaderData = useLoaderData() as { campaigns?: any[] } | undefined;
+  const campaigns = loaderData && Array.isArray(loaderData.campaigns) ? loaderData.campaigns : [];
+  if (!loaderData || !Array.isArray(loaderData.campaigns)) {
+    return (
+      <View padding="size-400" minHeight="40vh">
+        <Flex direction="column" alignItems="center" justifyContent="center" gap="size-200">
+          <Text>Failed to load campaigns. Please try again later.</Text>
+        </Flex>
+      </View>
+    );
+  }
   if (campaigns.length === 0) {
     return (
       <View padding="size-400" minHeight="40vh">
@@ -41,13 +49,12 @@ export default function CampaignsIndex() {
       </View>
     );
   }
-  
   return (
     <View>
       <Flex direction="column" gap="size-300">
         {campaigns.map((campaign) => (
           <Well key={campaign.id}>
-            <Flex direction="row" justifyContent="space-between" alignItems="flex-start" gap="size-200">
+            <Flex direction="row" justifyContent="space-between" alignItems="start" gap="size-200">
               <View flex="1">
                 <Flex direction="column" gap="size-100">
                   <Flex direction="row" alignItems="center" gap="size-200">

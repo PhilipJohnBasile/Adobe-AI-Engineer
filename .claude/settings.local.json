@@ -30,7 +30,9 @@
       "Read(//Users/pjb/**)",
       "Bash(timeout 30s curl -s -X POST http://localhost:3001/api/campaigns/FALL_COKE_2025/generate)",
       "Bash(find:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(DEBUG=*)",
+      "Bash(NODE_ENV=development node server.js)"
     ],
     "deny": [],
     "ask": []

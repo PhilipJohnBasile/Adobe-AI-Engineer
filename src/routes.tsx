@@ -1,6 +1,6 @@
 import React from 'react';
 import Root from './root';
-import CampaignsLayout from './routes/campaigns';
+import CampaignsLayout, { loader as campaignsLoader } from './routes/campaigns';
 import CampaignsList from './routes/campaigns._index';
 import CampaignDetail from './routes/campaigns.$id';
 import CampaignEdit from './routes/campaigns.$id.edit';
@@ -18,6 +18,7 @@ export const routes = [
       {
         path: 'campaigns',
         element: <CampaignsLayout />,
+        loader: campaignsLoader,
         children: [
           {
             index: true,
