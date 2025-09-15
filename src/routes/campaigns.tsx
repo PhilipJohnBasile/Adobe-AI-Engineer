@@ -1,7 +1,6 @@
 import { Outlet, useLoaderData } from 'react-router';
-import type { Route } from './+types/campaigns';
 
-export async function loader(): Promise<Route.LoaderData> {
+export async function loader() {
   // In framework mode, loaders run server-side when SSR/prerender is on,
   // or client-side when ssr: false. Either way: no filesystem in prod.
   // Always use API in production - no filesystem access
@@ -21,6 +20,7 @@ export async function loader(): Promise<Route.LoaderData> {
     return { campaigns };
   } catch (error) {
     console.error('Error loading campaigns:', error);
+    // Return empty array to prevent destructuring errors
     return { campaigns: [] };
   }
 }

@@ -8,9 +8,8 @@ const execAsync = promisify(exec);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Detect if running on Azure or locally
-const isAzure = process.env.WEBSITE_INSTANCE_ID !== undefined;
-const isDevelopment = process.env.NODE_ENV !== 'production' && !isAzure;
+// Detect if running in development
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 app.use(express.json());
 
@@ -33,7 +32,7 @@ const campaignsDir = path.join(__dirname, 'campaigns');
 // API Routes
 app.get('/api/campaigns', async (req, res) => {
   try {
-    console.log(`[${isDevelopment ? 'LOCAL' : 'AZURE'}] Loading campaigns from: ${campaignsDir}`);
+    console.log(`[LOCAL] Loading campaigns from: ${campaignsDir}`);
     
     const files = await fs.readdir(campaignsDir);
     const jsonFiles = files.filter(f => f.endsWith('.json'));
@@ -118,16 +117,16 @@ app.delete('/api/campaigns/:id', async (req, res) => {
 app.post('/api/campaigns/:id/generate', async (req, res) => {
   try {
     const { id } = req.params;
-    const pythonScript = path.join(__dirname, '..', 'integrated_pipeline.py');
+    const pythonScript = path.join(__dirname, 'integrated_pipeline.py');
     const command = `python3 "${pythonScript}" "${id}"`;
     
     console.log(`Executing AI generation for campaign: ${id}`);
     
     const { stdout, stderr } = await execAsync(command, {
-      cwd: path.join(__dirname, '..'),
+      cwd: __dirname,
       env: {
         ...process.env,
-        PYTHONPATH: path.join(__dirname, '..')
+        PYTHONPATH: __dirname
       }
     });
     
@@ -155,7 +154,7 @@ app.post('/api/campaigns/:id/generate', async (req, res) => {
   }
 });
 
-// In production/Azure, also serve the React app
+// In production, also serve the React app
 if (!isDevelopment) {
   app.use(express.static(path.join(__dirname, 'dist')));
   
@@ -169,7 +168,7 @@ app.listen(PORT, () => {
     ========================================
     Campaign Manager API Server
     ========================================
-    Environment: ${isDevelopment ? 'DEVELOPMENT' : isAzure ? 'AZURE' : 'PRODUCTION'}
+    Environment: ${isDevelopment ? 'DEVELOPMENT' : 'PRODUCTION'}
     Port: ${PORT}
     API Base: http://localhost:${PORT}/api
     ========================================

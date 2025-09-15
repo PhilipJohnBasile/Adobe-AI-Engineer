@@ -14,10 +14,8 @@ function determineStatus(campaign: any): 'pending' | 'active' | 'completed' {
   }
 }
 
-// Use relative path for Azure deployment, fallback to localhost for dev
-const API_BASE = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-  ? 'http://localhost:3002/api'
-  : '/api';
+// Use relative path for local development with proxy
+const API_BASE = '/api';
 
 export class CampaignService {
 

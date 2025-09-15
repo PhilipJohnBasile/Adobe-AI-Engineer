@@ -1,5 +1,5 @@
 import React from 'react';
-import { Root } from './root';
+import Root from './root';
 import CampaignsLayout from './routes/campaigns';
 import CampaignsList from './routes/campaigns._index';
 import CampaignDetail from './routes/campaigns.$id';
