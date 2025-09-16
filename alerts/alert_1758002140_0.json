@@ -1,8 +1,0 @@
-{
-  "id": "alert_1758002140_0",
-  "type": "test_alert",
-  "message": "Test alert generated for AI agent demonstration",
-  "severity": "medium",
-  "timestamp": "2025-09-16T01:55:40.272899",
-  "status": "pending"
-}

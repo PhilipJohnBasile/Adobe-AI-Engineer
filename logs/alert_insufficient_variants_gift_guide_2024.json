@@ -1,9 +1,0 @@
-{
-  "id": "insufficient_variants_gift_guide_2024",
-  "type": "insufficient_variants",
-  "message": "Campaign gift_guide_2024 has only 0 variants (minimum required: 3)",
-  "severity": "medium",
-  "campaign_id": "gift_guide_2024",
-  "timestamp": "2025-09-15T22:21:49.675808",
-  "status": "active"
-}

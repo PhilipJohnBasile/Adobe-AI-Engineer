@@ -1,0 +1,46 @@
+campaign_brief:
+  brand_guidelines:
+    fonts:
+    - Arial
+    - Helvetica
+    - Roboto
+    primary_colors:
+    - '#007BFF'
+    - '#28A745'
+    - '#FFC107'
+    tone: critical campaign with professional approach
+  budget_constraints:
+    generation_limit: 6
+    max_api_cost: 25.0
+  campaign_id: urgent_product_launch
+  campaign_message: Discover Excellence - Critical Launch
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    - PNG
+    quality: premium
+  products:
+  - description: High-fidelity wireless headphones with active noise cancellation
+    name: Premium Wireless Headphones
+    target_keywords:
+    - premium
+    - wireless
+    - noise-canceling
+    - audio
+  - description: Sustainable stainless steel water bottle with temperature retention
+    name: Eco-Friendly Water Bottle
+    target_keywords:
+    - eco-friendly
+    - sustainable
+    - steel
+    - insulated
+  target_audience: critical priority customers aged 25-45
+  target_region: US
+  timeline:
+    launch_date: '2024-09-16'
+    priority: critical
+    rush_order: true

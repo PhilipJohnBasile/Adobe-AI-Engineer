@@ -1,6 +1,6 @@
 {
-  "total_cost": 67.70000000000003,
-  "api_calls": 130,
+  "total_cost": 67.62000000000002,
+  "api_calls": 128,
   "cost_breakdown": {
     "dalle_generation": 45.0,
     "gpt_communications": 12.5,
@@ -8,8 +8,8 @@
   },
   "budget_remaining": 32.5,
   "dalle": {
-    "cost": 0.2,
-    "calls": 5,
+    "cost": 0.12,
+    "calls": 3,
     "tokens": 0
   }
 }

@@ -1,0 +1,17 @@
+{
+  "campaign_id": "load_test_campaign_004",
+  "generated_at": "2025-09-16T15:40:13.196272",
+  "products": 2,
+  "aspect_ratios": [
+    "1:1",
+    "9:16"
+  ],
+  "target_region": "US",
+  "campaign_message": "Discover Excellence - Medium Launch",
+  "generated_files": [
+    "eco-friendly_water_bottle/1x1.jpg",
+    "eco-friendly_water_bottle/9x16.jpg",
+    "premium_wireless_headphones/1x1.jpg",
+    "premium_wireless_headphones/9x16.jpg"
+  ]
+}

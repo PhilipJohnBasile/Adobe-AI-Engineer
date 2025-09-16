@@ -105,9 +105,12 @@ class ImageGenerator:
         # Add target audience context
         if 'target_audience' in campaign_brief:
             audience = campaign_brief['target_audience']
-            demographics = audience.get('demographics', '')
-            if demographics:
-                prompt_parts.append(f"Target audience: {demographics}.")
+            if isinstance(audience, str):
+                prompt_parts.append(f"Target audience: {audience}.")
+            elif isinstance(audience, dict):
+                demographics = audience.get('demographics', '')
+                if demographics:
+                    prompt_parts.append(f"Target audience: {demographics}.")
         
         # Add brand guidelines if available
         if 'brand_guidelines' in campaign_brief:

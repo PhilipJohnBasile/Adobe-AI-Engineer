@@ -1,6 +1,0 @@
-{
-  "alert_id": "alert_1757985546_31",
-  "timestamp": "2025-09-15T21:19:06.377737",
-  "severity": "high",
-  "communication": "\nCREATIVE AUTOMATION ALERT - URGENT\n\nAlert Type: generation_failure\nTimestamp: 2025-09-15T21:19:06.212153\nSeverity: HIGH\n\nDescription:\nFailed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here\n  in \"campaign_briefs/malformed_invalid_yaml.yaml\", line 1, column 14\n\nSystem Status:\n- Active Campaigns: 0\n- Completed Today: 27\n- Failed Today: 2\n\nRecommended Actions:\n- Review campaign status and resource allocation\n- Check system logs for detailed error information\n- Contact automation team if issue persists\n\nNext Update: 2025-09-15T22:19:06.377681\n        "
-}

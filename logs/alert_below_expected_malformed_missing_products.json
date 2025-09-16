@@ -1,9 +1,0 @@
-{
-  "id": "below_expected_malformed_missing_products",
-  "type": "below_expected_variants",
-  "message": "Campaign malformed_missing_products has 0/3 variants (50% below expected)",
-  "severity": "high",
-  "campaign_id": "malformed_missing_products",
-  "timestamp": "2025-09-15T22:21:49.673902",
-  "status": "active"
-}

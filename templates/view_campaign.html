@@ -216,8 +216,8 @@
                     🚀 Run Complete Pipeline
                 </a>
                 
-                <a href="{{ url_for('run_task3', campaign_id=campaign_id) }}" class="btn btn-success">
-                    🤖 Run Task 3 AI Agent
+                <a href="{{ url_for('run_ai_monitor', campaign_id=campaign_id) }}" class="btn btn-success">
+                    🤖 Run AI Monitor
                 </a>
                 
                 <a href="{{ url_for('run_enterprise', campaign_id=campaign_id) }}" class="btn btn-warning">
@@ -255,6 +255,60 @@
                         </button>
                     </form>
                 </div>
+
+                <!-- Campaign-Specific AI Tools -->
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                    <h4 style="color: #2d3748; margin-bottom: 1rem;">🎯 Campaign AI Analysis Tools</h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <button class="btn btn-sm" style="background: #667eea; color: white;" onclick="runCampaignAITool('predict-performance', '{{ campaign_id }}')">
+                            🔮 Predict Performance
+                        </button>
+                        <button class="btn btn-sm" style="background: #f093fb; color: white;" onclick="runCampaignAITool('brand-analyze', '{{ campaign_id }}')">
+                            🎨 Brand Analysis
+                        </button>
+                        <button class="btn btn-sm" style="background: #4facfe; color: white;" onclick="runCampaignAITool('personalize', '{{ campaign_id }}')">
+                            🌍 Personalize
+                        </button>
+                        <button class="btn btn-sm" style="background: #43e97b; color: white;" onclick="runCampaignAITool('ab-test', '{{ campaign_id }}')">
+                            🧪 A/B Test
+                        </button>
+                        <button class="btn btn-sm" style="background: #fa709a; color: white;" onclick="runCampaignAITool('moderate', '{{ campaign_id }}')">
+                            🛡️ Content Safety
+                        </button>
+                        <button class="btn btn-sm" style="background: #38b2ac; color: white;" onclick="runCampaignAITool('analyze-performance', '{{ campaign_id }}')">
+                            🧠 Deep Analysis
+                        </button>
+                    </div>
+
+                    <!-- Universal AI Tools -->
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                        <h4 style="color: #2d3748; margin-bottom: 1rem;">⚡ Universal AI Tools</h4>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                            <button class="btn btn-sm" style="background: #68d391; color: white;" onclick="runCampaignAITool('validate', '{{ campaign_id }}')">
+                                ✅ Validate
+                            </button>
+                            <button class="btn btn-sm" style="background: #fc8181; color: white;" onclick="runCampaignAITool('compliance-check', '{{ campaign_id }}')">
+                                🔍 Compliance
+                            </button>
+                            <button class="btn btn-sm" style="background: #63b3ed; color: white;" onclick="runCampaignAITool('status-check', '{{ campaign_id }}')">
+                                📊 Status Check
+                            </button>
+                            <button class="btn btn-sm" style="background: #d69e2e; color: white;" onclick="runCampaignAITool('optimize-assets', '{{ campaign_id }}')">
+                                ⚡ Optimize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign AI Tool Results -->
+        <div id="campaign-ai-results" style="display: none; background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+            <h3 id="campaign-ai-title">AI Tool Results</h3>
+            <div id="campaign-ai-output" style="background: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; white-space: pre-wrap; max-height: 400px; overflow-y: auto; margin-top: 1rem;">
+                <!-- Results will appear here -->
             </div>
         </div>
 
@@ -368,6 +422,46 @@
                 setTimeout(stopAutoRefresh, 600000);
             }
         });
+
+        // Campaign-specific AI tool runner
+        function runCampaignAITool(tool, campaignId) {
+            const resultsDiv = document.getElementById('campaign-ai-results');
+            const titleDiv = document.getElementById('campaign-ai-title');
+            const outputDiv = document.getElementById('campaign-ai-output');
+            
+            // Show results section and update title
+            resultsDiv.style.display = 'block';
+            titleDiv.textContent = `🤖 Running ${tool} for campaign ${campaignId}...`;
+            outputDiv.textContent = 'Loading...';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Make API call
+            fetch('/api/run-campaign-ai-tool', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tool: tool,
+                    campaign_id: campaignId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                titleDiv.textContent = `✅ ${tool} Results`;
+                if (data.success) {
+                    outputDiv.textContent = data.output;
+                } else {
+                    outputDiv.textContent = `Error: ${data.error}`;
+                }
+            })
+            .catch(error => {
+                titleDiv.textContent = `❌ ${tool} Failed`;
+                outputDiv.textContent = `Error: ${error.message}`;
+            });
+        }
 
         // Handle form submissions with loading states
         document.querySelectorAll('form').forEach(form => {

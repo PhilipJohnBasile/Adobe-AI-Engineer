@@ -1,0 +1,6 @@
+{
+  "alert_id": "alert_1758047494_86",
+  "timestamp": "2025-09-16T14:31:38.446506",
+  "severity": "critical",
+  "communication": "\nCREATIVE AUTOMATION ALERT - CRITICAL\n\nAlert Type: system_instability\nTimestamp: 2025-09-16T14:31:34.275284\nSeverity: CRITICAL\n\nDescription:\nSystem experiencing 58 consecutive failures. Circuit breaker activated.\n\nSystem Status:\n- Active Campaigns: 0\n- Completed Today: 27\n- Failed Today: 2\n\nRecommended Actions:\n- Review campaign status and resource allocation\n- Check system logs for detailed error information\n- Contact automation team if issue persists\n\nNext Update: 2025-09-16T15:31:38.446348\n        "
+}

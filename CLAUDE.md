@@ -93,6 +93,6 @@ Test the pipeline with:
 1. **Working Code**: Complete Task 2 implementation
 2. **Documentation**: Comprehensive README with setup, usage, examples
 3. **Architecture Diagrams**: Task 1 deliverables
-4. **AI Agent Design**: Task 3 specifications and stakeholder communication
+4. **AI Agent Design**: AI Monitor specifications and stakeholder communication
 5. **Demo Recording**: Screen recording showing the pipeline in action
 6. **Presentation**: 30-minute presentation covering all three tasks

@@ -1,0 +1,45 @@
+campaign_brief:
+  brand_guidelines:
+    fonts:
+    - Arial
+    - Helvetica
+    primary_colors:
+    - '#2E8B57'
+    - '#228B22'
+    - '#32CD32'
+    tone: inspiring yet responsible
+  campaign_id: global_sustainability_2024
+  campaign_message: Protect the Planet, Protect Your Future
+  compliance_requirements:
+    cultural_sensitivity: true
+    regulatory_disclaimers: true
+    sustainability_claims: true
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    localization_required: true
+    quality: premium
+  products:
+  - description: Sustainable hydration solution made from recycled materials
+    name: Eco-Friendly Water Bottle
+    target_keywords:
+    - sustainable
+    - eco-friendly
+    - recycled
+  - description: Protective phone case that naturally decomposes
+    name: Biodegradable Phone Case
+    target_keywords:
+    - biodegradable
+    - protection
+    - natural
+  target_markets:
+  - US
+  - UK
+  - DE
+  - JP
+  - FR
+  target_region: GLOBAL

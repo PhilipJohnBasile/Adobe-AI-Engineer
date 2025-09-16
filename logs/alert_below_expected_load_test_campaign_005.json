@@ -1,9 +1,0 @@
-{
-  "id": "below_expected_load_test_campaign_005",
-  "type": "below_expected_variants",
-  "message": "Campaign load_test_campaign_005 has 0/4 variants (50% below expected)",
-  "severity": "high",
-  "campaign_id": "load_test_campaign_005",
-  "timestamp": "2025-09-15T22:21:49.672545",
-  "status": "active"
-}

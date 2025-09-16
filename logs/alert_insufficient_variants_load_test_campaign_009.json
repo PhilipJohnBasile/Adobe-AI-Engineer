@@ -1,9 +1,0 @@
-{
-  "id": "insufficient_variants_load_test_campaign_009",
-  "type": "insufficient_variants",
-  "message": "Campaign load_test_campaign_009 has only 0 variants (minimum required: 3)",
-  "severity": "medium",
-  "campaign_id": "load_test_campaign_009",
-  "timestamp": "2025-09-15T22:21:49.671394",
-  "status": "active"
-}

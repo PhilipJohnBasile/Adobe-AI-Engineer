@@ -1,9 +1,0 @@
-{
-  "id": "brief_processing_error_api_failure_test_1757989308",
-  "type": "brief_processing_error",
-  "message": "Failed to process campaign brief api_failure_test: mapping values are not allowed here\n  in \"campaign_briefs/api_failure_test.yaml\", line 1, column 14",
-  "severity": "high",
-  "campaign_id": "api_failure_test",
-  "timestamp": "2025-09-15T22:21:48.459202",
-  "status": "active"
-}

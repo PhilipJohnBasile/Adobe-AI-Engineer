@@ -1,0 +1,8 @@
+{
+  "id": "alert_1758047487_31",
+  "type": "system_instability",
+  "message": "System experiencing 5 consecutive failures. Circuit breaker activated.",
+  "severity": "critical",
+  "timestamp": "2025-09-16T14:31:27.317924",
+  "status": "pending"
+}

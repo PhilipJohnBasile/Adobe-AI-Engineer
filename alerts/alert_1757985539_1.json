@@ -1,8 +1,0 @@
-{
-  "id": "alert_1757985539_1",
-  "type": "insufficient_variants",
-  "message": "Campaign holiday_collection_2024 generated only 0 variants (minimum: 3)",
-  "severity": "medium",
-  "timestamp": "2025-09-15T21:18:59.281194",
-  "status": "pending"
-}

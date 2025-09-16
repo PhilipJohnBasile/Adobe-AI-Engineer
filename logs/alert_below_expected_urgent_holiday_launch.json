@@ -1,9 +1,0 @@
-{
-  "id": "below_expected_urgent_holiday_launch",
-  "type": "below_expected_variants",
-  "message": "Campaign urgent_holiday_launch has 3/9 variants (50% below expected)",
-  "severity": "high",
-  "campaign_id": "urgent_holiday_launch",
-  "timestamp": "2025-09-15T22:21:49.676698",
-  "status": "active"
-}

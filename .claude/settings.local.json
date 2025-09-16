@@ -22,7 +22,8 @@
       "Bash(kill:*)",
       "Bash(git log:*)",
       "Bash(tree:*)",
-      "Bash(open /Users/pjb/Git/Adobe-AI-Engineer/Presentation.html)"
+      "Bash(open /Users/pjb/Git/Adobe-AI-Engineer/Presentation.html)",
+      "Bash(open http://localhost:5004)"
     ],
     "deny": [],
     "ask": []

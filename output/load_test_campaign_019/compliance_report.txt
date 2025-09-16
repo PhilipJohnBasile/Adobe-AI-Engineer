@@ -1,0 +1,22 @@
+============================================================
+COMPLIANCE REPORT
+============================================================
+Campaign: load_test_campaign_019
+Checked at: 2025-09-16T15:40:27.897530
+Compliance Score: 96.2%
+Overall Status: REVIEW REQUIRED: 1 warnings should be addressed before launch.
+
+⚠️  WARNINGS (Should Fix):
+----------------------------------------
+• Brand guidelines require logo placement
+
+✅ PASSED CHECKS:
+----------------------------------------
+• Medical: 3 checks passed
+• Absolute: 3 checks passed
+• Inappropriate: 3 checks passed
+• Competitive: 3 checks passed
+• Age: 6 checks passed
+• Gendered: 3 checks passed
+• Ableist: 3 checks passed
+• Brand: 1 checks passed

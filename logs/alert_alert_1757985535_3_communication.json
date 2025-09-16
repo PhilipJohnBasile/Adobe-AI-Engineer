@@ -1,6 +1,0 @@
-{
-  "alert_id": "alert_1757985535_3",
-  "timestamp": "2025-09-15T21:18:56.242735",
-  "severity": "medium",
-  "communication": "\nCREATIVE AUTOMATION ALERT - WARNING\n\nAlert Type: insufficient_variants\nTimestamp: 2025-09-15T21:18:55.219793\nSeverity: MEDIUM\n\nDescription:\nCampaign gift_guide_2024 generated only 0 variants (minimum: 3)\n\nSystem Status:\n- Active Campaigns: 0\n- Completed Today: 4\n- Failed Today: 0\n\nRecommended Actions:\n- Review campaign status and resource allocation\n- Check system logs for detailed error information\n- Contact automation team if issue persists\n\nNext Update: 2025-09-15T22:18:56.242548\n        "
-}

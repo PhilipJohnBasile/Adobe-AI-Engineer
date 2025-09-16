@@ -51,10 +51,10 @@ def get_system_status():
         # Check main.py availability
         main_py_available = Path('main.py').exists()
         
-        # Check Task 3 systems
-        task3_systems = {
-            'production': Path('src/production_task3_system.py').exists(),
-            'enterprise': Path('src/enterprise_task3_system.py').exists()
+        # Check AI Monitor systems
+        ai_monitor_systems = {
+            'production': Path('src/production_ai_monitor.py').exists(),
+            'enterprise': Path('src/enterprise_ai_monitor.py').exists()
         }
         
         # Get campaigns
@@ -67,7 +67,7 @@ def get_system_status():
         
         return {
             'system_ready': main_py_available,
-            'task3_systems': task3_systems,
+            'ai_monitor_systems': ai_monitor_systems,
             'total_campaigns': len(campaigns),
             'total_outputs': len(output_dirs),
             'cli_commands_available': 28,  # From main.py
@@ -76,6 +76,35 @@ def get_system_status():
     except Exception as e:
         logger.error(f"Error getting system status: {e}")
         return {'error': str(e)}
+
+def get_latest_campaign():
+    """Get the most recent campaign brief file"""
+    briefs_dir = Path(CAMPAIGN_BRIEFS_FOLDER)
+    if not briefs_dir.exists():
+        return None
+    
+    # Get all YAML files sorted by modification time
+    yaml_files = sorted(briefs_dir.glob('*.yaml'), key=lambda x: x.stat().st_mtime, reverse=True)
+    if yaml_files:
+        return str(yaml_files[0])
+    return None
+
+def get_latest_image():
+    """Get the most recent generated image"""
+    output_dir = Path(OUTPUT_FOLDER)
+    if not output_dir.exists():
+        return None
+    
+    # Find all image files
+    image_files = []
+    for ext in ['*.jpg', '*.png', '*.jpeg']:
+        image_files.extend(output_dir.rglob(ext))
+    
+    if image_files:
+        # Sort by modification time and return most recent
+        image_files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+        return str(image_files[0])
+    return None
 
 def run_cli_command(command: List[str], timeout: int = 300) -> Dict[str, Any]:
     """Run a CLI command safely"""
@@ -251,32 +280,40 @@ def run_pipeline(campaign_id):
         if result['success']:
             flash(f'✅ Pipeline completed successfully for {campaign_id}!', 'success')
             if result['stdout']:
-                flash(f'Output: {result["stdout"][:200]}...', 'info')
+                # Show last part of output which has the summary
+                output_lines = result["stdout"].split('\n')
+                summary = '\n'.join(output_lines[-10:])
+                flash(f'Output: {summary}', 'info')
         else:
-            flash(f'❌ Pipeline failed: {result.get("error", result.get("stderr", "Unknown error"))}', 'error')
+            error_msg = result.get("error") or result.get("stderr", "Unknown error")
+            # If stderr is empty but stdout has content, it might have the error
+            if not error_msg and result.get('stdout'):
+                output_lines = result["stdout"].split('\n')
+                error_msg = '\n'.join(output_lines[-5:])
+            flash(f'❌ Pipeline failed: {error_msg}', 'error')
         
     except Exception as e:
         flash(f'Error running pipeline: {str(e)}', 'error')
     
     return redirect(url_for('dashboard'))
 
-@app.route('/run-task3/<campaign_id>')
-def run_task3(campaign_id):
-    """Run Task 3 AI agent monitoring"""
+@app.route('/run-ai-monitor/<campaign_id>')
+def run_ai_monitor(campaign_id):
+    """Run AI Monitor agent system"""
     try:
-        flash(f'🤖 Starting Task 3 AI agent for {campaign_id}...', 'info')
+        flash(f'🤖 Starting AI Monitor for {campaign_id}...', 'info')
         
-        # Run Task 3 monitoring
-        command = ['python3', 'src/production_task3_system.py']
+        # Run AI monitoring system
+        command = ['python3', 'src/production_ai_monitor.py']
         result = run_cli_command(command, timeout=120)
         
         if result['success']:
-            flash(f'✅ Task 3 monitoring completed for {campaign_id}!', 'success')
+            flash(f'✅ AI Monitor completed for {campaign_id}!', 'success')
         else:
-            flash(f'❌ Task 3 failed: {result.get("error", result.get("stderr", "Unknown error"))}', 'error')
+            flash(f'❌ AI Monitor failed: {result.get("error", result.get("stderr", "Unknown error"))}', 'error')
         
     except Exception as e:
-        flash(f'Error running Task 3: {str(e)}', 'error')
+        flash(f'Error running AI Monitor: {str(e)}', 'error')
     
     return redirect(url_for('dashboard'))
 
@@ -286,7 +323,7 @@ def run_enterprise(campaign_id):
     try:
         flash(f'🏢 Starting enterprise system for {campaign_id}...', 'info')
         
-        command = ['python3', 'src/enterprise_task3_system.py']
+        command = ['python3', 'src/enterprise_ai_monitor.py']
         result = run_cli_command(command, timeout=180)
         
         if result['success']:
@@ -444,7 +481,7 @@ def view_campaign(campaign_id):
                          campaign_id=campaign_id,
                          outputs=outputs)
 
-@app.route('/download/<campaign_id>/<filename>')
+@app.route('/download/<campaign_id>/<path:filename>')
 def download_file(campaign_id, filename):
     """Download output file"""
     try:
@@ -460,7 +497,7 @@ def download_file(campaign_id, filename):
         flash(f'Error downloading file: {str(e)}', 'error')
         return redirect(url_for('list_all_outputs'))
 
-@app.route('/image/<campaign_id>/<filename>')
+@app.route('/image/<campaign_id>/<path:filename>')
 def serve_image(campaign_id, filename):
     """Serve image file for preview"""
     try:
@@ -485,9 +522,11 @@ def list_all_outputs():
             if campaign_dir.is_dir():
                 for file_path in campaign_dir.rglob('*'):
                     if file_path.is_file() and file_path.suffix.lower() in ['.jpg', '.png', '.jpeg', '.gif', '.webp']:
+                        # Get relative path from campaign directory
+                        relative_to_campaign = file_path.relative_to(campaign_dir)
                         all_outputs.append({
                             'campaign': campaign_dir.name,
-                            'name': file_path.name,
+                            'name': str(relative_to_campaign),  # Include subdirectory path
                             'path': str(file_path.relative_to(Path('.'))),
                             'size': file_path.stat().st_size,
                             'type': file_path.suffix,
@@ -501,13 +540,273 @@ def api_status():
     """API endpoint for system status"""
     return jsonify(get_system_status())
 
+@app.route('/api/ai-monitor-activity')
+def api_ai_monitor_activity():
+    """API endpoint for AI Monitor activity data"""
+    try:
+        alerts_dir = Path('alerts')
+        logs_dir = Path('logs')
+        
+        # Get recent alerts (last 10, filter duplicates and test alerts)
+        recent_alerts = []
+        seen_messages = set()
+        if alerts_dir.exists():
+            alert_files = sorted(alerts_dir.glob('*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:20]
+            for alert_file in alert_files:
+                try:
+                    with open(alert_file, 'r') as f:
+                        alert_data = json.load(f)
+                        message = alert_data.get('message', 'Unknown alert')
+                        alert_type = alert_data.get('alert_type', '')
+                        
+                        # Skip test alerts and duplicates
+                        if ('test' in message.lower() or 
+                            'test' in alert_type.lower() or 
+                            message in seen_messages):
+                            continue
+                            
+                        seen_messages.add(message)
+                        recent_alerts.append({
+                            'message': message,
+                            'severity': alert_data.get('severity', 'UNKNOWN').replace('AlertSeverity.', ''),
+                            'timestamp': alert_data.get('timestamp', ''),
+                            'campaign_id': alert_data.get('campaign_id', ''),
+                            'alert_type': alert_type
+                        })
+                        
+                        if len(recent_alerts) >= 5:
+                            break
+                except Exception as e:
+                    logger.warning(f"Error reading alert {alert_file}: {e}")
+        
+        # Get campaign tracking data
+        campaign_tracking = []
+        if logs_dir.exists():
+            tracking_files = sorted(logs_dir.glob('*_variant_tracking.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:3]
+            for tracking_file in tracking_files:
+                try:
+                    with open(tracking_file, 'r') as f:
+                        tracking_data = json.load(f)
+                        campaign_tracking.append({
+                            'campaign_id': tracking_data.get('campaign_id', ''),
+                            'variants_count': tracking_data.get('variants_count', 0),
+                            'target_count': tracking_data.get('target_count', 0),
+                            'completion_rate': tracking_data.get('completion_rate', 0),
+                            'tracked_at': tracking_data.get('tracked_at', '')
+                        })
+                except Exception as e:
+                    logger.warning(f"Error reading tracking {tracking_file}: {e}")
+        
+        # Get recent communications
+        recent_communications = []
+        if logs_dir.exists():
+            comm_files = sorted(logs_dir.glob('*_communication.txt'), key=lambda x: x.stat().st_mtime, reverse=True)[:3]
+            for comm_file in comm_files:
+                try:
+                    with open(comm_file, 'r') as f:
+                        content = f.read()
+                        subject_line = content.split('\n')[0].replace('Subject: ', '') if content else 'Email Communication'
+                        recent_communications.append({
+                            'subject': subject_line[:80] + '...' if len(subject_line) > 80 else subject_line,
+                            'timestamp': datetime.fromtimestamp(comm_file.stat().st_mtime).isoformat(),
+                            'file': comm_file.name
+                        })
+                except Exception as e:
+                    logger.warning(f"Error reading communication {comm_file}: {e}")
+        
+        return jsonify({
+            'recent_alerts': recent_alerts,
+            'campaign_tracking': campaign_tracking,
+            'recent_communications': recent_communications,
+            'last_updated': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting AI monitor activity: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/run-ai-tool', methods=['POST'])
+def api_run_ai_tool():
+    """API endpoint to run AI tools"""
+    try:
+        data = request.get_json()
+        tool_name = data.get('tool')
+        
+        if not tool_name:
+            return jsonify({'success': False, 'error': 'No tool specified'}), 400
+        
+        # Get latest campaign and image dynamically
+        latest_campaign = get_latest_campaign() or 'campaign_briefs/holiday_collection_2024.yaml'
+        latest_image = get_latest_image() or 'output/sample.jpg'
+        
+        # Map tool names to CLI commands
+        tool_commands = {
+            # Pipeline Management
+            'generate-pipeline': ['python3', 'main.py', 'generate', latest_campaign],
+            'validate-campaigns': ['python3', 'main.py', 'validate', latest_campaign],
+            'compliance-check': ['python3', 'main.py', 'compliance', latest_campaign],
+            'localize-campaigns': ['python3', 'main.py', 'localize', latest_campaign, 'US'],
+            'batch-processing': ['python3', 'main.py', 'batch', 'status'],
+            'api-server': ['python3', 'main.py', 'serve', '--host', '0.0.0.0', '--port', '8001'],
+            
+            # Analytics & Reporting Hub
+            'analytics-dashboard': ['python3', 'main.py', 'analytics', '--html'],
+            'system-health': ['python3', 'main.py', 'monitor', 'health'],
+            'performance-metrics': ['python3', 'main.py', 'monitor', 'metrics'],
+            'export-reports': ['python3', 'main.py', 'monitor', 'export'],
+            'cost-analysis': ['python3', 'main.py', 'analytics'],
+            
+            # A/B Testing Center
+            'create-ab-test': ['python3', 'main.py', 'ab_test', 'create', '--test-name', 'Dashboard_Test'],
+            'start-ab-test': ['python3', 'main.py', 'ab_test', 'start', '--test-id', 'test_001'],
+            'ab-test-results': ['python3', 'main.py', 'ab_test', 'status'],
+            'ab-test-reports': ['python3', 'main.py', 'ab_test', 'report'],
+            
+            # Adobe Integration Suite
+            'adobe-stock-search': ['python3', 'main.py', 'adobe-integration', 'search-stock', '--query', 'creative'],
+            'adobe-firefly': ['python3', 'main.py', 'adobe-integration', 'firefly'],
+            'adobe-fonts': ['python3', 'main.py', 'adobe-integration', 'fonts'],
+            'adobe-workspace': ['python3', 'main.py', 'adobe-integration', 'workspace'],
+            'adobe-express': ['python3', 'main.py', 'adobe', 'status'],
+            
+            # System-wide tools
+            'analytics': ['python3', 'main.py', 'analytics'],
+            'monitor': ['python3', 'main.py', 'monitor', 'status'],
+            'audit': ['python3', 'main.py', 'audit', 'report'],
+            'adobe-integration': ['python3', 'main.py', 'adobe', 'status'],
+            'collaborate': ['python3', 'main.py', 'collaborate', 'status'],
+            'workflow': ['python3', 'main.py', 'workflow', 'status'],
+            'optimize': ['python3', 'main.py', 'optimize', 'report'],
+            
+            # Advanced AI features
+            'tenant-management': ['python3', 'main.py', 'tenant', 'list'],
+            'webhooks': ['python3', 'main.py', 'webhooks', 'list'],
+            'queue': ['python3', 'main.py', 'queue', 'status'],
+            'moderate-content': ['python3', 'main.py', 'moderate', 'report'],
+            'ab-testing': ['python3', 'main.py', 'ab_test', 'list'],
+            'brand-intelligence': ['python3', 'main.py', 'brand', 'report'],
+            'adobe-advanced': ['python3', 'main.py', 'adobe_integration', 'status'],
+            'performance-analysis': ['python3', 'main.py', 'analyze_performance', 'run-analysis'],
+            
+            # Enterprise Administration
+            'audit-logs': ['python3', 'main.py', 'audit', 'log'],
+            'tenant-admin': ['python3', 'main.py', 'tenant', 'list'],
+            'workflow-designer': ['python3', 'main.py', 'workflow', 'templates'],
+            'usage-reports': ['python3', 'main.py', 'tenant', 'usage'],
+            'security-audit': ['python3', 'main.py', 'audit', 'report'],
+            
+            # Content Intelligence Panel
+            'content-scan': ['python3', 'main.py', 'moderate', 'scan', '--campaign-file', latest_campaign],
+            'brand-analysis': ['python3', 'main.py', 'brand', 'analyze', '--image-path', latest_image] if latest_image else ['python3', 'main.py', 'brand', 'report'],
+            'quality-assessment': ['python3', 'main.py', 'brand', 'assess-quality', '--image-path', latest_image] if latest_image else ['python3', 'main.py', 'brand', 'report'],
+            'consistency-check': ['python3', 'main.py', 'brand', 'validate-consistency'],
+            'color-extraction': ['python3', 'main.py', 'brand', 'extract-colors', '--image-path', latest_image] if latest_image else ['python3', 'main.py', 'brand', 'report'],
+            
+            # Collaboration Platform
+            'create-project': ['python3', 'main.py', 'collaborate', 'create-project', '--project-name', 'New_Project'],
+            'team-dashboard': ['python3', 'main.py', 'collaborate', 'dashboard'],
+            'upload-assets': ['python3', 'main.py', 'collaborate', 'upload-asset'],
+            'notifications': ['python3', 'main.py', 'collaborate', 'notifications'],
+            'user-management': ['python3', 'main.py', 'collaborate', 'users'],
+            
+            # Performance Intelligence
+            'predict-performance': ['python3', 'main.py', 'predict-performance', '--image-path', latest_image] if latest_image else ['python3', 'main.py', 'predict-performance'],
+            'ml-analytics': ['python3', 'main.py', 'analyze-performance', 'run-analysis'],
+            'personalization': ['python3', 'main.py', 'personalize', latest_campaign, '--markets', 'US,DE,JP'],
+            'optimization-engine': ['python3', 'main.py', 'optimize', 'report'],
+            'learning-insights': ['python3', 'main.py', 'analyze_performance', 'learning-report'],
+            
+            # Real-time Monitoring
+            'live-dashboard': ['python3', 'main.py', 'monitor', 'status'],
+            'diversity-tracker': ['python3', 'main.py', 'analytics'],
+            'predictive-flagging': ['python3', 'main.py', 'predict-performance'],
+            'variant-intelligence': ['python3', 'main.py', 'analytics'],
+            'real-time-alerts': ['python3', 'main.py', 'agent', 'status'],
+            
+            # Advanced Orchestration
+            'pipeline-orchestrator': ['python3', 'main.py', 'workflow', 'status'],
+            'unified-system': ['python3', 'main.py', 'status'],
+            'intelligent-automation': ['python3', 'main.py', 'agent', 'status'],
+            'workflow-engine': ['python3', 'main.py', 'workflow', 'list'],
+            'ci-cd-integration': ['python3', 'main.py', 'serve', '--help']
+        }
+        
+        command = tool_commands.get(tool_name)
+        if not command:
+            return jsonify({'success': False, 'error': f'Unknown tool: {tool_name}'}), 400
+        
+        # Run the command
+        result = run_cli_command(command, timeout=60)
+        
+        return jsonify({
+            'success': result['success'],
+            'output': result['stdout'] if result['success'] else None,
+            'error': result.get('stderr') or result.get('error') if not result['success'] else None
+        })
+        
+    except Exception as e:
+        logger.error(f"Error running AI tool: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/run-campaign-ai-tool', methods=['POST'])
+def api_run_campaign_ai_tool():
+    """API endpoint to run campaign-specific AI tools"""
+    try:
+        data = request.get_json()
+        tool_name = data.get('tool')
+        campaign_id = data.get('campaign_id')
+        
+        if not tool_name:
+            return jsonify({'success': False, 'error': 'No tool specified'}), 400
+        if not campaign_id:
+            return jsonify({'success': False, 'error': 'No campaign ID specified'}), 400
+        
+        # Get campaign brief path
+        campaign_brief = f'campaign_briefs/{campaign_id}.yaml'
+        if not Path(campaign_brief).exists():
+            return jsonify({'success': False, 'error': f'Campaign brief not found: {campaign_brief}'}), 404
+        
+        # Map campaign-specific tool names to CLI commands
+        tool_commands = {
+            # Campaign-specific tools
+            'predict-performance': ['python3', 'main.py', 'predict-performance', '--campaign', campaign_brief],
+            'brand-analyze': ['python3', 'main.py', 'brand', 'analyze', '--campaign', campaign_brief],
+            'personalize': ['python3', 'main.py', 'personalize', campaign_brief, '--markets', 'US,DE,JP'],
+            'ab-test': ['python3', 'main.py', 'ab_test', 'simulate', '--campaign', campaign_brief, '--days', '7'],
+            'moderate': ['python3', 'main.py', 'moderate', 'scan', '--campaign', campaign_brief],
+            'analyze-performance': ['python3', 'main.py', 'analyze_performance', 'run-analysis', '--campaign', campaign_brief],
+            
+            # Universal tools (work in both contexts)
+            'validate': ['python3', 'main.py', 'validate', campaign_brief],
+            'compliance-check': ['python3', 'main.py', 'compliance', campaign_brief],
+            'status-check': ['python3', 'main.py', 'status'],
+            'optimize-assets': ['python3', 'main.py', 'optimize', 'report', '--campaign', campaign_brief]
+        }
+        
+        command = tool_commands.get(tool_name)
+        if not command:
+            return jsonify({'success': False, 'error': f'Unknown campaign tool: {tool_name}'}), 400
+        
+        # Run the command
+        result = run_cli_command(command, timeout=60)
+        
+        return jsonify({
+            'success': result['success'],
+            'output': result['stdout'] if result['success'] else None,
+            'error': result.get('stderr') or result.get('error') if not result['success'] else None
+        })
+        
+    except Exception as e:
+        logger.error(f"Error running campaign AI tool: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 if __name__ == '__main__':
     print("🚀 Creative Automation System - Web Interface")
     print("=" * 60)
     print("📍 Dashboard: http://localhost:5004")
     print("🎯 Features:")
-    print("   • Task 2: Creative automation pipeline")
-    print("   • Task 3: AI agent monitoring system")
+    print("   • Creative automation pipeline")
+    print("   • AI Monitor agent system")
     print("   • Campaign creation and management")
     print("   • Real-time analytics and reporting")
     print("   • File management and downloads")

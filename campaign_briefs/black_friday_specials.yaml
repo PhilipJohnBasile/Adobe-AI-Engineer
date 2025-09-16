@@ -1,0 +1,66 @@
+campaign_brief:
+  brand_guidelines:
+    fonts:
+    - Arial
+    - Helvetica
+    - Roboto
+    primary_colors:
+    - '#007BFF'
+    - '#28A745'
+    - '#FFC107'
+    tone: high campaign with professional approach
+  budget_constraints:
+    generation_limit: 10
+    max_api_cost: 15.0
+  campaign_id: black_friday_specials
+  campaign_message: Discover Excellence - High Launch
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '16:9'
+    formats:
+    - JPG
+    - PNG
+    quality: high
+  products:
+  - description: High-fidelity wireless headphones with active noise cancellation
+    name: Premium Wireless Headphones
+    target_keywords:
+    - premium
+    - wireless
+    - noise-canceling
+    - audio
+  - description: Sustainable stainless steel water bottle with temperature retention
+    name: Eco-Friendly Water Bottle
+    target_keywords:
+    - eco-friendly
+    - sustainable
+    - steel
+    - insulated
+  - description: Advanced fitness tracking with heart rate and sleep monitoring
+    name: Smart Fitness Tracker
+    target_keywords:
+    - fitness
+    - smart
+    - tracking
+    - health
+  - description: Single-origin coffee beans roasted to perfection
+    name: Artisan Coffee Blend
+    target_keywords:
+    - artisan
+    - coffee
+    - organic
+    - premium
+  - description: Anti-aging serum with natural ingredients and proven results
+    name: Luxury Skincare Serum
+    target_keywords:
+    - luxury
+    - skincare
+    - anti-aging
+    - natural
+  target_audience: high priority customers aged 25-45
+  target_region: US
+  timeline:
+    launch_date: '2024-11-29'
+    priority: high
+    rush_order: true

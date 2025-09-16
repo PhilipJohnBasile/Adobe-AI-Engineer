@@ -1,9 +1,0 @@
-{
-  "id": "insufficient_variants_malformed_missing_campaign_brief_key",
-  "type": "insufficient_variants",
-  "message": "Campaign malformed_missing_campaign_brief_key has only 0 variants (minimum required: 3)",
-  "severity": "medium",
-  "campaign_id": "malformed_missing_campaign_brief_key",
-  "timestamp": "2025-09-15T22:21:49.672664",
-  "status": "active"
-}

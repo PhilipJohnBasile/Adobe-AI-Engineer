@@ -1,0 +1,45 @@
+campaign_brief:
+  brand_guidelines:
+    fonts:
+    - Arial
+    - Helvetica
+    - Roboto
+    primary_colors:
+    - '#007BFF'
+    - '#28A745'
+    - '#FFC107'
+    tone: medium campaign with professional approach
+  budget_constraints:
+    generation_limit: 4
+    max_api_cost: 15.0
+  campaign_id: load_test_campaign_012
+  campaign_message: Discover Excellence - Medium Launch
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    formats:
+    - JPG
+    - PNG
+    quality: high
+  products:
+  - description: High-fidelity wireless headphones with active noise cancellation
+    name: Premium Wireless Headphones
+    target_keywords:
+    - premium
+    - wireless
+    - noise-canceling
+    - audio
+  - description: Sustainable stainless steel water bottle with temperature retention
+    name: Eco-Friendly Water Bottle
+    target_keywords:
+    - eco-friendly
+    - sustainable
+    - steel
+    - insulated
+  target_audience: medium priority customers aged 25-45
+  target_region: US
+  timeline:
+    launch_date: '2024-12-01'
+    priority: medium
+    rush_order: false

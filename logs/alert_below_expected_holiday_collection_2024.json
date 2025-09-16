@@ -1,9 +1,0 @@
-{
-  "id": "below_expected_holiday_collection_2024",
-  "type": "below_expected_variants",
-  "message": "Campaign holiday_collection_2024 has 0/9 variants (50% below expected)",
-  "severity": "high",
-  "campaign_id": "holiday_collection_2024",
-  "timestamp": "2025-09-15T22:09:43.762653",
-  "status": "active"
-}

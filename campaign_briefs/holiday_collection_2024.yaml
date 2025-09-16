@@ -1,0 +1,53 @@
+campaign_brief:
+  brand_guidelines:
+    fonts:
+    - Arial
+    - Helvetica
+    - Roboto
+    primary_colors:
+    - '#007BFF'
+    - '#28A745'
+    - '#FFC107'
+    tone: critical campaign with professional approach
+  budget_constraints:
+    generation_limit: 9
+    max_api_cost: 25.0
+  campaign_id: holiday_collection_2024
+  campaign_message: Discover Excellence - Critical Launch
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    - PNG
+    quality: premium
+  products:
+  - description: High-fidelity wireless headphones with active noise cancellation
+    name: Premium Wireless Headphones
+    target_keywords:
+    - premium
+    - wireless
+    - noise-canceling
+    - audio
+  - description: Sustainable stainless steel water bottle with temperature retention
+    name: Eco-Friendly Water Bottle
+    target_keywords:
+    - eco-friendly
+    - sustainable
+    - steel
+    - insulated
+  - description: Advanced fitness tracking with heart rate and sleep monitoring
+    name: Smart Fitness Tracker
+    target_keywords:
+    - fitness
+    - smart
+    - tracking
+    - health
+  target_audience: critical priority customers aged 25-45
+  target_region: US
+  timeline:
+    launch_date: '2024-12-15'
+    priority: critical
+    rush_order: true

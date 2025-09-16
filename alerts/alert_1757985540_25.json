@@ -1,8 +1,0 @@
-{
-  "id": "alert_1757985540_25",
-  "type": "insufficient_variants",
-  "message": "Campaign load_test_campaign_010 generated only 0 variants (minimum: 3)",
-  "severity": "medium",
-  "timestamp": "2025-09-15T21:19:00.713247",
-  "status": "pending"
-}

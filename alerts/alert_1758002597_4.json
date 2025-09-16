@@ -1,8 +1,0 @@
-{
-  "id": "alert_1758002597_4",
-  "type": "generation_failure",
-  "message": "Generation failed for campaign workflow_test: 'campaign_brief'",
-  "severity": "high",
-  "timestamp": "2025-09-16T02:03:17.405782",
-  "status": "pending"
-}

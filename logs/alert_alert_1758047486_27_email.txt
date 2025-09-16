@@ -1,0 +1,24 @@
+Subject: Creative Automation Alert - Generation Failure
+
+
+CREATIVE AUTOMATION ALERT - URGENT
+
+Alert Type: generation_failure
+Timestamp: 2025-09-16T14:31:26.799812
+Severity: HIGH
+
+Description:
+Generation failed for campaign malformed_empty_brief: 'campaign_brief'
+
+System Status:
+- Active Campaigns: 0
+- Completed Today: 27
+- Failed Today: 2
+
+Recommended Actions:
+- Review campaign status and resource allocation
+- Check system logs for detailed error information
+- Contact automation team if issue persists
+
+Next Update: 2025-09-16T15:31:30.704410
+        

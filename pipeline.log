@@ -694,3 +694,106 @@
 2025-09-16 02:22:17,593 - src.creative_composer - INFO - Composed creative for Cloud Infrastructure in 16:9
 2025-09-16 02:22:17,620 - httpcore.connection - DEBUG - close.started
 2025-09-16 02:22:17,621 - httpcore.connection - DEBUG - close.complete
+2025-09-16 02:46:09,188 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 02:46:32,081 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 02:46:32,115 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 02:46:32,115 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 02:46:32,115 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:23:52,227 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:23:52,255 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:23:52,256 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:23:52,256 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:23:52,258 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:24:01,767 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:24:01,794 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:24:01,795 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:24:01,795 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:24:01,797 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:37:55,152 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:37:55,186 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:37:55,186 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:37:55,187 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:37:55,189 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:38:34,682 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:38:34,720 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:38:34,720 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:38:34,720 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:38:34,723 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:38:43,007 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:38:43,036 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:38:43,036 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:38:43,036 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:38:43,038 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:39:20,781 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:39:20,811 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:39:20,811 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:39:20,811 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:39:20,814 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:39:20,814 - src.image_generator - INFO - Generating image for Premium Wireless Headphones with prompt: A high-quality product photography image of Premium Wireless Headphones. Product description: High-f...
+2025-09-16 15:39:44,861 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 15:39:45,641 - src.image_generator - INFO - Generated and cached image: generated_cache/premium_wireless_headphones_dall-e-3_1024x1024.png
+2025-09-16 15:39:45,863 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 1:1
+2025-09-16 15:39:45,870 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:39:45,870 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:39:45,974 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 9:16
+2025-09-16 15:39:45,980 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:39:45,981 - src.image_generator - INFO - Generating image for Eco-Friendly Water Bottle with prompt: A high-quality product photography image of Eco-Friendly Water Bottle. Product description: Sustaina...
+2025-09-16 15:40:07,424 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 15:40:08,112 - src.image_generator - INFO - Generated and cached image: generated_cache/eco-friendly_water_bottle_dall-e-3_1024x1024.png
+2025-09-16 15:40:08,174 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 1:1
+2025-09-16 15:40:08,178 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:40:08,178 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:40:08,252 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 9:16
+2025-09-16 15:40:13,163 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:40:13,192 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:40:13,192 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:40:13,192 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:40:27,865 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:40:27,895 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:40:27,895 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:40:27,895 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:40:27,898 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:40:27,898 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:40:27,970 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 1:1
+2025-09-16 15:40:27,974 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:40:27,975 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:40:28,054 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 9:16
+2025-09-16 15:40:28,061 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:40:28,062 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:40:28,124 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 1:1
+2025-09-16 15:40:28,128 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:40:28,128 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:40:28,203 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 9:16
+2025-09-16 15:41:11,428 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 15:41:11,455 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 15:41:11,456 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 15:41:11,456 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 15:41:11,458 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,458 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:41:11,529 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 1:1
+2025-09-16 15:41:11,533 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,533 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:41:11,613 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 9:16
+2025-09-16 15:41:11,620 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,620 - src.image_generator - INFO - Using cached image for Premium Wireless Headphones
+2025-09-16 15:41:11,697 - src.creative_composer - INFO - Composed creative for Premium Wireless Headphones in 16:9
+2025-09-16 15:41:11,705 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,705 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:41:11,767 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 1:1
+2025-09-16 15:41:11,771 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,771 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:41:11,846 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 9:16
+2025-09-16 15:41:11,852 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,852 - src.image_generator - INFO - Using cached image for Eco-Friendly Water Bottle
+2025-09-16 15:41:11,926 - src.creative_composer - INFO - Composed creative for Eco-Friendly Water Bottle in 16:9
+2025-09-16 15:41:11,932 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:11,933 - src.image_generator - INFO - Generating image for Smart Fitness Tracker with prompt: A high-quality product photography image of Smart Fitness Tracker. Product description: Advanced fit...
+2025-09-16 15:41:33,667 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 15:41:34,488 - src.image_generator - INFO - Generated and cached image: generated_cache/smart_fitness_tracker_dall-e-3_1024x1024.png
+2025-09-16 15:41:34,557 - src.creative_composer - INFO - Composed creative for Smart Fitness Tracker in 1:1
+2025-09-16 15:41:34,561 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:34,562 - src.image_generator - INFO - Using cached image for Smart Fitness Tracker
+2025-09-16 15:41:34,639 - src.creative_composer - INFO - Composed creative for Smart Fitness Tracker in 9:16
+2025-09-16 15:41:34,645 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 15:41:34,645 - src.image_generator - INFO - Using cached image for Smart Fitness Tracker
+2025-09-16 15:41:34,719 - src.creative_composer - INFO - Composed creative for Smart Fitness Tracker in 16:9

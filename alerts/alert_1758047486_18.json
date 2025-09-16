@@ -1,0 +1,8 @@
+{
+  "id": "alert_1758047486_18",
+  "type": "insufficient_variants",
+  "message": "Campaign winter_fashion_line generated only 0 variants (minimum: 3)",
+  "severity": "medium",
+  "timestamp": "2025-09-16T14:31:26.785286",
+  "status": "pending"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "alert_1758047485_4",
+  "type": "insufficient_variants",
+  "message": "Campaign gift_guide_2024 generated only 0 variants (minimum: 3)",
+  "severity": "medium",
+  "timestamp": "2025-09-16T14:31:25.853943",
+  "status": "pending"
+}

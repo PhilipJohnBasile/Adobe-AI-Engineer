@@ -1,0 +1,6 @@
+{
+  "alert_id": "alert_1758047486_9",
+  "timestamp": "2025-09-16T14:31:28.149466",
+  "severity": "high",
+  "communication": "\nCREATIVE AUTOMATION ALERT - URGENT\n\nAlert Type: generation_failure\nTimestamp: 2025-09-16T14:31:26.770846\nSeverity: HIGH\n\nDescription:\nGeneration failed for campaign malformed_missing_campaign_brief_key: 'campaign_brief'\n\nSystem Status:\n- Active Campaigns: 0\n- Completed Today: 27\n- Failed Today: 2\n\nRecommended Actions:\n- Review campaign status and resource allocation\n- Check system logs for detailed error information\n- Contact automation team if issue persists\n\nNext Update: 2025-09-16T15:31:28.149382\n        "
+}
