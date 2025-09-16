@@ -1,0 +1,8 @@
+{
+  "id": "alert_1757985540_9",
+  "type": "generation_failure",
+  "message": "Generation failed for campaign malformed_missing_campaign_brief_key: 'campaign_brief'",
+  "severity": "high",
+  "timestamp": "2025-09-15T21:19:00.684464",
+  "status": "pending"
+}

@@ -1,0 +1,202 @@
+# Enterprise Task 3 System - Security and Compliance Configuration
+
+security:
+  # Encryption settings
+  encryption_enabled: true
+  encryption_algorithm: "AES-256"
+  key_rotation_days: 90
+  
+  # Authentication and authorization
+  api_key_expiry_days: 30
+  max_failed_attempts: 5
+  session_timeout_minutes: 60
+  require_mfa: true
+  
+  # Audit logging
+  audit_logging_enabled: true
+  audit_log_retention_days: 2555  # 7 years for compliance
+  security_event_retention_days: 1095  # 3 years
+  
+  # Input validation
+  max_input_length: 1000
+  sanitize_inputs: true
+  rate_limiting:
+    requests_per_minute: 100
+    burst_limit: 200
+
+compliance:
+  # GDPR (General Data Protection Regulation)
+  gdpr:
+    enabled: true
+    data_subject_rights: true
+    consent_tracking: true
+    data_portability: true
+    right_to_erasure: true
+    data_protection_officer: "dpo@company.com"
+  
+  # SOC 2 (Service Organization Control 2)
+  soc2:
+    enabled: true
+    security_controls: true
+    availability_controls: true
+    processing_integrity: true
+    confidentiality_controls: true
+    privacy_controls: true
+  
+  # CCPA (California Consumer Privacy Act)
+  ccpa:
+    enabled: true
+    consumer_rights: true
+    opt_out_mechanisms: true
+  
+  # HIPAA (Health Insurance Portability and Accountability Act)
+  hipaa:
+    enabled: false  # Enable if processing health data
+    minimum_necessary: true
+    access_controls: true
+    encryption_required: true
+
+data_retention:
+  # Data retention policies by type (in days)
+  campaign_briefs: 1095  # 3 years
+  generated_assets: 2190  # 6 years
+  system_logs: 365       # 1 year
+  audit_logs: 2555       # 7 years
+  user_data: 1095        # 3 years
+  api_keys: 90           # 3 months
+  session_data: 30       # 1 month
+  temporary_files: 7     # 1 week
+  
+  # Automatic cleanup settings
+  auto_cleanup_enabled: true
+  cleanup_check_interval_hours: 24
+  grace_period_days: 30
+
+access_control:
+  # Role-based access control
+  roles:
+    admin:
+      permissions: ["read", "write", "delete", "configure", "audit"]
+      api_access: true
+      monitoring_access: true
+    
+    operator:
+      permissions: ["read", "write"]
+      api_access: true
+      monitoring_access: true
+    
+    viewer:
+      permissions: ["read"]
+      api_access: false
+      monitoring_access: true
+    
+    api_user:
+      permissions: ["read", "write"]
+      api_access: true
+      monitoring_access: false
+  
+  # IP allowlisting (optional)
+  ip_allowlist:
+    enabled: false
+    allowed_ips: []
+    # Example: ["192.168.1.0/24", "10.0.0.0/8"]
+
+monitoring:
+  # Security monitoring settings
+  intrusion_detection: true
+  anomaly_detection: true
+  threat_intelligence: true
+  
+  # Alert thresholds
+  failed_login_threshold: 5
+  api_rate_limit_threshold: 1000
+  unusual_activity_threshold: 0.95  # 95th percentile
+  
+  # Notification settings
+  security_alerts:
+    email_recipients: ["security@company.com", "ops@company.com"]
+    slack_webhook: ""  # Optional Slack integration
+    sms_enabled: false
+
+backup_and_recovery:
+  # Backup settings
+  backup_enabled: true
+  backup_frequency_hours: 6
+  backup_retention_days: 90
+  backup_encryption: true
+  
+  # Disaster recovery
+  rpo_hours: 4   # Recovery Point Objective
+  rto_hours: 2   # Recovery Time Objective
+  backup_testing_frequency_days: 30
+
+vulnerability_management:
+  # Security scanning
+  dependency_scanning: true
+  container_scanning: true
+  code_scanning: true
+  
+  # Update policies
+  security_patch_window_hours: 72
+  critical_patch_window_hours: 24
+  vulnerability_scan_frequency_days: 7
+
+incident_response:
+  # Incident response settings
+  incident_response_plan: true
+  escalation_matrix:
+    low: ["ops@company.com"]
+    medium: ["ops@company.com", "security@company.com"]
+    high: ["ops@company.com", "security@company.com", "management@company.com"]
+    critical: ["ops@company.com", "security@company.com", "management@company.com", "ceo@company.com"]
+  
+  # Response timeframes
+  acknowledgment_time_minutes: 15
+  initial_response_time_minutes: 60
+  resolution_time_hours:
+    low: 168      # 1 week
+    medium: 72    # 3 days
+    high: 24      # 1 day
+    critical: 4   # 4 hours
+
+privacy:
+  # Privacy settings
+  data_minimization: true
+  purpose_limitation: true
+  accuracy_requirements: true
+  storage_limitation: true
+  integrity_and_confidentiality: true
+  accountability: true
+  
+  # Cookie and tracking
+  cookie_consent: true
+  tracking_consent: true
+  analytics_anonymization: true
+  
+  # Cross-border data transfer
+  data_transfer_agreements: true
+  adequacy_decisions: true
+  standard_contractual_clauses: true
+
+# Environment-specific overrides
+environments:
+  development:
+    security:
+      encryption_enabled: false  # For easier development
+      audit_logging_enabled: true
+    data_retention:
+      campaign_briefs: 30  # Shorter retention in dev
+      
+  staging:
+    security:
+      encryption_enabled: true
+      audit_logging_enabled: true
+    data_retention:
+      campaign_briefs: 90  # Medium retention in staging
+      
+  production:
+    security:
+      encryption_enabled: true
+      audit_logging_enabled: true
+      require_mfa: true
+    # Use default retention policies

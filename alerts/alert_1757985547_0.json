@@ -1,0 +1,8 @@
+{
+  "id": "alert_1757985547_0",
+  "type": "generation_failure",
+  "message": "Critical product launch failure",
+  "severity": "high",
+  "timestamp": "2025-09-15T21:19:07.718728",
+  "status": "pending"
+}

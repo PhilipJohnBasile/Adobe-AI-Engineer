@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_winter_fashion_line",
+  "type": "insufficient_variants",
+  "message": "Campaign winter_fashion_line has only 0 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "winter_fashion_line",
+  "timestamp": "2025-09-15T22:21:49.674448",
+  "status": "active"
+}

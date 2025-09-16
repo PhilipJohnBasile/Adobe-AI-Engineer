@@ -1,0 +1,12 @@
+campaign_id: test_campaign_001
+campaign_name: Test Campaign
+products:
+- Product A
+- Product B
+requirements:
+  colors:
+  - blue
+  - white
+  format: digital
+  style: modern
+target_variants: 5

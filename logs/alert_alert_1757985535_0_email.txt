@@ -1,0 +1,24 @@
+Subject: Creative Automation Alert - Insufficient Variants
+
+
+CREATIVE AUTOMATION ALERT - WARNING
+
+Alert Type: insufficient_variants
+Timestamp: 2025-09-15T21:18:55.213393
+Severity: MEDIUM
+
+Description:
+Campaign black_friday_specials generated only 0 variants (minimum: 3)
+
+System Status:
+- Active Campaigns: 0
+- Completed Today: 4
+- Failed Today: 0
+
+Recommended Actions:
+- Review campaign status and resource allocation
+- Check system logs for detailed error information
+- Contact automation team if issue persists
+
+Next Update: 2025-09-15T22:18:55.592988
+        

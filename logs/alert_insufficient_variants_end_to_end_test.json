@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_end_to_end_test",
+  "type": "insufficient_variants",
+  "message": "Campaign end_to_end_test has only 2 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "end_to_end_test",
+  "timestamp": "2025-09-15T22:21:49.672293",
+  "status": "active"
+}

@@ -1,0 +1,25 @@
+Subject: Creative Automation Alert - Generation Failure
+
+
+CREATIVE AUTOMATION ALERT - URGENT
+
+Alert Type: generation_failure
+Timestamp: 2025-09-15T21:19:06.903335
+Severity: HIGH
+
+Description:
+Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+
+System Status:
+- Active Campaigns: 0
+- Completed Today: 27
+- Failed Today: 2
+
+Recommended Actions:
+- Review campaign status and resource allocation
+- Check system logs for detailed error information
+- Contact automation team if issue persists
+
+Next Update: 2025-09-15T22:19:07.085341
+        

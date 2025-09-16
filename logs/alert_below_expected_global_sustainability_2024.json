@@ -1,0 +1,9 @@
+{
+  "id": "below_expected_global_sustainability_2024",
+  "type": "below_expected_variants",
+  "message": "Campaign global_sustainability_2024 has 0/6 variants (50% below expected)",
+  "severity": "high",
+  "campaign_id": "global_sustainability_2024",
+  "timestamp": "2025-09-15T22:21:49.671285",
+  "status": "active"
+}

@@ -1,0 +1,36 @@
+{
+  "alert_id": "ent_alert_1757993831_1",
+  "alert_type": "system_error",
+  "severity": "AlertSeverity.HIGH",
+  "message": "Enterprise monitoring error: Object of type datetime is not JSON serializable",
+  "campaign_id": null,
+  "timestamp": "2025-09-15T23:37:11.040375",
+  "context": {
+    "error": "Object of type datetime is not JSON serializable",
+    "component": "monitoring_loop"
+  },
+  "status": "pending",
+  "assigned_to": "on_call_engineer",
+  "resolution_time": null,
+  "escalation_count": 0,
+  "environment": "production",
+  "system_metrics": {
+    "active_campaigns": 0,
+    "completed_campaigns": 2,
+    "failed_campaigns": 0,
+    "total_variants": 7,
+    "success_rate": 1.0,
+    "daily_cost": 0.0,
+    "uptime_hours": 0.0025039144444444442,
+    "start_time": "2025-09-15 23:37:02.025215"
+  },
+  "api_status": {
+    "primary_provider": "openai",
+    "provider_health": {},
+    "backup_count": -1,
+    "rate_limits": {},
+    "total_calls": 0,
+    "success_rate": 0.0,
+    "avg_response_time": 0.0
+  }
+}

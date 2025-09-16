@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_malformed_missing_products",
+  "type": "insufficient_variants",
+  "message": "Campaign malformed_missing_products has only 0 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "malformed_missing_products",
+  "timestamp": "2025-09-15T22:21:49.673779",
+  "status": "active"
+}

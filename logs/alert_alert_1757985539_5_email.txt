@@ -1,0 +1,24 @@
+Subject: Creative Automation Alert - Cost Spike
+
+
+CREATIVE AUTOMATION ALERT - URGENT
+
+Alert Type: cost_spike
+Timestamp: 2025-09-15T21:18:59.287528
+Severity: HIGH
+
+Description:
+Daily API costs (75.00) exceeded threshold (50.0)
+
+System Status:
+- Active Campaigns: 0
+- Completed Today: 5
+- Failed Today: 0
+
+Recommended Actions:
+- Review campaign status and resource allocation
+- Check system logs for detailed error information
+- Contact automation team if issue persists
+
+Next Update: 2025-09-15T22:19:00.577412
+        

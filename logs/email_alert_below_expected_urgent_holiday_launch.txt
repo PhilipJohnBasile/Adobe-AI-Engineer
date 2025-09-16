@@ -1,0 +1,29 @@
+Subject: Performance Alert: Campaign urgent_holiday_launch Below Expected Output
+
+Dear Team,
+
+Our monitoring system has detected that campaign generation is significantly underperforming expectations.
+
+PERFORMANCE METRICS:
+Campaign: urgent_holiday_launch
+Current Output: 3 variants
+Expected Output: 9 variants
+Completion Rate: 33.3%
+
+ANALYSIS:
+The generation process appears to be running but producing fewer variants than planned. This could indicate:
+• Content quality filters rejecting more outputs than usual
+• Processing bottlenecks in the generation pipeline
+• Brief complexity exceeding normal parameters
+
+RECOMMENDED ACTIONS:
+1. Review generation parameters and quality thresholds
+2. Analyze content filters for overly restrictive settings
+3. Check system resource utilization
+4. Consider adjusting brief requirements if technically feasible
+
+I will continue monitoring and provide updates on progress.
+
+Best regards,
+AI Creative Automation Agent
+Alert ID: below_expected_urgent_holiday_launch

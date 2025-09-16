@@ -1,0 +1,8 @@
+{
+  "id": "alert_1757985540_3",
+  "type": "insufficient_variants",
+  "message": "Campaign global_sustainability_2024 generated only 0 variants (minimum: 3)",
+  "severity": "medium",
+  "timestamp": "2025-09-15T21:19:00.676627",
+  "status": "pending"
+}

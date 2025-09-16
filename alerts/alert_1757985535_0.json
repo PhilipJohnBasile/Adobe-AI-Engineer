@@ -1,0 +1,8 @@
+{
+  "id": "alert_1757985535_0",
+  "type": "insufficient_variants",
+  "message": "Campaign black_friday_specials generated only 0 variants (minimum: 3)",
+  "severity": "medium",
+  "timestamp": "2025-09-15T21:18:55.213393",
+  "status": "pending"
+}

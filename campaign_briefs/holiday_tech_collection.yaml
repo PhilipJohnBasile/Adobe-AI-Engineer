@@ -1,0 +1,17 @@
+campaign_name: Holiday Tech Collection 2024
+client: Premium Electronics Corp
+deadline: '2024-01-30'
+products:
+- Smartphone Pro
+- Wireless Earbuds
+- Smart Watch
+requirements:
+  aspect_ratios:
+  - '1:1'
+  - '9:16'
+  - '16:9'
+  formats:
+  - jpg
+  - png
+  quality: high
+target_variants: 9

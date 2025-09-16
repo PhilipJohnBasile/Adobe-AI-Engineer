@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_holiday_collection_2024",
+  "type": "insufficient_variants",
+  "message": "Campaign holiday_collection_2024 has only 0 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "holiday_collection_2024",
+  "timestamp": "2025-09-15T22:09:43.762544",
+  "status": "active"
+}

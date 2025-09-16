@@ -1,0 +1,15 @@
+{
+  "campaign_id": "holiday_tech_collection",
+  "variants_count": 5,
+  "target_count": 9,
+  "diversity_score": 0.5555555555555556,
+  "output_files": [
+    "variant1.jpg",
+    "variant2.jpg",
+    "variant3.jpg",
+    "variant4.jpg",
+    "variant5.jpg"
+  ],
+  "tracked_at": "2025-09-15T23:41:35.493844",
+  "completion_rate": 55.55555555555556
+}

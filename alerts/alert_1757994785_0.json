@@ -1,0 +1,15 @@
+{
+  "alert_id": "alert_1757994785_0",
+  "alert_type": "generation_failure",
+  "severity": "AlertSeverity.HIGH",
+  "message": "Generation failed for campaign holiday_tech_collection: API rate limit exceeded",
+  "campaign_id": "holiday_tech_collection",
+  "timestamp": "2025-09-15T23:53:05.439822",
+  "context": {
+    "success": false,
+    "error": "API rate limit exceeded",
+    "variants_generated": 0,
+    "processing_time": 2.0
+  },
+  "status": "pending"
+}

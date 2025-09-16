@@ -1,60 +1,89 @@
 version: '3.8'
 
 services:
-  creative-automation:
+  task3-enterprise:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: creative_automation_pipeline
+    container_name: task3_enterprise_system
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ENVIRONMENT=production
-      - LOG_LEVEL=INFO
+      - STABILITY_API_KEY=${STABILITY_API_KEY}
+      - ADOBE_CLIENT_ID=${ADOBE_CLIENT_ID}
+      - ADOBE_CLIENT_SECRET=${ADOBE_CLIENT_SECRET}
+      - ENV=production
+      - PROMETHEUS_PORT=8000
+      - HEALTH_CHECK_PORT=8080
+      - API_TIMEOUT=120
+      - MIN_VARIANTS_THRESHOLD=3
     volumes:
-      # Mount directories for persistent data
+      - ./campaign_briefs:/app/campaign_briefs
       - ./output:/app/output
-      - ./assets:/app/assets
-      - ./generated_cache:/app/generated_cache
-      - ./batch_results:/app/batch_results
-      # Mount config files
-      - ./costs.json:/app/costs.json
+      - ./alerts:/app/alerts
+      - ./logs:/app/logs
       - ./.env:/app/.env
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Prometheus metrics
+      - "8080:8080"  # Health checks
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped
     networks:
-      - creative-automation-network
+      - enterprise-network
     
-  # Future: Add Redis for caching and job queue
-  # redis:
-  #   image: redis:7-alpine
-  #   container_name: creative_automation_redis
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis_data:/data
-  #   networks:
-  #     - creative-automation-network
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: task3_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - enterprise-network
 
-  # Future: Add PostgreSQL for metadata storage
-  # postgres:
-  #   image: postgres:15-alpine
-  #   container_name: creative_automation_db
-  #   environment:
-  #     - POSTGRES_DB=creative_automation
-  #     - POSTGRES_USER=pipeline_user
-  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   networks:
-  #     - creative-automation-network
+  grafana:
+    image: grafana/grafana:latest
+    container_name: task3_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+    networks:
+      - enterprise-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: task3_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - enterprise-network
 
 networks:
-  creative-automation-network:
+  enterprise-network:
     driver: bridge
 
 volumes:
+  prometheus_data:
+  grafana_data:
   redis_data:
-  postgres_data:

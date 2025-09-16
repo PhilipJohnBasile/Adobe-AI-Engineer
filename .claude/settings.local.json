@@ -12,7 +12,11 @@
       "Bash(pip install:*)",
       "Bash(pip3 install:*)",
       "Bash(time python3:*)",
-      "Bash(time:*)"
+      "Bash(time:*)",
+      "Bash(cat:*)",
+      "Bash(pytest:*)",
+      "Bash(docker-compose:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

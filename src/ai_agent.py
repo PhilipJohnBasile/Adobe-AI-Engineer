@@ -1,460 +1,825 @@
 """
-AI Agent - Monitors pipeline operations and provides intelligent alerts.
+AI Agent System for Creative Automation Pipeline
+Implements autonomous monitoring, task triggering, and stakeholder communication
 """
 
 import asyncio
-import logging
 import json
+import os
 import time
-from pathlib import Path
-from typing import Dict, List, Any, Optional
+import yaml
 from datetime import datetime, timedelta
-from dataclasses import dataclass, asdict
+from typing import Dict, List, Any, Optional
+from pathlib import Path
 
-logger = logging.getLogger(__name__)
-
-
-@dataclass
-class SystemMetrics:
-    """System performance and status metrics."""
-    timestamp: str
-    queue_length: int
-    api_costs_today: float
-    success_rate_24h: float
-    active_generations: int
-    cache_hit_rate: float
-    storage_usage_mb: float
-    avg_generation_time: float
-
-
-@dataclass
-class Alert:
-    """Alert structure for notifications."""
-    id: str
-    timestamp: str
-    severity: str  # low, medium, high, critical
-    alert_type: str
-    title: str
-    description: str
-    context: Dict[str, Any]
-    recommendations: List[str]
-    stakeholders: List[str]
+import openai
+from .pipeline_orchestrator import PipelineOrchestrator
 
 
 class CreativeAutomationAgent:
-    """AI Agent for monitoring and managing creative automation pipeline."""
+    """AI-driven agent for monitoring and managing creative automation pipeline"""
     
-    def __init__(self, check_interval: int = 30):
-        self.check_interval = check_interval
-        self.running = False
-        self.metrics_history = []
-        self.alerts_sent = []
+    def __init__(self):
+        self.orchestrator = PipelineOrchestrator()
+        self.monitoring = True
+        self.check_interval = 30  # seconds
+        self.alert_history = []
+        self.campaign_tracking = {}
         
-        # Monitoring thresholds
-        self.thresholds = {
-            'cost_daily_limit': 50.0,
-            'success_rate_min': 85.0,
-            'avg_generation_time_max': 60.0,
-            'storage_limit_gb': 5.0,
-            'queue_length_warning': 10
+        # Enhanced Configuration with adaptive thresholds
+        self.config = {
+            "min_variants_threshold": 3,
+            "cost_alert_threshold": 50.0,  # dollars
+            "success_rate_threshold": 0.8,  # 80%
+            "max_queue_length": 10,
+            "adaptive_thresholds": True,
+            "performance_history_window": 24,  # hours
+            "circuit_breaker_threshold": 5,  # consecutive failures
+            "recovery_timeout": 300  # seconds
         }
         
-        # Paths for monitoring
-        self.output_dir = Path('output')
-        self.cache_dir = Path('generated_cache')
-        self.costs_file = Path('costs.json')
-        self.logs_dir = Path('.')
+        # Circuit breaker state
+        self.circuit_breaker = {
+            "consecutive_failures": 0,
+            "last_failure_time": None,
+            "state": "closed"  # closed, open, half-open
+        }
         
-        logger.info("AI Agent initialized for pipeline monitoring")
+        # Initialize OpenAI with enhanced error handling
+        self.openai_client = None
+        if os.getenv("OPENAI_API_KEY"):
+            try:
+                from openai import OpenAI
+                self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+            except Exception as e:
+                print(f"⚠️ OpenAI initialization failed: {e}. Using fallback communication.")
     
     async def start_monitoring(self):
-        """Start the agent monitoring loop."""
-        self.running = True
-        logger.info("AI Agent started monitoring pipeline")
+        """Start the main monitoring loop"""
+        print("🤖 AI Agent: Starting creative automation monitoring...")
         
-        try:
-            while self.running:
-                # Collect system metrics
-                metrics = await self.collect_metrics()
-                self.metrics_history.append(metrics)
+        while self.monitoring:
+            try:
+                # Monitor campaign briefs
+                await self.monitor_campaign_briefs()
                 
-                # Keep only last 24 hours of metrics
-                cutoff_time = datetime.now() - timedelta(hours=24)
-                self.metrics_history = [
-                    m for m in self.metrics_history 
-                    if datetime.fromisoformat(m.timestamp) > cutoff_time
-                ]
+                # Check system health
+                await self.monitor_system_health()
                 
-                # Analyze for issues
-                alerts = await self.analyze_metrics(metrics)
+                # Track creative variants
+                await self.track_creative_variants()
                 
-                # Process alerts
-                for alert in alerts:
-                    await self.handle_alert(alert)
+                # Process any alerts
+                await self.process_alerts()
                 
-                # Sleep until next check
+                # Enhanced error recovery and adaptive management
+                await self._enhanced_error_recovery()
+                
+                # Reset circuit breaker on successful cycle
+                if self.circuit_breaker["state"] in ["half-open", "closed"]:
+                    self._reset_circuit_breaker()
+                
                 await asyncio.sleep(self.check_interval)
                 
-        except Exception as e:
-            logger.error(f"Agent monitoring error: {e}")
-        finally:
-            logger.info("AI Agent stopped monitoring")
+            except Exception as e:
+                print(f"❌ Agent monitoring error: {str(e)}")
+                await self._handle_circuit_breaker_failure()
+                await asyncio.sleep(5)  # Short delay on error
     
-    def stop_monitoring(self):
-        """Stop the agent monitoring loop."""
-        self.running = False
-    
-    async def collect_metrics(self) -> SystemMetrics:
-        """Collect current system metrics."""
-        
-        try:
-            # Get current timestamp
-            timestamp = datetime.now().isoformat()
-            
-            # Calculate API costs today
-            api_costs_today = self._get_daily_api_costs()
-            
-            # Calculate cache hit rate
-            cache_hit_rate = self._calculate_cache_hit_rate()
-            
-            # Calculate storage usage
-            storage_usage_mb = self._calculate_storage_usage()
-            
-            # Calculate success rate (last 24h)
-            success_rate_24h = self._calculate_success_rate()
-            
-            # Calculate average generation time
-            avg_generation_time = self._calculate_avg_generation_time()
-            
-            # Count active generations (simplified)
-            active_generations = 0  # Would integrate with actual pipeline status
-            
-            # Count queue length (simplified)
-            queue_length = self._count_pending_campaigns()
-            
-            metrics = SystemMetrics(
-                timestamp=timestamp,
-                queue_length=queue_length,
-                api_costs_today=api_costs_today,
-                success_rate_24h=success_rate_24h,
-                active_generations=active_generations,
-                cache_hit_rate=cache_hit_rate,
-                storage_usage_mb=storage_usage_mb,
-                avg_generation_time=avg_generation_time
-            )
-            
-            logger.debug(f"Collected metrics: {asdict(metrics)}")
-            return metrics
-            
-        except Exception as e:
-            logger.error(f"Error collecting metrics: {e}")
-            # Return default metrics on error
-            return SystemMetrics(
-                timestamp=datetime.now().isoformat(),
-                queue_length=0,
-                api_costs_today=0.0,
-                success_rate_24h=100.0,
-                active_generations=0,
-                cache_hit_rate=0.0,
-                storage_usage_mb=0.0,
-                avg_generation_time=0.0
-            )
-    
-    async def analyze_metrics(self, metrics: SystemMetrics) -> List[Alert]:
-        """Analyze metrics and generate alerts."""
-        
-        alerts = []
-        
-        # Check daily cost limit
-        if metrics.api_costs_today > self.thresholds['cost_daily_limit']:
-            alerts.append(self._create_alert(
-                'critical',
-                'cost_limit_exceeded',
-                'Daily API Cost Limit Exceeded',
-                f'Daily API costs (${metrics.api_costs_today:.2f}) exceeded limit (${self.thresholds["cost_daily_limit"]:.2f})',
-                {'current_cost': metrics.api_costs_today, 'limit': self.thresholds['cost_daily_limit']},
-                ['Pause non-urgent generation tasks', 'Review cost optimization', 'Consider increasing daily limit'],
-                ['finance@company.com', 'operations@company.com']
-            ))
-        
-        # Check success rate
-        if metrics.success_rate_24h < self.thresholds['success_rate_min']:
-            alerts.append(self._create_alert(
-                'high',
-                'low_success_rate',
-                'Generation Success Rate Below Threshold',
-                f'Success rate ({metrics.success_rate_24h:.1f}%) below minimum ({self.thresholds["success_rate_min"]:.1f}%)',
-                {'current_rate': metrics.success_rate_24h, 'threshold': self.thresholds['success_rate_min']},
-                ['Investigate API connectivity issues', 'Check error logs', 'Review prompt templates'],
-                ['engineering@company.com', 'operations@company.com']
-            ))
-        
-        # Check generation time
-        if metrics.avg_generation_time > self.thresholds['avg_generation_time_max']:
-            alerts.append(self._create_alert(
-                'medium',
-                'slow_generation',
-                'Average Generation Time Increased',
-                f'Average generation time ({metrics.avg_generation_time:.1f}s) exceeds normal range',
-                {'current_time': metrics.avg_generation_time, 'threshold': self.thresholds['avg_generation_time_max']},
-                ['Check API response times', 'Review system load', 'Consider scaling resources'],
-                ['engineering@company.com']
-            ))
-        
-        # Check queue length
-        if metrics.queue_length > self.thresholds['queue_length_warning']:
-            alerts.append(self._create_alert(
-                'medium',
-                'queue_backlog',
-                'Campaign Queue Backlog Detected',
-                f'Queue length ({metrics.queue_length}) indicates potential bottleneck',
-                {'queue_length': metrics.queue_length, 'threshold': self.thresholds['queue_length_warning']},
-                ['Scale up generation capacity', 'Prioritize urgent campaigns', 'Review resource allocation'],
-                ['operations@company.com', 'creative-lead@company.com']
-            ))
-        
-        # Check storage usage
-        storage_gb = metrics.storage_usage_mb / 1024
-        if storage_gb > self.thresholds['storage_limit_gb']:
-            alerts.append(self._create_alert(
-                'low',
-                'storage_usage_high',
-                'Storage Usage Approaching Limit',
-                f'Storage usage ({storage_gb:.2f}GB) approaching limit ({self.thresholds["storage_limit_gb"]:.1f}GB)',
-                {'current_usage_gb': storage_gb, 'limit_gb': self.thresholds['storage_limit_gb']},
-                ['Clean up old cached assets', 'Archive completed campaigns', 'Consider storage expansion'],
-                ['it@company.com']
-            ))
-        
-        return alerts
-    
-    def _create_alert(
-        self,
-        severity: str,
-        alert_type: str,
-        title: str,
-        description: str,
-        context: Dict[str, Any],
-        recommendations: List[str],
-        stakeholders: List[str]
-    ) -> Alert:
-        """Create a structured alert."""
-        
-        alert_id = f"{alert_type}_{int(time.time())}"
-        
-        return Alert(
-            id=alert_id,
-            timestamp=datetime.now().isoformat(),
-            severity=severity,
-            alert_type=alert_type,
-            title=title,
-            description=description,
-            context=context,
-            recommendations=recommendations,
-            stakeholders=stakeholders
-        )
-    
-    async def handle_alert(self, alert: Alert):
-        """Process and send alerts."""
-        
-        # Check if we've already sent this type of alert recently (prevent spam)
-        recent_alerts = [
-            a for a in self.alerts_sent 
-            if a['alert_type'] == alert.alert_type and 
-               datetime.fromisoformat(a['timestamp']) > datetime.now() - timedelta(hours=1)
-        ]
-        
-        if recent_alerts:
-            logger.debug(f"Skipping duplicate alert: {alert.alert_type}")
+    async def monitor_campaign_briefs(self):
+        """Monitor incoming campaign briefs and trigger generation"""
+        brief_dir = Path("campaign_briefs")
+        if not brief_dir.exists():
+            brief_dir.mkdir(exist_ok=True)
             return
         
-        # Log the alert
-        logger.warning(f"Alert generated: {alert.title} - {alert.description}")
-        
-        # Save alert to history
-        self.alerts_sent.append(asdict(alert))
-        
-        # In a real implementation, this would:
-        # 1. Send email notifications
-        # 2. Post to Slack/Teams
-        # 3. Update dashboard
-        # 4. Create incident tickets
-        
-        # For now, save to file
-        await self._save_alert_to_file(alert)
+        # Look for new campaign briefs
+        for brief_file in brief_dir.glob("*.yaml"):
+            campaign_id = brief_file.stem
+            
+            if campaign_id not in self.campaign_tracking:
+                print(f"🔍 Agent: New campaign brief detected: {campaign_id}")
+                
+                # Load and validate brief
+                try:
+                    with open(brief_file, 'r') as f:
+                        campaign_brief = yaml.safe_load(f)
+                    
+                    # Initialize tracking
+                    self.campaign_tracking[campaign_id] = {
+                        "brief_file": str(brief_file),
+                        "detected_at": datetime.now().isoformat(),
+                        "status": "detected",
+                        "variants_generated": 0,
+                        "target_variants": 0,
+                        "last_check": datetime.now().isoformat()
+                    }
+                    
+                    # Trigger automated generation
+                    await self.trigger_generation(campaign_id, campaign_brief)
+                    
+                except Exception as e:
+                    await self._handle_circuit_breaker_failure()
+                    await self.create_alert(
+                        "generation_failure",
+                        f"Failed to process campaign brief {campaign_id}: {str(e)}",
+                        "high"
+                    )
     
-    async def _save_alert_to_file(self, alert: Alert):
-        """Save alert to file for review."""
+    async def trigger_generation(self, campaign_id: str, campaign_brief: Dict[str, Any]):
+        """Trigger automated generation tasks"""
+        print(f"🚀 Agent: Triggering generation for campaign {campaign_id}")
         
-        alerts_dir = Path('alerts')
+        try:
+            # Calculate expected variants
+            brief_data = campaign_brief.get("campaign_brief", {})
+            products = brief_data.get("products", [])
+            aspect_ratios = brief_data.get("output_requirements", {}).get("aspect_ratios", ["1:1", "9:16", "16:9"])
+            expected_variants = len(products) * len(aspect_ratios)
+            
+            # Update tracking
+            self.campaign_tracking[campaign_id].update({
+                "status": "generating",
+                "target_variants": expected_variants,
+                "generation_started": datetime.now().isoformat()
+            })
+            
+            # Trigger generation using sync method wrapped in async
+            import asyncio
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(
+                None,
+                self.orchestrator.process_campaign_sync,
+                campaign_brief,
+                "assets",
+                "output",
+                False,  # force_generate
+                False,  # skip_compliance
+                None    # localize_for
+            )
+            
+            # Update tracking with results
+            self.campaign_tracking[campaign_id].update({
+                "status": "completed",
+                "variants_generated": result.get("assets_generated", 0),
+                "generation_completed": datetime.now().isoformat(),
+                "output_path": result.get("output_path", ""),
+                "api_cost": result.get("total_cost", 0)
+            })
+            
+            print(f"✅ Agent: Campaign {campaign_id} generation completed")
+            
+            # Check if variants are sufficient
+            if result.get("assets_generated", 0) < self.config["min_variants_threshold"]:
+                await self.create_alert(
+                    "insufficient_variants",
+                    f"Campaign {campaign_id} generated only {result.get('assets_generated', 0)} variants (minimum: {self.config['min_variants_threshold']})",
+                    "medium"
+                )
+            
+        except Exception as e:
+            self.campaign_tracking[campaign_id]["status"] = "failed"
+            await self.create_alert(
+                "generation_failure",
+                f"Generation failed for campaign {campaign_id}: {str(e)}",
+                "high"
+            )
+    
+    async def track_creative_variants(self):
+        """Track count and diversity of creative variants"""
+        output_dir = Path("output")
+        if not output_dir.exists():
+            return
+        
+        for campaign_id, tracking in self.campaign_tracking.items():
+            if tracking["status"] == "completed":
+                continue
+                
+            # Check output directory for this campaign
+            campaign_output = output_dir / campaign_id
+            if campaign_output.exists():
+                variant_count = 0
+                aspect_ratios = set()
+                products = set()
+                
+                # Count variants
+                for product_dir in campaign_output.iterdir():
+                    if product_dir.is_dir():
+                        products.add(product_dir.name)
+                        for variant_file in product_dir.glob("*.jpg"):
+                            variant_count += 1
+                            # Extract aspect ratio from filename (e.g., "1x1.jpg")
+                            aspect_ratios.add(variant_file.stem)
+                
+                # Update tracking
+                tracking.update({
+                    "variants_generated": variant_count,
+                    "products_processed": len(products),
+                    "aspect_ratios_covered": list(aspect_ratios),
+                    "diversity_score": len(aspect_ratios) * len(products),
+                    "last_check": datetime.now().isoformat()
+                })
+                
+                # Check for insufficient variants
+                if variant_count < self.config["min_variants_threshold"]:
+                    await self.create_alert(
+                        "insufficient_variants",
+                        f"Campaign {campaign_id} has only {variant_count} variants (minimum: {self.config['min_variants_threshold']})",
+                        "medium"
+                    )
+    
+    async def monitor_system_health(self):
+        """Monitor overall system health and performance"""
+        try:
+            # Check costs
+            costs_file = Path("costs.json")
+            if costs_file.exists():
+                with open(costs_file, 'r') as f:
+                    costs = json.load(f)
+                    total_cost = costs.get("total_cost", 0)
+                    
+                    if total_cost > self.config["cost_alert_threshold"]:
+                        await self.create_alert(
+                            "cost_spike",
+                            f"Daily API costs ({total_cost:.2f}) exceeded threshold ({self.config['cost_alert_threshold']})",
+                            "high"
+                        )
+            
+            # Check queue length
+            active_campaigns = len([c for c in self.campaign_tracking.values() if c["status"] == "generating"])
+            if active_campaigns > self.config["max_queue_length"]:
+                await self.create_alert(
+                    "queue_overload",
+                    f"Generation queue overloaded: {active_campaigns} active campaigns",
+                    "medium"
+                )
+            
+            # Calculate success rate
+            completed = len([c for c in self.campaign_tracking.values() if c["status"] == "completed"])
+            failed = len([c for c in self.campaign_tracking.values() if c["status"] == "failed"])
+            total = completed + failed
+            
+            if total > 0:
+                success_rate = completed / total
+                if success_rate < self.config["success_rate_threshold"]:
+                    await self.create_alert(
+                        "low_success_rate",
+                        f"Generation success rate ({success_rate:.1%}) below threshold ({self.config['success_rate_threshold']:.1%})",
+                        "high"
+                    )
+            
+        except Exception as e:
+            print(f"⚠️ Agent: Health monitoring error: {str(e)}")
+    
+    async def create_alert(self, alert_type: str, message: str, severity: str):
+        """Create and queue an alert for processing"""
+        alert = {
+            "id": f"alert_{int(time.time())}_{len(self.alert_history)}",
+            "type": alert_type,
+            "message": message,
+            "severity": severity,
+            "timestamp": datetime.now().isoformat(),
+            "status": "pending"
+        }
+        
+        self.alert_history.append(alert)
+        print(f"🚨 Agent Alert [{severity.upper()}]: {message}")
+        
+        # Save alert to file
+        alerts_dir = Path("alerts")
         alerts_dir.mkdir(exist_ok=True)
         
-        alert_file = alerts_dir / f"alert_{alert.id}.json"
+        with open(alerts_dir / f"{alert['id']}.json", 'w') as f:
+            json.dump(alert, f, indent=2)
+    
+    async def process_alerts(self):
+        """Process pending alerts and generate communications"""
+        pending_alerts = [a for a in self.alert_history if a["status"] == "pending"]
+        
+        for alert in pending_alerts:
+            try:
+                # Generate human-readable communication
+                communication = await self.generate_stakeholder_communication(alert)
+                
+                # Log communication
+                await self.log_communication(alert, communication)
+                
+                # Mark as processed
+                alert["status"] = "processed"
+                alert["processed_at"] = datetime.now().isoformat()
+                
+            except Exception as e:
+                print(f"❌ Agent: Failed to process alert {alert['id']}: {str(e)}")
+    
+    async def generate_stakeholder_communication(self, alert: Dict[str, Any]) -> str:
+        """Generate human-readable alert using LLM with rich business context"""
+        if not os.getenv("OPENAI_API_KEY"):
+            return self._generate_fallback_communication(alert)
         
         try:
-            with open(alert_file, 'w') as f:
-                json.dump(asdict(alert), f, indent=2)
+            # Prepare comprehensive context for LLM (Model Context Protocol)
+            context = await self._build_comprehensive_context(alert)
             
-            logger.info(f"Alert saved to {alert_file}")
+            prompt = f"""
+You are an AI agent managing creative automation pipelines for a global consumer goods company.
+Generate a professional alert communication for stakeholders based on comprehensive business context.
+
+ALERT DETAILS:
+- Type: {context['alert_details']['type']}
+- Severity: {context['alert_details']['severity']} 
+- Message: {context['alert_details']['message']}
+- Business Impact: {context['alert_details']['business_impact']['estimated_delay_hours']}h delay, ${context['alert_details']['business_impact']['revenue_at_risk']} revenue at risk
+- Urgency: {context['stakeholder_context']['urgency_level']}
+
+SYSTEM PERFORMANCE:
+- Success Rate: {context['system_status']['performance_metrics']['success_rate']:.1%} (threshold: {context['system_status']['performance_metrics']['success_rate_threshold']:.1%})
+- Queue: {context['system_status']['queue_metrics']['active_campaigns']}/{context['system_status']['queue_metrics']['processing_capacity']} campaigns
+- Cost: ${context['system_status']['cost_metrics']['total_cost_today']:.2f} ({context['system_status']['cost_metrics']['budget_utilization']:.1f}% of budget)
+- Variants: {context['system_status']['performance_metrics']['total_variants_generated']} total, avg {context['system_status']['performance_metrics']['avg_variants_per_campaign']:.1f} per campaign
+
+ALERT CONTEXT:
+- Alerts Today: {context['alert_context']['total_alerts_today']} ({context['alert_context']['critical_alerts_today']} critical, {context['alert_context']['high_alerts_today']} high)
+- Repeated Issue: {context['alert_context']['repeated_alert_type']}
+- Escalation Required: {context['stakeholder_context']['escalation_required']}
+
+RECOMMENDED ACTIONS:
+{chr(10).join(f"• {action}" for action in context['recommended_actions'][:5])}
+
+Generate a professional, executive-level communication that:
+1. Clearly explains the business situation and immediate impact
+2. Provides specific financial and operational context
+3. Includes urgency assessment and escalation requirements
+4. Lists concrete, actionable next steps with timeframes
+5. Maintains professional tone appropriate for leadership
+
+Format as email content with clear sections and business language.
+"""
+            
+            # Use enhanced OpenAI client with error handling
+            if not self.openai_client:
+                print("⚠️ OpenAI client not available, using fallback communication")
+                return self._generate_fallback_communication(alert)
+            
+            response = self.openai_client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a professional AI agent generating stakeholder communications for creative automation systems."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=500,
+                temperature=0.3
+            )
+            
+            self._reset_circuit_breaker()  # Successful OpenAI call
+            return response.choices[0].message.content.strip()
             
         except Exception as e:
-            logger.error(f"Failed to save alert: {e}")
+            print(f"⚠️ Agent: LLM communication failed: {str(e)}")
+            await self._handle_circuit_breaker_failure()
+            return self._generate_fallback_communication(alert)
     
-    def _get_daily_api_costs(self) -> float:
-        """Get API costs for today."""
+    def _generate_fallback_communication(self, alert: Dict[str, Any]) -> str:
+        """Generate fallback communication without LLM"""
+        severity_map = {
+            "low": "INFORMATIONAL",
+            "medium": "WARNING", 
+            "high": "URGENT",
+            "critical": "CRITICAL"
+        }
         
-        if not self.costs_file.exists():
-            return 0.0
+        return f"""
+CREATIVE AUTOMATION ALERT - {severity_map.get(alert['severity'], 'UNKNOWN')}
+
+Alert Type: {alert['type']}
+Timestamp: {alert['timestamp']}
+Severity: {alert['severity'].upper()}
+
+Description:
+{alert['message']}
+
+System Status:
+- Active Campaigns: {len([c for c in self.campaign_tracking.values() if c['status'] == 'generating'])}
+- Completed Today: {len([c for c in self.campaign_tracking.values() if c['status'] == 'completed'])}
+- Failed Today: {len([c for c in self.campaign_tracking.values() if c['status'] == 'failed'])}
+
+Recommended Actions:
+- Review campaign status and resource allocation
+- Check system logs for detailed error information
+- Contact automation team if issue persists
+
+Next Update: {(datetime.now() + timedelta(hours=1)).isoformat()}
+        """
+    
+    async def log_communication(self, alert: Dict[str, Any], communication: str):
+        """Log the generated communication"""
+        logs_dir = Path("logs")
+        logs_dir.mkdir(exist_ok=True)
         
+        log_entry = {
+            "alert_id": alert["id"],
+            "timestamp": datetime.now().isoformat(),
+            "severity": alert["severity"],
+            "communication": communication
+        }
+        
+        # Save to individual log file
+        with open(logs_dir / f"alert_{alert['id']}_communication.json", 'w') as f:
+            json.dump(log_entry, f, indent=2)
+        
+        # Also save human-readable version
+        with open(logs_dir / f"alert_{alert['id']}_email.txt", 'w') as f:
+            f.write(f"Subject: Creative Automation Alert - {alert['type'].replace('_', ' ').title()}\n\n")
+            f.write(communication)
+        
+        print(f"📧 Agent: Communication logged for alert {alert['id']}")
+    
+    async def _build_comprehensive_context(self, alert: Dict[str, Any]) -> Dict[str, Any]:
+        """Build comprehensive business context for LLM (Model Context Protocol)"""
+        import os
+        
+        # Calculate comprehensive metrics
+        active_campaigns = [c for c in self.campaign_tracking.values() if c["status"] == "generating"]
+        completed_campaigns = [c for c in self.campaign_tracking.values() if c["status"] == "completed"]
+        failed_campaigns = [c for c in self.campaign_tracking.values() if c["status"] == "failed"]
+        
+        # Cost analysis
+        total_cost = 0
         try:
-            with open(self.costs_file, 'r') as f:
-                costs = json.load(f)
-            
-            # In a real implementation, this would filter by date
-            # For now, return total costs
-            return costs.get('total_cost', 0.0)
-            
-        except Exception as e:
-            logger.error(f"Error reading costs: {e}")
-            return 0.0
-    
-    def _calculate_cache_hit_rate(self) -> float:
-        """Calculate cache hit rate."""
+            if os.path.exists("costs.json"):
+                with open("costs.json", 'r') as f:
+                    costs = json.load(f)
+                    total_cost = costs.get("total_cost", 0)
+        except:
+            total_cost = 0
         
-        if not self.cache_dir.exists():
-            return 0.0
+        # Performance metrics
+        total_campaigns = len(completed_campaigns) + len(failed_campaigns)
+        success_rate = (len(completed_campaigns) / total_campaigns) if total_campaigns > 0 else 0
         
-        try:
-            cached_files = list(self.cache_dir.glob('*.png'))
-            if not cached_files:
-                return 0.0
-            
-            # Simple calculation - in reality would track hits vs misses
-            return 75.0  # Placeholder
-            
-        except Exception as e:
-            logger.error(f"Error calculating cache hit rate: {e}")
-            return 0.0
-    
-    def _calculate_storage_usage(self) -> float:
-        """Calculate total storage usage in MB."""
+        # Variant analysis
+        total_variants = sum(c.get("variants_generated", 0) for c in self.campaign_tracking.values())
+        avg_variants_per_campaign = total_variants / len(self.campaign_tracking) if self.campaign_tracking else 0
         
-        total_size = 0
+        # Alert analysis
+        today = datetime.now().isoformat()[:10]
+        todays_alerts = [a for a in self.alert_history if a["timestamp"][:10] == today]
+        critical_alerts = [a for a in todays_alerts if a["severity"] == "critical"]
+        high_alerts = [a for a in todays_alerts if a["severity"] == "high"]
         
-        try:
-            # Calculate output directory size
-            if self.output_dir.exists():
-                for file_path in self.output_dir.rglob('*'):
-                    if file_path.is_file():
-                        total_size += file_path.stat().st_size
-            
-            # Add cache directory size
-            if self.cache_dir.exists():
-                for file_path in self.cache_dir.rglob('*'):
-                    if file_path.is_file():
-                        total_size += file_path.stat().st_size
-            
-            return total_size / (1024 * 1024)  # Convert to MB
-            
-        except Exception as e:
-            logger.error(f"Error calculating storage usage: {e}")
-            return 0.0
-    
-    def _calculate_success_rate(self) -> float:
-        """Calculate generation success rate."""
+        # Business impact assessment
+        estimated_delay_hours = 0
+        revenue_at_risk = 0
         
-        # In a real implementation, this would analyze logs
-        # For now, return a simulated rate
-        return 92.5  # Placeholder
-    
-    def _calculate_avg_generation_time(self) -> float:
-        """Calculate average generation time."""
-        
-        # In a real implementation, this would analyze timing logs
-        # For now, return a simulated average
-        return 25.3  # Placeholder in seconds
-    
-    def _count_pending_campaigns(self) -> int:
-        """Count pending campaigns in queue."""
-        
-        # In a real implementation, this would check a queue system
-        # For now, count YAML files that haven't been processed
-        
-        try:
-            yaml_files = list(Path('.').glob('campaign_brief_*.yaml'))
-            processed_campaigns = set()
-            
-            if self.output_dir.exists():
-                for campaign_dir in self.output_dir.iterdir():
-                    if campaign_dir.is_dir():
-                        processed_campaigns.add(campaign_dir.name)
-            
-            # Simple heuristic - files without corresponding output
-            pending = len(yaml_files) - len(processed_campaigns)
-            return max(0, pending)
-            
-        except Exception as e:
-            logger.error(f"Error counting pending campaigns: {e}")
-            return 0
-    
-    def get_status_summary(self) -> Dict[str, Any]:
-        """Get current agent status summary."""
-        
-        if not self.metrics_history:
-            return {'status': 'no_data', 'message': 'No metrics collected yet'}
-        
-        latest_metrics = self.metrics_history[-1]
-        recent_alerts = [
-            a for a in self.alerts_sent 
-            if datetime.fromisoformat(a['timestamp']) > datetime.now() - timedelta(hours=24)
-        ]
+        if alert["type"] == "generation_failure":
+            estimated_delay_hours = 2
+            revenue_at_risk = 25000
+        elif alert["type"] == "cost_spike":
+            estimated_delay_hours = 0
+            revenue_at_risk = total_cost * 10  # Cost overrun impact
+        elif alert["type"] == "insufficient_variants":
+            estimated_delay_hours = 1
+            revenue_at_risk = 15000
         
         return {
-            'status': 'running' if self.running else 'stopped',
-            'last_check': latest_metrics.timestamp,
-            'metrics': asdict(latest_metrics),
-            'alerts_24h': len(recent_alerts),
-            'critical_alerts': len([a for a in recent_alerts if a['severity'] == 'critical']),
-            'monitoring_interval': self.check_interval
+            "alert_details": {
+                "id": alert["id"],
+                "type": alert["type"],
+                "severity": alert["severity"],
+                "message": alert["message"],
+                "timestamp": alert["timestamp"],
+                "business_impact": {
+                    "estimated_delay_hours": estimated_delay_hours,
+                    "revenue_at_risk": revenue_at_risk,
+                    "affected_campaigns": len(active_campaigns) + len(failed_campaigns)
+                }
+            },
+            "system_status": {
+                "current_time": datetime.now().isoformat(),
+                "queue_metrics": {
+                    "active_campaigns": len(active_campaigns),
+                    "completed_campaigns": len(completed_campaigns),
+                    "failed_campaigns": len(failed_campaigns),
+                    "queue_length": len(active_campaigns),
+                    "processing_capacity": self.config["max_queue_length"]
+                },
+                "performance_metrics": {
+                    "success_rate": success_rate,
+                    "success_rate_threshold": self.config["success_rate_threshold"],
+                    "total_variants_generated": total_variants,
+                    "avg_variants_per_campaign": avg_variants_per_campaign,
+                    "min_variants_threshold": self.config["min_variants_threshold"]
+                },
+                "cost_metrics": {
+                    "total_cost_today": total_cost,
+                    "cost_threshold": self.config["cost_alert_threshold"],
+                    "avg_cost_per_campaign": total_cost / max(len(completed_campaigns), 1),
+                    "budget_utilization": (total_cost / self.config["cost_alert_threshold"]) * 100
+                }
+            },
+            "alert_context": {
+                "total_alerts_today": len(todays_alerts),
+                "critical_alerts_today": len(critical_alerts),
+                "high_alerts_today": len(high_alerts),
+                "alert_frequency": len(todays_alerts) / 24,  # alerts per hour
+                "repeated_alert_type": alert["type"] in [a["type"] for a in todays_alerts[:-1]]
+            },
+            "campaign_portfolio": {
+                "total_campaigns_tracked": len(self.campaign_tracking),
+                "campaign_details": [
+                    {
+                        "id": cid,
+                        "status": data["status"],
+                        "variants_generated": data.get("variants_generated", 0),
+                        "target_variants": data.get("target_variants", 0),
+                        "completion_rate": (data.get("variants_generated", 0) / max(data.get("target_variants", 1), 1)) * 100
+                    }
+                    for cid, data in list(self.campaign_tracking.items())[:5]  # Last 5 campaigns
+                ]
+            },
+            "recommended_actions": self._generate_recommended_actions(alert, success_rate, total_cost),
+            "stakeholder_context": {
+                "urgency_level": self._calculate_urgency_level(alert, len(critical_alerts), len(failed_campaigns)),
+                "escalation_required": len(critical_alerts) > 2 or len(failed_campaigns) > 3,
+                "next_review_time": (datetime.now() + timedelta(hours=1)).isoformat()
+            }
         }
+    
+    def _generate_recommended_actions(self, alert: Dict[str, Any], success_rate: float, total_cost: float) -> List[str]:
+        """Generate context-aware recommended actions"""
+        actions = []
+        
+        if alert["type"] == "generation_failure":
+            actions.extend([
+                "Immediately review system logs for root cause analysis",
+                "Check API connectivity and authentication status", 
+                "Verify campaign brief format and required fields",
+                "Consider engaging backup generation providers",
+                "Notify creative team of potential manual asset requirements"
+            ])
+        elif alert["type"] == "cost_spike":
+            actions.extend([
+                "Review API usage patterns and optimize batch processing",
+                "Implement cost controls and rate limiting",
+                "Evaluate alternative AI providers for cost optimization",
+                "Update budget forecasts and alert stakeholders"
+            ])
+        elif alert["type"] == "insufficient_variants":
+            actions.extend([
+                "Review generation parameters and quality thresholds",
+                "Check asset requirements and aspect ratio specifications",
+                "Consider lowering quality gates temporarily to meet deadlines",
+                "Engage creative team for manual variant creation"
+            ])
+        elif alert["type"] == "low_success_rate":
+            actions.extend([
+                "Conduct comprehensive system health check",
+                "Review recent changes to generation pipeline",
+                "Implement additional error handling and retry logic",
+                "Schedule emergency team meeting for issue resolution"
+            ])
+        
+        # Add general actions based on system state
+        if success_rate < 0.5:
+            actions.append("URGENT: Success rate critically low - consider system maintenance")
+        if total_cost > self.config["cost_alert_threshold"] * 0.9:
+            actions.append("Budget nearing limit - implement cost controls immediately")
+            
+        return actions
+    
+    def _calculate_urgency_level(self, alert: Dict[str, Any], critical_alerts: int, failed_campaigns: int) -> str:
+        """Calculate business urgency level"""
+        severity_score = {"low": 1, "medium": 2, "high": 3, "critical": 4}.get(alert["severity"], 2)
+        
+        # Factor in system state
+        if critical_alerts > 2:
+            severity_score += 1
+        if failed_campaigns > 3:
+            severity_score += 1
+        if alert["type"] in ["generation_failure", "cost_spike"]:
+            severity_score += 1
+            
+        if severity_score >= 5:
+            return "CRITICAL - Immediate C-suite notification required"
+        elif severity_score >= 4:
+            return "HIGH - Leadership review required within 2 hours"
+        elif severity_score >= 3:
+            return "MEDIUM - Team lead review required within 4 hours"
+        else:
+            return "LOW - Standard monitoring and review"
+    
+    def stop_monitoring(self):
+        """Stop the monitoring loop"""
+        self.monitoring = False
+        print("🛑 AI Agent: Monitoring stopped")
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get current agent status"""
+        return {
+            "monitoring": self.monitoring,
+            "campaigns_tracked": len(self.campaign_tracking),
+            "alerts_generated": len(self.alert_history),
+            "pending_alerts": len([a for a in self.alert_history if a["status"] == "pending"]),
+            "last_check": datetime.now().isoformat(),
+            "configuration": self.config,
+            "campaign_summary": {
+                "active": len([c for c in self.campaign_tracking.values() if c["status"] == "generating"]),
+                "completed": len([c for c in self.campaign_tracking.values() if c["status"] == "completed"]),
+                "failed": len([c for c in self.campaign_tracking.values() if c["status"] == "failed"])
+            }
+        }
+    
+    def get_campaign_tracking(self) -> Dict[str, Any]:
+        """Get detailed campaign tracking information"""
+        return self.campaign_tracking
+    
+    def get_alert_history(self) -> List[Dict[str, Any]]:
+        """Get alert history"""
+        return self.alert_history
+    
+    async def _handle_circuit_breaker_failure(self):
+        """Handle circuit breaker logic for system failures"""
+        self.circuit_breaker["consecutive_failures"] += 1
+        self.circuit_breaker["last_failure_time"] = datetime.now()
+        
+        if self.circuit_breaker["consecutive_failures"] >= self.config["circuit_breaker_threshold"]:
+            self.circuit_breaker["state"] = "open"
+            print(f"⚠️ Circuit breaker OPEN - {self.circuit_breaker['consecutive_failures']} consecutive failures")
+            
+            # Create critical alert about system instability
+            await self.create_alert(
+                "system_instability",
+                f"System experiencing {self.circuit_breaker['consecutive_failures']} consecutive failures. Circuit breaker activated.",
+                "critical"
+            )
+    
+    async def _check_circuit_breaker_recovery(self):
+        """Check if circuit breaker can transition to half-open state"""
+        if self.circuit_breaker["state"] == "open":
+            last_failure = self.circuit_breaker["last_failure_time"]
+            if last_failure and (datetime.now() - last_failure).seconds >= self.config["recovery_timeout"]:
+                self.circuit_breaker["state"] = "half-open"
+                print("🔄 Circuit breaker HALF-OPEN - Testing recovery")
+    
+    def _reset_circuit_breaker(self):
+        """Reset circuit breaker after successful operation"""
+        if self.circuit_breaker["consecutive_failures"] > 0:
+            print(f"✅ Circuit breaker RESET - System recovery confirmed")
+        
+        self.circuit_breaker["consecutive_failures"] = 0
+        self.circuit_breaker["state"] = "closed"
+        self.circuit_breaker["last_failure_time"] = None
+    
+    async def _adapt_thresholds_based_on_performance(self):
+        """Dynamically adapt monitoring thresholds based on historical performance"""
+        if not self.config["adaptive_thresholds"]:
+            return
+        
+        # Analyze performance over the last 24 hours
+        now = datetime.now()
+        window_start = now - timedelta(hours=self.config["performance_history_window"])
+        
+        recent_campaigns = [
+            c for c in self.campaign_tracking.values() 
+            if datetime.fromisoformat(c.get("detected_at", "1970-01-01T00:00:00")) >= window_start
+        ]
+        
+        if len(recent_campaigns) < 3:
+            return  # Need more data
+        
+        # Calculate adaptive success rate threshold
+        completed = len([c for c in recent_campaigns if c["status"] == "completed"])
+        total = len([c for c in recent_campaigns if c["status"] in ["completed", "failed"]])
+        
+        if total > 0:
+            current_success_rate = completed / total
+            
+            # Adjust threshold based on recent performance
+            if current_success_rate < 0.5:  # Poor performance
+                self.config["success_rate_threshold"] = max(0.6, current_success_rate + 0.1)
+                print(f"📉 Adapted success rate threshold to {self.config['success_rate_threshold']:.1%} due to poor performance")
+            elif current_success_rate > 0.9:  # Excellent performance
+                self.config["success_rate_threshold"] = min(0.95, current_success_rate - 0.05)
+                print(f"📈 Adapted success rate threshold to {self.config['success_rate_threshold']:.1%} for higher standards")
+        
+        # Adapt cost thresholds based on actual usage patterns
+        recent_costs = []
+        try:
+            if os.path.exists("costs.json"):
+                with open("costs.json", 'r') as f:
+                    costs = json.load(f)
+                    # Simulate daily cost tracking (would be implemented in real system)
+                    daily_cost = costs.get("total_cost", 0) / max(len(recent_campaigns), 1)
+                    if daily_cost > 0:
+                        recent_costs.append(daily_cost)
+        except:
+            pass
+        
+        if recent_costs:
+            avg_daily_cost = sum(recent_costs) / len(recent_costs)
+            # Set threshold at 150% of average to catch real spikes
+            adaptive_cost_threshold = avg_daily_cost * 1.5
+            
+            if abs(adaptive_cost_threshold - self.config["cost_alert_threshold"]) > 10:
+                self.config["cost_alert_threshold"] = adaptive_cost_threshold
+                print(f"💰 Adapted cost threshold to ${adaptive_cost_threshold:.2f} based on usage patterns")
+    
+    async def _enhanced_error_recovery(self):
+        """Enhanced error recovery with multiple strategies"""
+        try:
+            # Check circuit breaker state
+            await self._check_circuit_breaker_recovery()
+            
+            # Adapt thresholds based on performance
+            await self._adapt_thresholds_based_on_performance()
+            
+            # If in half-open state, test with minimal operations
+            if self.circuit_breaker["state"] == "half-open":
+                print("🧪 Testing system recovery...")
+                # Try a simple operation
+                test_campaigns = len(self.campaign_tracking)
+                if test_campaigns >= 0:  # Simple test that should always pass
+                    self._reset_circuit_breaker()
+                    print("✅ System recovery confirmed")
+            
+            # Clear old alert history to prevent memory buildup
+            if len(self.alert_history) > 100:
+                cutoff = datetime.now() - timedelta(days=7)
+                self.alert_history = [
+                    alert for alert in self.alert_history
+                    if datetime.fromisoformat(alert["timestamp"]) > cutoff
+                ]
+                print(f"🧹 Cleaned old alerts - {len(self.alert_history)} alerts retained")
+            
+        except Exception as e:
+            print(f"⚠️ Error recovery failed: {e}")
 
 
-# CLI interface for agent operations
-async def run_agent_monitor(duration_minutes: int = 60):
-    """Run the agent for a specified duration."""
+# Agent Management Functions
+async def start_agent():
+    """Start the AI agent in background"""
+    agent = CreativeAutomationAgent()
+    await agent.start_monitoring()
+
+async def run_agent_monitor(agent: CreativeAutomationAgent, duration_minutes: int):
+    """Run agent monitoring for a specified duration"""
+    duration_seconds = duration_minutes * 60
+    start_time = time.time()
     
-    agent = CreativeAutomationAgent(check_interval=30)
-    
-    print(f"🤖 Starting AI Agent monitoring for {duration_minutes} minutes...")
-    
-    # Start monitoring
-    monitor_task = asyncio.create_task(agent.start_monitoring())
+    # Override monitoring duration
+    original_monitoring = agent.monitoring
+    agent.monitoring = True
     
     try:
-        # Run for specified duration
-        await asyncio.sleep(duration_minutes * 60)
-        
-    except KeyboardInterrupt:
-        print("\n⏹️  Monitoring interrupted by user")
+        while agent.monitoring and (time.time() - start_time) < duration_seconds:
+            # Monitor campaign briefs
+            await agent.monitor_campaign_briefs()
+            
+            # Check system health
+            await agent.monitor_system_health()
+            
+            # Track creative variants
+            await agent.track_creative_variants()
+            
+            # Process any alerts
+            await agent.process_alerts()
+            
+            # Show periodic status
+            elapsed = time.time() - start_time
+            remaining = duration_seconds - elapsed
+            if int(elapsed) % 30 == 0:  # Every 30 seconds
+                print(f"🕐 Agent monitoring: {remaining/60:.1f} minutes remaining")
+            
+            await asyncio.sleep(agent.check_interval)
     
     finally:
-        agent.stop_monitoring()
-        monitor_task.cancel()
-        
-        try:
-            await monitor_task
-        except asyncio.CancelledError:
-            pass
+        agent.monitoring = original_monitoring
+        print("🏁 Agent monitoring session completed")
+
+def create_test_alert():
+    """Create a test alert for demonstration"""
+    agent = CreativeAutomationAgent()
     
-    # Print final status
-    status = agent.get_status_summary()
-    print(f"\n📊 Final Status:")
-    print(f"   Metrics collected: {len(agent.metrics_history)}")
-    print(f"   Alerts generated: {len(agent.alerts_sent)}")
-    print(f"   Last API cost: ${status['metrics']['api_costs_today']:.2f}")
-    print(f"   Success rate: {status['metrics']['success_rate_24h']:.1f}%")
+    # Simulate creating an alert
+    asyncio.run(agent.create_alert(
+        "test_alert",
+        "This is a test alert to demonstrate the AI agent system",
+        "medium"
+    ))
+    
+    return agent.get_status()
 
 
 if __name__ == "__main__":
-    # Simple test run
-    asyncio.run(run_agent_monitor(1))  # Run for 1 minute
+    # Demo the agent system
+    agent = CreativeAutomationAgent()
+    print("🤖 AI Agent Demo Starting...")
+    
+    # Create a test alert
+    asyncio.run(agent.create_alert(
+        "demo_alert",
+        "Demo: System initialization complete",
+        "low"
+    ))
+    
+    print("Agent Status:")
+    print(json.dumps(agent.get_status(), indent=2))

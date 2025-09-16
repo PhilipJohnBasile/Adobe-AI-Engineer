@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_urgent_holiday_launch",
+  "type": "insufficient_variants",
+  "message": "Campaign urgent_holiday_launch has only 2 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "urgent_holiday_launch",
+  "timestamp": "2025-09-15T22:11:10.817330",
+  "status": "active"
+}

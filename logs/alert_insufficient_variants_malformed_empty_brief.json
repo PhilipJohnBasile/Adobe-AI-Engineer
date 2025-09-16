@@ -1,0 +1,9 @@
+{
+  "id": "insufficient_variants_malformed_empty_brief",
+  "type": "insufficient_variants",
+  "message": "Campaign malformed_empty_brief has only 0 variants (minimum required: 3)",
+  "severity": "medium",
+  "campaign_id": "malformed_empty_brief",
+  "timestamp": "2025-09-15T22:21:49.676484",
+  "status": "active"
+}

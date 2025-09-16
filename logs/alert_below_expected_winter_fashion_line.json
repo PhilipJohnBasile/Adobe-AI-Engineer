@@ -1,0 +1,9 @@
+{
+  "id": "below_expected_winter_fashion_line",
+  "type": "below_expected_variants",
+  "message": "Campaign winter_fashion_line has 0/4 variants (50% below expected)",
+  "severity": "high",
+  "campaign_id": "winter_fashion_line",
+  "timestamp": "2025-09-15T22:21:49.674562",
+  "status": "active"
+}

@@ -1,0 +1,1055 @@
+2025-09-15 22:09:43,715 - INFO - 🤖 Task 3 Agent initialized
+2025-09-15 22:09:43,717 - INFO - 🔍 Starting campaign brief monitoring...
+2025-09-15 22:09:43,717 - INFO - 📋 New campaign brief detected: load_test_campaign_004
+2025-09-15 22:09:43,718 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_004
+2025-09-15 22:09:43,718 - INFO - ✅ Generation triggered for load_test_campaign_004
+2025-09-15 22:09:43,719 - INFO - 📋 New campaign brief detected: load_test_campaign_012
+2025-09-15 22:09:43,720 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_012
+2025-09-15 22:09:43,720 - INFO - ✅ Generation triggered for load_test_campaign_012
+2025-09-15 22:09:43,721 - INFO - 📋 New campaign brief detected: load_test_campaign_008
+2025-09-15 22:09:43,722 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_008
+2025-09-15 22:09:43,722 - INFO - ✅ Generation triggered for load_test_campaign_008
+2025-09-15 22:09:43,722 - INFO - 📋 New campaign brief detected: global_sustainability_2024
+2025-09-15 22:09:43,724 - INFO - 🚀 Triggering generation for campaign: global_sustainability_2024
+2025-09-15 22:09:43,724 - INFO - ✅ Generation triggered for global_sustainability_2024
+2025-09-15 22:09:43,724 - INFO - 📋 New campaign brief detected: load_test_campaign_009
+2025-09-15 22:09:43,725 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_009
+2025-09-15 22:09:43,725 - INFO - ✅ Generation triggered for load_test_campaign_009
+2025-09-15 22:09:43,725 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:09:43,726 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:09:43,726 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:09:43,726 - INFO - 📋 New campaign brief detected: black_friday_specials
+2025-09-15 22:09:43,728 - INFO - 🚀 Triggering generation for campaign: black_friday_specials
+2025-09-15 22:09:43,728 - INFO - ✅ Generation triggered for black_friday_specials
+2025-09-15 22:09:43,728 - INFO - 📋 New campaign brief detected: load_test_campaign_013
+2025-09-15 22:09:43,730 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_013
+2025-09-15 22:09:43,730 - INFO - ✅ Generation triggered for load_test_campaign_013
+2025-09-15 22:09:43,730 - INFO - 📋 New campaign brief detected: load_test_campaign_005
+2025-09-15 22:09:43,731 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_005
+2025-09-15 22:09:43,731 - INFO - ✅ Generation triggered for load_test_campaign_005
+2025-09-15 22:09:43,732 - INFO - 📋 New campaign brief detected: malformed_missing_campaign_brief_key
+2025-09-15 22:09:43,732 - INFO - 🚀 Triggering generation for campaign: malformed_missing_campaign_brief_key
+2025-09-15 22:09:43,732 - INFO - ✅ Generation triggered for malformed_missing_campaign_brief_key
+2025-09-15 22:09:43,732 - INFO - 📋 New campaign brief detected: load_test_campaign_018
+2025-09-15 22:09:43,733 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_018
+2025-09-15 22:09:43,733 - INFO - ✅ Generation triggered for load_test_campaign_018
+2025-09-15 22:09:43,733 - INFO - 📋 New campaign brief detected: load_test_campaign_002
+2025-09-15 22:09:43,735 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_002
+2025-09-15 22:09:43,735 - INFO - ✅ Generation triggered for load_test_campaign_002
+2025-09-15 22:09:43,735 - INFO - 📋 New campaign brief detected: holiday_collection_2024
+2025-09-15 22:09:43,735 - INFO - 🚀 Triggering generation for campaign: holiday_collection_2024
+2025-09-15 22:09:43,735 - INFO - ✅ Generation triggered for holiday_collection_2024
+2025-09-15 22:09:43,736 - INFO - 📋 New campaign brief detected: load_test_campaign_014
+2025-09-15 22:09:43,737 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_014
+2025-09-15 22:09:43,737 - INFO - ✅ Generation triggered for load_test_campaign_014
+2025-09-15 22:09:43,737 - INFO - 📋 New campaign brief detected: load_test_campaign_015
+2025-09-15 22:09:43,739 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_015
+2025-09-15 22:09:43,739 - INFO - ✅ Generation triggered for load_test_campaign_015
+2025-09-15 22:09:43,739 - INFO - 📋 New campaign brief detected: malformed_missing_products
+2025-09-15 22:09:43,739 - INFO - 🚀 Triggering generation for campaign: malformed_missing_products
+2025-09-15 22:09:43,739 - INFO - ✅ Generation triggered for malformed_missing_products
+2025-09-15 22:09:43,739 - INFO - 📋 New campaign brief detected: load_test_campaign_003
+2025-09-15 22:09:43,740 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_003
+2025-09-15 22:09:43,740 - INFO - ✅ Generation triggered for load_test_campaign_003
+2025-09-15 22:09:43,741 - INFO - 📋 New campaign brief detected: load_test_campaign_019
+2025-09-15 22:09:43,742 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_019
+2025-09-15 22:09:43,742 - INFO - ✅ Generation triggered for load_test_campaign_019
+2025-09-15 22:09:43,742 - INFO - 📋 New campaign brief detected: winter_fashion_line
+2025-09-15 22:09:43,743 - INFO - 🚀 Triggering generation for campaign: winter_fashion_line
+2025-09-15 22:09:43,743 - INFO - ✅ Generation triggered for winter_fashion_line
+2025-09-15 22:09:43,744 - INFO - 📋 New campaign brief detected: urgent_product_launch
+2025-09-15 22:09:43,745 - INFO - 🚀 Triggering generation for campaign: urgent_product_launch
+2025-09-15 22:09:43,745 - INFO - ✅ Generation triggered for urgent_product_launch
+2025-09-15 22:09:43,745 - INFO - 📋 New campaign brief detected: load_test_campaign_016
+2025-09-15 22:09:43,746 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_016
+2025-09-15 22:09:43,747 - INFO - ✅ Generation triggered for load_test_campaign_016
+2025-09-15 22:09:43,747 - INFO - 📋 New campaign brief detected: load_test_campaign_000
+2025-09-15 22:09:43,748 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_000
+2025-09-15 22:09:43,748 - INFO - ✅ Generation triggered for load_test_campaign_000
+2025-09-15 22:09:43,748 - INFO - 📋 New campaign brief detected: load_test_campaign_001
+2025-09-15 22:09:43,750 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_001
+2025-09-15 22:09:43,750 - INFO - ✅ Generation triggered for load_test_campaign_001
+2025-09-15 22:09:43,750 - INFO - 📋 New campaign brief detected: load_test_campaign_017
+2025-09-15 22:09:43,751 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_017
+2025-09-15 22:09:43,751 - INFO - ✅ Generation triggered for load_test_campaign_017
+2025-09-15 22:09:43,751 - INFO - 📋 New campaign brief detected: gift_guide_2024
+2025-09-15 22:09:43,753 - INFO - 🚀 Triggering generation for campaign: gift_guide_2024
+2025-09-15 22:09:43,753 - INFO - ✅ Generation triggered for gift_guide_2024
+2025-09-15 22:09:43,753 - INFO - 📋 New campaign brief detected: load_test_campaign_010
+2025-09-15 22:09:43,755 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_010
+2025-09-15 22:09:43,755 - INFO - ✅ Generation triggered for load_test_campaign_010
+2025-09-15 22:09:43,755 - INFO - 📋 New campaign brief detected: load_test_campaign_006
+2025-09-15 22:09:43,756 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_006
+2025-09-15 22:09:43,756 - INFO - ✅ Generation triggered for load_test_campaign_006
+2025-09-15 22:09:43,756 - INFO - 📋 New campaign brief detected: malformed_empty_brief
+2025-09-15 22:09:43,756 - INFO - 🚀 Triggering generation for campaign: malformed_empty_brief
+2025-09-15 22:09:43,756 - INFO - ✅ Generation triggered for malformed_empty_brief
+2025-09-15 22:09:43,756 - INFO - 📋 New campaign brief detected: load_test_campaign_007
+2025-09-15 22:09:43,758 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_007
+2025-09-15 22:09:43,758 - INFO - ✅ Generation triggered for load_test_campaign_007
+2025-09-15 22:09:43,758 - INFO - 📋 New campaign brief detected: load_test_campaign_011
+2025-09-15 22:09:43,759 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_011
+2025-09-15 22:09:43,759 - INFO - ✅ Generation triggered for load_test_campaign_011
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_004 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_004 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_012 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_012 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_008 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_008 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [MEDIUM]: Campaign global_sustainability_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,760 - WARNING - 🚨 ALERT [HIGH]: Campaign global_sustainability_2024 has 0/6 variants (50% below expected)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_009 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_009 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [MEDIUM]: Campaign black_friday_specials has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [HIGH]: Campaign black_friday_specials has 0/10 variants (50% below expected)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_013 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_013 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_005 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_005 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_campaign_brief_key has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,761 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_campaign_brief_key has 0/3 variants (50% below expected)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_018 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_018 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_002 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_002 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [MEDIUM]: Campaign holiday_collection_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [HIGH]: Campaign holiday_collection_2024 has 0/9 variants (50% below expected)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_014 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_014 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,762 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_015 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_015 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_products has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_products has 0/3 variants (50% below expected)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_003 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_003 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_019 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_019 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [MEDIUM]: Campaign winter_fashion_line has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,763 - WARNING - 🚨 ALERT [HIGH]: Campaign winter_fashion_line has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [MEDIUM]: Campaign urgent_product_launch has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_product_launch has 0/6 variants (50% below expected)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_016 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_016 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_000 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_000 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_001 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,764 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_001 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_017 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_017 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [MEDIUM]: Campaign gift_guide_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [HIGH]: Campaign gift_guide_2024 has 0/12 variants (50% below expected)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_010 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_010 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_006 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,765 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_006 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_empty_brief has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_empty_brief has 0/3 variants (50% below expected)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_007 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_007 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_011 has only 0 variants (minimum required: 3)
+2025-09-15 22:09:43,766 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_011 has 0/4 variants (50% below expected)
+2025-09-15 22:09:43,766 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757988583.txt
+2025-09-15 22:09:43,766 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757988583 processed and communicated
+2025-09-15 22:09:43,766 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_004.txt
+2025-09-15 22:09:43,766 - INFO - ✅ Alert insufficient_variants_load_test_campaign_004 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_004.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert below_expected_load_test_campaign_004 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_012.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert insufficient_variants_load_test_campaign_012 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_012.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert below_expected_load_test_campaign_012 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_008.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert insufficient_variants_load_test_campaign_008 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_008.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert below_expected_load_test_campaign_008 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_global_sustainability_2024.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert insufficient_variants_global_sustainability_2024 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_global_sustainability_2024.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert below_expected_global_sustainability_2024 processed and communicated
+2025-09-15 22:09:43,767 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_009.txt
+2025-09-15 22:09:43,767 - INFO - ✅ Alert insufficient_variants_load_test_campaign_009 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_009.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert below_expected_load_test_campaign_009 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_black_friday_specials.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert insufficient_variants_black_friday_specials processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_black_friday_specials.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert below_expected_black_friday_specials processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_013.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert insufficient_variants_load_test_campaign_013 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_013.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert below_expected_load_test_campaign_013 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_005.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert insufficient_variants_load_test_campaign_005 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_005.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert below_expected_load_test_campaign_005 processed and communicated
+2025-09-15 22:09:43,768 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:09:43,768 - INFO - ✅ Alert insufficient_variants_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:09:43,769 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:09:43,769 - INFO - ✅ Alert below_expected_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:09:43,769 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_018.txt
+2025-09-15 22:09:43,769 - INFO - ✅ Alert insufficient_variants_load_test_campaign_018 processed and communicated
+2025-09-15 22:09:43,769 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_018.txt
+2025-09-15 22:09:43,769 - INFO - ✅ Alert below_expected_load_test_campaign_018 processed and communicated
+2025-09-15 22:09:43,769 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_002.txt
+2025-09-15 22:09:43,769 - INFO - ✅ Alert insufficient_variants_load_test_campaign_002 processed and communicated
+2025-09-15 22:09:43,769 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_002.txt
+2025-09-15 22:09:43,769 - INFO - ✅ Alert below_expected_load_test_campaign_002 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_holiday_collection_2024.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert insufficient_variants_holiday_collection_2024 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_holiday_collection_2024.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert below_expected_holiday_collection_2024 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_014.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert insufficient_variants_load_test_campaign_014 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_014.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert below_expected_load_test_campaign_014 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_015.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert insufficient_variants_load_test_campaign_015 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_015.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert below_expected_load_test_campaign_015 processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_products.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert insufficient_variants_malformed_missing_products processed and communicated
+2025-09-15 22:09:43,770 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_products.txt
+2025-09-15 22:09:43,770 - INFO - ✅ Alert below_expected_malformed_missing_products processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_003.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert insufficient_variants_load_test_campaign_003 processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_003.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert below_expected_load_test_campaign_003 processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_019.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert insufficient_variants_load_test_campaign_019 processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_019.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert below_expected_load_test_campaign_019 processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_winter_fashion_line.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert insufficient_variants_winter_fashion_line processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_winter_fashion_line.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert below_expected_winter_fashion_line processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_urgent_product_launch.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert insufficient_variants_urgent_product_launch processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_urgent_product_launch.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert below_expected_urgent_product_launch processed and communicated
+2025-09-15 22:09:43,771 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_016.txt
+2025-09-15 22:09:43,771 - INFO - ✅ Alert insufficient_variants_load_test_campaign_016 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_016.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert below_expected_load_test_campaign_016 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_000.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert insufficient_variants_load_test_campaign_000 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_000.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert below_expected_load_test_campaign_000 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_001.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert insufficient_variants_load_test_campaign_001 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_001.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert below_expected_load_test_campaign_001 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_017.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert insufficient_variants_load_test_campaign_017 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_017.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert below_expected_load_test_campaign_017 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_gift_guide_2024.txt
+2025-09-15 22:09:43,772 - INFO - ✅ Alert insufficient_variants_gift_guide_2024 processed and communicated
+2025-09-15 22:09:43,772 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_gift_guide_2024.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert below_expected_gift_guide_2024 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_010.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert insufficient_variants_load_test_campaign_010 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_010.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert below_expected_load_test_campaign_010 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_006.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert insufficient_variants_load_test_campaign_006 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_006.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert below_expected_load_test_campaign_006 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_empty_brief.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert insufficient_variants_malformed_empty_brief processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_empty_brief.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert below_expected_malformed_empty_brief processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_007.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert insufficient_variants_load_test_campaign_007 processed and communicated
+2025-09-15 22:09:43,773 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_007.txt
+2025-09-15 22:09:43,773 - INFO - ✅ Alert below_expected_load_test_campaign_007 processed and communicated
+2025-09-15 22:09:43,774 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_011.txt
+2025-09-15 22:09:43,774 - INFO - ✅ Alert insufficient_variants_load_test_campaign_011 processed and communicated
+2025-09-15 22:09:43,774 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_011.txt
+2025-09-15 22:09:43,774 - INFO - ✅ Alert below_expected_load_test_campaign_011 processed and communicated
+2025-09-15 22:09:50,720 - INFO - 🛑 Task 3 Agent monitoring stopped
+2025-09-15 22:11:10,762 - INFO - 🤖 Task 3 Agent initialized
+2025-09-15 22:11:10,764 - INFO - 📋 New campaign brief detected: load_test_campaign_004
+2025-09-15 22:11:10,766 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_004
+2025-09-15 22:11:10,766 - INFO - ✅ Generation triggered for load_test_campaign_004
+2025-09-15 22:11:10,766 - INFO - 📋 New campaign brief detected: load_test_campaign_012
+2025-09-15 22:11:10,768 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_012
+2025-09-15 22:11:10,768 - INFO - ✅ Generation triggered for load_test_campaign_012
+2025-09-15 22:11:10,768 - INFO - 📋 New campaign brief detected: load_test_campaign_008
+2025-09-15 22:11:10,770 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_008
+2025-09-15 22:11:10,770 - INFO - ✅ Generation triggered for load_test_campaign_008
+2025-09-15 22:11:10,770 - INFO - 📋 New campaign brief detected: global_sustainability_2024
+2025-09-15 22:11:10,772 - INFO - 🚀 Triggering generation for campaign: global_sustainability_2024
+2025-09-15 22:11:10,772 - INFO - ✅ Generation triggered for global_sustainability_2024
+2025-09-15 22:11:10,772 - INFO - 📋 New campaign brief detected: load_test_campaign_009
+2025-09-15 22:11:10,773 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_009
+2025-09-15 22:11:10,773 - INFO - ✅ Generation triggered for load_test_campaign_009
+2025-09-15 22:11:10,773 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:11:10,774 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,774 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,774 - INFO - 📋 New campaign brief detected: black_friday_specials
+2025-09-15 22:11:10,776 - INFO - 🚀 Triggering generation for campaign: black_friday_specials
+2025-09-15 22:11:10,776 - INFO - ✅ Generation triggered for black_friday_specials
+2025-09-15 22:11:10,776 - INFO - 📋 New campaign brief detected: load_test_campaign_013
+2025-09-15 22:11:10,778 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_013
+2025-09-15 22:11:10,778 - INFO - ✅ Generation triggered for load_test_campaign_013
+2025-09-15 22:11:10,778 - INFO - 📋 New campaign brief detected: load_test_campaign_005
+2025-09-15 22:11:10,779 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_005
+2025-09-15 22:11:10,779 - INFO - ✅ Generation triggered for load_test_campaign_005
+2025-09-15 22:11:10,779 - INFO - 📋 New campaign brief detected: malformed_missing_campaign_brief_key
+2025-09-15 22:11:10,779 - INFO - 🚀 Triggering generation for campaign: malformed_missing_campaign_brief_key
+2025-09-15 22:11:10,779 - INFO - ✅ Generation triggered for malformed_missing_campaign_brief_key
+2025-09-15 22:11:10,780 - INFO - 📋 New campaign brief detected: load_test_campaign_018
+2025-09-15 22:11:10,781 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_018
+2025-09-15 22:11:10,781 - INFO - ✅ Generation triggered for load_test_campaign_018
+2025-09-15 22:11:10,781 - INFO - 📋 New campaign brief detected: load_test_campaign_002
+2025-09-15 22:11:10,782 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_002
+2025-09-15 22:11:10,782 - INFO - ✅ Generation triggered for load_test_campaign_002
+2025-09-15 22:11:10,783 - INFO - 📋 New campaign brief detected: premium_electronics_2024
+2025-09-15 22:11:10,783 - INFO - 🚀 Triggering generation for campaign: premium_electronics_2024
+2025-09-15 22:11:10,783 - INFO - ✅ Generation triggered for premium_electronics_2024
+2025-09-15 22:11:10,783 - INFO - 📋 New campaign brief detected: load_test_campaign_014
+2025-09-15 22:11:10,785 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_014
+2025-09-15 22:11:10,785 - INFO - ✅ Generation triggered for load_test_campaign_014
+2025-09-15 22:11:10,785 - INFO - 📋 New campaign brief detected: load_test_campaign_015
+2025-09-15 22:11:10,786 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_015
+2025-09-15 22:11:10,786 - INFO - ✅ Generation triggered for load_test_campaign_015
+2025-09-15 22:11:10,786 - INFO - 📋 New campaign brief detected: malformed_missing_products
+2025-09-15 22:11:10,787 - INFO - 🚀 Triggering generation for campaign: malformed_missing_products
+2025-09-15 22:11:10,787 - INFO - ✅ Generation triggered for malformed_missing_products
+2025-09-15 22:11:10,787 - INFO - 📋 New campaign brief detected: load_test_campaign_003
+2025-09-15 22:11:10,788 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_003
+2025-09-15 22:11:10,788 - INFO - ✅ Generation triggered for load_test_campaign_003
+2025-09-15 22:11:10,788 - INFO - 📋 New campaign brief detected: load_test_campaign_019
+2025-09-15 22:11:10,790 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_019
+2025-09-15 22:11:10,790 - INFO - ✅ Generation triggered for load_test_campaign_019
+2025-09-15 22:11:10,790 - INFO - 📋 New campaign brief detected: winter_fashion_line
+2025-09-15 22:11:10,792 - INFO - 🚀 Triggering generation for campaign: winter_fashion_line
+2025-09-15 22:11:10,792 - INFO - ✅ Generation triggered for winter_fashion_line
+2025-09-15 22:11:10,792 - INFO - 📋 New campaign brief detected: urgent_product_launch
+2025-09-15 22:11:10,793 - INFO - 🚀 Triggering generation for campaign: urgent_product_launch
+2025-09-15 22:11:10,793 - INFO - ✅ Generation triggered for urgent_product_launch
+2025-09-15 22:11:10,793 - INFO - 📋 New campaign brief detected: load_test_campaign_016
+2025-09-15 22:11:10,795 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_016
+2025-09-15 22:11:10,795 - INFO - ✅ Generation triggered for load_test_campaign_016
+2025-09-15 22:11:10,795 - INFO - 📋 New campaign brief detected: load_test_campaign_000
+2025-09-15 22:11:10,796 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_000
+2025-09-15 22:11:10,796 - INFO - ✅ Generation triggered for load_test_campaign_000
+2025-09-15 22:11:10,796 - INFO - 📋 New campaign brief detected: load_test_campaign_001
+2025-09-15 22:11:10,798 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_001
+2025-09-15 22:11:10,798 - INFO - ✅ Generation triggered for load_test_campaign_001
+2025-09-15 22:11:10,798 - INFO - 📋 New campaign brief detected: load_test_campaign_017
+2025-09-15 22:11:10,799 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_017
+2025-09-15 22:11:10,799 - INFO - ✅ Generation triggered for load_test_campaign_017
+2025-09-15 22:11:10,799 - INFO - 📋 New campaign brief detected: gift_guide_2024
+2025-09-15 22:11:10,801 - INFO - 🚀 Triggering generation for campaign: gift_guide_2024
+2025-09-15 22:11:10,801 - INFO - ✅ Generation triggered for gift_guide_2024
+2025-09-15 22:11:10,801 - INFO - 📋 New campaign brief detected: load_test_campaign_010
+2025-09-15 22:11:10,803 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_010
+2025-09-15 22:11:10,803 - INFO - ✅ Generation triggered for load_test_campaign_010
+2025-09-15 22:11:10,803 - INFO - 📋 New campaign brief detected: load_test_campaign_006
+2025-09-15 22:11:10,804 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_006
+2025-09-15 22:11:10,804 - INFO - ✅ Generation triggered for load_test_campaign_006
+2025-09-15 22:11:10,804 - INFO - 📋 New campaign brief detected: malformed_empty_brief
+2025-09-15 22:11:10,804 - INFO - 🚀 Triggering generation for campaign: malformed_empty_brief
+2025-09-15 22:11:10,804 - INFO - ✅ Generation triggered for malformed_empty_brief
+2025-09-15 22:11:10,804 - INFO - 📋 New campaign brief detected: load_test_campaign_007
+2025-09-15 22:11:10,806 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_007
+2025-09-15 22:11:10,806 - INFO - ✅ Generation triggered for load_test_campaign_007
+2025-09-15 22:11:10,806 - INFO - 📋 New campaign brief detected: load_test_campaign_011
+2025-09-15 22:11:10,807 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_011
+2025-09-15 22:11:10,807 - INFO - ✅ Generation triggered for load_test_campaign_011
+2025-09-15 22:11:10,808 - INFO - 📊 Campaign premium_electronics_2024: 6 variants found
+2025-09-15 22:11:10,808 - INFO - ✅ Campaign premium_electronics_2024 generation completed: 6 variants
+2025-09-15 22:11:10,809 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:11:10,809 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,809 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,809 - INFO - 📋 New campaign brief detected: urgent_holiday_launch
+2025-09-15 22:11:10,810 - INFO - 🚀 Triggering generation for campaign: urgent_holiday_launch
+2025-09-15 22:11:10,810 - INFO - ✅ Generation triggered for urgent_holiday_launch
+2025-09-15 22:11:10,811 - INFO - 📊 Campaign urgent_holiday_launch: 2 variants found
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_004 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_004 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_012 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_012 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_008 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_008 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,811 - WARNING - 🚨 ALERT [MEDIUM]: Campaign global_sustainability_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [HIGH]: Campaign global_sustainability_2024 has 0/6 variants (50% below expected)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_009 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_009 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [MEDIUM]: Campaign black_friday_specials has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [HIGH]: Campaign black_friday_specials has 0/10 variants (50% below expected)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_013 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_013 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_005 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_005 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,812 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_campaign_brief_key has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_campaign_brief_key has 0/3 variants (50% below expected)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_018 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_018 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_002 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_002 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_014 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_014 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_015 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_015 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,813 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_products has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_products has 0/3 variants (50% below expected)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_003 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_003 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_019 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_019 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [MEDIUM]: Campaign winter_fashion_line has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [HIGH]: Campaign winter_fashion_line has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [MEDIUM]: Campaign urgent_product_launch has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,814 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_product_launch has 0/6 variants (50% below expected)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_016 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_016 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_000 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_000 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_001 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_001 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_017 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_017 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,815 - WARNING - 🚨 ALERT [MEDIUM]: Campaign gift_guide_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [HIGH]: Campaign gift_guide_2024 has 0/12 variants (50% below expected)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_010 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_010 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_006 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_006 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_empty_brief has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_empty_brief has 0/3 variants (50% below expected)
+2025-09-15 22:11:10,816 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_007 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,817 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_007 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,817 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_011 has only 0 variants (minimum required: 3)
+2025-09-15 22:11:10,817 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_011 has 0/4 variants (50% below expected)
+2025-09-15 22:11:10,817 - WARNING - 🚨 ALERT [MEDIUM]: Campaign urgent_holiday_launch has only 2 variants (minimum required: 3)
+2025-09-15 22:11:10,817 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_holiday_launch has 2/9 variants (50% below expected)
+2025-09-15 22:11:10,817 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757988670.txt
+2025-09-15 22:11:10,817 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757988670 processed and communicated
+2025-09-15 22:11:10,817 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757988670.txt
+2025-09-15 22:11:10,817 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757988670 processed and communicated
+2025-09-15 22:11:10,817 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_004.txt
+2025-09-15 22:11:10,817 - INFO - ✅ Alert insufficient_variants_load_test_campaign_004 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_004.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert below_expected_load_test_campaign_004 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_012.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert insufficient_variants_load_test_campaign_012 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_012.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert below_expected_load_test_campaign_012 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_008.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert insufficient_variants_load_test_campaign_008 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_008.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert below_expected_load_test_campaign_008 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_global_sustainability_2024.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert insufficient_variants_global_sustainability_2024 processed and communicated
+2025-09-15 22:11:10,818 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_global_sustainability_2024.txt
+2025-09-15 22:11:10,818 - INFO - ✅ Alert below_expected_global_sustainability_2024 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_009.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert insufficient_variants_load_test_campaign_009 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_009.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert below_expected_load_test_campaign_009 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_black_friday_specials.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert insufficient_variants_black_friday_specials processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_black_friday_specials.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert below_expected_black_friday_specials processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_013.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert insufficient_variants_load_test_campaign_013 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_013.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert below_expected_load_test_campaign_013 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_005.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert insufficient_variants_load_test_campaign_005 processed and communicated
+2025-09-15 22:11:10,819 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_005.txt
+2025-09-15 22:11:10,819 - INFO - ✅ Alert below_expected_load_test_campaign_005 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert insufficient_variants_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert below_expected_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_018.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert insufficient_variants_load_test_campaign_018 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_018.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert below_expected_load_test_campaign_018 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_002.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert insufficient_variants_load_test_campaign_002 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_002.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert below_expected_load_test_campaign_002 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_014.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert insufficient_variants_load_test_campaign_014 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_014.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert below_expected_load_test_campaign_014 processed and communicated
+2025-09-15 22:11:10,820 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_015.txt
+2025-09-15 22:11:10,820 - INFO - ✅ Alert insufficient_variants_load_test_campaign_015 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_015.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert below_expected_load_test_campaign_015 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_products.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert insufficient_variants_malformed_missing_products processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_products.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert below_expected_malformed_missing_products processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_003.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert insufficient_variants_load_test_campaign_003 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_003.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert below_expected_load_test_campaign_003 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_019.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert insufficient_variants_load_test_campaign_019 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_019.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert below_expected_load_test_campaign_019 processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_winter_fashion_line.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert insufficient_variants_winter_fashion_line processed and communicated
+2025-09-15 22:11:10,821 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_winter_fashion_line.txt
+2025-09-15 22:11:10,821 - INFO - ✅ Alert below_expected_winter_fashion_line processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_urgent_product_launch.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert insufficient_variants_urgent_product_launch processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_urgent_product_launch.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert below_expected_urgent_product_launch processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_016.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert insufficient_variants_load_test_campaign_016 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_016.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert below_expected_load_test_campaign_016 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_000.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert insufficient_variants_load_test_campaign_000 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_000.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert below_expected_load_test_campaign_000 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_001.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert insufficient_variants_load_test_campaign_001 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_001.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert below_expected_load_test_campaign_001 processed and communicated
+2025-09-15 22:11:10,822 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_017.txt
+2025-09-15 22:11:10,822 - INFO - ✅ Alert insufficient_variants_load_test_campaign_017 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_017.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert below_expected_load_test_campaign_017 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_gift_guide_2024.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert insufficient_variants_gift_guide_2024 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_gift_guide_2024.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert below_expected_gift_guide_2024 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_010.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert insufficient_variants_load_test_campaign_010 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_010.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert below_expected_load_test_campaign_010 processed and communicated
+2025-09-15 22:11:10,823 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_006.txt
+2025-09-15 22:11:10,823 - INFO - ✅ Alert insufficient_variants_load_test_campaign_006 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_006.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert below_expected_load_test_campaign_006 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_empty_brief.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert insufficient_variants_malformed_empty_brief processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_empty_brief.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert below_expected_malformed_empty_brief processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_007.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert insufficient_variants_load_test_campaign_007 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_007.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert below_expected_load_test_campaign_007 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_011.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert insufficient_variants_load_test_campaign_011 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_011.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert below_expected_load_test_campaign_011 processed and communicated
+2025-09-15 22:11:10,824 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_urgent_holiday_launch.txt
+2025-09-15 22:11:10,824 - INFO - ✅ Alert insufficient_variants_urgent_holiday_launch processed and communicated
+2025-09-15 22:11:10,825 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_urgent_holiday_launch.txt
+2025-09-15 22:11:10,825 - INFO - ✅ Alert below_expected_urgent_holiday_launch processed and communicated
+2025-09-15 22:11:10,825 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:11:10,825 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,825 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,825 - INFO - 📋 New campaign brief detected: api_failure_test
+2025-09-15 22:11:10,825 - ERROR - ❌ Error processing brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:11:10,825 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:11:10,825 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757988670.txt
+2025-09-15 22:11:10,826 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757988670 processed and communicated
+2025-09-15 22:11:10,826 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_api_failure_test_1757988670.txt
+2025-09-15 22:11:10,826 - INFO - ✅ Alert brief_processing_error_api_failure_test_1757988670 processed and communicated
+2025-09-15 22:11:10,826 - INFO - 🔍 Starting campaign brief monitoring...
+2025-09-15 22:11:10,826 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:11:10,826 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,826 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:11:10,826 - INFO - 📋 New campaign brief detected: api_failure_test
+2025-09-15 22:11:10,826 - ERROR - ❌ Error processing brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:11:10,826 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:11:10,827 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757988670.txt
+2025-09-15 22:11:10,827 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757988670 processed and communicated
+2025-09-15 22:11:10,827 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_api_failure_test_1757988670.txt
+2025-09-15 22:11:10,827 - INFO - ✅ Alert brief_processing_error_api_failure_test_1757988670 processed and communicated
+2025-09-15 22:11:16,830 - INFO - 🛑 Task 3 Agent monitoring stopped
+2025-09-15 22:21:48,414 - INFO - 🤖 Task 3 Agent initialized
+2025-09-15 22:21:48,414 - INFO - 📋 New campaign brief detected: load_test_campaign_004
+2025-09-15 22:21:48,416 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_004
+2025-09-15 22:21:48,416 - INFO - ✅ Generation triggered for load_test_campaign_004
+2025-09-15 22:21:48,417 - INFO - 📋 New campaign brief detected: load_test_campaign_012
+2025-09-15 22:21:48,419 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_012
+2025-09-15 22:21:48,419 - INFO - ✅ Generation triggered for load_test_campaign_012
+2025-09-15 22:21:48,419 - INFO - 📋 New campaign brief detected: load_test_campaign_008
+2025-09-15 22:21:48,420 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_008
+2025-09-15 22:21:48,420 - INFO - ✅ Generation triggered for load_test_campaign_008
+2025-09-15 22:21:48,420 - INFO - 📋 New campaign brief detected: global_sustainability_2024
+2025-09-15 22:21:48,422 - INFO - 🚀 Triggering generation for campaign: global_sustainability_2024
+2025-09-15 22:21:48,422 - INFO - ✅ Generation triggered for global_sustainability_2024
+2025-09-15 22:21:48,422 - INFO - 📋 New campaign brief detected: load_test_campaign_009
+2025-09-15 22:21:48,424 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_009
+2025-09-15 22:21:48,424 - INFO - ✅ Generation triggered for load_test_campaign_009
+2025-09-15 22:21:48,424 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:21:48,425 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:21:48,425 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:21:48,425 - INFO - 📋 New campaign brief detected: black_friday_specials
+2025-09-15 22:21:48,427 - INFO - 🚀 Triggering generation for campaign: black_friday_specials
+2025-09-15 22:21:48,427 - INFO - ✅ Generation triggered for black_friday_specials
+2025-09-15 22:21:48,427 - INFO - 📋 New campaign brief detected: load_test_campaign_013
+2025-09-15 22:21:48,429 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_013
+2025-09-15 22:21:48,429 - INFO - ✅ Generation triggered for load_test_campaign_013
+2025-09-15 22:21:48,429 - INFO - 📋 New campaign brief detected: load_test_campaign_005
+2025-09-15 22:21:48,430 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_005
+2025-09-15 22:21:48,430 - INFO - ✅ Generation triggered for load_test_campaign_005
+2025-09-15 22:21:48,431 - INFO - 📋 New campaign brief detected: malformed_missing_campaign_brief_key
+2025-09-15 22:21:48,431 - INFO - 🚀 Triggering generation for campaign: malformed_missing_campaign_brief_key
+2025-09-15 22:21:48,431 - INFO - ✅ Generation triggered for malformed_missing_campaign_brief_key
+2025-09-15 22:21:48,431 - INFO - 📋 New campaign brief detected: load_test_campaign_018
+2025-09-15 22:21:48,432 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_018
+2025-09-15 22:21:48,433 - INFO - ✅ Generation triggered for load_test_campaign_018
+2025-09-15 22:21:48,433 - INFO - 📋 New campaign brief detected: load_test_campaign_002
+2025-09-15 22:21:48,434 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_002
+2025-09-15 22:21:48,434 - INFO - ✅ Generation triggered for load_test_campaign_002
+2025-09-15 22:21:48,434 - INFO - 📋 New campaign brief detected: premium_electronics_2024
+2025-09-15 22:21:48,435 - INFO - 🚀 Triggering generation for campaign: premium_electronics_2024
+2025-09-15 22:21:48,435 - INFO - ✅ Generation triggered for premium_electronics_2024
+2025-09-15 22:21:48,435 - INFO - 📋 New campaign brief detected: load_test_campaign_014
+2025-09-15 22:21:48,437 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_014
+2025-09-15 22:21:48,437 - INFO - ✅ Generation triggered for load_test_campaign_014
+2025-09-15 22:21:48,437 - INFO - 📋 New campaign brief detected: load_test_campaign_015
+2025-09-15 22:21:48,438 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_015
+2025-09-15 22:21:48,438 - INFO - ✅ Generation triggered for load_test_campaign_015
+2025-09-15 22:21:48,438 - INFO - 📋 New campaign brief detected: malformed_missing_products
+2025-09-15 22:21:48,439 - INFO - 🚀 Triggering generation for campaign: malformed_missing_products
+2025-09-15 22:21:48,439 - INFO - ✅ Generation triggered for malformed_missing_products
+2025-09-15 22:21:48,439 - INFO - 📋 New campaign brief detected: load_test_campaign_003
+2025-09-15 22:21:48,440 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_003
+2025-09-15 22:21:48,440 - INFO - ✅ Generation triggered for load_test_campaign_003
+2025-09-15 22:21:48,440 - INFO - 📋 New campaign brief detected: load_test_campaign_019
+2025-09-15 22:21:48,442 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_019
+2025-09-15 22:21:48,442 - INFO - ✅ Generation triggered for load_test_campaign_019
+2025-09-15 22:21:48,442 - INFO - 📋 New campaign brief detected: winter_fashion_line
+2025-09-15 22:21:48,443 - INFO - 🚀 Triggering generation for campaign: winter_fashion_line
+2025-09-15 22:21:48,443 - INFO - ✅ Generation triggered for winter_fashion_line
+2025-09-15 22:21:48,443 - INFO - 📋 New campaign brief detected: urgent_product_launch
+2025-09-15 22:21:48,445 - INFO - 🚀 Triggering generation for campaign: urgent_product_launch
+2025-09-15 22:21:48,445 - INFO - ✅ Generation triggered for urgent_product_launch
+2025-09-15 22:21:48,445 - INFO - 📋 New campaign brief detected: load_test_campaign_016
+2025-09-15 22:21:48,447 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_016
+2025-09-15 22:21:48,447 - INFO - ✅ Generation triggered for load_test_campaign_016
+2025-09-15 22:21:48,447 - INFO - 📋 New campaign brief detected: load_test_campaign_000
+2025-09-15 22:21:48,448 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_000
+2025-09-15 22:21:48,448 - INFO - ✅ Generation triggered for load_test_campaign_000
+2025-09-15 22:21:48,448 - INFO - 📋 New campaign brief detected: load_test_campaign_001
+2025-09-15 22:21:48,450 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_001
+2025-09-15 22:21:48,450 - INFO - ✅ Generation triggered for load_test_campaign_001
+2025-09-15 22:21:48,450 - INFO - 📋 New campaign brief detected: load_test_campaign_017
+2025-09-15 22:21:48,451 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_017
+2025-09-15 22:21:48,451 - INFO - ✅ Generation triggered for load_test_campaign_017
+2025-09-15 22:21:48,451 - INFO - 📋 New campaign brief detected: gift_guide_2024
+2025-09-15 22:21:48,454 - INFO - 🚀 Triggering generation for campaign: gift_guide_2024
+2025-09-15 22:21:48,454 - INFO - ✅ Generation triggered for gift_guide_2024
+2025-09-15 22:21:48,454 - INFO - 📋 New campaign brief detected: load_test_campaign_010
+2025-09-15 22:21:48,455 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_010
+2025-09-15 22:21:48,455 - INFO - ✅ Generation triggered for load_test_campaign_010
+2025-09-15 22:21:48,455 - INFO - 📋 New campaign brief detected: load_test_campaign_006
+2025-09-15 22:21:48,457 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_006
+2025-09-15 22:21:48,457 - INFO - ✅ Generation triggered for load_test_campaign_006
+2025-09-15 22:21:48,457 - INFO - 📋 New campaign brief detected: malformed_empty_brief
+2025-09-15 22:21:48,457 - INFO - 🚀 Triggering generation for campaign: malformed_empty_brief
+2025-09-15 22:21:48,457 - INFO - ✅ Generation triggered for malformed_empty_brief
+2025-09-15 22:21:48,457 - INFO - 📋 New campaign brief detected: urgent_holiday_launch
+2025-09-15 22:21:48,458 - INFO - 🚀 Triggering generation for campaign: urgent_holiday_launch
+2025-09-15 22:21:48,458 - INFO - ✅ Generation triggered for urgent_holiday_launch
+2025-09-15 22:21:48,458 - INFO - 📋 New campaign brief detected: api_failure_test
+2025-09-15 22:21:48,459 - ERROR - ❌ Error processing brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:21:48,459 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:21:48,459 - INFO - 📋 New campaign brief detected: load_test_campaign_007
+2025-09-15 22:21:48,460 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_007
+2025-09-15 22:21:48,460 - INFO - ✅ Generation triggered for load_test_campaign_007
+2025-09-15 22:21:48,461 - INFO - 📋 New campaign brief detected: load_test_campaign_011
+2025-09-15 22:21:48,462 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_011
+2025-09-15 22:21:48,462 - INFO - ✅ Generation triggered for load_test_campaign_011
+2025-09-15 22:21:48,463 - INFO - 📊 Campaign premium_electronics_2024: 6 variants found
+2025-09-15 22:21:48,463 - INFO - ✅ Campaign premium_electronics_2024 generation completed: 6 variants
+2025-09-15 22:21:48,463 - INFO - 📊 Campaign urgent_holiday_launch: 3 variants found
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_004 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_004 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_012 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_012 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_008 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,463 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_008 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [MEDIUM]: Campaign global_sustainability_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [HIGH]: Campaign global_sustainability_2024 has 0/6 variants (50% below expected)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_009 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_009 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [MEDIUM]: Campaign black_friday_specials has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,464 - WARNING - 🚨 ALERT [HIGH]: Campaign black_friday_specials has 0/10 variants (50% below expected)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_013 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_013 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_005 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_005 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_campaign_brief_key has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_campaign_brief_key has 0/3 variants (50% below expected)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_018 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_018 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,465 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_002 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_002 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_014 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_014 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_015 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_015 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_products has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_products has 0/3 variants (50% below expected)
+2025-09-15 22:21:48,466 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_003 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_003 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_019 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_019 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [MEDIUM]: Campaign winter_fashion_line has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [HIGH]: Campaign winter_fashion_line has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [MEDIUM]: Campaign urgent_product_launch has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_product_launch has 0/6 variants (50% below expected)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_016 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,467 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_016 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_000 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_000 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_001 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_001 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_017 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_017 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [MEDIUM]: Campaign gift_guide_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [HIGH]: Campaign gift_guide_2024 has 0/12 variants (50% below expected)
+2025-09-15 22:21:48,468 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_010 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_010 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_006 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_006 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_empty_brief has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_empty_brief has 0/3 variants (50% below expected)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_holiday_launch has 3/9 variants (50% below expected)
+2025-09-15 22:21:48,469 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_007 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,470 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_007 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,470 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_011 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:48,470 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_011 has 0/4 variants (50% below expected)
+2025-09-15 22:21:48,470 - WARNING - 🚨 ALERT [MEDIUM]: Test alert
+2025-09-15 22:21:48,471 - INFO - 🎨 Analyzing diversity for campaign: diversity_test
+2025-09-15 22:21:48,606 - WARNING - Could not analyze image output/diversity_test/blue_landscape.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/blue_landscape.jpg'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze image output/diversity_test/green_portrait.png: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/green_portrait.png'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze image output/diversity_test/duplicate.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/duplicate.jpg'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze image output/diversity_test/red_square.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/red_square.jpg'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze visual features of output/diversity_test/blue_landscape.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/blue_landscape.jpg'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze visual features of output/diversity_test/green_portrait.png: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/green_portrait.png'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze visual features of output/diversity_test/duplicate.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/duplicate.jpg'
+2025-09-15 22:21:48,607 - WARNING - Could not analyze visual features of output/diversity_test/red_square.jpg: cannot identify image file '/Users/pjb/Git/Adobe-AI-Engineer/output/diversity_test/red_square.jpg'
+2025-09-15 22:21:48,607 - INFO - ✅ Diversity analysis complete: 0.35 diversity index
+2025-09-15 22:21:48,608 - INFO - 🚀 Triggering REAL generation for campaign: integration_test
+2025-09-15 22:21:48,608 - ERROR - Pipeline orchestrator integration failed: attempted relative import with no known parent package
+2025-09-15 22:21:48,608 - INFO - ✅ Generation job started for integration_test: sim_integration_test_1757989308
+2025-09-15 22:21:48,608 - INFO - 🧠 Building comprehensive context for alert: test_alert
+2025-09-15 22:21:49,613 - ERROR - Error building system status: 'ComprehensiveContextProtocol' object has no attribute '_get_system_uptime'
+2025-09-15 22:21:49,614 - INFO - 🚨 Processing alert test_alert with severity high
+2025-09-15 22:21:49,614 - INFO - 📧 Sending email notification to technical_team for alert test_alert
+2025-09-15 22:21:49,615 - INFO - 📧 Sending slack notification to technical_team for alert test_alert
+2025-09-15 22:21:49,615 - INFO - 📧 Sending email notification to team_lead for alert test_alert
+2025-09-15 22:21:49,615 - INFO - 📧 Sending slack notification to team_lead for alert test_alert
+2025-09-15 22:21:49,616 - INFO - ✅ Alert test_alert acknowledged by test_user
+2025-09-15 22:21:49,616 - INFO - 🤖 Task 3 Agent initialized
+2025-09-15 22:21:49,616 - INFO - 📋 New campaign brief detected: load_test_campaign_004
+2025-09-15 22:21:49,618 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_004
+2025-09-15 22:21:49,618 - INFO - ✅ Generation triggered for load_test_campaign_004
+2025-09-15 22:21:49,619 - INFO - 📋 New campaign brief detected: load_test_campaign_012
+2025-09-15 22:21:49,620 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_012
+2025-09-15 22:21:49,621 - INFO - ✅ Generation triggered for load_test_campaign_012
+2025-09-15 22:21:49,621 - INFO - 📋 New campaign brief detected: load_test_campaign_008
+2025-09-15 22:21:49,623 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_008
+2025-09-15 22:21:49,624 - INFO - ✅ Generation triggered for load_test_campaign_008
+2025-09-15 22:21:49,624 - INFO - 📋 New campaign brief detected: global_sustainability_2024
+2025-09-15 22:21:49,626 - INFO - 🚀 Triggering generation for campaign: global_sustainability_2024
+2025-09-15 22:21:49,626 - INFO - ✅ Generation triggered for global_sustainability_2024
+2025-09-15 22:21:49,627 - INFO - 📋 New campaign brief detected: load_test_campaign_009
+2025-09-15 22:21:49,629 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_009
+2025-09-15 22:21:49,629 - INFO - ✅ Generation triggered for load_test_campaign_009
+2025-09-15 22:21:49,629 - INFO - 📋 New campaign brief detected: malformed_invalid_yaml
+2025-09-15 22:21:49,630 - ERROR - ❌ Error processing brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:21:49,630 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief malformed_invalid_yaml: mapping values are not allowed here
+  in "campaign_briefs/malformed_invalid_yaml.yaml", line 1, column 14
+2025-09-15 22:21:49,630 - INFO - 📋 New campaign brief detected: black_friday_specials
+2025-09-15 22:21:49,632 - INFO - 🚀 Triggering generation for campaign: black_friday_specials
+2025-09-15 22:21:49,632 - INFO - ✅ Generation triggered for black_friday_specials
+2025-09-15 22:21:49,633 - INFO - 📋 New campaign brief detected: load_test_campaign_013
+2025-09-15 22:21:49,634 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_013
+2025-09-15 22:21:49,634 - INFO - ✅ Generation triggered for load_test_campaign_013
+2025-09-15 22:21:49,634 - INFO - 📋 New campaign brief detected: end_to_end_test
+2025-09-15 22:21:49,635 - INFO - 🚀 Triggering generation for campaign: end_to_end_test
+2025-09-15 22:21:49,635 - INFO - ✅ Generation triggered for end_to_end_test
+2025-09-15 22:21:49,635 - INFO - 📋 New campaign brief detected: load_test_campaign_005
+2025-09-15 22:21:49,637 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_005
+2025-09-15 22:21:49,637 - INFO - ✅ Generation triggered for load_test_campaign_005
+2025-09-15 22:21:49,637 - INFO - 📋 New campaign brief detected: malformed_missing_campaign_brief_key
+2025-09-15 22:21:49,637 - INFO - 🚀 Triggering generation for campaign: malformed_missing_campaign_brief_key
+2025-09-15 22:21:49,637 - INFO - ✅ Generation triggered for malformed_missing_campaign_brief_key
+2025-09-15 22:21:49,637 - INFO - 📋 New campaign brief detected: load_test_campaign_018
+2025-09-15 22:21:49,638 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_018
+2025-09-15 22:21:49,638 - INFO - ✅ Generation triggered for load_test_campaign_018
+2025-09-15 22:21:49,639 - INFO - 📋 New campaign brief detected: load_test_campaign_002
+2025-09-15 22:21:49,640 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_002
+2025-09-15 22:21:49,640 - INFO - ✅ Generation triggered for load_test_campaign_002
+2025-09-15 22:21:49,640 - INFO - 📋 New campaign brief detected: premium_electronics_2024
+2025-09-15 22:21:49,641 - INFO - 🚀 Triggering generation for campaign: premium_electronics_2024
+2025-09-15 22:21:49,641 - INFO - ✅ Generation triggered for premium_electronics_2024
+2025-09-15 22:21:49,641 - INFO - 📋 New campaign brief detected: load_test_campaign_014
+2025-09-15 22:21:49,642 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_014
+2025-09-15 22:21:49,642 - INFO - ✅ Generation triggered for load_test_campaign_014
+2025-09-15 22:21:49,643 - INFO - 📋 New campaign brief detected: load_test_campaign_015
+2025-09-15 22:21:49,644 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_015
+2025-09-15 22:21:49,644 - INFO - ✅ Generation triggered for load_test_campaign_015
+2025-09-15 22:21:49,644 - INFO - 📋 New campaign brief detected: malformed_missing_products
+2025-09-15 22:21:49,645 - INFO - 🚀 Triggering generation for campaign: malformed_missing_products
+2025-09-15 22:21:49,645 - INFO - ✅ Generation triggered for malformed_missing_products
+2025-09-15 22:21:49,645 - INFO - 📋 New campaign brief detected: load_test_campaign_003
+2025-09-15 22:21:49,646 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_003
+2025-09-15 22:21:49,646 - INFO - ✅ Generation triggered for load_test_campaign_003
+2025-09-15 22:21:49,646 - INFO - 📋 New campaign brief detected: load_test_campaign_019
+2025-09-15 22:21:49,648 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_019
+2025-09-15 22:21:49,648 - INFO - ✅ Generation triggered for load_test_campaign_019
+2025-09-15 22:21:49,648 - INFO - 📋 New campaign brief detected: winter_fashion_line
+2025-09-15 22:21:49,649 - INFO - 🚀 Triggering generation for campaign: winter_fashion_line
+2025-09-15 22:21:49,649 - INFO - ✅ Generation triggered for winter_fashion_line
+2025-09-15 22:21:49,649 - INFO - 📋 New campaign brief detected: urgent_product_launch
+2025-09-15 22:21:49,651 - INFO - 🚀 Triggering generation for campaign: urgent_product_launch
+2025-09-15 22:21:49,651 - INFO - ✅ Generation triggered for urgent_product_launch
+2025-09-15 22:21:49,651 - INFO - 📋 New campaign brief detected: load_test_campaign_016
+2025-09-15 22:21:49,653 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_016
+2025-09-15 22:21:49,653 - INFO - ✅ Generation triggered for load_test_campaign_016
+2025-09-15 22:21:49,653 - INFO - 📋 New campaign brief detected: load_test_campaign_000
+2025-09-15 22:21:49,654 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_000
+2025-09-15 22:21:49,654 - INFO - ✅ Generation triggered for load_test_campaign_000
+2025-09-15 22:21:49,654 - INFO - 📋 New campaign brief detected: load_test_campaign_001
+2025-09-15 22:21:49,656 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_001
+2025-09-15 22:21:49,656 - INFO - ✅ Generation triggered for load_test_campaign_001
+2025-09-15 22:21:49,656 - INFO - 📋 New campaign brief detected: load_test_campaign_017
+2025-09-15 22:21:49,658 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_017
+2025-09-15 22:21:49,658 - INFO - ✅ Generation triggered for load_test_campaign_017
+2025-09-15 22:21:49,658 - INFO - 📋 New campaign brief detected: gift_guide_2024
+2025-09-15 22:21:49,660 - INFO - 🚀 Triggering generation for campaign: gift_guide_2024
+2025-09-15 22:21:49,660 - INFO - ✅ Generation triggered for gift_guide_2024
+2025-09-15 22:21:49,660 - INFO - 📋 New campaign brief detected: load_test_campaign_010
+2025-09-15 22:21:49,662 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_010
+2025-09-15 22:21:49,662 - INFO - ✅ Generation triggered for load_test_campaign_010
+2025-09-15 22:21:49,662 - INFO - 📋 New campaign brief detected: load_test_campaign_006
+2025-09-15 22:21:49,664 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_006
+2025-09-15 22:21:49,664 - INFO - ✅ Generation triggered for load_test_campaign_006
+2025-09-15 22:21:49,664 - INFO - 📋 New campaign brief detected: malformed_empty_brief
+2025-09-15 22:21:49,664 - INFO - 🚀 Triggering generation for campaign: malformed_empty_brief
+2025-09-15 22:21:49,664 - INFO - ✅ Generation triggered for malformed_empty_brief
+2025-09-15 22:21:49,664 - INFO - 📋 New campaign brief detected: urgent_holiday_launch
+2025-09-15 22:21:49,665 - INFO - 🚀 Triggering generation for campaign: urgent_holiday_launch
+2025-09-15 22:21:49,665 - INFO - ✅ Generation triggered for urgent_holiday_launch
+2025-09-15 22:21:49,665 - INFO - 📋 New campaign brief detected: api_failure_test
+2025-09-15 22:21:49,665 - ERROR - ❌ Error processing brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:21:49,665 - WARNING - 🚨 ALERT [HIGH]: Failed to process campaign brief api_failure_test: mapping values are not allowed here
+  in "campaign_briefs/api_failure_test.yaml", line 1, column 14
+2025-09-15 22:21:49,665 - INFO - 📋 New campaign brief detected: load_test_campaign_007
+2025-09-15 22:21:49,667 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_007
+2025-09-15 22:21:49,667 - INFO - ✅ Generation triggered for load_test_campaign_007
+2025-09-15 22:21:49,667 - INFO - 📋 New campaign brief detected: load_test_campaign_011
+2025-09-15 22:21:49,669 - INFO - 🚀 Triggering generation for campaign: load_test_campaign_011
+2025-09-15 22:21:49,669 - INFO - ✅ Generation triggered for load_test_campaign_011
+2025-09-15 22:21:49,669 - INFO - 📊 Campaign end_to_end_test: 2 variants found
+2025-09-15 22:21:49,670 - INFO - 📊 Campaign premium_electronics_2024: 6 variants found
+2025-09-15 22:21:49,670 - INFO - ✅ Campaign premium_electronics_2024 generation completed: 6 variants
+2025-09-15 22:21:49,670 - INFO - 📊 Campaign urgent_holiday_launch: 3 variants found
+2025-09-15 22:21:49,670 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_004 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,670 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_004 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,670 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_012 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,670 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_012 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,670 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_008 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_008 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [MEDIUM]: Campaign global_sustainability_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [HIGH]: Campaign global_sustainability_2024 has 0/6 variants (50% below expected)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_009 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_009 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [MEDIUM]: Campaign black_friday_specials has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,671 - WARNING - 🚨 ALERT [HIGH]: Campaign black_friday_specials has 0/10 variants (50% below expected)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_013 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_013 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [MEDIUM]: Campaign end_to_end_test has only 2 variants (minimum required: 3)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_005 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_005 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_campaign_brief_key has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_campaign_brief_key has 0/3 variants (50% below expected)
+2025-09-15 22:21:49,672 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_018 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_018 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_002 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_002 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_014 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_014 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_015 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_015 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_missing_products has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,673 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_missing_products has 0/3 variants (50% below expected)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_003 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_003 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_019 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_019 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [MEDIUM]: Campaign winter_fashion_line has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [HIGH]: Campaign winter_fashion_line has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [MEDIUM]: Campaign urgent_product_launch has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_product_launch has 0/6 variants (50% below expected)
+2025-09-15 22:21:49,674 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_016 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_016 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_000 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_000 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_001 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_001 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_017 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_017 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [MEDIUM]: Campaign gift_guide_2024 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,675 - WARNING - 🚨 ALERT [HIGH]: Campaign gift_guide_2024 has 0/12 variants (50% below expected)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_010 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_010 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_006 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_006 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [MEDIUM]: Campaign malformed_empty_brief has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [HIGH]: Campaign malformed_empty_brief has 0/3 variants (50% below expected)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [HIGH]: Campaign urgent_holiday_launch has 3/9 variants (50% below expected)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_007 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,676 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_007 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,677 - WARNING - 🚨 ALERT [MEDIUM]: Campaign load_test_campaign_011 has only 0 variants (minimum required: 3)
+2025-09-15 22:21:49,677 - WARNING - 🚨 ALERT [HIGH]: Campaign load_test_campaign_011 has 0/4 variants (50% below expected)
+2025-09-15 22:21:49,677 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_malformed_invalid_yaml_1757989309.txt
+2025-09-15 22:21:49,677 - INFO - ✅ Alert brief_processing_error_malformed_invalid_yaml_1757989309 processed and communicated
+2025-09-15 22:21:49,677 - INFO - 📧 Email alert saved to logs/email_alert_brief_processing_error_api_failure_test_1757989309.txt
+2025-09-15 22:21:49,677 - INFO - ✅ Alert brief_processing_error_api_failure_test_1757989309 processed and communicated
+2025-09-15 22:21:49,677 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_004.txt
+2025-09-15 22:21:49,677 - INFO - ✅ Alert insufficient_variants_load_test_campaign_004 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_004.txt
+2025-09-15 22:21:49,678 - INFO - ✅ Alert below_expected_load_test_campaign_004 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_012.txt
+2025-09-15 22:21:49,678 - INFO - ✅ Alert insufficient_variants_load_test_campaign_012 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_012.txt
+2025-09-15 22:21:49,678 - INFO - ✅ Alert below_expected_load_test_campaign_012 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_008.txt
+2025-09-15 22:21:49,678 - INFO - ✅ Alert insufficient_variants_load_test_campaign_008 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_008.txt
+2025-09-15 22:21:49,678 - INFO - ✅ Alert below_expected_load_test_campaign_008 processed and communicated
+2025-09-15 22:21:49,678 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_global_sustainability_2024.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert insufficient_variants_global_sustainability_2024 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_global_sustainability_2024.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert below_expected_global_sustainability_2024 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_009.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert insufficient_variants_load_test_campaign_009 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_009.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert below_expected_load_test_campaign_009 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_black_friday_specials.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert insufficient_variants_black_friday_specials processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_black_friday_specials.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert below_expected_black_friday_specials processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_013.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert insufficient_variants_load_test_campaign_013 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_013.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert below_expected_load_test_campaign_013 processed and communicated
+2025-09-15 22:21:49,679 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_end_to_end_test.txt
+2025-09-15 22:21:49,679 - INFO - ✅ Alert insufficient_variants_end_to_end_test processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_005.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert insufficient_variants_load_test_campaign_005 processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_005.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert below_expected_load_test_campaign_005 processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert insufficient_variants_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_campaign_brief_key.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert below_expected_malformed_missing_campaign_brief_key processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_018.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert insufficient_variants_load_test_campaign_018 processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_018.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert below_expected_load_test_campaign_018 processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_002.txt
+2025-09-15 22:21:49,680 - INFO - ✅ Alert insufficient_variants_load_test_campaign_002 processed and communicated
+2025-09-15 22:21:49,680 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_002.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert below_expected_load_test_campaign_002 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_014.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert insufficient_variants_load_test_campaign_014 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_014.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert below_expected_load_test_campaign_014 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_015.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert insufficient_variants_load_test_campaign_015 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_015.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert below_expected_load_test_campaign_015 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_missing_products.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert insufficient_variants_malformed_missing_products processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_missing_products.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert below_expected_malformed_missing_products processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_003.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert insufficient_variants_load_test_campaign_003 processed and communicated
+2025-09-15 22:21:49,681 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_003.txt
+2025-09-15 22:21:49,681 - INFO - ✅ Alert below_expected_load_test_campaign_003 processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_019.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert insufficient_variants_load_test_campaign_019 processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_019.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert below_expected_load_test_campaign_019 processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_winter_fashion_line.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert insufficient_variants_winter_fashion_line processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_winter_fashion_line.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert below_expected_winter_fashion_line processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_urgent_product_launch.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert insufficient_variants_urgent_product_launch processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_urgent_product_launch.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert below_expected_urgent_product_launch processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_016.txt
+2025-09-15 22:21:49,682 - INFO - ✅ Alert insufficient_variants_load_test_campaign_016 processed and communicated
+2025-09-15 22:21:49,682 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_016.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert below_expected_load_test_campaign_016 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_000.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert insufficient_variants_load_test_campaign_000 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_000.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert below_expected_load_test_campaign_000 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_001.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert insufficient_variants_load_test_campaign_001 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_001.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert below_expected_load_test_campaign_001 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_017.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert insufficient_variants_load_test_campaign_017 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_017.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert below_expected_load_test_campaign_017 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_gift_guide_2024.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert insufficient_variants_gift_guide_2024 processed and communicated
+2025-09-15 22:21:49,683 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_gift_guide_2024.txt
+2025-09-15 22:21:49,683 - INFO - ✅ Alert below_expected_gift_guide_2024 processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_010.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert insufficient_variants_load_test_campaign_010 processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_010.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert below_expected_load_test_campaign_010 processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_006.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert insufficient_variants_load_test_campaign_006 processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_006.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert below_expected_load_test_campaign_006 processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_malformed_empty_brief.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert insufficient_variants_malformed_empty_brief processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_malformed_empty_brief.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert below_expected_malformed_empty_brief processed and communicated
+2025-09-15 22:21:49,684 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_urgent_holiday_launch.txt
+2025-09-15 22:21:49,684 - INFO - ✅ Alert below_expected_urgent_holiday_launch processed and communicated
+2025-09-15 22:21:49,685 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_007.txt
+2025-09-15 22:21:49,685 - INFO - ✅ Alert insufficient_variants_load_test_campaign_007 processed and communicated
+2025-09-15 22:21:49,685 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_007.txt
+2025-09-15 22:21:49,685 - INFO - ✅ Alert below_expected_load_test_campaign_007 processed and communicated
+2025-09-15 22:21:49,685 - INFO - 📧 Email alert saved to logs/email_alert_insufficient_variants_load_test_campaign_011.txt
+2025-09-15 22:21:49,685 - INFO - ✅ Alert insufficient_variants_load_test_campaign_011 processed and communicated
+2025-09-15 22:21:49,685 - INFO - 📧 Email alert saved to logs/email_alert_below_expected_load_test_campaign_011.txt
+2025-09-15 22:21:49,685 - INFO - ✅ Alert below_expected_load_test_campaign_011 processed and communicated
+2025-09-15 22:21:49,685 - INFO - 🧠 Building comprehensive context for alert: brief_processing_error_malformed_invalid_yaml_1757989309
+2025-09-15 22:21:50,691 - ERROR - Error building system status: 'ComprehensiveContextProtocol' object has no attribute '_get_system_uptime'
+2025-09-15 22:21:50,691 - INFO - 🎭 Simulating generation for integration_test

@@ -1,0 +1,9 @@
+{
+  "id": "below_expected_malformed_empty_brief",
+  "type": "below_expected_variants",
+  "message": "Campaign malformed_empty_brief has 0/3 variants (50% below expected)",
+  "severity": "high",
+  "campaign_id": "malformed_empty_brief",
+  "timestamp": "2025-09-15T22:21:49.676595",
+  "status": "active"
+}

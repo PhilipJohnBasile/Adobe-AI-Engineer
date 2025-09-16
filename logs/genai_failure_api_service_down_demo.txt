@@ -1,0 +1,35 @@
+Subject: GenAI Service Outage - Campaign Generation Interrupted
+
+Dear Team,
+
+We are experiencing a GenAI service outage that is affecting Campaign demo_campaign and other active generation tasks.
+
+SERVICE OUTAGE DETAILS:
+🔴 Provider: OpenAI
+⏰ Outage started: 30 minutes ago
+📊 Service status: Investigating
+🎯 Affected services: Creative generation APIs
+
+CURRENT IMPACT:
+• Campaigns affected: 6
+• Generation requests queued: All pending
+• Estimated delay: 1-6 hours
+
+PROVIDER COMMUNICATION:
+Latest Update: Monitoring provider status page
+Estimated Resolution: Provider investigating
+Workaround Available: None currently
+
+ACTIONS TAKEN:
+✅ Monitoring provider status pages
+✅ Alternative services being evaluated
+✅ Generation queue preserved for auto-retry
+✅ Stakeholders notified of potential delays
+
+We are closely monitoring the situation and will resume normal operations as soon as service is restored.
+
+Updates will be provided every hour until resolution.
+
+Best regards,
+AI Creative Automation Agent
+        

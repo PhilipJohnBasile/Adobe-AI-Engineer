@@ -1,0 +1,9 @@
+{
+  "id": "test_test_campaign_1757989308",
+  "type": "test",
+  "message": "Test alert",
+  "severity": "medium",
+  "campaign_id": "test_campaign",
+  "timestamp": "2025-09-15T22:21:48.470578",
+  "status": "active"
+}

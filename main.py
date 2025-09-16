@@ -393,22 +393,68 @@ def markets():
 
 @app.command()
 def agent(
+    action: str = typer.Argument("status", help="Agent action: start, stop, status, test"),
     duration: int = typer.Option(60, "--duration", "-d", help="Monitoring duration in minutes"),
     interval: int = typer.Option(30, "--interval", "-i", help="Check interval in seconds")
 ):
-    """Start AI agent monitoring system."""
+    """AI agent system for monitoring campaigns and generating alerts."""
     
     import asyncio
+    from src.ai_agent import CreativeAutomationAgent
     
-    console.print(f"🤖 Starting AI Agent monitoring...")
-    console.print(f"⏱️  Duration: {duration} minutes")
-    console.print(f"🔄 Check interval: {interval} seconds")
-    console.print("Press Ctrl+C to stop monitoring early\n")
+    if action == "start":
+        console.print(f"🤖 Starting AI Agent monitoring...")
+        console.print(f"⏱️  Duration: {duration} minutes")
+        console.print(f"🔄 Check interval: {interval} seconds")
+        console.print("Press Ctrl+C to stop monitoring early\n")
+        
+        agent = CreativeAutomationAgent()
+        agent.check_interval = interval
+        
+        try:
+            asyncio.run(run_agent_monitor(agent, duration))
+        except KeyboardInterrupt:
+            console.print("\n⏹️  Monitoring stopped by user")
     
-    try:
-        asyncio.run(run_agent_monitor(duration))
-    except KeyboardInterrupt:
-        console.print("\n⏹️  Monitoring stopped by user")
+    elif action == "status":
+        agent = CreativeAutomationAgent()
+        status = agent.get_status()
+        
+        console.print("\n🤖 [bold blue]AI Agent Status[/bold blue]")
+        console.print(f"📊 Campaigns Tracked: {status['campaigns_tracked']}")
+        console.print(f"🚨 Alerts Generated: {status['alerts_generated']}")
+        console.print(f"⏳ Pending Alerts: {status['pending_alerts']}")
+        console.print(f"📈 Campaign Summary:")
+        console.print(f"   • Active: {status['campaign_summary']['active']}")
+        console.print(f"   • Completed: {status['campaign_summary']['completed']}")
+        console.print(f"   • Failed: {status['campaign_summary']['failed']}")
+        
+        if status['alerts_generated'] > 0:
+            console.print(f"\n📧 Recent Alerts:")
+            for alert in agent.get_alert_history()[-3:]:  # Show last 3 alerts
+                console.print(f"   • [{alert['severity'].upper()}] {alert['type']}: {alert['message'][:50]}...")
+    
+    elif action == "test":
+        console.print("🧪 Creating test alert...")
+        agent = CreativeAutomationAgent()
+        
+        asyncio.run(agent.create_alert(
+            "test_alert",
+            "Test alert generated for AI agent demonstration",
+            "medium"
+        ))
+        
+        console.print("✅ Test alert created")
+        console.print("📁 Check 'alerts/' directory for generated files")
+        console.print("📧 Check 'logs/' directory for communication logs")
+    
+    elif action == "stop":
+        console.print("🛑 Agent monitoring is designed to be self-contained")
+        console.print("💡 Use Ctrl+C to stop active monitoring sessions")
+    
+    else:
+        console.print(f"❌ Unknown action: {action}")
+        console.print("Available actions: start, stop, status, test")
 
 
 @app.command()

@@ -1,0 +1,13 @@
+{
+  "campaign_id": "test_campaign",
+  "variants_count": 3,
+  "target_count": 5,
+  "diversity_score": 0.6,
+  "output_files": [
+    "test_campaign_variant_0.jpg",
+    "test_campaign_variant_1.jpg",
+    "test_campaign_variant_2.jpg"
+  ],
+  "tracked_at": "2025-09-15T23:53:11.447383",
+  "completion_rate": 60.0
+}

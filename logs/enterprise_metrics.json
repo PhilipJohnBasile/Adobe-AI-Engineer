@@ -1,0 +1,10 @@
+{
+  "system_metrics": {
+    "active_campaigns": 0,
+    "completed_campaigns": 2,
+    "failed_campaigns": 0,
+    "total_variants": 7,
+    "success_rate": 1.0,
+    "daily_cost": 0.0,
+    "uptime_hours": 0.0038935113888888886,
+    "start_time": 

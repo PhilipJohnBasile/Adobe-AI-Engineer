@@ -1,0 +1,10 @@
+{
+  "active_campaigns": 0,
+  "completed_campaigns": 3,
+  "failed_campaigns": 1,
+  "total_variants": 14,
+  "success_rate": 0.75,
+  "queue_length": 0,
+  "last_updated": "2025-09-15T23:53:11.449119",
+  "monitoring_active": true
+}
