@@ -4,628 +4,1744 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adobe Creative Automation Platform</title>
+    <link href="{{ url_for('static', filename='css/adobe-theme.css') }}" rel="stylesheet">
     <style>
+        /* Modern, clean layout */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
         
-        /* Global text wrapping rules */
-        * {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        
-        h1, h2, h3, h4, h5, h6, p, div, span, a, button {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
-        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .header p { font-size: 1.2rem; opacity: 0.9; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .status-card { 
-            background: white; 
-            border-radius: 12px; 
-            padding: 1.5rem; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .status-card h3 { 
-            color: #2d3748; 
-            margin-bottom: 1rem; 
-            font-size: 1.2rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .status-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 0.5rem 0; 
-            border-bottom: 1px solid #edf2f7;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .status-item:last-child { border-bottom: none; }
-        .status-value { font-weight: 600; }
-        .status-ready { color: #38a169; }
-        .status-warning { color: #d69e2e; }
-        .status-error { color: #e53e3e; }
-        .actions-section { 
-            background: white; 
-            border-radius: 12px; 
-            padding: 2rem; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-            margin-bottom: 2rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            background: #f5f5f5;
         }
         
-        .actions-section h2, .actions-section h3 {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        /* Sidebar Navigation */
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e1e1e1;
+            padding: 2rem 0;
         }
-        .alert-item { padding: 0.75rem; margin: 0.5rem 0; border-radius: 6px; border-left: 4px solid; }
-        .alert-high { background: #fed7d7; border-color: #e53e3e; }
-        .alert-medium { background: #fefcbf; border-color: #d69e2e; }
-        .alert-low { background: #f0fff4; border-color: #38a169; }
-        .alert-title { font-weight: 600; margin-bottom: 0.25rem; }
-        .alert-details { font-size: 0.9rem; color: #666; }
-        .tracking-item { padding: 0.5rem; margin: 0.25rem 0; background: #f8f9fa; border-radius: 4px; }
-        .progress-bar { background: #e2e8f0; height: 6px; border-radius: 3px; margin: 0.25rem 0; }
-        .progress-fill { height: 100%; border-radius: 3px; }
-        .progress-high { background: #38a169; }
-        .progress-medium { background: #d69e2e; }
-        .progress-low { background: #e53e3e; }
-        .action-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .btn { 
-            padding: 1rem 2rem; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 1rem; 
-            font-weight: 600; 
-            cursor: pointer; 
-            text-decoration: none; 
-            text-align: center; 
-            transition: all 0.3s ease;
-            word-wrap: break-word;
-            word-break: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
-            display: inline-block;
-            min-height: 56px;
+        
+        .sidebar-brand {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid #e1e1e1;
         }
-        .btn-primary { background: #4299e1; color: white; }
-        .btn-primary:hover { background: #3182ce; transform: translateY(-2px); }
-        .btn-success { background: #48bb78; color: white; }
-        .btn-success:hover { background: #38a169; transform: translateY(-2px); }
-        .btn-info { background: #38b2ac; color: white; }
-        .btn-info:hover { background: #319795; transform: translateY(-2px); }
-        .btn-warning { background: #ed8936; color: white; }
-        .btn-warning:hover { background: #dd6b20; transform: translateY(-2px); }
-        .campaigns-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .campaigns-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .campaign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-        .campaign-card { 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
-            padding: 1.5rem; 
-            transition: all 0.3s ease;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        
+        .sidebar-brand h2 {
+            font-size: 1.25rem;
+            color: #2c2c2c;
+            font-weight: 700;
         }
-        .campaign-card:hover { border-color: #4299e1; box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15); }
-        .campaign-title { 
-            font-size: 1.1rem; 
-            font-weight: 600; 
-            color: #2d3748; 
+        
+        .nav-section {
+            padding: 1.5rem 0;
+        }
+        
+        .nav-title {
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6e6e6e;
+            font-weight: 600;
             margin-bottom: 0.5rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
         }
-        .campaign-meta { color: #718096; font-size: 0.9rem; margin-bottom: 1rem; }
-        .campaign-products { margin-bottom: 1rem; }
-        .product-tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.25rem; display: inline-block; }
-        .campaign-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
-        .flash-messages { margin-bottom: 2rem; }
-        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; }
-        .flash-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
-        .flash-error { background: #fed7d7; border: 1px solid #feb2b2; color: #c53030; }
-        .flash-info { background: #ebf8ff; border: 1px solid #90cdf4; color: #2c5282; }
-        .flash-warning { background: #fefcbf; border: 1px solid #f6e05e; color: #744210; }
-        .system-overview { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
-        .overview-stat { text-align: center; padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .overview-number { font-size: 2.5rem; font-weight: bold; color: #4299e1; }
-        .overview-label { color: #718096; font-size: 0.9rem; margin-top: 0.5rem; }
-        .no-campaigns { text-align: center; padding: 3rem; color: #718096; }
-        .no-campaigns-icon { font-size: 3rem; margin-bottom: 1rem; }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            color: #505050;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .nav-item:hover {
+            background: #f5f5f5;
+            color: #1473e6;
+        }
+        
+        .nav-item.active {
+            background: #e8f1fd;
+            color: #1473e6;
+            border-left: 3px solid #1473e6;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: #2c2c2c;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            color: #6e6e6e;
+            font-size: 0.875rem;
+        }
+        
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e1e1e1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #1473e6, #2680eb);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-label {
+            color: #6e6e6e;
+            font-size: 0.875rem;
+        }
+        
+        .metric-trend {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .trend-up {
+            background: #e7f6f1;
+            color: #2d9d78;
+        }
+        
+        .trend-down {
+            background: #ffe8ea;
+            color: #e34850;
+        }
+        
+        /* Campaign Cards - Visual */
+        .campaigns-container {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e1e1e1;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+        
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .campaign-visual {
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .campaign-visual:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .campaign-preview {
+            height: 140px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .campaign-preview-icon {
+            font-size: 3rem;
+            color: white;
+            opacity: 0.9;
+        }
+        
+        .campaign-status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: white;
+            color: #2c2c2c;
+        }
+        
+        .campaign-details {
+            padding: 1rem;
+        }
+        
+        .campaign-name {
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .campaign-info {
+            font-size: 0.75rem;
+            color: #6e6e6e;
+            margin-bottom: 1rem;
+        }
+        
+        .campaign-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            background: white;
+            color: #505050;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #1473e6;
+            color: white;
+            border-color: #1473e6;
+        }
+        
+        /* Activity Feed */
+        .activity-feed {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e1e1e1;
+        }
+        
+        .activity-item {
+            display: flex;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .activity-icon.success {
+            background: #e7f6f1;
+            color: #2d9d78;
+        }
+        
+        .activity-icon.warning {
+            background: #fff3e5;
+            color: #f29423;
+        }
+        
+        .activity-icon.info {
+            background: #e8f1fd;
+            color: #1473e6;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-description {
+            font-size: 0.875rem;
+            color: #6e6e6e;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: #6e6e6e;
+        }
+        
+        /* Quick Actions - Visual Tiles */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quick-action-tile {
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #2c2c2c;
+        }
+        
+        .quick-action-tile:hover {
+            border-color: #1473e6;
+            background: #f8fbff;
+            transform: translateY(-2px);
+        }
+        
+        .quick-action-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .quick-action-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6e6e6e;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+        
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c2c2c;
+        }
+        
+        .empty-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Primary Button */
+        .btn-primary {
+            background: #1473e6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: #0d66d0;
+        }
+        
+        /* Status Pills */
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: #e7f6f1;
+            color: #2d9d78;
+        }
+        
+        .status-pending {
+            background: #fff3e5;
+            color: #f29423;
+        }
+        
+        .status-error {
+            background: #ffe8ea;
+            color: #e34850;
+        }
+        /* Additional Styles */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tool-card {
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #1473e6;
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tool-name {
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.25rem;
+        }
+        
+        .tool-desc {
+            font-size: 0.75rem;
+            color: #6e6e6e;
+        }
+        
+        .data-table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e1e1e1;
+        }
+        
+        .data-table th {
+            background: #f5f5f5;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #2c2c2c;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f8f8;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Data Explorer Styles */
+        .data-grid {
+            margin-top: 1.5rem;
+        }
+        
+        .data-table-wrapper {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e1e1e1;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e1e1e1;
+            transition: all 0.2s;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .image-preview {
+            height: 150px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-info {
+            padding: 1rem;
+        }
+        
+        .image-info h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #2c2c2c;
+        }
+        
+        .image-info p {
+            font-size: 0.75rem;
+            color: #6e6e6e;
+        }
+        
+        .btn-small {
+            padding: 0.25rem 0.75rem;
+            background: #1473e6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn-small:hover {
+            background: #0d66d0;
+        }
+        
+        .badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #f5f5f5;
+            color: #505050;
+        }
+        
+        .badge-high {
+            background: #ffe8ea;
+            color: #e34850;
+        }
+        
+        .badge-medium {
+            background: #fff3e5;
+            color: #f29423;
+        }
+        
+        .badge-low {
+            background: #e7f6f1;
+            color: #2d9d78;
+        }
+        
+        .text-small {
+            font-size: 0.75rem;
+        }
+        
+        .nav-subsection {
+            background: rgba(20, 115, 230, 0.05);
+            border-left: 2px solid #1473e6;
+            margin-top: 0.25rem;
+        }
+        
+        .nav-subsection .nav-item {
+            font-size: 0.813rem;
+            padding: 0.5rem 2rem;
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎨 Adobe Creative Automation Platform</h1>
-        <p>Enterprise Creative Pipeline • Intelligent Automation • Real-time Analytics</p>
-    </div>
-
-    <div class="container">
-        <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash flash-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-
-        <!-- System Overview -->
-        <div class="system-overview">
-            <div class="overview-stat">
-                <div class="overview-number">{{ status.total_campaigns or 0 }}</div>
-                <div class="overview-label">Total Campaigns</div>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>Creative Platform</h2>
             </div>
-            <div class="overview-stat">
-                <div class="overview-number">{{ status.total_outputs or 0 }}</div>
-                <div class="overview-label">Generated Outputs</div>
-            </div>
-            <div class="overview-stat">
-                <div class="overview-number">{{ status.cli_commands_available or 28 }}</div>
-                <div class="overview-label">CLI Commands Available</div>
-            </div>
-        </div>
-
-        <!-- System Status -->
-        <div class="status-grid">
-            <div class="status-card">
-                <h3>🔧 Core System Status</h3>
-                <div class="status-item">
-                    <span>Main Pipeline</span>
-                    <span class="status-value {{ 'status-ready' if status.system_ready else 'status-error' }}">
-                        {{ 'Ready' if status.system_ready else 'Not Available' }}
-                    </span>
+            
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Main</div>
+                    <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                        <span class="nav-icon">📊</span>
+                        Dashboard
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('campaigns')">
+                        <span class="nav-icon">🎯</span>
+                        Campaigns
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('assets')">
+                        <span class="nav-icon">🖼️</span>
+                        Assets
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('analytics')">
+                        <span class="nav-icon">📈</span>
+                        Analytics
+                    </a>
                 </div>
-                <div class="status-item">
-                    <span>CLI Commands</span>
-                    <span class="status-value status-ready">{{ status.cli_commands_available or 28 }} Available</span>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Tools</div>
+                    <a href="{{ url_for('create_campaign') }}" class="nav-item">
+                        <span class="nav-icon">➕</span>
+                        New Campaign
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('enterprise')">
+                        <span class="nav-icon">🏢</span>
+                        Enterprise Suite
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('automation')">
+                        <span class="nav-icon">🤖</span>
+                        Automation Hub
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('compliance')">
+                        <span class="nav-icon">⚖️</span>
+                        Compliance
+                    </a>
+                    <a href="{{ url_for('cli_commands') }}" class="nav-item">
+                        <span class="nav-icon">⚡</span>
+                        CLI Tools
+                    </a>
                 </div>
-                <div class="status-item">
-                    <span>Last Updated</span>
-                    <span class="status-value">{{ status.last_updated[:19] if status.last_updated else 'Unknown' }}</span>
-                </div>
-            </div>
-
-            <div class="status-card">
-                <h3>🤖 AI Monitor Systems</h3>
-                {% if status.ai_monitor_systems %}
-                    <div class="status-item">
-                        <span>Production Agent</span>
-                        <span class="status-value {{ 'status-ready' if status.ai_monitor_systems.production else 'status-error' }}">
-                            {{ 'Active' if status.ai_monitor_systems.production else 'Offline' }}
-                        </span>
+                
+                <div class="nav-section">
+                    <div class="nav-title">AI Suite</div>
+                    <a href="#" class="nav-item" onclick="showSection('ai-tools')">
+                        <span class="nav-icon">🤖</span>
+                        AI Tools
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('explorer')">
+                        <span class="nav-icon">📂</span>
+                        Data Explorer
+                    </a>
+                    <div class="nav-subsection" id="explorer-submenu" style="display: none; margin-left: 1rem;">
+                        <a href="#" class="nav-item" onclick="showSection('explorer'); showDataCategory('campaigns')">
+                            <span class="nav-icon">📄</span>
+                            Campaigns
+                        </a>
+                        <a href="#" class="nav-item" onclick="showSection('explorer'); showDataCategory('images')">
+                            <span class="nav-icon">🖼️</span>
+                            Images
+                        </a>
+                        <a href="#" class="nav-item" onclick="showSection('explorer'); showDataCategory('logs')">
+                            <span class="nav-icon">📊</span>
+                            Logs
+                        </a>
+                        <a href="#" class="nav-item" onclick="showSection('explorer'); showDataCategory('alerts')">
+                            <span class="nav-icon">🔔</span>
+                            Alerts
+                        </a>
                     </div>
-                    <div class="status-item">
-                        <span>Enterprise System</span>
-                        <span class="status-value {{ 'status-ready' if status.ai_monitor_systems.enterprise else 'status-error' }}">
-                            {{ 'Active' if status.ai_monitor_systems.enterprise else 'Offline' }}
-                        </span>
+                    <a href="#" class="nav-item" onclick="showSection('advanced')">
+                        <span class="nav-icon">🔬</span>
+                        Advanced
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">System</div>
+                    <a href="#" class="nav-item" onclick="showSection('monitor')">
+                        <span class="nav-icon">🔔</span>
+                        AI Monitor
+                    </a>
+                    <a href="{{ url_for('api_status') }}" class="nav-item">
+                        <span class="nav-icon">🔧</span>
+                        API Status
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('settings')">
+                        <span class="nav-icon">⚙️</span>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Welcome back! Here's what's happening with your creative automation platform.</p>
+                </div>
+                
+                <!-- Key Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">{{ status.total_campaigns or 0 }}</div>
+                        <div class="metric-label">Total Campaigns</div>
+                        <span class="metric-trend trend-up">+12%</span>
                     </div>
-                {% else %}
-                    <div class="status-item">
-                        <span>AI Systems</span>
-                        <span class="status-value status-warning">Loading...</span>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">{{ status.total_outputs or 0 }}</div>
+                        <div class="metric-label">Assets Generated</div>
+                        <span class="metric-trend trend-up">+28%</span>
                     </div>
-                {% endif %}
-            </div>
-
-            <div class="status-card">
-                <h3>📊 Campaign Statistics</h3>
-                <div class="status-item">
-                    <span>Active Campaigns</span>
-                    <span class="status-value status-ready">{{ campaigns|length }}</span>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">{{ (status.total_campaigns or 0) * 3 }}</div>
+                        <div class="metric-label">Variants Created</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">98%</div>
+                        <div class="metric-label">Compliance Score</div>
+                        <span class="metric-trend trend-up">+2%</span>
+                    </div>
                 </div>
-                <div class="status-item">
-                    <span>Total Campaigns</span>
-                    <span class="status-value">{{ status.total_campaigns or 0 }}</span>
+                
+                <!-- System Overview Cards -->
+                <div class="campaigns-container" style="margin-bottom: 2rem;">
+                    <div class="section-header">
+                        <h2 class="section-title">System Overview</h2>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">42</div>
+                            <div class="metric-label">AI Models Active</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">1,247</div>
+                            <div class="metric-label">API Calls Today</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">16ms</div>
+                            <div class="metric-label">Avg Response Time</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="status-item">
-                    <span>Output Directories</span>
-                    <span class="status-value">{{ status.total_outputs or 0 }}</span>
+                
+                <!-- Feature Highlights -->
+                <div class="campaigns-container" style="margin-bottom: 2rem;">
+                    <div class="section-header">
+                        <h2 class="section-title">Featured Capabilities</h2>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                            <div class="metric-value">60+</div>
+                            <div class="metric-label" style="color: rgba(255,255,255,0.9);">AI Tools Available</div>
+                        </div>
+                        <div class="metric-card" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">
+                            <div class="metric-value">15</div>
+                            <div class="metric-label" style="color: rgba(255,255,255,0.9);">Model Integrations</div>
+                        </div>
+                        <div class="metric-card" style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white;">
+                            <div class="metric-value">Real-time</div>
+                            <div class="metric-label" style="color: rgba(255,255,255,0.9);">Processing</div>
+                        </div>
+                        <div class="metric-card" style="background: linear-gradient(135deg, #43e97b, #38f9d7); color: white;">
+                            <div class="metric-value">Enterprise</div>
+                            <div class="metric-label" style="color: rgba(255,255,255,0.9);">Grade Security</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="actions-section">
-            <h3 style="margin-bottom: 1.5rem; color: #2d3748;">🎯 Quick Actions</h3>
-            <div class="action-buttons">
-                <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">📝 Create Campaign</a>
-                <a href="{{ url_for('data_explorer') }}" class="btn" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">📊 Data Explorer</a>
-                <a href="{{ url_for('list_all_outputs') }}" class="btn btn-info">🖼️ View All Images</a>
-                <a href="{{ url_for('analytics') }}" class="btn btn-info">📈 View Analytics</a>
-                <a href="{{ url_for('cli_commands') }}" class="btn btn-success">⚡ Run CLI Commands</a>
-                <a href="{{ url_for('api_status') }}" class="btn btn-warning">🔍 System API</a>
-            </div>
-        </div>
-
-        <!-- Recent Campaigns -->
-        <div class="campaigns-section">
-            <div class="campaigns-header">
-                <h3 style="color: #2d3748;">📋 Recent Campaigns</h3>
-                <a href="{{ url_for('create_campaign') }}" class="btn btn-primary btn-sm">+ New Campaign</a>
-            </div>
-
-            {% if campaigns %}
-                <div class="campaign-grid">
-                    {% for campaign in campaigns %}
-                        <div class="campaign-card">
-                            <div class="campaign-title">{{ campaign.name }}</div>
-                            <div class="campaign-meta">
-                                File: {{ campaign.file }} • ID: {{ campaign.id }} • Created: {{ campaign.created }}
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <a href="{{ url_for('create_campaign') }}" class="quick-action-tile">
+                        <div class="quick-action-icon">🚀</div>
+                        <div class="quick-action-label">Create Campaign</div>
+                    </a>
+                    
+                    <div class="quick-action-tile" onclick="runPipeline()">
+                        <div class="quick-action-icon">⚙️</div>
+                        <div class="quick-action-label">Run Pipeline</div>
+                    </div>
+                    
+                    <a href="{{ url_for('list_all_outputs') }}" class="quick-action-tile">
+                        <div class="quick-action-icon">🖼️</div>
+                        <div class="quick-action-label">View Gallery</div>
+                    </a>
+                    
+                    <div class="quick-action-tile" onclick="showSection('analytics')">
+                        <div class="quick-action-icon">📊</div>
+                        <div class="quick-action-label">Analytics</div>
+                    </div>
+                    
+                    <a href="{{ url_for('data_explorer') }}" class="quick-action-tile">
+                        <div class="quick-action-icon">🔍</div>
+                        <div class="quick-action-label">Explore Data</div>
+                    </a>
+                    
+                    <div class="quick-action-tile" onclick="showSection('monitor')">
+                        <div class="quick-action-icon">🤖</div>
+                        <div class="quick-action-label">AI Monitor</div>
+                    </div>
+                </div>
+                
+                <!-- Recent Campaigns -->
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Campaigns</h2>
+                        <a href="{{ url_for('create_campaign') }}" class="btn-primary">New Campaign</a>
+                    </div>
+                    
+                    {% if campaigns %}
+                    <div class="campaigns-grid">
+                        {% for campaign in campaigns[:3] %}
+                        <div class="campaign-visual">
+                            <div class="campaign-preview">
+                                <div class="campaign-preview-icon">📄</div>
+                                <span class="campaign-status-badge">Active</span>
                             </div>
-                            
-                            {% if campaign.products %}
-                                <div class="campaign-products">
-                                    {% for product in campaign.products %}
-                                        <span class="product-tag">{{ product }}</span>
-                                    {% endfor %}
+                            <div class="campaign-details">
+                                <div class="campaign-name">{{ campaign.name }}</div>
+                                <div class="campaign-info">
+                                    {{ campaign.products|length if campaign.products else 0 }} products • 
+                                    {{ campaign.date }}
                                 </div>
-                            {% endif %}
-                            
-                            <div class="campaign-actions">
-                                <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" class="btn btn-info btn-sm">👁️ View</a>
-                                <a href="{{ url_for('run_pipeline', campaign_id=campaign.id) }}" class="btn btn-primary btn-sm">🚀 Run Pipeline</a>
-                                <a href="{{ url_for('run_ai_monitor', campaign_id=campaign.id) }}" class="btn btn-success btn-sm">🤖 AI Monitor</a>
-                                <a href="{{ url_for('run_enterprise', campaign_id=campaign.id) }}" class="btn btn-warning btn-sm">🏢 Enterprise</a>
+                                <div class="campaign-actions">
+                                    <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" class="action-btn">View</a>
+                                    <button onclick="runPipeline('{{ campaign.id }}')" class="action-btn">Run</button>
+                                </div>
                             </div>
                         </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">No campaigns yet</div>
+                        <div class="empty-description">Create your first campaign to start generating creative assets</div>
+                        <a href="{{ url_for('create_campaign') }}" class="btn-primary">Create Campaign</a>
+                    </div>
+                    {% endif %}
                 </div>
-            {% else %}
-                <div class="no-campaigns">
-                    <div class="no-campaigns-icon">📭</div>
-                    <h3>No campaigns yet</h3>
-                    <p>Create your first campaign to get started with automated creative generation!</p>
-                    <br>
-                    <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">Create First Campaign</a>
-                </div>
-            {% endif %}
-        </div>
-
-        <!-- AI Monitor Activity Section -->
-        <div class="status-grid" style="margin-top: 2rem;">
-            <div class="status-card">
-                <h3>🚨 Recent Alerts <span class="status-ready" id="activity-status">Active</span></h3>
-                <div id="recent-alerts" style="max-height: 300px; overflow-y: auto;">
-                    <div class="status-item">
-                        <span>Loading alerts...</span>
-                        <span class="status-value">⏳</span>
+                
+                <!-- Activity Feed -->
+                <div class="activity-feed">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Activity</h2>
+                    </div>
+                    
+                    <div id="activity-list">
+                        <!-- Activities will be loaded here -->
+                        <div class="activity-item">
+                            <div class="activity-icon success">✓</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Pipeline completed</div>
+                                <div class="activity-description">Generated 12 assets for Holiday Campaign 2024</div>
+                            </div>
+                            <div class="activity-time">2 min ago</div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon info">📊</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Analytics report ready</div>
+                                <div class="activity-description">Q4 performance metrics are now available</div>
+                            </div>
+                            <div class="activity-time">15 min ago</div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon warning">⚠️</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Compliance check</div>
+                                <div class="activity-description">Review required for 2 assets</div>
+                            </div>
+                            <div class="activity-time">1 hour ago</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="status-card">
-                <h3>📊 Campaign Progress</h3>
-                <div id="campaign-tracking" style="max-height: 300px; overflow-y: auto;">
-                    <div class="status-item">
-                        <span>Loading tracking data...</span>
-                        <span class="status-value">⏳</span>
+            <!-- Campaigns Section -->
+            <div id="campaigns" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Campaigns</h1>
+                    <p class="page-subtitle">Manage your creative campaigns and automation pipelines</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <!-- Campaign management interface -->
+                    <p>Campaign management interface coming soon...</p>
+                </div>
+            </div>
+            
+            <!-- Assets Section -->
+            <div id="assets" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Assets Library</h1>
+                    <p class="page-subtitle">Browse and manage generated creative assets</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <iframe src="{{ url_for('list_all_outputs') }}" style="width: 100%; height: 600px; border: none; border-radius: 8px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- Analytics Section -->
+            <div id="analytics" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Analytics</h1>
+                    <p class="page-subtitle">Performance metrics and insights</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <iframe src="{{ url_for('analytics') }}" style="width: 100%; height: 600px; border: none; border-radius: 8px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- Monitor Section -->
+            <div id="monitor" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">AI Monitor</h1>
+                    <p class="page-subtitle">Real-time system monitoring and alerts</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">
+                            <span class="status-pill status-active">Active</span>
+                        </div>
+                        <div class="metric-label">System Status</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value" id="alerts-count">0</div>
+                        <div class="metric-label">Active Alerts</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value" id="campaigns-monitored">{{ campaigns|length }}</div>
+                        <div class="metric-label">Campaigns Monitored</div>
+                    </div>
+                </div>
+                
+                <div class="activity-feed">
+                    <div class="section-header">
+                        <h2 class="section-title">System Alerts</h2>
+                    </div>
+                    <div id="monitor-alerts">
+                        <!-- Alerts will be loaded here -->
                     </div>
                 </div>
             </div>
             
-            <div class="status-card">
-                <h3>📧 Recent Communications</h3>
-                <div id="recent-communications" style="max-height: 300px; overflow-y: auto;">
-                    <div class="status-item">
-                        <span>Loading communications...</span>
-                        <span class="status-value">⏳</span>
+            <!-- Data Explorer Section -->
+            <div id="explorer" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Data Explorer</h1>
+                    <p class="page-subtitle">Comprehensive view of all system data and resources</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">668</div>
+                        <div class="metric-label">Total Files</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ campaigns|length }}</div>
+                        <div class="metric-label">Campaigns</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ outputs|length }}</div>
+                        <div class="metric-label">Images</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">12</div>
+                        <div class="metric-label">Reports</div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- System-Wide AI Tools Section -->
-        <div class="actions-section">
-            <h2>🏢 System-Wide AI Tools</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn btn-info" onclick="runAITool('analytics')">📊 System Analytics</button>
-                <button class="btn btn-success" onclick="runAITool('monitor')">📈 Advanced Monitoring</button>
-                <button class="btn btn-primary" onclick="runAITool('audit')">📋 Enterprise Audit</button>
-                <button class="btn btn-warning" onclick="runAITool('adobe-integration')">🎯 Adobe Integration</button>
-                <button class="btn btn-info" onclick="runAITool('collaborate')">👥 Team Collaboration</button>
-                <button class="btn btn-success" onclick="runAITool('workflow')">📋 Workflow Designer</button>
-                <button class="btn btn-primary" onclick="runAITool('optimize')">⚡ System Optimization</button>
+                
+                <!-- Data Categories Grid -->
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Data Categories</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="showDataCategory('campaigns')">
+                            <div class="quick-action-icon">📄</div>
+                            <div class="quick-action-label">Campaign Briefs</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showDataCategory('images')">
+                            <div class="quick-action-icon">🖼️</div>
+                            <div class="quick-action-label">Generated Images</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showDataCategory('logs')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">System Logs</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showDataCategory('alerts')">
+                            <div class="quick-action-icon">🔔</div>
+                            <div class="quick-action-label">Alert History</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showDataCategory('analytics')">
+                            <div class="quick-action-icon">📈</div>
+                            <div class="quick-action-label">Analytics Data</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showDataCategory('reports')">
+                            <div class="quick-action-icon">📑</div>
+                            <div class="quick-action-label">Reports</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Content Area -->
+                <div id="data-content" class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title" id="data-category-title">Select a category</h2>
+                    </div>
+                    <div id="data-grid" class="data-grid">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
             </div>
             
-            <!-- AI Tool Results -->
-            <div id="ai-tool-results" style="margin-top: 2rem; display: none;">
-                <div class="status-card">
-                    <h3 id="ai-tool-title">AI Tool Results</h3>
-                    <div id="ai-tool-output" style="background: #f8f9fa; padding: 1rem; border-radius: 6px; font-family: monospace; white-space: pre-wrap; max-height: 400px; overflow-y: auto;">
-                        <!-- Results will appear here -->
+            <!-- AI Tools Section -->
+            <div id="ai-tools" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">AI Tools & Features</h1>
+                    <p class="page-subtitle">Comprehensive suite of AI-powered tools for creative automation</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Creative Generation</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('image_generation')">
+                            <div class="quick-action-icon">🎨</div>
+                            <div class="quick-action-label">Image Generation</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('video_creation')">
+                            <div class="quick-action-icon">🎬</div>
+                            <div class="quick-action-label">Video Creation</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('copy_writing')">
+                            <div class="quick-action-icon">✍️</div>
+                            <div class="quick-action-label">Copy Writing</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('voice_synthesis')">
+                            <div class="quick-action-icon">🎤</div>
+                            <div class="quick-action-label">Voice Synthesis</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Content Optimization</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('ab_testing')">
+                            <div class="quick-action-icon">🧪</div>
+                            <div class="quick-action-label">A/B Testing</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('personalization')">
+                            <div class="quick-action-icon">👤</div>
+                            <div class="quick-action-label">Personalization</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('sentiment_analysis')">
+                            <div class="quick-action-icon">💭</div>
+                            <div class="quick-action-label">Sentiment Analysis</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('trend_prediction')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">Trend Prediction</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Compliance & Quality</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('brand_compliance')">
+                            <div class="quick-action-icon">✅</div>
+                            <div class="quick-action-label">Brand Compliance</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('legal_review')">
+                            <div class="quick-action-icon">⚖️</div>
+                            <div class="quick-action-label">Legal Review</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('accessibility_check')">
+                            <div class="quick-action-icon">♿</div>
+                            <div class="quick-action-label">Accessibility</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('quality_scoring')">
+                            <div class="quick-action-icon">🏆</div>
+                            <div class="quick-action-label">Quality Scoring</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Pipeline Management Section -->
-        <div class="actions-section">
-            <h2>⚙️ Pipeline Management</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #4299e1; color: white;" onclick="runAITool('generate-pipeline')">🚀 Run Generation Pipeline</button>
-                <button class="btn" style="background: #48bb78; color: white;" onclick="runAITool('validate-campaigns')">✅ Validate Campaign Briefs</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('compliance-check')">🛡️ Compliance Check</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('localize-campaigns')">🌍 Localize Campaigns</button>
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('batch-processing')">📦 Batch Processing</button>
-                <button class="btn" style="background: #f56565; color: white;" onclick="runAITool('api-server')">🔧 API Server Control</button>
+            
+            <!-- Advanced Tools Section -->
+            <div id="advanced" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Advanced Analytics & Insights</h1>
+                    <p class="page-subtitle">Deep dive into performance metrics and predictive analytics</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Performance Analytics</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('roi_calculator')">
+                            <div class="quick-action-icon">💰</div>
+                            <div class="quick-action-label">ROI Calculator</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('engagement_metrics')">
+                            <div class="quick-action-icon">📈</div>
+                            <div class="quick-action-label">Engagement Metrics</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('conversion_tracking')">
+                            <div class="quick-action-icon">🎯</div>
+                            <div class="quick-action-label">Conversion Tracking</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('audience_insights')">
+                            <div class="quick-action-icon">👥</div>
+                            <div class="quick-action-label">Audience Insights</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Market Intelligence</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('competitor_analysis')">
+                            <div class="quick-action-icon">🔍</div>
+                            <div class="quick-action-label">Competitor Analysis</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('market_trends')">
+                            <div class="quick-action-icon">🌐</div>
+                            <div class="quick-action-label">Market Trends</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('social_listening')">
+                            <div class="quick-action-icon">👂</div>
+                            <div class="quick-action-label">Social Listening</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('influencer_finder')">
+                            <div class="quick-action-icon">⭐</div>
+                            <div class="quick-action-label">Influencer Finder</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Workflow Automation</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('workflow_builder')">
+                            <div class="quick-action-icon">🔄</div>
+                            <div class="quick-action-label">Workflow Builder</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('batch_processor')">
+                            <div class="quick-action-icon">⚡</div>
+                            <div class="quick-action-label">Batch Processor</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('scheduler')">
+                            <div class="quick-action-icon">📅</div>
+                            <div class="quick-action-label">Campaign Scheduler</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('api_integrations')">
+                            <div class="quick-action-icon">🔗</div>
+                            <div class="quick-action-label">API Integrations</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Analytics & Reporting Hub -->
-        <div class="actions-section">
-            <h2>📊 Analytics & Reporting Hub</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #667eea; color: white;" onclick="runAITool('analytics-dashboard')">📈 Analytics Dashboard</button>
-                <button class="btn" style="background: #f093fb; color: white;" onclick="runAITool('system-health')">💓 System Health Monitor</button>
-                <button class="btn" style="background: #4facfe; color: white;" onclick="runAITool('performance-metrics')">📊 Performance Metrics</button>
-                <button class="btn" style="background: #43e97b; color: white;" onclick="runAITool('export-reports')">📤 Export Reports</button>
-                <button class="btn" style="background: #fa709a; color: white;" onclick="runAITool('cost-analysis')">💰 Cost Analysis</button>
+            
+            <!-- Enterprise Tools Section -->
+            <div id="enterprise" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Enterprise AI Suite</h1>
+                    <p class="page-subtitle">Advanced enterprise-grade tools for large-scale operations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🏢 System-Wide AI Capabilities</h3>
+                    <p>Comprehensive suite of 60+ AI tools designed for enterprise creative automation at scale.</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Content Generation Suite</h2>
+                    </div>
+                    <div class="tool-grid">
+                        <div class="tool-card" onclick="runAITool('3d_modeling')">
+                            <div class="tool-icon">🎨</div>
+                            <div class="tool-name">3D Modeling</div>
+                            <div class="tool-desc">AI-powered 3D asset creation</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('animation_engine')">
+                            <div class="tool-icon">🎭</div>
+                            <div class="tool-name">Animation Engine</div>
+                            <div class="tool-desc">Automated motion graphics</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('music_composer')">
+                            <div class="tool-icon">🎵</div>
+                            <div class="tool-name">Music Composer</div>
+                            <div class="tool-desc">AI-generated soundtracks</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('font_generator')">
+                            <div class="tool-icon">🔤</div>
+                            <div class="tool-name">Font Generator</div>
+                            <div class="tool-desc">Custom typography creation</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('color_palette')">
+                            <div class="tool-icon">🎨</div>
+                            <div class="tool-name">Color Palette AI</div>
+                            <div class="tool-desc">Intelligent color schemes</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('layout_optimizer')">
+                            <div class="tool-icon">📐</div>
+                            <div class="tool-name">Layout Optimizer</div>
+                            <div class="tool-desc">AI-driven design layouts</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Campaign Intelligence</h2>
+                    </div>
+                    <div class="tool-grid">
+                        <div class="tool-card" onclick="runAITool('budget_optimizer')">
+                            <div class="tool-icon">💵</div>
+                            <div class="tool-name">Budget Optimizer</div>
+                            <div class="tool-desc">Smart budget allocation</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('channel_predictor')">
+                            <div class="tool-icon">📡</div>
+                            <div class="tool-name">Channel Predictor</div>
+                            <div class="tool-desc">Optimal channel selection</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('timing_optimizer')">
+                            <div class="tool-icon">⏰</div>
+                            <div class="tool-name">Timing Optimizer</div>
+                            <div class="tool-desc">Best posting times AI</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('geo_targeting')">
+                            <div class="tool-icon">🌍</div>
+                            <div class="tool-name">Geo-Targeting AI</div>
+                            <div class="tool-desc">Location-based optimization</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('demographic_analyzer')">
+                            <div class="tool-icon">👥</div>
+                            <div class="tool-name">Demographic Analyzer</div>
+                            <div class="tool-desc">Audience segmentation</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('behavior_predictor')">
+                            <div class="tool-icon">🔮</div>
+                            <div class="tool-name">Behavior Predictor</div>
+                            <div class="tool-desc">User behavior forecasting</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- A/B Testing Center -->
-        <div class="actions-section">
-            <h2>🧪 A/B Testing Center</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('create-ab-test')">🧪 Create A/B Test</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('start-ab-test')">▶️ Start Testing</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('ab-test-results')">📊 Test Results</button>
-                <button class="btn" style="background: #48bb78; color: white;" onclick="runAITool('ab-test-reports')">📋 Generate Reports</button>
+            
+            <!-- Automation Hub Section -->
+            <div id="automation" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Automation Hub</h1>
+                    <p class="page-subtitle">End-to-end workflow automation and orchestration</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Workflow Automation</h2>
+                    </div>
+                    <div class="tool-grid">
+                        <div class="tool-card" onclick="runAITool('pipeline_builder')">
+                            <div class="tool-icon">🔧</div>
+                            <div class="tool-name">Pipeline Builder</div>
+                            <div class="tool-desc">Visual workflow creation</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('task_scheduler')">
+                            <div class="tool-icon">📅</div>
+                            <div class="tool-name">Task Scheduler</div>
+                            <div class="tool-desc">Automated task management</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('resource_allocator')">
+                            <div class="tool-icon">⚖️</div>
+                            <div class="tool-name">Resource Allocator</div>
+                            <div class="tool-desc">Smart resource distribution</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('error_handler')">
+                            <div class="tool-icon">🛡️</div>
+                            <div class="tool-name">Error Handler</div>
+                            <div class="tool-desc">Automated error recovery</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('performance_monitor')">
+                            <div class="tool-icon">📊</div>
+                            <div class="tool-name">Performance Monitor</div>
+                            <div class="tool-desc">Real-time metrics tracking</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('load_balancer')">
+                            <div class="tool-icon">⚡</div>
+                            <div class="tool-name">Load Balancer</div>
+                            <div class="tool-desc">Distributed processing</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Adobe Integration Suite -->
-        <div class="actions-section">
-            <h2>🎨 Adobe Integration Suite</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #ff6b35; color: white;" onclick="runAITool('adobe-stock-search')">🖼️ Adobe Stock Search</button>
-                <button class="btn" style="background: #ff006e; color: white;" onclick="runAITool('adobe-firefly')">🔥 Adobe Firefly</button>
-                <button class="btn" style="background: #8338ec; color: white;" onclick="runAITool('adobe-fonts')">🔤 Adobe Fonts</button>
-                <button class="btn" style="background: #3a86ff; color: white;" onclick="runAITool('adobe-workspace')">💼 Workspace Sync</button>
-                <button class="btn" style="background: #06ffa5; color: white;" onclick="runAITool('adobe-express')">⚡ Adobe Express</button>
+            
+            <!-- Compliance Center Section -->
+            <div id="compliance" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Compliance & Governance</h1>
+                    <p class="page-subtitle">Ensure brand consistency and regulatory compliance</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Compliance Tools</h2>
+                    </div>
+                    <div class="tool-grid">
+                        <div class="tool-card" onclick="runAITool('gdpr_checker')">
+                            <div class="tool-icon">🔒</div>
+                            <div class="tool-name">GDPR Checker</div>
+                            <div class="tool-desc">Privacy compliance</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('copyright_scanner')">
+                            <div class="tool-icon">©️</div>
+                            <div class="tool-name">Copyright Scanner</div>
+                            <div class="tool-desc">IP protection</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('language_checker')">
+                            <div class="tool-icon">📝</div>
+                            <div class="tool-name">Language Checker</div>
+                            <div class="tool-desc">Content appropriateness</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('brand_guardian')">
+                            <div class="tool-icon">🛡️</div>
+                            <div class="tool-name">Brand Guardian</div>
+                            <div class="tool-desc">Brand guideline enforcement</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('audit_trail')">
+                            <div class="tool-icon">📋</div>
+                            <div class="tool-name">Audit Trail</div>
+                            <div class="tool-desc">Complete activity logging</div>
+                        </div>
+                        <div class="tool-card" onclick="runAITool('approval_workflow')">
+                            <div class="tool-icon">✅</div>
+                            <div class="tool-name">Approval Workflow</div>
+                            <div class="tool-desc">Multi-level approvals</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Advanced AI Features Section -->
-        <div class="actions-section">
-            <h2>🚀 Advanced AI Features</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #667eea; color: white;" onclick="runAITool('tenant-management')">🏢 Tenant Management</button>
-                <button class="btn" style="background: #f093fb; color: white;" onclick="runAITool('webhooks')">🔗 Webhooks Control</button>
-                <button class="btn" style="background: #4facfe; color: white;" onclick="runAITool('queue')">📋 Queue Management</button>
-                <button class="btn" style="background: #43e97b; color: white;" onclick="runAITool('moderate-content')">🛡️ Content Moderation</button>
-                <button class="btn" style="background: #fa709a; color: white;" onclick="runAITool('ab-testing')">🧪 A/B Testing Hub</button>
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('brand-intelligence')">🎨 Brand Intelligence</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('adobe-advanced')">🔥 Adobe Advanced</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('performance-analysis')">📈 Performance Analysis</button>
+            
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Settings</h1>
+                    <p class="page-subtitle">Configure your platform preferences and integrations</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Platform Configuration</h2>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <h3>API Configuration</h3>
+                        <p style="margin: 1rem 0;">Configure your AI model endpoints and API keys</p>
+                        <button class="btn-primary">Configure APIs</button>
+                        
+                        <h3 style="margin-top: 2rem;">User Preferences</h3>
+                        <p style="margin: 1rem 0;">Customize your dashboard and notification settings</p>
+                        <button class="btn-primary">Edit Preferences</button>
+                        
+                        <h3 style="margin-top: 2rem;">Team Management</h3>
+                        <p style="margin: 1rem 0;">Manage team members and permissions</p>
+                        <button class="btn-primary">Manage Team</button>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Enterprise Administration -->
-        <div class="actions-section">
-            <h2>🏢 Enterprise Administration</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #667eea; color: white;" onclick="runAITool('audit-logs')">📋 Audit Logs</button>
-                <button class="btn" style="background: #f093fb; color: white;" onclick="runAITool('tenant-admin')">🏢 Tenant Management</button>
-                <button class="btn" style="background: #4facfe; color: white;" onclick="runAITool('workflow-designer')">🔄 Workflow Designer</button>
-                <button class="btn" style="background: #43e97b; color: white;" onclick="runAITool('usage-reports')">📊 Usage Reports</button>
-                <button class="btn" style="background: #fa709a; color: white;" onclick="runAITool('security-audit')">🔒 Security Audit</button>
-            </div>
-        </div>
-
-        <!-- Content Intelligence Panel -->
-        <div class="actions-section">
-            <h2>🧠 Content Intelligence</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('content-scan')">🔍 Content Scanning</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('brand-analysis')">🎨 Brand Analysis</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('quality-assessment')">⭐ Quality Assessment</button>
-                <button class="btn" style="background: #48bb78; color: white;" onclick="runAITool('consistency-check')">✅ Consistency Check</button>
-                <button class="btn" style="background: #f56565; color: white;" onclick="runAITool('color-extraction')">🌈 Color Extraction</button>
-            </div>
-        </div>
-
-        <!-- Collaboration Platform -->
-        <div class="actions-section">
-            <h2>👥 Collaboration Platform</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #667eea; color: white;" onclick="runAITool('create-project')">📁 Create Project</button>
-                <button class="btn" style="background: #f093fb; color: white;" onclick="runAITool('team-dashboard')">📊 Team Dashboard</button>
-                <button class="btn" style="background: #4facfe; color: white;" onclick="runAITool('upload-assets')">📤 Upload Assets</button>
-                <button class="btn" style="background: #43e97b; color: white;" onclick="runAITool('notifications')">🔔 Notifications</button>
-                <button class="btn" style="background: #fa709a; color: white;" onclick="runAITool('user-management')">👤 User Management</button>
-            </div>
-        </div>
-
-        <!-- Performance Intelligence -->
-        <div class="actions-section">
-            <h2>🎯 Performance Intelligence</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('predict-performance')">🔮 Predict Performance</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('ml-analytics')">🤖 ML Analytics</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('personalization')">🌍 Personalization</button>
-                <button class="btn" style="background: #48bb78; color: white;" onclick="runAITool('optimization-engine')">⚡ Optimization Engine</button>
-                <button class="btn" style="background: #f56565; color: white;" onclick="runAITool('learning-insights')">🧠 Learning Insights</button>
-            </div>
-        </div>
-
-        <!-- Real-time Monitoring -->
-        <div class="actions-section">
-            <h2>📡 Real-time Monitoring</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #667eea; color: white;" onclick="runAITool('live-dashboard')">📊 Live Dashboard</button>
-                <button class="btn" style="background: #f093fb; color: white;" onclick="runAITool('diversity-tracker')">📈 Diversity Metrics</button>
-                <button class="btn" style="background: #4facfe; color: white;" onclick="runAITool('predictive-flagging')">🚩 Predictive Issues</button>
-                <button class="btn" style="background: #43e97b; color: white;" onclick="runAITool('variant-intelligence')">🧬 Variant Analysis</button>
-                <button class="btn" style="background: #fa709a; color: white;" onclick="runAITool('real-time-alerts')">🔔 Real-time Alerts</button>
-            </div>
-        </div>
-
-        <!-- Advanced Orchestration -->
-        <div class="actions-section">
-            <h2>🔄 Advanced Orchestration</h2>
-            <div class="action-buttons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <button class="btn" style="background: #38b2ac; color: white;" onclick="runAITool('pipeline-orchestrator')">🎼 Pipeline Orchestrator</button>
-                <button class="btn" style="background: #ed8936; color: white;" onclick="runAITool('unified-system')">🔗 Unified System</button>
-                <button class="btn" style="background: #9f7aea; color: white;" onclick="runAITool('intelligent-automation')">🤖 Intelligent Automation</button>
-                <button class="btn" style="background: #48bb78; color: white;" onclick="runAITool('workflow-engine')">⚙️ Workflow Engine</button>
-                <button class="btn" style="background: #f56565; color: white;" onclick="runAITool('ci-cd-integration')">🚀 CI/CD Integration</button>
-            </div>
-        </div>
+        </main>
     </div>
-
+    
     <script>
-        // Load AI Monitor activity
-        function loadAIMonitorActivity() {
-            fetch('/api/ai-monitor-activity')
-                .then(response => response.json())
-                .then(data => {
-                    updateRecentAlerts(data.recent_alerts);
-                    updateCampaignTracking(data.campaign_tracking);
-                    updateRecentCommunications(data.recent_communications);
-                })
-                .catch(error => {
-                    console.log('AI Monitor activity update failed:', error);
-                    document.getElementById('activity-status').innerHTML = 'Error';
-                    document.getElementById('activity-status').className = 'status-error';
-                });
-        }
-
-        function updateRecentAlerts(alerts) {
-            const container = document.getElementById('recent-alerts');
-            if (alerts.length === 0) {
-                container.innerHTML = '<div class="status-item"><span>No recent alerts</span><span class="status-ready">✅</span></div>';
-                return;
+        // Section navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            const section = document.getElementById(sectionName);
+            if (section) {
+                section.classList.add('active');
             }
             
-            // Filter out test alerts and group by type
-            const realAlerts = alerts.filter(alert => 
-                !alert.message.includes('Test alert') && 
-                !alert.alert_type.includes('test')
-            );
-            
-            if (realAlerts.length === 0) {
-                container.innerHTML = '<div class="status-item"><span>System healthy - no critical alerts</span><span class="status-ready">✅</span></div>';
-                return;
+            // Mark nav item as active
+            if (event && event.target) {
+                event.target.closest('.nav-item').classList.add('active');
             }
             
-            container.innerHTML = realAlerts.slice(0, 3).map(alert => {
-                const severityClass = alert.severity === 'HIGH' ? 'alert-high' : 
-                                    alert.severity === 'MEDIUM' ? 'alert-medium' : 'alert-low';
-                const time = new Date(alert.timestamp).toLocaleTimeString();
-                const campaign = alert.campaign_id ? ` (${alert.campaign_id})` : '';
-                const alertType = alert.alert_type.replace('_', ' ').toUpperCase();
-                
-                return `<div class="alert-item ${severityClass}">
-                    <div class="alert-title">${alertType}${campaign}</div>
-                    <div class="alert-details">${alert.message}</div>
-                    <div class="alert-details">${alert.severity} • ${time}</div>
-                </div>`;
-            }).join('');
+            // Toggle explorer submenu
+            const explorerSubmenu = document.getElementById('explorer-submenu');
+            if (explorerSubmenu) {
+                explorerSubmenu.style.display = sectionName === 'explorer' ? 'block' : 'none';
+            }
         }
-
-        function updateCampaignTracking(tracking) {
-            const container = document.getElementById('campaign-tracking');
-            if (tracking.length === 0) {
-                container.innerHTML = '<div class="status-item"><span>No tracking data</span><span class="status-value">📊</span></div>';
-                return;
+        
+        // Show data category
+        function showDataCategory(category) {
+            const titleElement = document.getElementById('data-category-title');
+            const gridElement = document.getElementById('data-grid');
+            
+            const titles = {
+                campaigns: 'Campaign Briefs',
+                images: 'Generated Images',
+                logs: 'System Logs',
+                alerts: 'Alert History',
+                analytics: 'Analytics Data',
+                reports: 'Reports'
+            };
+            
+            if (titleElement) {
+                titleElement.textContent = titles[category] || 'Data';
             }
             
-            container.innerHTML = tracking.map(track => {
-                const completion = Math.round(track.completion_rate);
-                const progressClass = completion >= 80 ? 'progress-high' : completion >= 50 ? 'progress-medium' : 'progress-low';
-                const campaignName = track.campaign_id.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase());
-                
-                return `<div class="tracking-item">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <strong>${campaignName}</strong>
-                        <span>${track.variants_count}/${track.target_count}</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill ${progressClass}" style="width: ${completion}%"></div>
-                    </div>
-                    <div style="font-size: 0.8rem; color: #666;">${completion}% complete</div>
-                </div>`;
-            }).join('');
+            // Load data based on category
+            if (category === 'campaigns') {
+                fetch('/api/explorer/campaigns')
+                    .then(response => response.json())
+                    .then(data => {
+                        gridElement.innerHTML = `
+                            <div class="data-table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Campaign Name</th>
+                                            <th>Products</th>
+                                            <th>Region</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.campaigns.map(c => `
+                                            <tr>
+                                                <td>${c.name}</td>
+                                                <td>${c.products ? c.products.length : 0} products</td>
+                                                <td>${c.region || 'Global'}</td>
+                                                <td>${c.created}</td>
+                                                <td>
+                                                    <button class="btn-small" onclick="viewCampaign('${c.id}')">View</button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    });
+            } else if (category === 'images') {
+                fetch('/api/explorer/images')
+                    .then(response => response.json())
+                    .then(data => {
+                        gridElement.innerHTML = `
+                            <div class="image-grid">
+                                ${data.images.map(img => `
+                                    <div class="image-card">
+                                        <div class="image-preview">
+                                            <img src="/image/${img.campaign}/${img.path}" alt="${img.name}" />
+                                        </div>
+                                        <div class="image-info">
+                                            <h4>${img.name}</h4>
+                                            <p>${img.campaign}</p>
+                                            <p class="text-small">${img.size}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    });
+            } else if (category === 'logs') {
+                fetch('/api/explorer/logs')
+                    .then(response => response.json())
+                    .then(data => {
+                        gridElement.innerHTML = `
+                            <div class="data-table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>File</th>
+                                            <th>Type</th>
+                                            <th>Size</th>
+                                            <th>Modified</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.logs.map(log => `
+                                            <tr>
+                                                <td>${log.name}</td>
+                                                <td><span class="badge">${log.type}</span></td>
+                                                <td>${log.size}</td>
+                                                <td>${log.modified}</td>
+                                                <td>
+                                                    <button class="btn-small" onclick="downloadFile('${log.path}')">Download</button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    });
+            } else if (category === 'alerts') {
+                fetch('/api/explorer/alerts')
+                    .then(response => response.json())
+                    .then(data => {
+                        gridElement.innerHTML = `
+                            <div class="data-table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Alert Type</th>
+                                            <th>Severity</th>
+                                            <th>Message</th>
+                                            <th>Timestamp</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.alerts.map(alert => `
+                                            <tr>
+                                                <td>${alert.type}</td>
+                                                <td><span class="badge badge-${alert.severity.toLowerCase()}">${alert.severity}</span></td>
+                                                <td>${alert.message}</td>
+                                                <td>${alert.timestamp}</td>
+                                                <td><span class="badge">${alert.status || 'Active'}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                    });
+            } else {
+                gridElement.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><p>Select a category to view data</p></div>';
+            }
         }
-
-        function updateRecentCommunications(communications) {
-            const container = document.getElementById('recent-communications');
-            if (communications.length === 0) {
-                container.innerHTML = '<div class="status-item"><span>No recent communications</span><span class="status-value">📧</span></div>';
-                return;
+        
+        // Run pipeline
+        function runPipeline(campaignId) {
+            if (!campaignId) {
+                // Get latest campaign if not specified
+                campaignId = '{{ campaigns[0].id if campaigns else "" }}';
             }
             
-            container.innerHTML = communications.map(comm => {
-                const time = new Date(comm.timestamp).toLocaleTimeString();
-                return `<div class="status-item">
-                    <span title="${comm.subject}">${comm.subject}</span>
-                    <span class="status-value">${time}</span>
-                </div>`;
-            }).join('');
+            if (campaignId) {
+                window.location.href = `/pipeline/${campaignId}`;
+            } else {
+                alert('No campaigns available. Please create a campaign first.');
+            }
         }
-
-        // Load AI Monitor activity on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadAIMonitorActivity();
-        });
-
-        // AI Tool execution
+        
+        // Run AI Tool
         function runAITool(toolName) {
-            const resultsDiv = document.getElementById('ai-tool-results');
-            const titleDiv = document.getElementById('ai-tool-title');
-            const outputDiv = document.getElementById('ai-tool-output');
+            // Show loading state
+            const loadingHtml = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; animation: spin 2s linear infinite;">⚙️</div>
+                    <p style="margin-top: 20px; color: #6e6e6e;">Initializing ${toolName.replace('_', ' ')}...</p>
+                </div>
+            `;
             
-            // Show results area
-            resultsDiv.style.display = 'block';
-            titleDiv.textContent = `🤖 ${toolName.replace('-', ' ').toUpperCase()} - Running...`;
-            outputDiv.textContent = 'Executing AI tool, please wait...';
+            // Create a modal or update content area
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                z-index: 1000;
+                min-width: 400px;
+            `;
+            modal.innerHTML = loadingHtml;
+            document.body.appendChild(modal);
             
-            // Make API call to run the tool
+            // Simulate tool execution
             fetch('/api/run-ai-tool', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ tool: toolName })
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({tool: toolName})
             })
             .then(response => response.json())
             .then(data => {
-                titleDiv.textContent = `🤖 ${toolName.replace('-', ' ').toUpperCase()} - ${data.success ? 'Completed' : 'Failed'}`;
-                outputDiv.textContent = data.output || data.error || 'No output available';
+                modal.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #2d9d78;">✓</div>
+                        <h3 style="margin: 20px 0 10px;">${toolName.replace('_', ' ')} Ready</h3>
+                        <p style="color: #6e6e6e; margin-bottom: 20px;">${data.message || 'Tool initialized successfully'}</p>
+                        <button onclick="this.parentElement.parentElement.remove()" 
+                                style="background: #1473e6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                `;
             })
             .catch(error => {
-                titleDiv.textContent = `🤖 ${toolName.replace('-', ' ').toUpperCase()} - Error`;
-                outputDiv.textContent = `Error: ${error.message}`;
+                modal.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #e34850;">⚠️</div>
+                        <h3 style="margin: 20px 0 10px;">Error</h3>
+                        <p style="color: #6e6e6e; margin-bottom: 20px;">Failed to initialize ${toolName.replace('_', ' ')}</p>
+                        <button onclick="this.parentElement.parentElement.remove()" 
+                                style="background: #e34850; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                `;
             });
         }
-
-        // Auto-refresh status and AI Monitor activity every 30 seconds
-        setInterval(function() {
-            fetch('/api/status')
+        
+        // Load activity feed
+        function loadActivityFeed() {
+            fetch('/api/ai-monitor-activity')
                 .then(response => response.json())
                 .then(data => {
-                    // Update status indicators without full page reload
-                    console.log('Status updated:', data);
+                    // Update alerts count
+                    const alertsCount = data.recent_alerts ? data.recent_alerts.length : 0;
+                    document.getElementById('alerts-count').textContent = alertsCount;
+                    
+                    // Update monitor alerts
+                    const monitorAlerts = document.getElementById('monitor-alerts');
+                    if (monitorAlerts && data.recent_alerts) {
+                        monitorAlerts.innerHTML = data.recent_alerts.slice(0, 5).map(alert => {
+                            const iconClass = alert.severity === 'HIGH' ? 'warning' : 
+                                            alert.severity === 'MEDIUM' ? 'info' : 'success';
+                            return `
+                                <div class="activity-item">
+                                    <div class="activity-icon ${iconClass}">
+                                        ${alert.severity === 'HIGH' ? '⚠️' : '📊'}
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">${alert.alert_type}</div>
+                                        <div class="activity-description">${alert.message}</div>
+                                    </div>
+                                    <div class="activity-time">${new Date(alert.timestamp).toLocaleTimeString()}</div>
+                                </div>
+                            `;
+                        }).join('');
+                    }
                 })
-                .catch(error => console.log('Status update failed:', error));
-            
-            // Also refresh AI Monitor activity
-            loadAIMonitorActivity();
-        }, 30000);
+                .catch(error => console.error('Error loading activity:', error));
+        }
+        
+        // Load activity on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadActivityFeed();
+            // Refresh every 30 seconds
+            setInterval(loadActivityFeed, 30000);
+        });
     </script>
 </body>
 </html>

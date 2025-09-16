@@ -797,3 +797,7 @@
 2025-09-16 15:41:34,645 - src.asset_manager - WARNING - No assets found in directory
 2025-09-16 15:41:34,645 - src.image_generator - INFO - Using cached image for Smart Fitness Tracker
 2025-09-16 15:41:34,719 - src.creative_composer - INFO - Composed creative for Smart Fitness Tracker in 16:9
+2025-09-16 16:17:58,432 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 16:17:58,469 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 16:17:58,469 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 16:17:58,469 - src.compliance_checker - INFO - Compliance checker initialized

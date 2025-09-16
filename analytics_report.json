@@ -1,25 +1,25 @@
 {
-  "report_generated": "2025-09-16T15:35:45.043661",
+  "report_generated": "2025-09-16T16:30:41.501646",
   "summary": {
-    "total_campaigns_processed": 1,
-    "total_assets_generated": 6,
-    "total_cost_spent": 67.5,
-    "cost_per_campaign": 67.5,
-    "cost_per_asset": 11.25,
-    "avg_assets_per_campaign": 6.0,
+    "total_campaigns_processed": 4,
+    "total_assets_generated": 23,
+    "total_cost_spent": 67.62000000000002,
+    "cost_per_campaign": 16.905000000000005,
+    "cost_per_asset": 2.940000000000001,
+    "avg_assets_per_campaign": 5.75,
     "operational_efficiency": {
-      "campaigns_per_dollar": 0.014814814814814815,
-      "assets_per_dollar": 0.08888888888888889
+      "campaigns_per_dollar": 0.05915409642117715,
+      "assets_per_dollar": 0.3401360544217686
     }
   },
   "performance_metrics": {
-    "total_campaigns": 1,
-    "total_assets": 6,
-    "avg_assets_per_campaign": 6.0,
-    "avg_products_per_campaign": 2.0,
+    "total_campaigns": 4,
+    "total_assets": 23,
+    "avg_assets_per_campaign": 5.75,
+    "avg_products_per_campaign": 2.25,
     "avg_compliance_score": 96.29629629629629,
     "localization_rate": 0.0,
-    "api_efficiency": 3.0,
+    "api_efficiency": 11.5,
     "total_api_calls": 2,
     "compliance_score_distribution": {
       "min": 96.29629629629629,
@@ -32,34 +32,65 @@
     }
   },
   "cost_analysis": {
-    "total_cost": 67.5,
-    "api_calls": 125,
-    "cost_per_call": 0.54,
-    "services": {}
+    "total_cost": 67.62000000000002,
+    "api_calls": 128,
+    "cost_per_call": 0.5282812500000001,
+    "services": {
+      "dalle": {
+        "cost": 0.12,
+        "calls": 3,
+        "cost_per_call": 0.04,
+        "percentage_of_total": 0.17746228926353144
+      }
+    }
   },
   "campaign_insights": {
     "aspect_ratio_preferences": {
-      "1:1": 1,
-      "9:16": 1,
-      "16:9": 1
+      "1:1": 4,
+      "9:16": 4,
+      "16:9": 2
     },
     "popular_markets": {},
     "product_distribution": {
-      "avg_products": 2,
-      "max_products": 2,
+      "avg_products": 2.25,
+      "max_products": 3,
       "min_products": 2
     },
     "file_size_analysis": {
-      "avg_size_mb": 2.1972475051879883,
-      "total_storage_mb": 2.1972475051879883,
-      "largest_campaign_mb": 2.1972475051879883
+      "avg_size_mb": 2.171034574508667,
+      "total_storage_mb": 8.684138298034668,
+      "largest_campaign_mb": 3.5287132263183594
     }
   },
   "trends": {
-    "insufficient_data": true
+    "daily_metrics": [
+      {
+        "date": "2025-09-15",
+        "campaigns": 1,
+        "assets": 6,
+        "api_calls": 2,
+        "avg_compliance": 96.29629629629629
+      },
+      {
+        "date": "2025-09-16",
+        "campaigns": 3,
+        "assets": 17,
+        "api_calls": 0,
+        "avg_compliance": null
+      }
+    ],
+    "campaign_volume_trend": 0.0,
+    "peak_day": {
+      "date": "2025-09-16",
+      "campaigns": 3,
+      "assets": 17,
+      "api_calls": 0,
+      "avg_compliance": null
+    },
+    "trend_period_days": 2
   },
   "recommendations": [
-    "Consider optimizing API usage - current cost per call ($0.540) is above optimal range. Implement better caching strategies.",
+    "Consider optimizing API usage - current cost per call ($0.528) is above optimal range. Implement better caching strategies.",
     "Localization rate (0.0%) suggests missed opportunities for global market expansion. Consider promoting localization features.",
     "Campaign volume is low. Consider batch processing to improve efficiency and demonstrate scalability capabilities."
   ]
