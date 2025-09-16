@@ -1,0 +1,15 @@
+{
+  "alert_id": "alert_1758000843_0",
+  "alert_type": "insufficient_variants",
+  "severity": "AlertSeverity.MEDIUM",
+  "message": "Campaign campaign_41f66af2 has insufficient variants: 2 generated (minimum required: 3)",
+  "campaign_id": "campaign_41f66af2",
+  "timestamp": "2025-09-16T01:34:03.987444",
+  "context": {
+    "variants_generated": 2,
+    "minimum_required": 3,
+    "shortfall": 1,
+    "completion_rate": 33.33333333333333
+  },
+  "status": "pending"
+}

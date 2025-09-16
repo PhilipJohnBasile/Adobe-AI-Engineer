@@ -1,0 +1,46 @@
+Subject: Creative Automation Alert - Cost Spike
+
+Subject: URGENT: Critical Cost Spike Alert - Immediate Action Required
+
+Dear [Stakeholders],
+
+I am writing to alert you of a critical situation regarding our daily API costs, which have exceeded the threshold by a significant margin. This cost spike poses a high severity risk to our operations, with a potential revenue loss of $675.80 at stake due to the current 0-hour delay. Immediate action is required to address this issue.
+
+**ALERT DETAILS:**
+- Type: cost_spike
+- Severity: high
+- Message: Daily API costs ($67.58) exceeded threshold ($50.0)
+- Business Impact: 0h delay, $675.80 revenue at risk
+- Urgency: CRITICAL - Immediate C-suite notification required
+
+**SYSTEM PERFORMANCE:**
+- Success Rate: 16.7% (threshold: 80.0%)
+- Queue: 0/10 campaigns
+- Cost: $67.58 (135.2% of budget)
+- Variants: 0 total, avg 0.0 per campaign
+
+**ALERT CONTEXT:**
+- Alerts Today: 10 (0 critical, 9 high)
+- Repeated Issue: True
+- Escalation Required: True
+
+**RECOMMENDED ACTIONS:**
+1. Review API usage patterns and optimize batch processing
+2. Implement cost controls and rate limiting
+3. Evaluate alternative AI providers for cost optimization
+4. Update budget forecasts and alert stakeholders
+5. URGENT: Success rate critically low - consider system maintenance
+
+Given the severity of this situation, it is imperative that we take immediate steps to address the cost spike and mitigate the potential revenue impact. I recommend that the C-suite be notified promptly to ensure swift action and decision-making.
+
+I urge all relevant teams to collaborate on implementing the recommended actions outlined above within the shortest timeframe possible. It is crucial that we optimize our API usage, control costs, and improve our success rate to safeguard our operations and financial performance.
+
+Please acknowledge receipt of this alert and confirm your understanding of the urgency and required actions. Your prompt attention to this matter is greatly appreciated.
+
+Thank you for your immediate attention to this critical issue.
+
+Best regards,
+
+[Your Name]
+[Your Position]
+[Global Consumer Goods Company]

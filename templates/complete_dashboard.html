@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Creative Automation System</title>
+    <title>Adobe Creative Automation Platform</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
@@ -58,8 +58,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>🚀 Complete Creative Automation System</h1>
-        <p>All Tasks Integrated • 28+ CLI Commands • AI Agent Monitoring • Enterprise Ready</p>
+        <h1>🎨 Adobe Creative Automation Platform</h1>
+        <p>Enterprise Creative Pipeline • Intelligent Automation • Real-time Analytics</p>
     </div>
 
     <div class="container">
@@ -125,18 +125,6 @@
                             {{ 'Active' if status.task3_systems.enterprise else 'Offline' }}
                         </span>
                     </div>
-                    <div class="status-item">
-                        <span>Quantum Consciousness</span>
-                        <span class="status-value {{ 'status-ready' if status.task3_systems.quantum else 'status-error' }}">
-                            {{ 'Active' if status.task3_systems.quantum else 'Offline' }}
-                        </span>
-                    </div>
-                    <div class="status-item">
-                        <span>Omniscient Intelligence</span>
-                        <span class="status-value {{ 'status-ready' if status.task3_systems.omniscient else 'status-error' }}">
-                            {{ 'Active' if status.task3_systems.omniscient else 'Offline' }}
-                        </span>
-                    </div>
                 {% else %}
                     <div class="status-item">
                         <span>AI Systems</span>
@@ -167,6 +155,7 @@
             <h3 style="margin-bottom: 1.5rem; color: #2d3748;">🎯 Quick Actions</h3>
             <div class="action-buttons">
                 <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">📝 Create Campaign</a>
+                <a href="{{ url_for('list_all_outputs') }}" class="btn btn-info">🖼️ View All Images</a>
                 <a href="{{ url_for('analytics') }}" class="btn btn-info">📈 View Analytics</a>
                 <a href="{{ url_for('cli_commands') }}" class="btn btn-success">⚡ Run CLI Commands</a>
                 <a href="{{ url_for('api_status') }}" class="btn btn-warning">🔍 System API</a>
@@ -186,7 +175,7 @@
                         <div class="campaign-card">
                             <div class="campaign-title">{{ campaign.name }}</div>
                             <div class="campaign-meta">
-                                ID: {{ campaign.id }} • Created: {{ campaign.created }}
+                                File: {{ campaign.file }} • ID: {{ campaign.id }} • Created: {{ campaign.created }}
                             </div>
                             
                             {% if campaign.products %}
@@ -200,7 +189,7 @@
                             <div class="campaign-actions">
                                 <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" class="btn btn-info btn-sm">👁️ View</a>
                                 <a href="{{ url_for('run_pipeline', campaign_id=campaign.id) }}" class="btn btn-primary btn-sm">🚀 Run Pipeline</a>
-                                <a href="{{ url_for('run_task3', campaign_id=campaign.id) }}" class="btn btn-success btn-sm">🤖 Task 3 AI</a>
+                                <a href="{{ url_for('run_task3', campaign_id=campaign.id) }}" class="btn btn-success btn-sm">🤖 AI Agent</a>
                                 <a href="{{ url_for('run_enterprise', campaign_id=campaign.id) }}" class="btn btn-warning btn-sm">🏢 Enterprise</a>
                             </div>
                         </div>

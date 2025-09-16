@@ -16,7 +16,13 @@
       "Bash(cat:*)",
       "Bash(pytest:*)",
       "Bash(docker-compose:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(git log:*)",
+      "Bash(tree:*)",
+      "Bash(open /Users/pjb/Git/Adobe-AI-Engineer/Presentation.html)"
     ],
     "deny": [],
     "ask": []

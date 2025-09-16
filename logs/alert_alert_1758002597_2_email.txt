@@ -1,0 +1,42 @@
+Subject: Creative Automation Alert - Generation Failure
+
+Subject: URGENT: Generation Failure for Campaign 'enterprise_q1_launch'
+
+Dear [Stakeholders],
+
+I am writing to alert you of a critical issue that has arisen in our creative automation system. The generation process for the 'enterprise_q1_launch' campaign brief has failed, resulting in a 2-hour delay and putting $25,000 in potential revenue at risk.
+
+**Business Impact:**
+- Delay: 2 hours
+- Revenue at Risk: $25,000
+
+**Urgency:**
+This situation is CRITICAL, and immediate notification to the C-suite is required to address the impact on our Q1 launch campaign.
+
+**System Performance:**
+- Success Rate: 16.7% (threshold: 80.0%)
+- Queue: 0/10 campaigns
+- Cost: $67.58 (135.2% of budget)
+- Variants: 0 total, avg 0.0 per campaign
+
+**Alert Context:**
+- Alerts Today: 8 (0 critical, 7 high)
+- Repeated Issue: True
+- Escalation Required: True
+
+**Recommended Actions:**
+1. Immediately review system logs for root cause analysis
+2. Check API connectivity and authentication status
+3. Verify campaign brief format and required fields
+4. Consider engaging backup generation providers
+5. Notify creative team of potential manual asset requirements
+
+Please treat this as a top priority and take necessary actions to address the issue promptly. Your swift attention to this matter is crucial to minimizing the impact on our Q1 launch campaign.
+
+Thank you for your immediate attention and collaboration in resolving this critical situation.
+
+Best regards,
+
+[Your Name]
+[Your Position]
+[Company Name]

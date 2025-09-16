@@ -1,0 +1,20 @@
+{
+  "campaign_id": "campaign_e7e7cc9d",
+  "generated_at": "2025-09-16T01:34:48.786074",
+  "products": 2,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "US",
+  "campaign_message": "Fixed test message",
+  "generated_files": [
+    "product_a/1x1.jpg",
+    "product_a/16x9.jpg",
+    "product_a/9x16.jpg",
+    "product_b/1x1.jpg",
+    "product_b/16x9.jpg",
+    "product_b/9x16.jpg"
+  ]
+}

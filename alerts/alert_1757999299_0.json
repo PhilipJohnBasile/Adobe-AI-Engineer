@@ -1,0 +1,15 @@
+{
+  "alert_id": "alert_1757999299_0",
+  "alert_type": "insufficient_variants",
+  "severity": "AlertSeverity.MEDIUM",
+  "message": "Campaign enterprise_q1_launch has insufficient variants: 2 generated (minimum required: 3)",
+  "campaign_id": "enterprise_q1_launch",
+  "timestamp": "2025-09-16T01:08:19.920863",
+  "context": {
+    "variants_generated": 2,
+    "minimum_required": 3,
+    "shortfall": 1,
+    "completion_rate": 16.666666666666664
+  },
+  "status": "pending"
+}

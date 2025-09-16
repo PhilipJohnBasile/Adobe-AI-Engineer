@@ -1,0 +1,8 @@
+{
+  "id": "alert_1758002597_3",
+  "type": "generation_failure",
+  "message": "Generation failed for campaign campaign_41f66af2: 'campaign_brief'",
+  "severity": "high",
+  "timestamp": "2025-09-16T02:03:17.405058",
+  "status": "pending"
+}

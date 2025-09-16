@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Outputs Gallery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; padding: 0.75rem 1.5rem; background: #4299e1; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; border-radius: 8px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #4299e1; }
+        .stat-label { color: #718096; font-size: 0.9rem; margin-top: 0.5rem; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .image-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .image-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .image-preview { width: 100%; height: 200px; background: #f7fafc; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 2px solid #e2e8f0; overflow: hidden; }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+        .image-icon { font-size: 3rem; color: #a0aec0; }
+        .image-info h3 { color: #2d3748; margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .image-meta { color: #718096; font-size: 0.9rem; margin-bottom: 1rem; }
+        .campaign-tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; margin-bottom: 1rem; display: inline-block; }
+        .actions { display: flex; gap: 0.5rem; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s ease; }
+        .btn-primary { background: #4299e1; color: white; }
+        .btn-primary:hover { background: #3182ce; }
+        .btn-info { background: #38b2ac; color: white; }
+        .btn-info:hover { background: #319795; }
+        .no-outputs { text-align: center; padding: 3rem; color: #718096; }
+        .no-outputs-icon { font-size: 4rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🖼️ Generated Outputs Gallery</h1>
+        <p>All creative assets generated across campaigns</p>
+    </div>
+
+    <div class="container">
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">{{ outputs|length }}</div>
+                <div class="stat-label">Total Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ outputs|map(attribute='campaign')|list|unique|list|length }}</div>
+                <div class="stat-label">Campaigns</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ "%.1f"|format((outputs|sum(attribute='size')/1024/1024) if outputs else 0) }}</div>
+                <div class="stat-label">Total Size (MB)</div>
+            </div>
+        </div>
+
+        {% if outputs %}
+            <div class="gallery">
+                {% for output in outputs %}
+                    <div class="image-card">
+                        <div class="image-preview">
+                            {% if output.type.lower() in ['.jpg', '.jpeg', '.png', '.gif', '.webp'] %}
+                                <img src="{{ url_for('serve_image', campaign_id=output.campaign, filename=output.name) }}" 
+                                     alt="{{ output.name }}" 
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-icon" style="display: none;">🖼️</div>
+                            {% else %}
+                                <div class="image-icon">📄</div>
+                            {% endif %}
+                        </div>
+                        <div class="image-info">
+                            <h3>{{ output.name }}</h3>
+                            <div class="campaign-tag">{{ output.campaign }}</div>
+                            <div class="image-meta">
+                                Size: {{ "%.1f"|format(output.size / 1024) }} KB • 
+                                Type: {{ output.type|upper }} • 
+                                Created: {{ output.created }}
+                            </div>
+                            <div class="actions">
+                                <a href="{{ url_for('download_file', campaign_id=output.campaign, filename=output.name) }}" 
+                                   class="btn btn-primary">📥 Download</a>
+                                <button class="btn btn-info" onclick="openImageModal('{{ url_for('serve_image', campaign_id=output.campaign, filename=output.name) }}', '{{ output.name }}')">👁️ Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-outputs">
+                <div class="no-outputs-icon">📂</div>
+                <h3>No outputs generated yet</h3>
+                <p>Run campaigns to generate creative assets</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); padding: 20px;">
+        <div style="position: relative; max-width: 90%; max-height: 90%; margin: auto; top: 5%;">
+            <span onclick="closeImageModal()" style="position: absolute; top: -40px; right: 0; color: white; font-size: 35px; font-weight: bold; cursor: pointer; z-index: 1001;">&times;</span>
+            <img id="modalImage" src="" alt="" style="width: 100%; height: auto; max-height: 80vh; object-fit: contain; background: white; border-radius: 8px;">
+            <div id="modalCaption" style="color: white; text-align: center; margin-top: 10px; font-size: 18px;"></div>
+        </div>
+    </div>
+
+    <script>
+        function openImageModal(imageSrc, imageName) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalCaption').textContent = imageName;
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').onclick = function(event) {
+            if (event.target === this) {
+                closeImageModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
+</body>
+</html>

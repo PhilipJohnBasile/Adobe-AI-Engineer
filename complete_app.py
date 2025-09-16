@@ -1,7 +1,7 @@
 """
-Complete Creative Automation System - Web UI
-Integrates ALL features from main.py CLI + Task 3 monitoring + Enterprise features
-For normal people who want the full system through a simple web interface
+Adobe Creative Automation Platform - Professional Web Interface
+Production-ready creative automation pipeline with enterprise monitoring and AI-driven insights
+Streamlined interface for campaign creation, asset generation, and performance analytics
 """
 import os
 import json
@@ -54,13 +54,13 @@ def get_system_status():
         # Check Task 3 systems
         task3_systems = {
             'production': Path('src/production_task3_system.py').exists(),
-            'enterprise': Path('src/enterprise_task3_system.py').exists(),
-            'quantum': Path('src/quantum_consciousness_system.py').exists(),
-            'omniscient': Path('src/omniscient_creative_intelligence.py').exists()
+            'enterprise': Path('src/enterprise_task3_system.py').exists()
         }
         
         # Get campaigns
-        campaigns = list(Path(CAMPAIGN_BRIEFS_FOLDER).glob('*.{yaml,yml,json}'))
+        campaigns = []
+        for pattern in ['*.yaml', '*.yml', '*.json']:
+            campaigns.extend(Path(CAMPAIGN_BRIEFS_FOLDER).glob(pattern))
         
         # Get outputs
         output_dirs = [d for d in Path(OUTPUT_FOLDER).iterdir() if d.is_dir()]
@@ -116,7 +116,11 @@ def dashboard():
     
     # Get recent campaigns
     campaigns = []
-    for brief_file in Path(CAMPAIGN_BRIEFS_FOLDER).glob('*.{yaml,yml,json}'):
+    brief_files = []
+    for pattern in ['*.yaml', '*.yml', '*.json']:
+        brief_files.extend(Path(CAMPAIGN_BRIEFS_FOLDER).glob(pattern))
+    
+    for brief_file in brief_files:
         try:
             with open(brief_file, 'r') as f:
                 if brief_file.suffix.lower() in ['.yaml', '.yml']:
@@ -124,10 +128,21 @@ def dashboard():
                 else:
                     data = json.load(f)
             
+            # Handle both old and new campaign brief formats
+            if 'campaign_brief' in data:
+                # New format with campaign_brief wrapper
+                brief_data = data['campaign_brief']
+                campaign_name = brief_data.get('campaign_name', brief_file.stem)
+                products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in brief_data.get('products', [])]
+            else:
+                # Old format without wrapper
+                campaign_name = data.get('campaign_name', brief_file.stem)
+                products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in data.get('products', [])]
+            
             campaigns.append({
                 'id': brief_file.stem,
-                'name': data.get('campaign_name', brief_file.stem),
-                'products': data.get('products', []),
+                'name': campaign_name,
+                'products': products,
                 'created': datetime.fromtimestamp(brief_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M'),
                 'file': brief_file.name
             })
@@ -160,32 +175,51 @@ def upload_campaign():
                 flash(f'Campaign brief uploaded: {filename}', 'success')
                 return redirect(url_for('dashboard'))
         
-        # Handle form data
+        # Handle form data - create in CLI-compatible format
+        campaign_id = request.form.get('campaign_id') or f'campaign_{uuid.uuid4().hex[:8]}'
+        
+        # Convert products to proper format
+        products_list = []
+        for product_name in [p.strip() for p in request.form.get('products', '').split(',') if p.strip()]:
+            products_list.append({
+                'name': product_name,
+                'description': f'{product_name} product',
+                'target_keywords': [product_name.lower()]
+            })
+        
         campaign_data = {
-            'campaign_id': request.form.get('campaign_id') or f'campaign_{uuid.uuid4().hex[:8]}',
-            'campaign_name': request.form.get('campaign_name', 'Untitled Campaign'),
-            'products': [p.strip() for p in request.form.get('products', '').split(',') if p.strip()],
-            'target_region': request.form.get('target_region', 'Global'),
-            'target_audience': request.form.get('target_audience', 'General'),
-            'campaign_message': request.form.get('campaign_message', ''),
-            'aspect_ratios': request.form.getlist('aspect_ratios') or ['1:1', '9:16', '16:9'],
-            'requirements': {
-                'style': request.form.get('style', 'modern'),
-                'colors': [c.strip() for c in request.form.get('colors', '').split(',') if c.strip()],
-                'quality': request.form.get('quality', 'high'),
-                'formats': ['jpg', 'png']
+            'campaign_brief': {
+                'campaign_id': campaign_id,
+                'campaign_name': request.form.get('campaign_name', 'Untitled Campaign'),
+                'products': products_list,
+                'target_region': request.form.get('target_region', 'Global'),
+                'target_audience': {
+                    'age_range': '25-45',
+                    'demographics': request.form.get('target_audience', 'General')
+                },
+                'campaign_message': request.form.get('campaign_message', ''),
+                'brand_guidelines': {
+                    'primary_colors': [c.strip() for c in request.form.get('colors', '').split(',') if c.strip()],
+                    'logo_required': True
+                },
+                'output_requirements': {
+                    'aspect_ratios': request.form.getlist('aspect_ratios') or ['1:1', '9:16', '16:9'],
+                    'style': request.form.get('style', 'modern'),
+                    'quality': request.form.get('quality', 'high'),
+                    'formats': ['jpg', 'png']
+                }
             },
             'created_at': datetime.now().isoformat()
         }
         
         # Save campaign brief
-        filename = f"{campaign_data['campaign_id']}.yaml"
+        filename = f"{campaign_id}.yaml"
         filepath = Path(CAMPAIGN_BRIEFS_FOLDER) / filename
         
         with open(filepath, 'w') as f:
             yaml.dump(campaign_data, f, default_flow_style=False)
         
-        flash(f'Campaign created: {campaign_data["campaign_name"]}', 'success')
+        flash(f'Campaign created: {campaign_data["campaign_brief"]["campaign_name"]}', 'success')
         return redirect(url_for('dashboard'))
         
     except Exception as e:
@@ -295,18 +329,33 @@ def cli_commands():
     
     cli_help = result.get('stdout', 'Help not available')
     
-    # Define available commands (from main.py analysis)
+    # Define available commands (actual commands from main.py)
     commands = [
         {'name': 'generate', 'description': 'Generate creative assets from campaign brief'},
-        {'name': 'batch-process', 'description': 'Process multiple campaigns in batch'},
-        {'name': 'analytics', 'description': 'Generate analytics dashboard'},
         {'name': 'validate', 'description': 'Validate campaign brief structure'},
+        {'name': 'compliance', 'description': 'Check brand compliance'},
         {'name': 'localize', 'description': 'Localize campaign for specific markets'},
-        {'name': 'compliance-check', 'description': 'Check brand compliance'},
-        {'name': 'agent-monitor', 'description': 'Run AI agent monitoring'},
-        {'name': 'cost-estimate', 'description': 'Estimate generation costs'},
-        {'name': 'quality-check', 'description': 'Quality assurance checks'},
-        {'name': 'asset-scan', 'description': 'Scan for existing assets'},
+        {'name': 'markets', 'description': 'List supported markets and their details'},
+        {'name': 'agent', 'description': 'AI agent actions: start, stop, status, test'},
+        {'name': 'status', 'description': 'Get current system status from AI agent'},
+        {'name': 'batch', 'description': 'Batch processing: submit, status, results, cancel'},
+        {'name': 'queue', 'description': 'Queue management: status, clear, priority'},
+        {'name': 'analytics', 'description': 'Generate analytics dashboard'},
+        {'name': 'ab-test', 'description': 'A/B testing: create, start, status, report'},
+        {'name': 'webhooks', 'description': 'Webhook management: add, remove, list, test'},
+        {'name': 'adobe', 'description': 'Adobe integration: status, demo, migrate'},
+        {'name': 'monitor', 'description': 'System monitoring: start, status, metrics'},
+        {'name': 'moderate', 'description': 'Content moderation: scan, validate, report'},
+        {'name': 'workflow', 'description': 'Workflow management: create, execute, status'},
+        {'name': 'optimize', 'description': 'Optimization: cache, images, report, clear'},
+        {'name': 'serve', 'description': 'Start API server'},
+        {'name': 'audit', 'description': 'Audit logging: log, report, search, export'},
+        {'name': 'brand', 'description': 'Brand analysis: analyze, extract-colors, assess-quality'},
+        {'name': 'predict-performance', 'description': 'Predict asset performance using AI'},
+        {'name': 'adobe-integration', 'description': 'Adobe Stock, Fonts, Firefly integration'},
+        {'name': 'personalize', 'description': 'Personalize campaigns for audiences'},
+        {'name': 'collaborate', 'description': 'Team collaboration features'},
+        {'name': 'analyze-performance', 'description': 'Performance analysis and learning'},
     ]
     
     return render_template('cli_commands.html', commands=commands, cli_help=cli_help)
@@ -395,21 +444,72 @@ def view_campaign(campaign_id):
                          campaign_id=campaign_id,
                          outputs=outputs)
 
+@app.route('/download/<campaign_id>/<filename>')
+def download_file(campaign_id, filename):
+    """Download output file"""
+    try:
+        output_dir = Path(OUTPUT_FOLDER) / campaign_id
+        file_path = output_dir / filename
+        
+        if file_path.exists() and file_path.is_file():
+            return send_file(file_path, as_attachment=True)
+        else:
+            flash(f'File {filename} not found in {output_dir}', 'error')
+            return redirect(url_for('list_all_outputs'))
+    except Exception as e:
+        flash(f'Error downloading file: {str(e)}', 'error')
+        return redirect(url_for('list_all_outputs'))
+
+@app.route('/image/<campaign_id>/<filename>')
+def serve_image(campaign_id, filename):
+    """Serve image file for preview"""
+    try:
+        output_dir = Path(OUTPUT_FOLDER) / campaign_id
+        file_path = output_dir / filename
+        
+        if file_path.exists() and file_path.is_file():
+            return send_file(file_path)
+        else:
+            return "Image not found", 404
+    except Exception as e:
+        return f"Error serving image: {str(e)}", 500
+
+@app.route('/outputs')
+def list_all_outputs():
+    """List all generated outputs across campaigns"""
+    all_outputs = []
+    output_base = Path(OUTPUT_FOLDER)
+    
+    if output_base.exists():
+        for campaign_dir in output_base.iterdir():
+            if campaign_dir.is_dir():
+                for file_path in campaign_dir.rglob('*'):
+                    if file_path.is_file() and file_path.suffix.lower() in ['.jpg', '.png', '.jpeg', '.gif', '.webp']:
+                        all_outputs.append({
+                            'campaign': campaign_dir.name,
+                            'name': file_path.name,
+                            'path': str(file_path.relative_to(Path('.'))),
+                            'size': file_path.stat().st_size,
+                            'type': file_path.suffix,
+                            'created': datetime.fromtimestamp(file_path.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
+                        })
+    
+    return render_template('outputs_gallery.html', outputs=all_outputs)
+
 @app.route('/api/status')
 def api_status():
     """API endpoint for system status"""
     return jsonify(get_system_status())
 
 if __name__ == '__main__':
-    print("🚀 Complete Creative Automation System - Web Interface")
+    print("🚀 Creative Automation System - Web Interface")
     print("=" * 60)
-    print("📍 Dashboard: http://localhost:5001")
+    print("📍 Dashboard: http://localhost:5004")
     print("🎯 Features:")
-    print("   • All 28+ CLI commands from main.py")
-    print("   • Task 3 AI agent monitoring")
-    print("   • Enterprise systems integration") 
+    print("   • Task 2: Creative automation pipeline")
+    print("   • Task 3: AI agent monitoring system")
     print("   • Campaign creation and management")
-    print("   • Real-time analytics")
+    print("   • Real-time analytics and reporting")
     print("   • File management and downloads")
     print("=" * 60)
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5004)

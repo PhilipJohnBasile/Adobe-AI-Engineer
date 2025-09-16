@@ -388,3 +388,172 @@
 2025-09-15 20:29:19,051 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
 2025-09-15 20:29:19,051 - src.creative_composer - INFO - Creative composer initialized
 2025-09-15 20:29:19,051 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 01:30:44,164 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 01:34:12,602 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 01:34:12,641 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 01:34:12,641 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 01:34:12,641 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 01:34:12,644 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:12,644 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:12,644 - src.image_generator - INFO - Generating image for Product A with prompt: A high-quality product photography image of Product A. Product description: Product A product. Targe...
+2025-09-16 01:34:12,796 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-9f38dd10-db2d-4bb0-889f-724c62bd3b94', 'json_data': {'prompt': 'A high-quality product photography image of Product A. Product description: Product A product. Target audience: Adults. Keywords: product a. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 01:34:12,816 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 01:34:12,816 - httpcore.connection - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-16 01:34:12,836 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1129716a0>
+2025-09-16 01:34:12,836 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x10cc4edf0> server_hostname='api.openai.com' timeout=5.0
+2025-09-16 01:34:12,856 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10cd2c910>
+2025-09-16 01:34:12,856 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:12,856 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 01:34:12,856 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 01:34:12,856 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 01:34:12,856 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:21,531 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 01:34:21,532 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 01:34:21,567 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 01:34:21,567 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 01:34:21,567 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 01:34:21,570 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:21,570 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:21,570 - src.image_generator - INFO - Generating image for Product A with prompt: A high-quality product photography image of Product A. Product description: Product A product. Targe...
+2025-09-16 01:34:21,694 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-d002df7f-de7b-4502-b307-06cbc27e62d3', 'json_data': {'prompt': 'A high-quality product photography image of Product A. Product description: Product A product. Target audience: Adults. Keywords: product a. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 01:34:21,712 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 01:34:21,712 - httpcore.connection - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-16 01:34:21,728 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x1129716a0>
+2025-09-16 01:34:21,728 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x10cc12df0> server_hostname='api.openai.com' timeout=5.0
+2025-09-16 01:34:21,756 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x11284f110>
+2025-09-16 01:34:21,756 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:21,756 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 01:34:21,756 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 01:34:21,756 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 01:34:21,756 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:34,706 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 16 Sep 2025 05:34:34 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_92314c32fd0172f0ca67a18ee8b11d0c'), (b'openai-processing-ms', b'12574'), (b'x-envoy-upstream-service-time', b'12577'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=Mm0L.UjkgEHPtxpp1ug8A9AKoPf1ybtLUy7DMOSuiwk-1758000874-1.0.1.1-HHI01YKueYaZz.AUiCcGL6Tt2azwTI.XhP.1hJY.fxHdqSQIXXBMecjqYH_3C04nZauCCaZS5Vpm8G5YKlN0CMEDsaOHvRkcp6e2Wohxh.8; path=/; expires=Tue, 16-Sep-25 06:04:34 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=KsDjymB9E_Tr3jDQuYzCJ._eYvp0R1lRQMoj.lp57YE-1758000874725-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fdfe8a4c0240ae-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-16 01:34:34,708 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 01:34:34,709 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-16 01:34:34,709 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-16 01:34:34,709 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-16 01:34:34,709 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-16 01:34:34,709 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers([('date', 'Tue, 16 Sep 2025 05:34:34 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('openai-version', '2020-10-01'), ('openai-organization', 'basilecom-inc'), ('openai-project', 'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), ('x-request-id', 'req_92314c32fd0172f0ca67a18ee8b11d0c'), ('openai-processing-ms', '12574'), ('x-envoy-upstream-service-time', '12577'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=Mm0L.UjkgEHPtxpp1ug8A9AKoPf1ybtLUy7DMOSuiwk-1758000874-1.0.1.1-HHI01YKueYaZz.AUiCcGL6Tt2azwTI.XhP.1hJY.fxHdqSQIXXBMecjqYH_3C04nZauCCaZS5Vpm8G5YKlN0CMEDsaOHvRkcp6e2Wohxh.8; path=/; expires=Tue, 16-Sep-25 06:04:34 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=KsDjymB9E_Tr3jDQuYzCJ._eYvp0R1lRQMoj.lp57YE-1758000874725-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '97fdfe8a4c0240ae-EWR'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-09-16 01:34:34,709 - openai._base_client - DEBUG - request_id: req_92314c32fd0172f0ca67a18ee8b11d0c
+2025-09-16 01:34:34,715 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-16 01:34:35,033 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-feLiE3zU6IUrCLcpnOWVcyDs.png?st=2025-09-16T04%3A34%3A34Z&se=2025-09-16T06%3A34%3A34Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=cc612491-d948-4d2e-9821-2683df3719f5&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-16T05%3A29%3A22Z&ske=2025-09-17T05%3A29%3A22Z&sks=b&skv=2024-08-04&sig=%2BASlje7fqcQGNeQO3%2BLPZvE6KGiQTYu8NuBVAujBR5k%3D HTTP/1.1" 200 1247298
+2025-09-16 01:34:35,481 - src.image_generator - INFO - Generated and cached image: generated_cache/product_a_dall-e-3_1024x1024.png
+2025-09-16 01:34:35,507 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:35,507 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:35,507 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:35,507 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:35,571 - src.creative_composer - INFO - Composed creative for Product A in 1:1
+2025-09-16 01:34:35,576 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:35,576 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:35,576 - src.image_generator - INFO - Using cached image for Product A
+2025-09-16 01:34:35,576 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:35,576 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:35,576 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:35,576 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:35,639 - src.creative_composer - INFO - Composed creative for Product A in 9:16
+2025-09-16 01:34:35,646 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:35,647 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:35,647 - src.image_generator - INFO - Using cached image for Product A
+2025-09-16 01:34:35,647 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:35,647 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:35,647 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:35,647 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:35,709 - src.creative_composer - INFO - Composed creative for Product A in 16:9
+2025-09-16 01:34:35,715 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:35,715 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:35,716 - src.image_generator - INFO - Generating image for Product B with prompt: A high-quality product photography image of Product B. Product description: Product B product. Targe...
+2025-09-16 01:34:35,716 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-b8ea495b-b994-42d5-a9f3-055f71192a3b', 'json_data': {'prompt': 'A high-quality product photography image of Product B. Product description: Product B product. Target audience: Adults. Keywords: product b. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 01:34:35,716 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 01:34:35,717 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:35,717 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 01:34:35,717 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 01:34:35,717 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 01:34:35,717 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 01:34:39,123 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 01:34:47,822 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 16 Sep 2025 05:34:47 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_7d2d82f90664f0d41ab98d09419527bc'), (b'openai-processing-ms', b'11683'), (b'x-envoy-upstream-service-time', b'11691'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fdfee18abf40ae-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-16 01:34:47,823 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 01:34:47,823 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-16 01:34:47,825 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-16 01:34:47,826 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-16 01:34:47,826 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-16 01:34:47,826 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers({'date': 'Tue, 16 Sep 2025 05:34:47 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'openai-version': '2020-10-01', 'openai-organization': 'basilecom-inc', 'openai-project': 'proj_heJIwL2Y8uQGqtTGep1w5Dmo', 'x-request-id': 'req_7d2d82f90664f0d41ab98d09419527bc', 'openai-processing-ms': '11683', 'x-envoy-upstream-service-time': '11691', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '97fdfee18abf40ae-EWR', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2025-09-16 01:34:47,826 - openai._base_client - DEBUG - request_id: req_7d2d82f90664f0d41ab98d09419527bc
+2025-09-16 01:34:47,827 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-16 01:34:48,087 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-lprXsy5JAZGlGPOYnxEU6qt2.png?st=2025-09-16T04%3A34%3A47Z&se=2025-09-16T06%3A34%3A47Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=ed3ea2f9-5e38-44be-9a1b-7c1e65e4d54f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-15T18%3A03%3A49Z&ske=2025-09-16T18%3A03%3A49Z&sks=b&skv=2024-08-04&sig=t4nTg3Td5UEcElKYwSr/onlu0q5BnjK4xNik0CIGNhE%3D HTTP/1.1" 200 1388474
+2025-09-16 01:34:48,568 - src.image_generator - INFO - Generated and cached image: generated_cache/product_b_dall-e-3_1024x1024.png
+2025-09-16 01:34:48,570 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:48,570 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:48,570 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:48,570 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:48,645 - src.creative_composer - INFO - Composed creative for Product B in 1:1
+2025-09-16 01:34:48,649 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:48,649 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:48,649 - src.image_generator - INFO - Using cached image for Product B
+2025-09-16 01:34:48,649 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:48,649 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:48,650 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:48,650 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:48,711 - src.creative_composer - INFO - Composed creative for Product B in 9:16
+2025-09-16 01:34:48,717 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 01:34:48,717 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 01:34:48,717 - src.image_generator - INFO - Using cached image for Product B
+2025-09-16 01:34:48,717 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 01:34:48,717 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 01:34:48,717 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 01:34:48,717 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 01:34:48,779 - src.creative_composer - INFO - Composed creative for Product B in 16:9
+2025-09-16 01:34:48,809 - httpcore.connection - DEBUG - close.started
+2025-09-16 01:34:48,810 - httpcore.connection - DEBUG - close.complete
+2025-09-16 02:03:09,989 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 02:03:10,028 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 02:03:10,028 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 02:03:10,028 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 02:03:10,031 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,031 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,031 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-16 02:03:10,044 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,044 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,045 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,045 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,115 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-16 02:03:10,121 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,121 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,121 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-16 02:03:10,121 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,121 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,121 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,121 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,201 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-16 02:03:10,215 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,215 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,215 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-16 02:03:10,215 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,215 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,215 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,215 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,290 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-16 02:03:10,310 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,310 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,311 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-16 02:03:10,311 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,311 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,311 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,311 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,372 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-16 02:03:10,376 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,376 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,376 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-16 02:03:10,376 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,376 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,376 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,376 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,453 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-16 02:03:10,459 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:03:10,459 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:03:10,459 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-16 02:03:10,459 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:03:10,459 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:03:10,459 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:03:10,459 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:03:10,531 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-16 02:06:36,966 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 02:19:27,385 - root - ERROR - Missing required field: campaign_brief.campaign_id

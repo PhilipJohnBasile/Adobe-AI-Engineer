@@ -1,0 +1,12 @@
+{
+  "campaign_id": "campaign_41f66af2",
+  "variants_count": 2,
+  "target_count": 6,
+  "diversity_score": 0.3333333333333333,
+  "output_files": [
+    "campaign_41f66af2_variant_0.jpg",
+    "campaign_41f66af2_variant_1.jpg"
+  ],
+  "tracked_at": "2025-09-16T01:34:03.987094",
+  "completion_rate": 33.33333333333333
+}
