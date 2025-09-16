@@ -1,0 +1,32 @@
+campaign_brief:
+  campaign_id: "winter_fitness_2024"
+  products:
+    - name: "Protein Powder Chocolate"
+      description: "Premium whey protein blend with natural chocolate flavor for muscle recovery and growth"
+      target_keywords: ["protein", "fitness", "muscle", "recovery", "whey", "chocolate"]
+    - name: "Pre-Workout Energy Boost"
+      description: "Natural pre-workout supplement with caffeine and B-vitamins for enhanced energy and focus"
+      target_keywords: ["pre-workout", "energy", "caffeine", "focus", "natural", "supplement"]
+  
+  target_region: "Europe"
+  target_market: "UK"
+  
+  target_audience:
+    age_range: "18-35"
+    demographics: "Active individuals and fitness enthusiasts"
+    interests: ["fitness", "bodybuilding", "healthy lifestyle", "sports nutrition"]
+  
+  campaign_message: "Fuel Your Winter Workouts"
+  
+  brand_guidelines:
+    primary_colors: ["#FF6B35", "#2E8B57", "#1E90FF"]
+    font_family: "Athletic Sans"
+    logo_required: true
+    
+  output_requirements:
+    aspect_ratios: ["1:1", "9:16", "16:9"]
+    formats: ["jpg"]
+    resolutions:
+      "1:1": [1080, 1080]
+      "9:16": [1080, 1920]
+      "16:9": [1920, 1080]

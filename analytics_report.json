@@ -1,0 +1,89 @@
+{
+  "report_generated": "2025-09-15T20:30:25.108097",
+  "summary": {
+    "total_campaigns_processed": 3,
+    "total_assets_generated": 18,
+    "total_cost_spent": 0.28,
+    "cost_per_campaign": 0.09333333333333334,
+    "cost_per_asset": 0.015555555555555557,
+    "avg_assets_per_campaign": 6.0,
+    "operational_efficiency": {
+      "campaigns_per_dollar": 10.714285714285714,
+      "assets_per_dollar": 64.28571428571428
+    }
+  },
+  "performance_metrics": {
+    "total_campaigns": 3,
+    "total_assets": 18,
+    "avg_assets_per_campaign": 6.0,
+    "avg_products_per_campaign": 2.0,
+    "avg_compliance_score": 96.29629629629629,
+    "localization_rate": 0.0,
+    "api_efficiency": 9.0,
+    "total_api_calls": 2,
+    "compliance_score_distribution": {
+      "min": 96.29629629629629,
+      "max": 96.29629629629629,
+      "mean": 96.29629629629629,
+      "median": 96.29629629629629,
+      "std_dev": 0,
+      "percentile_25": 96.29629629629629,
+      "percentile_75": 96.29629629629629
+    }
+  },
+  "cost_analysis": {
+    "total_cost": 0.28,
+    "api_calls": 7,
+    "cost_per_call": 0.04,
+    "services": {
+      "dalle": {
+        "cost": 0.28,
+        "calls": 7,
+        "cost_per_call": 0.04,
+        "percentage_of_total": 100.0
+      }
+    }
+  },
+  "campaign_insights": {
+    "aspect_ratio_preferences": {
+      "1:1": 3,
+      "9:16": 3,
+      "16:9": 3
+    },
+    "popular_markets": {},
+    "product_distribution": {
+      "avg_products": 2,
+      "max_products": 2,
+      "min_products": 2
+    },
+    "file_size_analysis": {
+      "avg_size_mb": 2.202011744181315,
+      "total_storage_mb": 6.606035232543945,
+      "largest_campaign_mb": 2.2115402221679688
+    }
+  },
+  "trends": {
+    "daily_metrics": [
+      {
+        "date": "2025-09-15",
+        "campaigns": 3,
+        "assets": 18,
+        "api_calls": 2,
+        "avg_compliance": 96.29629629629629
+      }
+    ],
+    "campaign_volume_trend": 0,
+    "peak_day": {
+      "date": "2025-09-15",
+      "campaigns": 3,
+      "assets": 18,
+      "api_calls": 2,
+      "avg_compliance": 96.29629629629629
+    },
+    "trend_period_days": 1
+  },
+  "recommendations": [
+    "Localization rate (0.0%) suggests missed opportunities for global market expansion. Consider promoting localization features.",
+    "Campaign volume is low. Consider batch processing to improve efficiency and demonstrate scalability capabilities."
+  ]
+}

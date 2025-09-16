@@ -1,0 +1,39 @@
+# Ignore version control
+.git
+.gitignore
+
+# Ignore Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Ignore IDE files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore generated outputs (will be mounted)
+output/*
+generated_cache/*
+batch_results/*
+batch_test/*
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+.cache
+
+# Keep necessary files
+!.env.example
+!requirements.txt
+!README.md

@@ -1,0 +1,390 @@
+2025-09-15 16:59:32,194 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 16:59:49,119 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 16:59:49,156 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 16:59:49,156 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 16:59:49,157 - src.asset_manager - INFO - Scanning assets directory...
+2025-09-15 16:59:49,157 - src.asset_manager - INFO - Asset scan completed. Found 0 assets
+2025-09-15 16:59:49,157 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 16:59:49,157 - src.image_generator - INFO - Generating image for Hydrating Face Serum with prompt: A high-quality product photography image of Hydrating Face Serum. Product description: Premium anti-...
+2025-09-15 16:59:49,228 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-877fe18c-ac9e-4e84-9739-4f34738f4353', 'json_data': {'prompt': 'A high-quality product photography image of Hydrating Face Serum. Product description: Premium anti-aging serum with hyaluronic acid for deep hydration. Target audience: Women interested in premium skincare and sun protection. Use brand colors: #FF6B6B, #4ECDC4, #45B7D1. Keywords: skincare, hydration, anti-aging, serum, hyaluronic acid. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-15 16:59:49,244 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-15 16:59:49,245 - httpcore.connection - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-15 16:59:49,295 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x109089e80>
+2025-09-15 16:59:49,295 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x1090c3f70> server_hostname='api.openai.com' timeout=5.0
+2025-09-15 16:59:49,307 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x109021a90>
+2025-09-15 16:59:49,307 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-15 16:59:49,307 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-15 16:59:49,307 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-15 16:59:49,307 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-15 16:59:49,307 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-15 17:00:12,053 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 15 Sep 2025 21:00:12 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_548c7d7bcba42decb1fd9eaec3a839b1'), (b'openai-processing-ms', b'22345'), (b'x-envoy-upstream-service-time', b'22348'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=_ox22QH.2X7Njcid6nXWWAks7nRKy0.EPtvONhDxaaE-1757970012-1.0.1.1-7ITvFchA6bgrrb4ihma9Lx6kSDIt0O1N2swu2Rfrf8nFefyl_k25t5Ca2ooMHAxdv3EvVRnTkYuDQSScAH4xlLO6OOLmu1_1dtdjlnOhBt0; path=/; expires=Mon, 15-Sep-25 21:30:12 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=tOk4PjizMwyElTz9OY97usN0CMbi.MvLL3CO2jOLcS4-1757970012116-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fb0cd1afdbb2c0-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-15 17:00:12,054 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-15 17:00:12,054 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-15 17:00:12,054 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-15 17:00:12,054 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-15 17:00:12,055 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-15 17:00:12,055 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers([('date', 'Mon, 15 Sep 2025 21:00:12 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('openai-version', '2020-10-01'), ('openai-organization', 'basilecom-inc'), ('openai-project', 'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), ('x-request-id', 'req_548c7d7bcba42decb1fd9eaec3a839b1'), ('openai-processing-ms', '22345'), ('x-envoy-upstream-service-time', '22348'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=_ox22QH.2X7Njcid6nXWWAks7nRKy0.EPtvONhDxaaE-1757970012-1.0.1.1-7ITvFchA6bgrrb4ihma9Lx6kSDIt0O1N2swu2Rfrf8nFefyl_k25t5Ca2ooMHAxdv3EvVRnTkYuDQSScAH4xlLO6OOLmu1_1dtdjlnOhBt0; path=/; expires=Mon, 15-Sep-25 21:30:12 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=tOk4PjizMwyElTz9OY97usN0CMbi.MvLL3CO2jOLcS4-1757970012116-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '97fb0cd1afdbb2c0-EWR'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-09-15 17:00:12,055 - openai._base_client - DEBUG - request_id: req_548c7d7bcba42decb1fd9eaec3a839b1
+2025-09-15 17:00:12,060 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-15 17:00:12,414 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-a01oIPUhW2hpGq4bTjp4imSX.png?st=2025-09-15T20%3A00%3A12Z&se=2025-09-15T22%3A00%3A12Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=cc612491-d948-4d2e-9821-2683df3719f5&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-15T04%3A29%3A02Z&ske=2025-09-16T04%3A29%3A02Z&sks=b&skv=2024-08-04&sig=wO8qN9sVatwIIEirk0bWuBE2Q86/sZdY/OZptgO4UTg%3D HTTP/1.1" 200 1378759
+2025-09-15 17:00:12,929 - src.image_generator - INFO - Generated and cached image: generated_cache/hydrating_face_serum_dall-e-3_1024x1024.png
+2025-09-15 17:00:12,953 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:12,953 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:12,953 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:12,954 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:13,035 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 17:00:13,039 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 17:00:13,039 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:00:13,040 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 17:00:13,040 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:13,040 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:13,040 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:13,040 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:13,120 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 17:00:13,126 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 17:00:13,126 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:00:13,126 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 17:00:13,126 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:13,126 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:13,126 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:13,126 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:13,202 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 17:00:13,208 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 17:00:13,208 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:00:13,208 - src.image_generator - INFO - Generating image for SPF 50 Sunscreen with prompt: A high-quality product photography image of SPF 50 Sunscreen. Product description: Broad-spectrum UV...
+2025-09-15 17:00:13,209 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-66c08332-e94a-469d-aa25-50d4c73190fb', 'json_data': {'prompt': 'A high-quality product photography image of SPF 50 Sunscreen. Product description: Broad-spectrum UV protection for daily use, lightweight formula. Target audience: Women interested in premium skincare and sun protection. Use brand colors: #FF6B6B, #4ECDC4, #45B7D1. Keywords: sunscreen, SPF, protection, daily, UV, lightweight. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-15 17:00:13,209 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-15 17:00:13,209 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-15 17:00:13,209 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-15 17:00:13,209 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-15 17:00:13,209 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-15 17:00:13,210 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-15 17:00:39,959 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 15 Sep 2025 21:00:40 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_406c7f50bf79d4d7cd0c180a0405afbe'), (b'openai-processing-ms', b'26408'), (b'x-envoy-upstream-service-time', b'26412'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fb0d6708e4b2c0-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-15 17:00:39,960 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-15 17:00:39,960 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-15 17:00:39,960 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-15 17:00:39,960 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-15 17:00:39,960 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-15 17:00:39,960 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers({'date': 'Mon, 15 Sep 2025 21:00:40 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'openai-version': '2020-10-01', 'openai-organization': 'basilecom-inc', 'openai-project': 'proj_heJIwL2Y8uQGqtTGep1w5Dmo', 'x-request-id': 'req_406c7f50bf79d4d7cd0c180a0405afbe', 'openai-processing-ms': '26408', 'x-envoy-upstream-service-time': '26412', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '97fb0d6708e4b2c0-EWR', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2025-09-15 17:00:39,960 - openai._base_client - DEBUG - request_id: req_406c7f50bf79d4d7cd0c180a0405afbe
+2025-09-15 17:00:39,962 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-15 17:00:40,193 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-hKT4FeFj7yblONAfI8DUFq3l.png?st=2025-09-15T20%3A00%3A40Z&se=2025-09-15T22%3A00%3A40Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-15T16%3A59%3A37Z&ske=2025-09-16T16%3A59%3A37Z&sks=b&skv=2024-08-04&sig=e6CxnJIptpS8ZynVKEgAnRw40NbNzOJo5h4LIZONakg%3D HTTP/1.1" 200 1081507
+2025-09-15 17:00:40,551 - src.image_generator - INFO - Generated and cached image: generated_cache/spf_50_sunscreen_dall-e-3_1024x1024.png
+2025-09-15 17:00:40,552 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:40,552 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:40,552 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:40,552 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:40,619 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 17:00:40,623 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 17:00:40,623 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:00:40,623 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 17:00:40,623 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:40,623 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:40,623 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:40,624 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:40,701 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 17:00:40,707 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 17:00:40,707 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:00:40,707 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 17:00:40,708 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 17:00:40,708 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 17:00:40,708 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 17:00:40,708 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 17:00:40,783 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 17:00:40,813 - httpcore.connection - DEBUG - close.started
+2025-09-15 17:00:40,814 - httpcore.connection - DEBUG - close.complete
+2025-09-15 17:04:38,427 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 17:04:38,455 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 17:04:38,455 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 17:08:37,314 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 17:08:37,343 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 17:08:37,343 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 17:08:37,343 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 17:18:34,685 - src.localization - INFO - Localization manager initialized
+2025-09-15 17:18:34,685 - src.localization - INFO - Localized campaign for market: DE
+2025-09-15 17:18:34,686 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 17:18:34,722 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 17:18:34,722 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 17:18:34,722 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 17:18:34,726 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:34,726 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 17:18:34,821 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 17:18:34,826 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:34,826 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 17:18:34,912 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 17:18:34,918 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:34,918 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 17:18:35,000 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 17:18:35,007 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:35,007 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 17:18:35,074 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 17:18:35,078 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:35,078 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 17:18:35,158 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 17:18:35,164 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 17:18:35,164 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 17:18:35,242 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 19:49:56,329 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 19:49:56,363 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 19:49:56,363 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 19:49:56,363 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 19:52:52,822 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 19:52:52,861 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 19:52:52,861 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 19:52:52,861 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 19:52:52,862 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:52,863 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 19:52:52,944 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 19:52:52,950 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:52,950 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 19:52:53,030 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 19:52:53,037 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:53,037 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 19:52:53,113 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 19:52:53,120 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:53,120 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 19:52:53,181 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 19:52:53,184 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:53,185 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 19:52:53,257 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 19:52:53,263 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 19:52:53,263 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 19:52:53,336 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:01:27,745 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:01:27,773 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:01:27,773 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:01:27,773 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:35,004 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:13:35,049 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:35,049 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:35,049 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:35,053 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,053 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:35,136 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:35,141 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,141 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:35,221 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:35,228 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,229 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:35,304 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:35,311 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,311 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:35,372 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:35,376 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,376 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:35,450 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:35,456 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:35,457 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:35,530 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:13:35,993 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:13:36,022 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:36,022 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:36,022 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:36,023 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,023 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,023 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:36,028 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,028 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,028 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,028 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,097 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:36,101 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,101 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,101 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:36,101 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,101 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,101 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,101 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,185 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:36,192 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,192 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,192 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:36,192 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,192 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,192 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,192 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,270 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:36,276 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,276 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,276 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:36,276 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,276 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,276 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,276 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,338 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:36,342 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,342 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,343 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:36,343 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,343 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,343 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,343 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,417 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:36,425 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:36,425 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:36,425 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:36,425 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:36,425 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:36,425 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:36,425 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:36,501 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:13:36,985 - src.asset_manager - INFO - Asset manager initialized with directory: /tmp/custom_assets
+2025-09-15 20:13:37,014 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:37,015 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:37,015 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:37,018 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,018 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:37,094 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:37,099 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,099 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:37,183 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:37,191 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,191 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:37,270 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:37,277 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,277 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:37,343 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:37,346 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,347 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:37,421 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:37,427 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:37,427 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:37,500 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:13:48,944 - src.localization - INFO - Localization manager initialized
+2025-09-15 20:13:48,944 - src.localization - INFO - Localized campaign for market: DE
+2025-09-15 20:13:48,945 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:13:48,976 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:48,976 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:48,976 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:48,979 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:48,979 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:48,979 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:48,984 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:48,984 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:48,984 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:48,984 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,057 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:49,061 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,061 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,061 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:49,061 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,061 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,061 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,061 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,145 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:49,153 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,153 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,153 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:49,153 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,153 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,153 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,153 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,232 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:49,239 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,239 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,240 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:49,240 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,240 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,240 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,240 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,304 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:49,308 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,308 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,308 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:49,308 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,308 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,308 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,308 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,385 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:49,391 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,391 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,391 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:49,391 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,391 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,391 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,391 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:49,467 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:13:49,923 - src.localization - INFO - Localization manager initialized
+2025-09-15 20:13:49,923 - src.localization - INFO - Localized campaign for market: JP
+2025-09-15 20:13:49,923 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:13:49,951 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:49,951 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:49,951 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:49,955 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:49,955 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:49,955 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:49,960 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:49,960 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:49,960 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:49,960 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,020 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:50,025 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:50,025 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,025 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:50,025 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:50,025 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:50,025 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:50,025 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,095 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:50,103 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:50,103 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,103 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:50,103 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:50,103 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:50,103 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:50,103 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,170 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:50,177 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:50,177 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,178 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:50,178 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:50,178 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:50,178 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:50,178 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,233 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:50,236 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:50,236 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,237 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:50,237 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:50,237 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:50,237 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:50,237 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,304 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:50,309 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-15 20:13:50,309 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,309 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:50,310 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-15 20:13:50,310 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-15 20:13:50,310 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-15 20:13:50,310 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-15 20:13:50,374 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:13:50,855 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:13:50,888 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:13:50,888 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:13:50,889 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:13:50,892 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,892 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:50,964 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 1:1
+2025-09-15 20:13:50,968 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:50,968 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:51,048 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 9:16
+2025-09-15 20:13:51,057 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:51,057 - src.image_generator - INFO - Using cached image for Hydrating Face Serum
+2025-09-15 20:13:51,133 - src.creative_composer - INFO - Composed creative for Hydrating Face Serum in 16:9
+2025-09-15 20:13:51,139 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:51,140 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:51,201 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 1:1
+2025-09-15 20:13:51,204 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:51,204 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:51,277 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 9:16
+2025-09-15 20:13:51,283 - src.asset_manager - WARNING - No assets found in directory
+2025-09-15 20:13:51,283 - src.image_generator - INFO - Using cached image for SPF 50 Sunscreen
+2025-09-15 20:13:51,356 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
+2025-09-15 20:27:19,951 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:27:19,996 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:27:19,996 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:27:19,996 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-15 20:29:19,013 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-15 20:29:19,051 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-15 20:29:19,051 - src.creative_composer - INFO - Creative composer initialized
+2025-09-15 20:29:19,051 - src.compliance_checker - INFO - Compliance checker initialized

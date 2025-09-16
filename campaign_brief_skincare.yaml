@@ -1,0 +1,32 @@
+campaign_brief:
+  campaign_id: "summer_skincare_2024"
+  products:
+    - name: "Hydrating Face Serum"
+      description: "Premium anti-aging serum with hyaluronic acid for deep hydration"
+      target_keywords: ["skincare", "hydration", "anti-aging", "serum", "hyaluronic acid"]
+    - name: "SPF 50 Sunscreen"
+      description: "Broad-spectrum UV protection for daily use, lightweight formula"
+      target_keywords: ["sunscreen", "SPF", "protection", "daily", "UV", "lightweight"]
+  
+  target_region: "North America"
+  target_market: "US"
+  
+  target_audience:
+    age_range: "25-45"
+    demographics: "Women interested in premium skincare and sun protection"
+    interests: ["skincare", "beauty", "wellness", "self-care", "anti-aging"]
+  
+  campaign_message: "Protect and Perfect Your Summer Glow"
+  
+  brand_guidelines:
+    primary_colors: ["#FF6B6B", "#4ECDC4", "#45B7D1"]
+    font_family: "Modern Sans"
+    logo_required: true
+    
+  output_requirements:
+    aspect_ratios: ["1:1", "9:16", "16:9"]
+    formats: ["jpg"]
+    resolutions:
+      "1:1": [1080, 1080]
+      "9:16": [1080, 1920]
+      "16:9": [1920, 1080]

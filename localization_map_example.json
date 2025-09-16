@@ -1,0 +1,89 @@
+{
+  "localization_mappings": {
+    "US": {
+      "currency": "USD",
+      "date_format": "MM/DD/YYYY",
+      "number_format": "1,234.56",
+      "cultural_adaptations": {
+        "colors": {
+          "preferred": ["#FF0000", "#FFFFFF", "#0000FF"],
+          "avoided": []
+        },
+        "messaging_tone": "direct, energetic",
+        "visual_style": "bold, modern"
+      },
+      "compliance": {
+        "required_disclaimers": ["FDA has not evaluated these statements"],
+        "prohibited_claims": ["miracle", "cure", "guaranteed"]
+      }
+    },
+    "UK": {
+      "currency": "GBP",
+      "date_format": "DD/MM/YYYY", 
+      "number_format": "1,234.56",
+      "cultural_adaptations": {
+        "colors": {
+          "preferred": ["#012169", "#FFFFFF", "#C8102E"],
+          "avoided": []
+        },
+        "messaging_tone": "polite, understated",
+        "visual_style": "classic, refined"
+      },
+      "compliance": {
+        "required_disclaimers": ["Individual results may vary"],
+        "prohibited_claims": ["miracle", "cure", "guaranteed"]
+      }
+    },
+    "DE": {
+      "currency": "EUR",
+      "date_format": "DD.MM.YYYY",
+      "number_format": "1.234,56",
+      "cultural_adaptations": {
+        "colors": {
+          "preferred": ["#000000", "#DD0000", "#FFCE00"],
+          "avoided": []
+        },
+        "messaging_tone": "precise, technical",
+        "visual_style": "clean, minimalist"
+      },
+      "compliance": {
+        "required_disclaimers": ["DSGVO-konform", "Qualität aus Deutschland"],
+        "prohibited_claims": ["Wunder", "Heilung", "garantiert"]
+      }
+    },
+    "JP": {
+      "currency": "JPY",
+      "date_format": "YYYY/MM/DD",
+      "number_format": "1,234",
+      "cultural_adaptations": {
+        "colors": {
+          "preferred": ["#BC002D", "#FFFFFF"],
+          "avoided": ["#000000"]
+        },
+        "messaging_tone": "respectful, harmonious",
+        "visual_style": "balanced, elegant"
+      },
+      "compliance": {
+        "required_disclaimers": ["個人の感想です", "効果には個人差があります"],
+        "prohibited_claims": ["奇跡", "治療", "保証"]
+      }
+    },
+    "FR": {
+      "currency": "EUR", 
+      "date_format": "DD/MM/YYYY",
+      "number_format": "1 234,56",
+      "cultural_adaptations": {
+        "colors": {
+          "preferred": ["#0055A4", "#FFFFFF", "#EF4135"],
+          "avoided": []
+        },
+        "messaging_tone": "sophisticated, artistic",
+        "visual_style": "elegant, luxurious"
+      },
+      "compliance": {
+        "required_disclaimers": ["Les résultats peuvent varier"],
+        "prohibited_claims": ["miracle", "guérison", "garanti"]
+      }
+    }
+  }
+}

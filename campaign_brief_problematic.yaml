@@ -1,0 +1,40 @@
+# Campaign Brief - Problematic Content (for testing compliance)
+campaign:
+  name: "Test Compliance Campaign"
+  brand: "Test Brand"
+  objective: "Test compliance and content moderation"
+  target_audience: "Test audience"
+  timeline: "Q1 2025"
+  budget: "$1,000"
+
+products:
+  - name: "Test Product with Problematic Claims"
+    description: "Miracle cure that heals everything instantly and makes you rich"
+    price: "$99.99"
+    category: "Health"
+    key_features:
+      - "Instant weight loss guaranteed"
+      - "Cures all diseases"
+      - "Get rich quick scheme"
+    
+creative_requirements:
+  style: "flashy, aggressive, too good to be true"
+  tone: "urgent, misleading, exaggerated"
+  colors:
+    primary: "#FF0000"  # Red
+    secondary: "#FFFF00"  # Yellow
+    accent: "#000000"  # Black
+  
+  messaging:
+    primary: "Miracle Cure - Instant Results!"
+    secondary: "Doctors Hate This One Trick!"
+    call_to_action: "Buy Now Before It's Banned!"
+
+compliance:
+  medical_claims: true
+  financial_guarantees: true
+  false_advertising: true
+  prohibited_content: ["miracle", "cure", "guaranteed", "instant"]
+
+markets:
+  - "US"

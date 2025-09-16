@@ -1,0 +1,51 @@
+# Campaign Brief - Gourmet Food Products
+campaign:
+  name: "Artisan Food Collection Campaign"
+  brand: "Savory Artisan"
+  objective: "Promote premium artisan food products for holiday season"
+  target_audience: "Food enthusiasts, ages 25-55, premium shoppers"
+  timeline: "Q4 2025"
+  budget: "$50,000"
+
+products:
+  - name: "Truffle Olive Oil"
+    description: "Premium extra virgin olive oil infused with black truffles"
+    price: "$45.99"
+    category: "Gourmet Oils"
+    key_features:
+      - "Authentic Italian truffles"
+      - "Cold-pressed olive oil"
+      - "250ml elegant bottle"
+    
+  - name: "Artisan Cheese Selection"
+    description: "Curated selection of aged European cheeses"
+    price: "$89.99"
+    category: "Specialty Cheese"
+    key_features:
+      - "5 premium aged cheeses"
+      - "Sourced from European farms"
+      - "Perfect for wine pairing"
+
+creative_requirements:
+  style: "elegant, sophisticated, food photography inspired"
+  tone: "premium, artisanal, authentic"
+  colors:
+    primary: "#8B4513"  # Saddle Brown
+    secondary: "#DAA520"  # Goldenrod
+    accent: "#2F4F4F"  # Dark Slate Gray
+  
+  messaging:
+    primary: "Taste the Artisan Difference"
+    secondary: "Handcrafted. Premium. Authentic."
+    call_to_action: "Shop Gourmet Collection"
+
+compliance:
+  dietary_claims: true
+  organic_certification: false
+  allergen_warnings: ["Contains dairy", "May contain nuts"]
+  country_restrictions: []
+
+markets:
+  - "US"
+  - "UK"
+  - "DE"

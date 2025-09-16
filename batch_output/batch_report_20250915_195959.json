@@ -1,0 +1,32 @@
+{
+  "batch_summary": {
+    "total_campaigns": 1,
+    "successful": 1,
+    "failed": 0,
+    "validation_errors": 0,
+    "batch_duration_seconds": 0.487908,
+    "avg_campaign_duration_seconds": 0.485672
+  },
+  "generation_statistics": {
+    "total_assets_generated": 6,
+    "total_api_calls": 2,
+    "avg_compliance_score": 96.29629629629629,
+    "localized_campaigns": 0
+  },
+  "successful_campaigns": [
+    {
+      "campaign_id": "summer_skincare_2024",
+      "campaign_file": "campaign_brief_skincare.yaml",
+      "assets_generated": 6,
+      "duration_seconds": 0.485672,
+      "localized_for": null
+    }
+  ],
+  "failed_campaigns": [],
+  "validation_errors": [],
+  "performance_metrics": {
+    "campaigns_per_minute": 122.9740032957033,
+    "assets_per_minute": 737.8440197742198,
+    "api_calls_per_campaign": 2.0
+  }
+}

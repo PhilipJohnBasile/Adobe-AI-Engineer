@@ -1,0 +1,31 @@
+{
+  "report_id": "ff967fcf-54d1-4c83-b18c-9d0d5d0994e6",
+  "framework": "GDPR",
+  "generated_at": "2025-09-15T20:03:11.452231",
+  "period": {
+    "start": "2025-08-16T20:03:11.452197",
+    "end": "2025-09-15T20:03:11.452210"
+  },
+  "data_subject_id": null,
+  "compliance_summary": {
+    "total_events": 3,
+    "processing_activities": 1,
+    "rights_requests": 0,
+    "violations": 0,
+    "compliance_score": 100,
+    "data_retention_compliant": 100.0,
+    "consent_tracking": 0
+  },
+  "data_processing_activities": [
+    {
+      "activity": "data",
+      "count": 1,
+      "data_types": [],
+      "purposes": [],
+      "legal_basis": "legitimate_interest"
+    }
+  ],
+  "rights_requests": [],
+  "violations": [],
+  "recommendations": []
+}

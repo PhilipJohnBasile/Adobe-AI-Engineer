@@ -1,0 +1,91 @@
+campaign_brief:
+  brand_guidelines:
+    cultural_context:
+      call_to_action_suggestions: &id001
+      - Jetzt kaufen
+      - Mehr erfahren
+      - Entdecken
+      formality_level: formal
+      messaging_style: formal
+    font_family: Modern Sans
+    logo_required: true
+    primary_colors:
+    - '#FF6B6B'
+    - '#4ECDC4'
+    - '#45B7D1'
+  campaign_id: summer_skincare_2024
+  campaign_message: "Sch\xFCtzen und Perfektionieren Sie Ihren Sommer-Glow"
+  localization:
+    cultural_adaptations:
+      formality_guidance: formal
+      messaging_tone: formal
+      recommended_cta: *id001
+      visual_preferences:
+        energy:
+        - red
+        - yellow
+        luxury:
+        - black
+        - silver
+        - dark blue
+        trust:
+        - blue
+        - grey
+    currency: EUR
+    language: de-DE
+    regulatory_requirements:
+      age_restrictions:
+      - 18+
+      disclaimer_placement: prominent
+      prohibited_claims:
+      - medical
+      - therapeutic
+      - guaranteed
+      - best
+    target_market: DE
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - jpg
+    resolutions:
+      '16:9':
+      - 1920
+      - 1080
+      '1:1':
+      - 1080
+      - 1080
+      '9:16':
+      - 1080
+      - 1920
+  products:
+  - description: Premium anti-aging serum with hyaluronic acid for deep hydration
+    name: Hydrating Face Serum
+    target_keywords:
+    - skincare
+    - hydration
+    - anti-aging
+    - serum
+    - hyaluronic acid
+  - description: Broad-spectrum UV protection for daily use, lightweight formula
+    name: SPF 50 Sunscreen
+    target_keywords:
+    - sunscreen
+    - SPF
+    - protection
+    - daily
+    - UV
+    - lightweight
+  target_audience:
+    age_range: 25-45
+    demographics: Women interested in premium skincare and sun protection
+    interests:
+    - skincare
+    - beauty
+    - wellness
+    - self-care
+    - anti-aging
+  target_market: DE
+  target_region: North America

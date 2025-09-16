@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-09-15T20:14:05.103083",
+  "image_path": null,
+  "predictions": {
+    "ctr": 1.0329563628701088,
+    "conversion_rate": 0.1077120490059112,
+    "engagement_score": 0.9833008731179046,
+    "brand_recall": 1.0009339705835527
+  },
+  "overall_score": 0.45814516628190477,
+  "performance_grade": "F",
+  "optimization_suggestions": [
+    "Engagement score is low. Consider more visually appealing elements and emotional messaging."
+  ],
+  "confidence": 0.7169828808365541
+}

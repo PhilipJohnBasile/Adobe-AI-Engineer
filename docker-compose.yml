@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  creative-automation:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: creative_automation_pipeline
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    volumes:
+      # Mount directories for persistent data
+      - ./output:/app/output
+      - ./assets:/app/assets
+      - ./generated_cache:/app/generated_cache
+      - ./batch_results:/app/batch_results
+      # Mount config files
+      - ./costs.json:/app/costs.json
+      - ./.env:/app/.env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - creative-automation-network
+    
+  # Future: Add Redis for caching and job queue
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: creative_automation_redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - creative-automation-network
+
+  # Future: Add PostgreSQL for metadata storage
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: creative_automation_db
+  #   environment:
+  #     - POSTGRES_DB=creative_automation
+  #     - POSTGRES_USER=pipeline_user
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - creative-automation-network
+
+networks:
+  creative-automation-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+  postgres_data:

@@ -1,0 +1,181 @@
+{
+  "workflows": {
+    "standard_campaign": {
+      "name": "Standard Campaign Workflow",
+      "description": "Default workflow for standard creative campaigns",
+      "steps": [
+        {
+          "id": "validate_brief",
+          "name": "Validate Campaign Brief",
+          "type": "validation",
+          "required": true,
+          "timeout": 30,
+          "retry_count": 2
+        },
+        {
+          "id": "compliance_check", 
+          "name": "Legal Compliance Check",
+          "type": "compliance",
+          "required": true,
+          "timeout": 60,
+          "retry_count": 1,
+          "depends_on": ["validate_brief"]
+        },
+        {
+          "id": "generate_assets",
+          "name": "Generate Creative Assets", 
+          "type": "generation",
+          "required": true,
+          "timeout": 300,
+          "retry_count": 3,
+          "depends_on": ["compliance_check"]
+        },
+        {
+          "id": "localize_campaign",
+          "name": "Localize for Markets",
+          "type": "localization", 
+          "required": false,
+          "timeout": 120,
+          "retry_count": 2,
+          "depends_on": ["generate_assets"]
+        },
+        {
+          "id": "quality_check",
+          "name": "Brand Quality Assessment",
+          "type": "brand_intelligence",
+          "required": true,
+          "timeout": 90,
+          "retry_count": 1,
+          "depends_on": ["localize_campaign"]
+        }
+      ]
+    },
+    "premium_campaign": {
+      "name": "Premium Campaign Workflow",
+      "description": "Enhanced workflow for premium campaigns with additional quality gates",
+      "steps": [
+        {
+          "id": "validate_brief",
+          "name": "Validate Campaign Brief",
+          "type": "validation",
+          "required": true,
+          "timeout": 30,
+          "retry_count": 2
+        },
+        {
+          "id": "compliance_check",
+          "name": "Legal Compliance Check", 
+          "type": "compliance",
+          "required": true,
+          "timeout": 60,
+          "retry_count": 1,
+          "depends_on": ["validate_brief"]
+        },
+        {
+          "id": "brand_analysis",
+          "name": "Brand Intelligence Analysis",
+          "type": "brand_intelligence",
+          "required": true, 
+          "timeout": 120,
+          "retry_count": 1,
+          "depends_on": ["compliance_check"]
+        },
+        {
+          "id": "generate_assets",
+          "name": "Generate Creative Assets",
+          "type": "generation", 
+          "required": true,
+          "timeout": 300,
+          "retry_count": 3,
+          "depends_on": ["brand_analysis"]
+        },
+        {
+          "id": "quality_assessment",
+          "name": "Advanced Quality Assessment",
+          "type": "brand_intelligence",
+          "required": true,
+          "timeout": 180,
+          "retry_count": 2,
+          "depends_on": ["generate_assets"]
+        },
+        {
+          "id": "localize_campaign", 
+          "name": "Localize for Markets",
+          "type": "localization",
+          "required": true,
+          "timeout": 120,
+          "retry_count": 2,
+          "depends_on": ["quality_assessment"]
+        },
+        {
+          "id": "final_review",
+          "name": "Final Brand Consistency Review",
+          "type": "brand_intelligence",
+          "required": true,
+          "timeout": 90,
+          "retry_count": 1,
+          "depends_on": ["localize_campaign"]
+        }
+      ]
+    },
+    "compliance_heavy": {
+      "name": "Compliance-Heavy Workflow", 
+      "description": "Workflow for regulated industries requiring extensive compliance checks",
+      "steps": [
+        {
+          "id": "validate_brief",
+          "name": "Validate Campaign Brief",
+          "type": "validation",
+          "required": true,
+          "timeout": 30, 
+          "retry_count": 2
+        },
+        {
+          "id": "legal_review",
+          "name": "Legal Content Review",
+          "type": "compliance",
+          "required": true,
+          "timeout": 120,
+          "retry_count": 1,
+          "depends_on": ["validate_brief"]
+        },
+        {
+          "id": "regulatory_check",
+          "name": "Regulatory Compliance Check",
+          "type": "compliance",
+          "required": true,
+          "timeout": 180,
+          "retry_count": 1,
+          "depends_on": ["legal_review"]
+        },
+        {
+          "id": "content_moderation",
+          "name": "Content Moderation Scan",
+          "type": "moderation",
+          "required": true,
+          "timeout": 60,
+          "retry_count": 2,
+          "depends_on": ["regulatory_check"]
+        },
+        {
+          "id": "generate_assets",
+          "name": "Generate Creative Assets",
+          "type": "generation", 
+          "required": true,
+          "timeout": 300,
+          "retry_count": 3,
+          "depends_on": ["content_moderation"]
+        },
+        {
+          "id": "final_compliance",
+          "name": "Final Compliance Verification",
+          "type": "compliance",
+          "required": true,
+          "timeout": 120,
+          "retry_count": 1,
+          "depends_on": ["generate_assets"]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "campaign_id": "summer_skincare_2024",
+  "generated_at": "2025-09-15T20:00:00.287192",
+  "products": 2,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "generated_files": [
+    "hydrating_face_serum/1x1.jpg",
+    "hydrating_face_serum/9x16.jpg",
+    "hydrating_face_serum/16x9.jpg",
+    "spf_50_sunscreen/1x1.jpg",
+    "spf_50_sunscreen/9x16.jpg",
+    "spf_50_sunscreen/16x9.jpg"
+  ],
+  "api_calls_made": 2,
+  "localized_for": null,
+  "compliance_score": 96.29629629629629
+}

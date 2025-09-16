@@ -1,0 +1,15 @@
+{
+  "brand_colors": [
+    "#2c7ae4",
+    "#6cd85a",
+    "#6bce97"
+  ],
+  "style_signatures": [
+    {
+      "feature_hash": "8f148556dc61ccbd193a732f2d4b0e77",
+      "composition": {
+        "aspect_ratio": 1.3333333333333333,
+        "center_brightness": 140.786875,
+        "edge_density": 1.17565625,
+        "brightness_variance": 505.3166702154126,
+        "dominant_orientation": 

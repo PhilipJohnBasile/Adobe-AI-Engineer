@@ -1,0 +1,9 @@
+{
+  "total_cost": 0.28,
+  "api_calls": 7,
+  "dalle": {
+    "cost": 0.28,
+    "calls": 7,
+    "tokens": 0
+  }
+}

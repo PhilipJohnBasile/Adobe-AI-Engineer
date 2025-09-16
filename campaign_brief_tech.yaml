@@ -1,0 +1,35 @@
+campaign_brief:
+  campaign_id: "smart_home_launch_2024"
+  products:
+    - name: "Smart Thermostat Pro"
+      description: "WiFi-enabled smart thermostat with AI learning and energy-saving features for modern homes"
+      target_keywords: ["smart home", "thermostat", "AI", "energy saving", "WiFi", "automation"]
+    - name: "Voice Assistant Hub"
+      description: "Premium voice-activated smart speaker with advanced AI assistant and home automation control"
+      target_keywords: ["voice assistant", "smart speaker", "AI", "home automation", "voice control"]
+    - name: "Security Camera System"
+      description: "Wireless security camera system with night vision, motion detection, and mobile alerts"
+      target_keywords: ["security", "camera", "wireless", "night vision", "motion detection", "mobile"]
+  
+  target_region: "North America"
+  target_market: "US"
+  
+  target_audience:
+    age_range: "25-55"
+    demographics: "Tech-savvy homeowners interested in smart home technology"
+    interests: ["smart home", "technology", "home automation", "security", "energy efficiency"]
+  
+  campaign_message: "Make Your Home Smarter"
+  
+  brand_guidelines:
+    primary_colors: ["#0066CC", "#FF9900", "#00CC66"]
+    font_family: "Tech Modern"
+    logo_required: true
+    
+  output_requirements:
+    aspect_ratios: ["1:1", "9:16", "16:9"]
+    formats: ["jpg"]
+    resolutions:
+      "1:1": [1080, 1080]
+      "9:16": [1080, 1920]
+      "16:9": [1920, 1080]
