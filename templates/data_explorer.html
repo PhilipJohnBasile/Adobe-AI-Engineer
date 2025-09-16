@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Explorer - Adobe Creative Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .explorer-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #4a5568;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            background: #f7fafc;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .nav-item:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+            transform: translateX(5px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            min-height: 600px;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .file-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .file-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .file-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+        
+        .file-meta {
+            color: #718096;
+            font-size: 0.8rem;
+        }
+        
+        .json-viewer {
+            background: #1a202c;
+            color: #a0aec0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f7fafc;
+            aspect-ratio: 1;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .image-item:hover .image-overlay {
+            transform: translateY(0);
+        }
+        
+        .log-viewer {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-left: 3px solid #4299e1;
+            background: rgba(66, 153, 225, 0.1);
+        }
+        
+        .alert-viewer {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .alert-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .alert-critical {
+            background: #fed7d7;
+            border-color: #e53e3e;
+        }
+        
+        .alert-warning {
+            background: #fefcbf;
+            border-color: #d69e2e;
+        }
+        
+        .alert-info {
+            background: #bee3f8;
+            border-color: #4299e1;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: #718096;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .tab:hover {
+            color: #2d3748;
+        }
+        
+        .tab.active {
+            color: #667eea;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #667eea;
+        }
+        
+        .search-box {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Data Explorer</h1>
+        <p>Complete view of all generated content, analytics, and system data</p>
+    </div>
+    
+    <div class="container">
+        <div class="explorer-grid">
+            <div class="sidebar">
+                <h3>🗂️ Content Categories</h3>
+                <button class="nav-item active" onclick="showSection('overview')">
+                    📈 Overview
+                </button>
+                <button class="nav-item" onclick="showSection('campaigns')">
+                    🎯 Campaign Outputs
+                </button>
+                <button class="nav-item" onclick="showSection('images')">
+                    🖼️ Generated Images
+                </button>
+                <button class="nav-item" onclick="showSection('reports')">
+                    📋 Compliance Reports
+                </button>
+                <button class="nav-item" onclick="showSection('analytics')">
+                    📊 Analytics Data
+                </button>
+                <button class="nav-item" onclick="showSection('logs')">
+                    📝 System Logs
+                </button>
+                <button class="nav-item" onclick="showSection('alerts')">
+                    🚨 AI Monitor Alerts
+                </button>
+                <button class="nav-item" onclick="showSection('metrics')">
+                    📈 Performance Metrics
+                </button>
+                <button class="nav-item" onclick="showSection('variants')">
+                    🧪 A/B Test Variants
+                </button>
+                <button class="nav-item" onclick="showSection('communications')">
+                    📧 Communications
+                </button>
+            </div>
+            
+            <div class="content-area">
+                <!-- Overview Section -->
+                <div id="overview" class="content-section active">
+                    <h2>System Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-files">{{ total_files }}</div>
+                            <div class="stat-label">Total Files Generated</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="campaigns-count">{{ campaigns_count }}</div>
+                            <div class="stat-label">Active Campaigns</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="images-count">{{ images_count }}</div>
+                            <div class="stat-label">Images Created</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="alerts-count">{{ alerts_count }}</div>
+                            <div class="stat-label">System Alerts</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 2rem;">Recent Activity Timeline</h3>
+                    <div id="activity-timeline" class="log-viewer">
+                        <!-- Timeline will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Campaign Outputs -->
+                <div id="campaigns" class="content-section">
+                    <h2>Campaign Outputs</h2>
+                    <div class="tabs">
+                        <button class="tab active" onclick="showCampaignTab('all')">All Campaigns</button>
+                        <button class="tab" onclick="showCampaignTab('briefs')">Campaign Briefs</button>
+                        <button class="tab" onclick="showCampaignTab('generation')">Generation Reports</button>
+                        <button class="tab" onclick="showCampaignTab('compliance')">Compliance</button>
+                    </div>
+                    <div id="campaign-content" class="file-grid">
+                        <!-- Campaign files will be listed here -->
+                    </div>
+                </div>
+                
+                <!-- Generated Images -->
+                <div id="images" class="content-section">
+                    <h2>Generated Images Gallery</h2>
+                    <input type="text" class="search-box" placeholder="Search images..." onkeyup="filterImages(this.value)">
+                    <div id="images-gallery" class="image-gallery">
+                        <!-- Images will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- Compliance Reports -->
+                <div id="reports" class="content-section">
+                    <h2>Compliance Reports</h2>
+                    <div id="compliance-reports" class="file-grid">
+                        <!-- Reports will be listed here -->
+                    </div>
+                </div>
+                
+                <!-- Analytics Data -->
+                <div id="analytics" class="content-section">
+                    <h2>Analytics & Metrics</h2>
+                    <div class="tabs">
+                        <button class="tab active" onclick="showAnalyticsTab('performance')">Performance</button>
+                        <button class="tab" onclick="showAnalyticsTab('engagement')">Engagement</button>
+                        <button class="tab" onclick="showAnalyticsTab('conversion')">Conversion</button>
+                    </div>
+                    <div id="analytics-content" class="json-viewer">
+                        <!-- Analytics data will be shown here -->
+                    </div>
+                </div>
+                
+                <!-- System Logs -->
+                <div id="logs" class="content-section">
+                    <h2>System Logs</h2>
+                    <input type="text" class="search-box" placeholder="Filter logs..." onkeyup="filterLogs(this.value)">
+                    <div id="system-logs" class="log-viewer">
+                        <!-- Logs will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- AI Monitor Alerts -->
+                <div id="alerts" class="content-section">
+                    <h2>AI Monitor Alerts</h2>
+                    <div id="alerts-viewer" class="alert-viewer">
+                        <!-- Alerts will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div id="metrics" class="content-section">
+                    <h2>Performance Metrics</h2>
+                    <div id="metrics-content" class="json-viewer">
+                        <!-- Metrics will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- A/B Test Variants -->
+                <div id="variants" class="content-section">
+                    <h2>A/B Testing Variants</h2>
+                    <div id="variants-content" class="file-grid">
+                        <!-- Variants will be listed here -->
+                    </div>
+                </div>
+                
+                <!-- Communications -->
+                <div id="communications" class="content-section">
+                    <h2>System Communications</h2>
+                    <div id="communications-log" class="log-viewer">
+                        <!-- Communications will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mark nav item as active
+            event.target.classList.add('active');
+            
+            // Load section data
+            loadSectionData(sectionId);
+        }
+        
+        function loadSectionData(sectionId) {
+            fetch(`/api/explorer/${sectionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateSectionContent(sectionId, data);
+                })
+                .catch(error => console.error('Error loading data:', error));
+        }
+        
+        function updateSectionContent(sectionId, data) {
+            switch(sectionId) {
+                case 'overview':
+                    updateOverview(data);
+                    break;
+                case 'campaigns':
+                    updateCampaigns(data);
+                    break;
+                case 'images':
+                    updateImagesGallery(data);
+                    break;
+                case 'logs':
+                    updateLogs(data);
+                    break;
+                case 'alerts':
+                    updateAlerts(data);
+                    break;
+                // Add more cases as needed
+            }
+        }
+        
+        function updateOverview(data) {
+            if (data.total_files) document.getElementById('total-files').textContent = data.total_files;
+            if (data.campaigns_count) document.getElementById('campaigns-count').textContent = data.campaigns_count;
+            if (data.images_count) document.getElementById('images-count').textContent = data.images_count;
+            if (data.alerts_count) document.getElementById('alerts-count').textContent = data.alerts_count;
+            
+            if (data.timeline) {
+                const timeline = document.getElementById('activity-timeline');
+                timeline.innerHTML = data.timeline.map(entry => 
+                    `<div class="log-entry">${entry.timestamp} - ${entry.message}</div>`
+                ).join('');
+            }
+        }
+        
+        function updateCampaigns(data) {
+            const content = document.getElementById('campaign-content');
+            if (data.campaigns) {
+                content.innerHTML = data.campaigns.map(campaign => `
+                    <div class="file-card" onclick="viewCampaign('${campaign.id}')">
+                        <div class="file-icon">📁</div>
+                        <div class="file-name">${campaign.name}</div>
+                        <div class="file-meta">
+                            ${campaign.products || 0} products • ${campaign.images || 0} images
+                            <br>${campaign.date || 'Recently'}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function updateImagesGallery(data) {
+            const gallery = document.getElementById('images-gallery');
+            if (data.images) {
+                gallery.innerHTML = data.images.map(image => `
+                    <div class="image-item">
+                        <img src="${image.url}" alt="${image.name}" loading="lazy">
+                        <div class="image-overlay">
+                            <div>${image.name}</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">
+                                ${image.campaign} • ${image.size}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function updateLogs(data) {
+            const logs = document.getElementById('system-logs');
+            if (data.logs) {
+                logs.innerHTML = data.logs.map(log => 
+                    `<div class="log-entry">[${log.level}] ${log.timestamp} - ${log.message}</div>`
+                ).join('');
+            }
+        }
+        
+        function updateAlerts(data) {
+            const alerts = document.getElementById('alerts-viewer');
+            if (data.alerts) {
+                alerts.innerHTML = data.alerts.map(alert => `
+                    <div class="alert-item alert-${alert.severity}">
+                        <strong>${alert.title}</strong>
+                        <div style="margin-top: 0.5rem;">${alert.message}</div>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">
+                            ${alert.timestamp}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function showCampaignTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            loadSectionData('campaigns/' + tab);
+        }
+        
+        function showAnalyticsTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            loadSectionData('analytics/' + tab);
+        }
+        
+        function filterImages(query) {
+            const images = document.querySelectorAll('.image-item');
+            images.forEach(image => {
+                const name = image.querySelector('.image-overlay div').textContent.toLowerCase();
+                if (name.includes(query.toLowerCase())) {
+                    image.style.display = 'block';
+                } else {
+                    image.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterLogs(query) {
+            const logs = document.querySelectorAll('.log-entry');
+            logs.forEach(log => {
+                if (log.textContent.toLowerCase().includes(query.toLowerCase())) {
+                    log.style.display = 'block';
+                } else {
+                    log.style.display = 'none';
+                }
+            });
+        }
+        
+        function viewCampaign(campaignId) {
+            window.location.href = `/campaign/${campaignId}`;
+        }
+        
+        // Load initial data
+        loadSectionData('overview');
+    </script>
+</body>
+</html>

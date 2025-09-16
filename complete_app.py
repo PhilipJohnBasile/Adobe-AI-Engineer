@@ -800,6 +800,151 @@ def api_run_campaign_ai_tool():
         logger.error(f"Error running campaign AI tool: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/explorer')
+def data_explorer():
+    """Comprehensive data explorer view"""
+    return render_template('data_explorer.html')
+
+@app.route('/api/explorer/<section>')
+def api_explorer_data(section):
+    """API endpoint for data explorer sections"""
+    try:
+        if section == 'overview':
+            # Count all files
+            total_files = 0
+            campaigns_count = 0
+            images_count = 0
+            alerts_count = 0
+            
+            # Count output files
+            output_path = Path(OUTPUT_FOLDER)
+            if output_path.exists():
+                campaigns_count = len(list(output_path.iterdir()))
+                for campaign_dir in output_path.iterdir():
+                    if campaign_dir.is_dir():
+                        for file in campaign_dir.rglob('*'):
+                            if file.is_file():
+                                total_files += 1
+                                if file.suffix.lower() in ['.jpg', '.png', '.jpeg']:
+                                    images_count += 1
+            
+            # Count alerts
+            alerts_path = Path('alerts')
+            if alerts_path.exists():
+                alerts_count = len(list(alerts_path.glob('*.json')))
+            
+            # Count logs
+            logs_path = Path('logs')
+            if logs_path.exists():
+                total_files += len(list(logs_path.glob('*.json')))
+            
+            # Get recent activity timeline
+            timeline = []
+            # Add recent campaign activities
+            if output_path.exists():
+                for campaign_dir in sorted(output_path.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True)[:5]:
+                    if campaign_dir.is_dir():
+                        timeline.append({
+                            'timestamp': datetime.fromtimestamp(campaign_dir.stat().st_mtime).strftime('%H:%M:%S'),
+                            'message': f'Campaign {campaign_dir.name} generated'
+                        })
+            
+            return jsonify({
+                'total_files': total_files,
+                'campaigns_count': campaigns_count,
+                'images_count': images_count,
+                'alerts_count': alerts_count,
+                'timeline': timeline
+            })
+            
+        elif section == 'campaigns':
+            campaigns = []
+            output_path = Path(OUTPUT_FOLDER)
+            if output_path.exists():
+                for campaign_dir in output_path.iterdir():
+                    if campaign_dir.is_dir():
+                        campaign_data = {
+                            'id': campaign_dir.name,
+                            'name': campaign_dir.name,
+                            'products': 0,
+                            'images': 0,
+                            'date': datetime.fromtimestamp(campaign_dir.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
+                        }
+                        
+                        # Count products and images
+                        for item in campaign_dir.iterdir():
+                            if item.is_dir():
+                                campaign_data['products'] += 1
+                                campaign_data['images'] += len(list(item.glob('*.jpg'))) + len(list(item.glob('*.png')))
+                        
+                        campaigns.append(campaign_data)
+            
+            return jsonify({'campaigns': campaigns})
+            
+        elif section == 'images':
+            images = []
+            output_path = Path(OUTPUT_FOLDER)
+            if output_path.exists():
+                for campaign_dir in output_path.iterdir():
+                    if campaign_dir.is_dir():
+                        for file in campaign_dir.rglob('*'):
+                            if file.is_file() and file.suffix.lower() in ['.jpg', '.png', '.jpeg']:
+                                relative_path = file.relative_to(output_path)
+                                images.append({
+                                    'name': file.name,
+                                    'url': url_for('serve_image', 
+                                                 campaign_id=campaign_dir.name, 
+                                                 filename=str(file.relative_to(campaign_dir))),
+                                    'campaign': campaign_dir.name,
+                                    'size': f'{file.stat().st_size // 1024}KB'
+                                })
+            
+            return jsonify({'images': images})
+            
+        elif section == 'logs':
+            logs = []
+            logs_path = Path('logs')
+            if logs_path.exists():
+                for log_file in sorted(logs_path.glob('*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:50]:
+                    try:
+                        with open(log_file) as f:
+                            log_data = json.load(f)
+                            logs.append({
+                                'level': log_data.get('level', 'INFO'),
+                                'timestamp': log_data.get('timestamp', ''),
+                                'message': log_data.get('message', str(log_data))[:200]
+                            })
+                    except:
+                        pass
+            
+            return jsonify({'logs': logs})
+            
+        elif section == 'alerts':
+            alerts = []
+            alerts_path = Path('alerts')
+            if alerts_path.exists():
+                for alert_file in sorted(alerts_path.glob('*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:20]:
+                    try:
+                        with open(alert_file) as f:
+                            alert_data = json.load(f)
+                            alerts.append({
+                                'title': alert_data.get('type', 'Alert'),
+                                'message': alert_data.get('description', ''),
+                                'severity': alert_data.get('severity', 'info'),
+                                'timestamp': alert_data.get('timestamp', '')
+                            })
+                    except:
+                        pass
+            
+            return jsonify({'alerts': alerts})
+            
+        else:
+            return jsonify({'error': 'Invalid section'}), 404
+            
+    except Exception as e:
+        logger.error(f"Error in data explorer API: {e}")
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     print("🚀 Creative Automation System - Web Interface")
     print("=" * 60)
