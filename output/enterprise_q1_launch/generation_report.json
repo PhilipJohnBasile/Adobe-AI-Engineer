@@ -1,0 +1,23 @@
+{
+  "campaign_id": "enterprise_q1_launch",
+  "generated_at": "2025-09-16T02:22:17.600303",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "Global",
+  "campaign_message": "Transform Your Enterprise with Cutting-Edge Technology",
+  "generated_files": [
+    "ai_analytics_platform/1x1.jpg",
+    "ai_analytics_platform/16x9.jpg",
+    "ai_analytics_platform/9x16.jpg",
+    "enterprise_software_suite/1x1.jpg",
+    "enterprise_software_suite/16x9.jpg",
+    "enterprise_software_suite/9x16.jpg",
+    "cloud_infrastructure/1x1.jpg",
+    "cloud_infrastructure/16x9.jpg",
+    "cloud_infrastructure/9x16.jpg"
+  ]
+}

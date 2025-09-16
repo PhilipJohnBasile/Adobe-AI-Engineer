@@ -557,3 +557,140 @@
 2025-09-16 02:03:10,531 - src.creative_composer - INFO - Composed creative for SPF 50 Sunscreen in 16:9
 2025-09-16 02:06:36,966 - root - ERROR - Missing required field: campaign_brief.campaign_id
 2025-09-16 02:19:27,385 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 02:20:51,009 - root - ERROR - Missing required field: campaign_brief.campaign_id
+2025-09-16 02:21:17,937 - src.asset_manager - INFO - Asset manager initialized with directory: assets
+2025-09-16 02:21:17,973 - src.image_generator - INFO - Image generator initialized with OpenAI DALL-E
+2025-09-16 02:21:17,973 - src.creative_composer - INFO - Creative composer initialized
+2025-09-16 02:21:17,973 - src.compliance_checker - INFO - Compliance checker initialized
+2025-09-16 02:21:17,976 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:17,976 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:17,976 - src.image_generator - INFO - Generating image for Enterprise Software Suite with prompt: A high-quality product photography image of Enterprise Software Suite. Product description: Comprehe...
+2025-09-16 02:21:18,074 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-2071669c-7b4b-4929-bc61-98a95368d584', 'json_data': {'prompt': 'A high-quality product photography image of Enterprise Software Suite. Product description: Comprehensive enterprise software solution. Target audience: Enterprise decision makers and IT professionals. Use brand colors: #0066CC, #FF6600. Keywords: enterprise, software, business. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 02:21:18,092 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 02:21:18,092 - httpcore.connection - DEBUG - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-09-16 02:21:18,146 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10bbad550>
+2025-09-16 02:21:18,146 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x10ae92990> server_hostname='api.openai.com' timeout=5.0
+2025-09-16 02:21:18,165 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10ba8b110>
+2025-09-16 02:21:18,165 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 02:21:18,165 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 02:21:18,165 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 02:21:18,165 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 02:21:18,165 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 02:21:36,540 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 16 Sep 2025 06:21:36 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_9171b0b80729997ea278abd94a7a9ef2'), (b'openai-processing-ms', b'17906'), (b'x-envoy-upstream-service-time', b'17912'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=76sCeYkorkDnWrUyYiD8dsijdj33x2hkNlTq6mbIImc-1758003696-1.0.1.1-oveBa6P8s7Qu8nz4GB9ip4L6rxiVUQ07cPiT8HV2zHytx0mAFd.ef7i8PYqd9koO0dRz0BuFEX6S3lsmfYx86SMUhlv7joogwAG5q1TU4A0; path=/; expires=Tue, 16-Sep-25 06:51:36 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=GBP6Wi8mrj0qBXsN8gq4gRoH7JpePNmy0_VJ_c4sPWc-1758003696516-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fe434ca923d96d-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-16 02:21:36,545 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 02:21:36,545 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-16 02:21:36,546 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-16 02:21:36,546 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-16 02:21:36,546 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-16 02:21:36,546 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers([('date', 'Tue, 16 Sep 2025 06:21:36 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('openai-version', '2020-10-01'), ('openai-organization', 'basilecom-inc'), ('openai-project', 'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), ('x-request-id', 'req_9171b0b80729997ea278abd94a7a9ef2'), ('openai-processing-ms', '17906'), ('x-envoy-upstream-service-time', '17912'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=76sCeYkorkDnWrUyYiD8dsijdj33x2hkNlTq6mbIImc-1758003696-1.0.1.1-oveBa6P8s7Qu8nz4GB9ip4L6rxiVUQ07cPiT8HV2zHytx0mAFd.ef7i8PYqd9koO0dRz0BuFEX6S3lsmfYx86SMUhlv7joogwAG5q1TU4A0; path=/; expires=Tue, 16-Sep-25 06:51:36 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=GBP6Wi8mrj0qBXsN8gq4gRoH7JpePNmy0_VJ_c4sPWc-1758003696516-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '97fe434ca923d96d-EWR'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-09-16 02:21:36,546 - openai._base_client - DEBUG - request_id: req_9171b0b80729997ea278abd94a7a9ef2
+2025-09-16 02:21:36,552 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-16 02:21:36,847 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-0ds1gH6yAWRO2Wkc7jkSahx1.png?st=2025-09-16T05%3A21%3A36Z&se=2025-09-16T07%3A21%3A36Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-16T06%3A21%3A36Z&ske=2025-09-17T06%3A21%3A36Z&sks=b&skv=2024-08-04&sig=Md1cMvxOYoGnnDFXw3QGKVKqHXpXulYCi0eqgv7ToIY%3D HTTP/1.1" 200 1731216
+2025-09-16 02:21:37,313 - src.image_generator - INFO - Generated and cached image: generated_cache/enterprise_software_suite_dall-e-3_1024x1024.png
+2025-09-16 02:21:37,322 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:37,322 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:37,322 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:37,322 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:37,412 - src.creative_composer - INFO - Composed creative for Enterprise Software Suite in 1:1
+2025-09-16 02:21:37,418 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:37,418 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:37,418 - src.image_generator - INFO - Using cached image for Enterprise Software Suite
+2025-09-16 02:21:37,418 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:37,418 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:37,418 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:37,418 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:37,508 - src.creative_composer - INFO - Composed creative for Enterprise Software Suite in 9:16
+2025-09-16 02:21:37,515 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:37,515 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:37,515 - src.image_generator - INFO - Using cached image for Enterprise Software Suite
+2025-09-16 02:21:37,515 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:37,515 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:37,515 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:37,515 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:37,600 - src.creative_composer - INFO - Composed creative for Enterprise Software Suite in 16:9
+2025-09-16 02:21:37,607 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:37,607 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:37,608 - src.image_generator - INFO - Generating image for AI Analytics Platform with prompt: A high-quality product photography image of AI Analytics Platform. Product description: Advanced AI-...
+2025-09-16 02:21:37,608 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-79bd96d1-cc36-40a3-8ba9-5e3a7e32e5cf', 'json_data': {'prompt': 'A high-quality product photography image of AI Analytics Platform. Product description: Advanced AI-powered analytics and insights. Target audience: Enterprise decision makers and IT professionals. Use brand colors: #0066CC, #FF6600. Keywords: analytics, AI, data. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 02:21:37,608 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 02:21:37,608 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 02:21:37,609 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 02:21:37,609 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 02:21:37,609 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 02:21:37,609 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 02:21:55,941 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 16 Sep 2025 06:21:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_0074d28613071e78a20f8a69ba25e759'), (b'openai-processing-ms', b'18000'), (b'x-envoy-upstream-service-time', b'18003'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fe43c62e25d96d-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-16 02:21:55,942 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 02:21:55,943 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-16 02:21:55,943 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-16 02:21:55,943 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-16 02:21:55,943 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-16 02:21:55,943 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers({'date': 'Tue, 16 Sep 2025 06:21:55 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'openai-version': '2020-10-01', 'openai-organization': 'basilecom-inc', 'openai-project': 'proj_heJIwL2Y8uQGqtTGep1w5Dmo', 'x-request-id': 'req_0074d28613071e78a20f8a69ba25e759', 'openai-processing-ms': '18000', 'x-envoy-upstream-service-time': '18003', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '97fe43c62e25d96d-EWR', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2025-09-16 02:21:55,943 - openai._base_client - DEBUG - request_id: req_0074d28613071e78a20f8a69ba25e759
+2025-09-16 02:21:55,944 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-16 02:21:56,206 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-U7t0az1epUAFJRSWf6pPHCGo.png?st=2025-09-16T05%3A21%3A55Z&se=2025-09-16T07%3A21%3A55Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-15T19%3A35%3A46Z&ske=2025-09-16T19%3A35%3A46Z&sks=b&skv=2024-08-04&sig=FtcUYJpPkVMmLj1ku6L4l29ti4%2BqJriQQBOnI/IaOks%3D HTTP/1.1" 200 1560569
+2025-09-16 02:21:56,646 - src.image_generator - INFO - Generated and cached image: generated_cache/ai_analytics_platform_dall-e-3_1024x1024.png
+2025-09-16 02:21:56,647 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:56,647 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:56,647 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:56,647 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:56,717 - src.creative_composer - INFO - Composed creative for AI Analytics Platform in 1:1
+2025-09-16 02:21:56,722 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:56,722 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:56,722 - src.image_generator - INFO - Using cached image for AI Analytics Platform
+2025-09-16 02:21:56,722 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:56,722 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:56,722 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:56,722 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:56,804 - src.creative_composer - INFO - Composed creative for AI Analytics Platform in 9:16
+2025-09-16 02:21:56,810 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:56,810 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:56,810 - src.image_generator - INFO - Using cached image for AI Analytics Platform
+2025-09-16 02:21:56,811 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:21:56,811 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:21:56,811 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:21:56,811 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:21:56,892 - src.creative_composer - INFO - Composed creative for AI Analytics Platform in 16:9
+2025-09-16 02:21:56,900 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:21:56,900 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:21:56,900 - src.image_generator - INFO - Generating image for Cloud Infrastructure with prompt: A high-quality product photography image of Cloud Infrastructure. Product description: Scalable clou...
+2025-09-16 02:21:56,900 - openai._base_client - DEBUG - Request options: {'method': 'post', 'url': '/images/generations', 'files': None, 'idempotency_key': 'stainless-python-retry-3c41ae2f-7b7d-4008-bcde-ffaa52b81d5e', 'json_data': {'prompt': 'A high-quality product photography image of Cloud Infrastructure. Product description: Scalable cloud infrastructure solutions. Target audience: Enterprise decision makers and IT professionals. Use brand colors: #0066CC, #FF6600. Keywords: cloud, infrastructure, scalable. Professional product photography Clean white background Good lighting High resolution Commercial advertising style Photorealistic', 'model': 'dall-e-3', 'n': 1, 'quality': 'standard', 'size': '1024x1024'}}
+2025-09-16 02:21:56,901 - openai._base_client - DEBUG - Sending HTTP Request: POST https://api.openai.com/v1/images/generations
+2025-09-16 02:21:56,901 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-16 02:21:56,901 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-16 02:21:56,901 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-16 02:21:56,901 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-16 02:21:56,901 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-16 02:22:16,576 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 16 Sep 2025 06:22:16 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'openai-version', b'2020-10-01'), (b'openai-organization', b'basilecom-inc'), (b'openai-project', b'proj_heJIwL2Y8uQGqtTGep1w5Dmo'), (b'x-request-id', b'req_5bd24a3203d487b38dd68c1330065c07'), (b'openai-processing-ms', b'19612'), (b'x-envoy-upstream-service-time', b'19614'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'97fe443ecdced96d-EWR'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-09-16 02:22:16,581 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-09-16 02:22:16,582 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-16 02:22:16,582 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-16 02:22:16,582 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-16 02:22:16,582 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-16 02:22:16,582 - openai._base_client - DEBUG - HTTP Response: POST https://api.openai.com/v1/images/generations "200 OK" Headers({'date': 'Tue, 16 Sep 2025 06:22:16 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'openai-version': '2020-10-01', 'openai-organization': 'basilecom-inc', 'openai-project': 'proj_heJIwL2Y8uQGqtTGep1w5Dmo', 'x-request-id': 'req_5bd24a3203d487b38dd68c1330065c07', 'openai-processing-ms': '19612', 'x-envoy-upstream-service-time': '19614', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '97fe443ecdced96d-EWR', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2025-09-16 02:22:16,583 - openai._base_client - DEBUG - request_id: req_5bd24a3203d487b38dd68c1330065c07
+2025-09-16 02:22:16,586 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oaidalleapiprodscus.blob.core.windows.net:443
+2025-09-16 02:22:16,840 - urllib3.connectionpool - DEBUG - https://oaidalleapiprodscus.blob.core.windows.net:443 "GET /private/org-OUxtZHkelpZUpt3n3oJ65rMk/user-ivvAbOhVyyRKI79Kn2uzqU7e/img-Fyp8r8WYxDvOVuS38G3HB9Lw.png?st=2025-09-16T05%3A22%3A16Z&se=2025-09-16T07%3A22%3A16Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=ed3ea2f9-5e38-44be-9a1b-7c1e65e4d54f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-09-15T09%3A27%3A37Z&ske=2025-09-16T09%3A27%3A37Z&sks=b&skv=2024-08-04&sig=y1dAr8/s1IOIXtv1lOcZlHAii1DRuSKymdToX7HF7jc%3D HTTP/1.1" 200 1766845
+2025-09-16 02:22:17,339 - src.image_generator - INFO - Generated and cached image: generated_cache/cloud_infrastructure_dall-e-3_1024x1024.png
+2025-09-16 02:22:17,340 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:22:17,340 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:22:17,340 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:22:17,340 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:22:17,411 - src.creative_composer - INFO - Composed creative for Cloud Infrastructure in 1:1
+2025-09-16 02:22:17,416 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:22:17,416 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:22:17,416 - src.image_generator - INFO - Using cached image for Cloud Infrastructure
+2025-09-16 02:22:17,416 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:22:17,416 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:22:17,416 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:22:17,416 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:22:17,501 - src.creative_composer - INFO - Composed creative for Cloud Infrastructure in 9:16
+2025-09-16 02:22:17,509 - src.asset_manager - DEBUG - Using cached asset scan results
+2025-09-16 02:22:17,509 - src.asset_manager - WARNING - No assets found in directory
+2025-09-16 02:22:17,509 - src.image_generator - INFO - Using cached image for Cloud Infrastructure
+2025-09-16 02:22:17,509 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-09-16 02:22:17,509 - PIL.PngImagePlugin - DEBUG - STREAM b'caBX' 41 14086
+2025-09-16 02:22:17,509 - PIL.PngImagePlugin - DEBUG - b'caBX' 41 14086 (unknown)
+2025-09-16 02:22:17,510 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 14139 65536
+2025-09-16 02:22:17,593 - src.creative_composer - INFO - Composed creative for Cloud Infrastructure in 16:9
+2025-09-16 02:22:17,620 - httpcore.connection - DEBUG - close.started
+2025-09-16 02:22:17,621 - httpcore.connection - DEBUG - close.complete
