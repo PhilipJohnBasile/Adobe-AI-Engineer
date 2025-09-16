@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Details - {{ campaign.campaign_name or campaign_id }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; padding: 0.75rem 1.5rem; background: #4299e1; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .campaign-overview { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .campaign-details { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .campaign-actions { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .section-title { color: #2d3748; margin-bottom: 1.5rem; font-size: 1.3rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #edf2f7; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: #4a5568; font-weight: 600; }
+        .detail-value { color: #2d3748; }
+        .products-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .product-tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.9rem; }
+        .requirements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .requirement-item { background: #f7fafc; padding: 1rem; border-radius: 8px; border-left: 4px solid #4299e1; }
+        .requirement-label { font-weight: 600; color: #2d3748; margin-bottom: 0.5rem; }
+        .requirement-value { color: #4a5568; }
+        .btn { padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s ease; display: block; margin-bottom: 1rem; }
+        .btn-primary { background: #4299e1; color: white; }
+        .btn-primary:hover { background: #3182ce; transform: translateY(-2px); }
+        .btn-success { background: #48bb78; color: white; }
+        .btn-success:hover { background: #38a169; transform: translateY(-2px); }
+        .btn-warning { background: #ed8936; color: white; }
+        .btn-warning:hover { background: #dd6b20; transform: translateY(-2px); }
+        .btn-info { background: #38b2ac; color: white; }
+        .btn-info:hover { background: #319795; transform: translateY(-2px); }
+        .outputs-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .outputs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .output-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s ease; }
+        .output-card:hover { border-color: #4299e1; box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15); }
+        .output-name { font-weight: 600; color: #2d3748; margin-bottom: 0.5rem; }
+        .output-meta { color: #718096; font-size: 0.9rem; margin-bottom: 1rem; }
+        .output-actions { display: flex; gap: 0.5rem; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
+        .flash-messages { margin-bottom: 2rem; }
+        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; }
+        .flash-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+        .flash-error { background: #fed7d7; border: 1px solid #feb2b2; color: #c53030; }
+        .flash-info { background: #ebf8ff; border: 1px solid #90cdf4; color: #2c5282; }
+        .flash-warning { background: #fefcbf; border: 1px solid #f6e05e; color: #744210; }
+        .no-outputs { text-align: center; padding: 3rem; color: #718096; }
+        .no-outputs-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .status-indicator { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .status-ready { background: #c6f6d5; color: #22543d; }
+        .status-pending { background: #fefcbf; color: #744210; }
+        .json-display { background: #1a202c; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto; max-height: 400px; overflow-y: auto; }
+        .toggle-section { margin-top: 2rem; }
+        .toggle-btn { background: #718096; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .toggle-btn:hover { background: #4a5568; }
+        .collapsible-content { margin-top: 1rem; display: none; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; border-radius: 8px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #4299e1; }
+        .stat-label { color: #718096; font-size: 0.9rem; margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 {{ campaign.campaign_name or campaign_id }}</h1>
+        <p>Campaign details, outputs, and management actions</p>
+    </div>
+
+    <div class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+
+        <!-- Campaign Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ outputs|length }}</div>
+                <div class="stat-label">Generated Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ campaign.products|length if campaign.products else 0 }}</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ campaign.requirements.formats|length if campaign.requirements and campaign.requirements.formats else 2 }}</div>
+                <div class="stat-label">Output Formats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ campaign.aspect_ratios|length if campaign.aspect_ratios else 3 }}</div>
+                <div class="stat-label">Aspect Ratios</div>
+            </div>
+        </div>
+
+        <!-- Campaign Overview -->
+        <div class="campaign-overview">
+            <!-- Campaign Details -->
+            <div class="campaign-details">
+                <h3 class="section-title">📝 Campaign Information</h3>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Campaign ID</span>
+                    <span class="detail-value">{{ campaign_id }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Campaign Name</span>
+                    <span class="detail-value">{{ campaign.campaign_name or 'Untitled Campaign' }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Target Region</span>
+                    <span class="detail-value">{{ campaign.target_region or 'Global' }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Target Audience</span>
+                    <span class="detail-value">{{ campaign.target_audience or 'General' }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Created</span>
+                    <span class="detail-value">{{ campaign.created_at[:19] if campaign.created_at else 'Unknown' }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value">
+                        <span class="status-indicator status-ready">Active</span>
+                    </span>
+                </div>
+
+                <!-- Campaign Message -->
+                {% if campaign.campaign_message %}
+                    <div style="margin-top: 1.5rem;">
+                        <div class="detail-label" style="margin-bottom: 0.5rem;">Campaign Message</div>
+                        <div style="background: #f7fafc; padding: 1rem; border-radius: 8px; border-left: 4px solid #4299e1;">
+                            "{{ campaign.campaign_message }}"
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Products -->
+                {% if campaign.products %}
+                    <div style="margin-top: 1.5rem;">
+                        <div class="detail-label" style="margin-bottom: 0.5rem;">Products</div>
+                        <div class="products-list">
+                            {% for product in campaign.products %}
+                                <span class="product-tag">{{ product }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Requirements -->
+                {% if campaign.requirements %}
+                    <div style="margin-top: 1.5rem;">
+                        <div class="detail-label" style="margin-bottom: 1rem;">Creative Requirements</div>
+                        <div class="requirements-grid">
+                            <div class="requirement-item">
+                                <div class="requirement-label">Style</div>
+                                <div class="requirement-value">{{ campaign.requirements.style or 'Modern' }}</div>
+                            </div>
+                            <div class="requirement-item">
+                                <div class="requirement-label">Quality</div>
+                                <div class="requirement-value">{{ campaign.requirements.quality or 'High' }}</div>
+                            </div>
+                            {% if campaign.requirements.colors %}
+                                <div class="requirement-item">
+                                    <div class="requirement-label">Colors</div>
+                                    <div class="requirement-value">{{ campaign.requirements.colors|join(', ') }}</div>
+                                </div>
+                            {% endif %}
+                            {% if campaign.requirements.formats %}
+                                <div class="requirement-item">
+                                    <div class="requirement-label">Formats</div>
+                                    <div class="requirement-value">{{ campaign.requirements.formats|join(', ') }}</div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Aspect Ratios -->
+                {% if campaign.aspect_ratios %}
+                    <div style="margin-top: 1.5rem;">
+                        <div class="detail-label" style="margin-bottom: 0.5rem;">Aspect Ratios</div>
+                        <div class="products-list">
+                            {% for ratio in campaign.aspect_ratios %}
+                                <span class="product-tag">{{ ratio }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Campaign Actions -->
+            <div class="campaign-actions">
+                <h3 class="section-title">⚡ Quick Actions</h3>
+                
+                <a href="{{ url_for('run_pipeline', campaign_id=campaign_id) }}" class="btn btn-primary">
+                    🚀 Run Complete Pipeline
+                </a>
+                
+                <a href="{{ url_for('run_task3', campaign_id=campaign_id) }}" class="btn btn-success">
+                    🤖 Run Task 3 AI Agent
+                </a>
+                
+                <a href="{{ url_for('run_enterprise', campaign_id=campaign_id) }}" class="btn btn-warning">
+                    🏢 Run Enterprise System
+                </a>
+                
+                <a href="{{ url_for('cli_commands') }}?campaign_id={{ campaign_id }}" class="btn btn-info">
+                    ⚡ More CLI Commands
+                </a>
+
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                    <h4 style="color: #2d3748; margin-bottom: 1rem;">🎯 Specialized Commands</h4>
+                    
+                    <form method="POST" action="{{ url_for('run_command') }}" style="margin-bottom: 0.5rem;">
+                        <input type="hidden" name="campaign_id" value="{{ campaign_id }}">
+                        <input type="hidden" name="command" value="validate">
+                        <button type="submit" class="btn btn-sm" style="background: #38b2ac; color: white; width: 100%;">
+                            🔍 Validate Campaign
+                        </button>
+                    </form>
+                    
+                    <form method="POST" action="{{ url_for('run_command') }}" style="margin-bottom: 0.5rem;">
+                        <input type="hidden" name="campaign_id" value="{{ campaign_id }}">
+                        <input type="hidden" name="command" value="localize">
+                        <button type="submit" class="btn btn-sm" style="background: #9f7aea; color: white; width: 100%;">
+                            🌍 Localize Campaign
+                        </button>
+                    </form>
+                    
+                    <form method="POST" action="{{ url_for('run_command') }}">
+                        <input type="hidden" name="campaign_id" value="{{ campaign_id }}">
+                        <input type="hidden" name="command" value="compliance-check">
+                        <button type="submit" class="btn btn-sm" style="background: #f56565; color: white; width: 100%;">
+                            ✅ Compliance Check
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Outputs -->
+        <div class="outputs-section">
+            <h3 class="section-title">📁 Generated Outputs</h3>
+            
+            {% if outputs %}
+                <div class="outputs-grid">
+                    {% for output in outputs %}
+                        <div class="output-card">
+                            <div class="output-name">{{ output.name }}</div>
+                            <div class="output-meta">
+                                Size: {{ "%.1f"|format(output.size / 1024) }} KB • 
+                                Type: {{ output.type|upper }} • 
+                                Created: {{ output.created }}
+                            </div>
+                            <div class="output-actions">
+                                <a href="{{ url_for('download_file', campaign_id=campaign_id, filename=output.name) }}" 
+                                   class="btn btn-primary btn-sm">📥 Download</a>
+                                <button class="btn btn-info btn-sm" onclick="previewFile('{{ output.name }}', '{{ output.type }}')">
+                                    👁️ Preview
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-outputs">
+                    <div class="no-outputs-icon">📂</div>
+                    <h3>No outputs generated yet</h3>
+                    <p>Run the pipeline to generate creative assets for this campaign</p>
+                    <br>
+                    <a href="{{ url_for('run_pipeline', campaign_id=campaign_id) }}" class="btn btn-primary">
+                        🚀 Generate Assets Now
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Raw Campaign Data -->
+        <div class="toggle-section">
+            <button class="toggle-btn" onclick="toggleRawData()">
+                📊 Show Raw Campaign Data
+            </button>
+            <div class="collapsible-content" id="rawDataSection">
+                <div class="json-display">{{ campaign | tojson(indent=2) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleRawData() {
+            const section = document.getElementById('rawDataSection');
+            const btn = event.target;
+            
+            if (section.style.display === 'none' || section.style.display === '') {
+                section.style.display = 'block';
+                btn.textContent = '📊 Hide Raw Campaign Data';
+            } else {
+                section.style.display = 'none';
+                btn.textContent = '📊 Show Raw Campaign Data';
+            }
+        }
+
+        function previewFile(filename, filetype) {
+            // For now, just alert - could be enhanced with modal preview
+            if (filetype.toLowerCase() === '.jpg' || filetype.toLowerCase() === '.png') {
+                alert(`Image preview for ${filename} would open here`);
+            } else {
+                alert(`File preview for ${filename} (${filetype}) would open here`);
+            }
+        }
+
+        // Auto-refresh outputs every 30 seconds if pipeline is running
+        let refreshInterval = null;
+        
+        function startAutoRefresh() {
+            refreshInterval = setInterval(() => {
+                // Check if any outputs have been generated
+                fetch(window.location.href)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const newOutputsSection = doc.querySelector('.outputs-section');
+                        const currentOutputsSection = document.querySelector('.outputs-section');
+                        
+                        if (newOutputsSection && currentOutputsSection) {
+                            currentOutputsSection.innerHTML = newOutputsSection.innerHTML;
+                        }
+                    })
+                    .catch(error => console.log('Auto-refresh failed:', error));
+            }, 30000);
+        }
+
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
+        }
+
+        // Start auto-refresh if no outputs yet
+        document.addEventListener('DOMContentLoaded', function() {
+            const outputs = {{ outputs|length }};
+            if (outputs === 0) {
+                startAutoRefresh();
+                
+                // Stop after 10 minutes
+                setTimeout(stopAutoRefresh, 600000);
+            }
+        });
+
+        // Handle form submissions with loading states
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '⏳ Running...';
+                    submitBtn.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

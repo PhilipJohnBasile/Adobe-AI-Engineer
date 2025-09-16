@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Commands - Complete Creative Automation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; padding: 0.75rem 1.5rem; background: #4299e1; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .commands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .commands-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .section-title { color: #2d3748; margin-bottom: 1.5rem; font-size: 1.3rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .command-item { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; transition: all 0.3s ease; }
+        .command-item:hover { border-color: #4299e1; box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15); }
+        .command-name { font-size: 1.1rem; font-weight: 600; color: #2d3748; margin-bottom: 0.5rem; font-family: 'Courier New', monospace; background: #f7fafc; padding: 0.25rem 0.5rem; border-radius: 4px; display: inline-block; }
+        .command-description { color: #4a5568; margin-bottom: 1rem; }
+        .command-actions { display: flex; gap: 0.5rem; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s ease; }
+        .btn-primary { background: #4299e1; color: white; }
+        .btn-primary:hover { background: #3182ce; }
+        .btn-success { background: #48bb78; color: white; }
+        .btn-success:hover { background: #38a169; }
+        .btn-warning { background: #ed8936; color: white; }
+        .btn-warning:hover { background: #dd6b20; }
+        .execution-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #4a5568; }
+        .form-group select, .form-group input { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; }
+        .form-group select:focus, .form-group input:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
+        .cli-help { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .help-output { background: #1a202c; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto; max-height: 400px; overflow-y: auto; white-space: pre-wrap; }
+        .flash-messages { margin-bottom: 2rem; }
+        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; }
+        .flash-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+        .flash-error { background: #fed7d7; border: 1px solid #feb2b2; color: #c53030; }
+        .flash-info { background: #ebf8ff; border: 1px solid #90cdf4; color: #2c5282; }
+        .flash-warning { background: #fefcbf; border: 1px solid #f6e05e; color: #744210; }
+        .command-category { margin-bottom: 2rem; }
+        .category-header { color: #4299e1; font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0; }
+        .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .quick-action { background: white; border-radius: 8px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .quick-action:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .quick-action-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .quick-action-title { font-weight: 600; color: #2d3748; margin-bottom: 0.5rem; }
+        .quick-action-desc { color: #718096; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ CLI Commands Interface</h1>
+        <p>All 28+ CLI commands from main.py accessible through web interface</p>
+    </div>
+
+    <div class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="quick-action">
+                <div class="quick-action-icon">🚀</div>
+                <div class="quick-action-title">Generate Campaign</div>
+                <div class="quick-action-desc">Run complete pipeline</div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">📊</div>
+                <div class="quick-action-title">Analytics</div>
+                <div class="quick-action-desc">System performance</div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">🔍</div>
+                <div class="quick-action-title">Validate</div>
+                <div class="quick-action-desc">Check campaign brief</div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">🌍</div>
+                <div class="quick-action-title">Localize</div>
+                <div class="quick-action-desc">Multi-market campaigns</div>
+            </div>
+        </div>
+
+        <!-- Command Execution Form -->
+        <div class="execution-section">
+            <h3 class="section-title">🎯 Execute CLI Command</h3>
+            
+            <form method="POST" action="{{ url_for('run_command') }}">
+                <div class="form-group">
+                    <label for="command">Select Command</label>
+                    <select id="command" name="command" required>
+                        <option value="">Choose a command...</option>
+                        {% for cmd in commands %}
+                            <option value="{{ cmd.name }}">{{ cmd.name }} - {{ cmd.description }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="campaign_id">Campaign ID (Optional)</label>
+                    <input type="text" id="campaign_id" name="campaign_id" placeholder="Leave blank for system-wide commands">
+                    <small style="color: #718096;">Some commands require a specific campaign ID to operate on</small>
+                </div>
+
+                <button type="submit" class="btn btn-success">🔄 Execute Command</button>
+            </form>
+        </div>
+
+        <!-- Available Commands -->
+        <div class="commands-grid">
+            <!-- Core Pipeline Commands -->
+            <div class="commands-section">
+                <h3 class="section-title">🏗️ Core Pipeline Commands</h3>
+                
+                <div class="command-category">
+                    <div class="category-header">Generation & Processing</div>
+                    
+                    <div class="command-item">
+                        <div class="command-name">generate</div>
+                        <div class="command-description">Generate creative assets from campaign brief using the complete pipeline</div>
+                        <div class="command-actions">
+                            <button class="btn btn-primary" onclick="selectCommand('generate')">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="command-item">
+                        <div class="command-name">batch-process</div>
+                        <div class="command-description">Process multiple campaigns in batch for enterprise efficiency</div>
+                        <div class="command-actions">
+                            <button class="btn btn-primary" onclick="selectCommand('batch-process')">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="command-item">
+                        <div class="command-name">validate</div>
+                        <div class="command-description">Validate campaign brief structure and requirements</div>
+                        <div class="command-actions">
+                            <button class="btn btn-warning" onclick="selectCommand('validate')">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics & Monitoring -->
+            <div class="commands-section">
+                <h3 class="section-title">📊 Analytics & Monitoring</h3>
+                
+                <div class="command-category">
+                    <div class="category-header">Performance & Insights</div>
+                    
+                    <div class="command-item">
+                        <div class="command-name">analytics</div>
+                        <div class="command-description">Generate comprehensive analytics dashboard with performance metrics</div>
+                        <div class="command-actions">
+                            <button class="btn btn-success" onclick="selectCommand('analytics')">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="command-item">
+                        <div class="command-name">agent-monitor</div>
+                        <div class="command-description">Run AI agent monitoring system (Task 3 integration)</div>
+                        <div class="command-actions">
+                            <button class="btn btn-success" onclick="selectCommand('agent-monitor')">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="command-item">
+                        <div class="command-name">cost-estimate</div>
+                        <div class="command-description">Estimate generation costs and resource requirements</div>
+                        <div class="command-actions">
+                            <button class="btn btn-warning" onclick="selectCommand('cost-estimate')">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- More Commands Grid -->
+        <div class="commands-grid">
+            <!-- Localization & Compliance -->
+            <div class="commands-section">
+                <h3 class="section-title">🌍 Localization & Compliance</h3>
+                
+                <div class="command-item">
+                    <div class="command-name">localize</div>
+                    <div class="command-description">Localize campaign for specific markets and cultures</div>
+                    <div class="command-actions">
+                        <button class="btn btn-primary" onclick="selectCommand('localize')">Select</button>
+                    </div>
+                </div>
+
+                <div class="command-item">
+                    <div class="command-name">compliance-check</div>
+                    <div class="command-description">Check brand compliance and legal requirements</div>
+                    <div class="command-actions">
+                        <button class="btn btn-warning" onclick="selectCommand('compliance-check')">Select</button>
+                    </div>
+                </div>
+
+                <div class="command-item">
+                    <div class="command-name">quality-check</div>
+                    <div class="command-description">Quality assurance checks for generated assets</div>
+                    <div class="command-actions">
+                        <button class="btn btn-warning" onclick="selectCommand('quality-check')">Select</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Management -->
+            <div class="commands-section">
+                <h3 class="section-title">📁 Asset Management</h3>
+                
+                <div class="command-item">
+                    <div class="command-name">asset-scan</div>
+                    <div class="command-description">Scan for existing assets and optimize reuse</div>
+                    <div class="command-actions">
+                        <button class="btn btn-success" onclick="selectCommand('asset-scan')">Select</button>
+                    </div>
+                </div>
+
+                <div class="command-item">
+                    <div class="command-name">export</div>
+                    <div class="command-description">Export generated assets in various formats</div>
+                    <div class="command-actions">
+                        <button class="btn btn-primary" onclick="selectCommand('export')">Select</button>
+                    </div>
+                </div>
+
+                <div class="command-item">
+                    <div class="command-name">cleanup</div>
+                    <div class="command-description">Clean up temporary files and optimize storage</div>
+                    <div class="command-actions">
+                        <button class="btn btn-warning" onclick="selectCommand('cleanup')">Select</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLI Help Output -->
+        {% if cli_help %}
+            <div class="cli-help">
+                <h3 class="section-title">📖 CLI Help Documentation</h3>
+                <div class="help-output">{{ cli_help }}</div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function selectCommand(commandName) {
+            const select = document.getElementById('command');
+            const options = select.options;
+            
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === commandName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Scroll to execution form
+            document.querySelector('.execution-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start' 
+            });
+        }
+
+        // Auto-populate campaign ID if available in URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const campaignId = urlParams.get('campaign_id');
+            
+            if (campaignId) {
+                document.getElementById('campaign_id').value = campaignId;
+            }
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const command = document.getElementById('command').value;
+            
+            if (!command) {
+                e.preventDefault();
+                alert('Please select a command to execute.');
+                return false;
+            }
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '⏳ Executing...';
+            submitBtn.disabled = true;
+        });
+
+        // Command filtering
+        function filterCommands(category) {
+            const items = document.querySelectorAll('.command-item');
+            items.forEach(item => {
+                const commandName = item.querySelector('.command-name').textContent;
+                // Add filtering logic based on category
+                item.style.display = 'block';
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Search commands...';
+            searchInput.style.cssText = 'width: 100%; padding: 0.75rem; margin-bottom: 2rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem;';
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const commandItems = document.querySelectorAll('.command-item');
+                
+                commandItems.forEach(item => {
+                    const commandName = item.querySelector('.command-name').textContent.toLowerCase();
+                    const commandDesc = item.querySelector('.command-description').textContent.toLowerCase();
+                    
+                    if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+            
+            const firstSection = document.querySelector('.commands-section');
+            firstSection.insertBefore(searchInput, firstSection.firstChild.nextSibling);
+        }
+
+        // Initialize search
+        setupSearch();
+    </script>
+</body>
+</html>

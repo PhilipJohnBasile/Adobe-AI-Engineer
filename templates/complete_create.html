@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Campaign - Complete Creative Automation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; padding: 0.75rem 1.5rem; background: #4299e1; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .form-container { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-section { margin-bottom: 2rem; }
+        .form-section h3 { color: #2d3748; margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #4a5568; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1); }
+        .form-group textarea { height: 100px; resize: vertical; }
+        .form-help { font-size: 0.9rem; color: #718096; margin-top: 0.25rem; }
+        .checkbox-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+        .checkbox-item { display: flex; align-items: center; }
+        .checkbox-item input { width: auto; margin-right: 0.5rem; }
+        .upload-section { border: 2px dashed #cbd5e0; border-radius: 8px; padding: 2rem; text-align: center; transition: all 0.3s ease; }
+        .upload-section:hover { border-color: #4299e1; background: #f7fafc; }
+        .upload-section input[type="file"] { margin-top: 1rem; }
+        .btn { padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s ease; }
+        .btn-primary { background: #4299e1; color: white; }
+        .btn-primary:hover { background: #3182ce; transform: translateY(-2px); }
+        .btn-success { background: #48bb78; color: white; }
+        .btn-success:hover { background: #38a169; transform: translateY(-2px); }
+        .form-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem; }
+        .flash-messages { margin-bottom: 2rem; }
+        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; }
+        .flash-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+        .flash-error { background: #fed7d7; border: 1px solid #feb2b2; color: #c53030; }
+        .flash-info { background: #ebf8ff; border: 1px solid #90cdf4; color: #2c5282; }
+        .flash-warning { background: #fefcbf; border: 1px solid #f6e05e; color: #744210; }
+        .required { color: #e53e3e; }
+        .preview-section { background: #f7fafc; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+        .preview-section h4 { color: #2d3748; margin-bottom: 0.5rem; }
+        .tag-input { display: flex; flex-wrap: wrap; align-items: center; min-height: 40px; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; }
+        .tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.5rem; border-radius: 4px; margin: 0.25rem; font-size: 0.9rem; display: flex; align-items: center; }
+        .tag-remove { margin-left: 0.5rem; cursor: pointer; color: #e53e3e; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📝 Create New Campaign</h1>
+        <p>Design your creative automation campaign with all integrated systems</p>
+    </div>
+
+    <div class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+
+        <div class="form-container">
+            <form method="POST" action="{{ url_for('upload_campaign') }}" enctype="multipart/form-data">
+                <!-- Basic Campaign Information -->
+                <div class="form-section">
+                    <h3>📋 Basic Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="campaign_name">Campaign Name <span class="required">*</span></label>
+                        <input type="text" id="campaign_name" name="campaign_name" required>
+                        <div class="form-help">Give your campaign a memorable name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign_id">Campaign ID</label>
+                        <input type="text" id="campaign_id" name="campaign_id" placeholder="Auto-generated if left blank">
+                        <div class="form-help">Unique identifier for this campaign (optional)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign_message">Campaign Message <span class="required">*</span></label>
+                        <textarea id="campaign_message" name="campaign_message" placeholder="Enter your key campaign message that will appear on all creative assets" required></textarea>
+                        <div class="form-help">This message will be displayed on all generated creative assets</div>
+                    </div>
+                </div>
+
+                <!-- Products and Targeting -->
+                <div class="form-section">
+                    <h3>🎯 Products & Targeting</h3>
+                    
+                    <div class="form-group">
+                        <label for="products">Products <span class="required">*</span></label>
+                        <input type="text" id="products" name="products" placeholder="Product 1, Product 2, Product 3" required>
+                        <div class="form-help">Comma-separated list of products (minimum 2 required)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target_region">Target Region</label>
+                        <select id="target_region" name="target_region">
+                            <option value="Global">Global</option>
+                            <option value="North America">North America</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Asia Pacific">Asia Pacific</option>
+                            <option value="Latin America">Latin America</option>
+                            <option value="Middle East">Middle East</option>
+                            <option value="Africa">Africa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target_audience">Target Audience</label>
+                        <select id="target_audience" name="target_audience">
+                            <option value="General">General</option>
+                            <option value="Young Adults (18-24)">Young Adults (18-24)</option>
+                            <option value="Millennials (25-40)">Millennials (25-40)</option>
+                            <option value="Gen X (41-56)">Gen X (41-56)</option>
+                            <option value="Baby Boomers (57+)">Baby Boomers (57+)</option>
+                            <option value="Families">Families</option>
+                            <option value="Professionals">Professionals</option>
+                            <option value="Students">Students</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Creative Requirements -->
+                <div class="form-section">
+                    <h3>🎨 Creative Requirements</h3>
+                    
+                    <div class="form-group">
+                        <label>Aspect Ratios <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ratio_1_1" name="aspect_ratios" value="1:1" checked>
+                                <label for="ratio_1_1">1:1 (Square)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ratio_9_16" name="aspect_ratios" value="9:16" checked>
+                                <label for="ratio_9_16">9:16 (Stories)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ratio_16_9" name="aspect_ratios" value="16:9" checked>
+                                <label for="ratio_16_9">16:9 (Landscape)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ratio_4_5" name="aspect_ratios" value="4:5">
+                                <label for="ratio_4_5">4:5 (Portrait)</label>
+                            </div>
+                        </div>
+                        <div class="form-help">Select which aspect ratios to generate (minimum 3 ratios required)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="style">Creative Style</label>
+                        <select id="style" name="style">
+                            <option value="modern">Modern</option>
+                            <option value="minimalist">Minimalist</option>
+                            <option value="bold">Bold</option>
+                            <option value="elegant">Elegant</option>
+                            <option value="playful">Playful</option>
+                            <option value="professional">Professional</option>
+                            <option value="vintage">Vintage</option>
+                            <option value="futuristic">Futuristic</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="colors">Brand Colors</label>
+                        <input type="text" id="colors" name="colors" placeholder="Blue, White, Silver">
+                        <div class="form-help">Comma-separated list of brand colors to use</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quality">Quality Level</label>
+                        <select id="quality" name="quality">
+                            <option value="high">High Quality</option>
+                            <option value="medium">Medium Quality</option>
+                            <option value="ultra">Ultra High Quality</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div class="form-section">
+                    <h3>📁 Upload Campaign Brief (Optional)</h3>
+                    
+                    <div class="upload-section">
+                        <div>📤 Upload Existing Campaign Brief</div>
+                        <div class="form-help">Upload a YAML, JSON, or asset file instead of filling the form</div>
+                        <input type="file" name="file" accept=".yaml,.yml,.json,.png,.jpg,.jpeg,.gif,.pdf">
+                    </div>
+                    
+                    <div class="form-help">
+                        If you upload a file, it will override the form data above. 
+                        Supported formats: YAML, JSON campaign briefs, or asset files (PNG, JPG, PDF).
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="{{ url_for('dashboard') }}" class="btn" style="background: #718096; color: white;">Cancel</a>
+                    <button type="submit" class="btn btn-success">🚀 Create Campaign</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" style="margin-top: 2rem;">
+            <h4>📋 What happens next?</h4>
+            <ol style="margin-left: 1.5rem; color: #4a5568;">
+                <li>Campaign brief will be saved to <code>campaign_briefs/</code> folder</li>
+                <li>You can run the complete pipeline using main.py (28+ commands)</li>
+                <li>Task 3 AI agents will monitor and process the campaign</li>
+                <li>Enterprise systems will ensure quality and compliance</li>
+                <li>Generated assets will be saved to <code>output/</code> folder</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Auto-generate campaign ID if name is provided
+        document.getElementById('campaign_name').addEventListener('input', function() {
+            const nameField = this;
+            const idField = document.getElementById('campaign_id');
+            
+            if (nameField.value && !idField.value) {
+                const id = nameField.value.toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '_')
+                    .substring(0, 20);
+                idField.placeholder = `campaign_${id}`;
+            }
+        });
+
+        // Validate products (minimum 2)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const products = document.getElementById('products').value.split(',').filter(p => p.trim());
+            if (products.length < 2) {
+                e.preventDefault();
+                alert('Please enter at least 2 products, separated by commas.');
+                return false;
+            }
+
+            // Validate aspect ratios (minimum 3)
+            const ratios = document.querySelectorAll('input[name="aspect_ratios"]:checked');
+            if (ratios.length < 3) {
+                e.preventDefault();
+                alert('Please select at least 3 aspect ratios for creative generation.');
+                return false;
+            }
+        });
+
+        // Real-time products preview
+        document.getElementById('products').addEventListener('input', function() {
+            const products = this.value.split(',').filter(p => p.trim());
+            const help = this.nextElementSibling;
+            help.textContent = `Comma-separated list of products (${products.length} products entered, minimum 2 required)`;
+            
+            if (products.length < 2) {
+                help.style.color = '#e53e3e';
+            } else {
+                help.style.color = '#48bb78';
+            }
+        });
+    </script>
+</body>
+</html>

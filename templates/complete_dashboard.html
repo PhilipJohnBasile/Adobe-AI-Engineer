@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Creative Automation System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .status-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .status-card h3 { color: #2d3748; margin-bottom: 1rem; font-size: 1.2rem; }
+        .status-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #edf2f7; }
+        .status-item:last-child { border-bottom: none; }
+        .status-value { font-weight: 600; }
+        .status-ready { color: #38a169; }
+        .status-warning { color: #d69e2e; }
+        .status-error { color: #e53e3e; }
+        .actions-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .action-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .btn { padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s ease; }
+        .btn-primary { background: #4299e1; color: white; }
+        .btn-primary:hover { background: #3182ce; transform: translateY(-2px); }
+        .btn-success { background: #48bb78; color: white; }
+        .btn-success:hover { background: #38a169; transform: translateY(-2px); }
+        .btn-info { background: #38b2ac; color: white; }
+        .btn-info:hover { background: #319795; transform: translateY(-2px); }
+        .btn-warning { background: #ed8936; color: white; }
+        .btn-warning:hover { background: #dd6b20; transform: translateY(-2px); }
+        .campaigns-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .campaigns-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .campaign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .campaign-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s ease; }
+        .campaign-card:hover { border-color: #4299e1; box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15); }
+        .campaign-title { font-size: 1.1rem; font-weight: 600; color: #2d3748; margin-bottom: 0.5rem; }
+        .campaign-meta { color: #718096; font-size: 0.9rem; margin-bottom: 1rem; }
+        .campaign-products { margin-bottom: 1rem; }
+        .product-tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.25rem; display: inline-block; }
+        .campaign-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
+        .flash-messages { margin-bottom: 2rem; }
+        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; }
+        .flash-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+        .flash-error { background: #fed7d7; border: 1px solid #feb2b2; color: #c53030; }
+        .flash-info { background: #ebf8ff; border: 1px solid #90cdf4; color: #2c5282; }
+        .flash-warning { background: #fefcbf; border: 1px solid #f6e05e; color: #744210; }
+        .system-overview { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .overview-stat { text-align: center; padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .overview-number { font-size: 2.5rem; font-weight: bold; color: #4299e1; }
+        .overview-label { color: #718096; font-size: 0.9rem; margin-top: 0.5rem; }
+        .no-campaigns { text-align: center; padding: 3rem; color: #718096; }
+        .no-campaigns-icon { font-size: 3rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Complete Creative Automation System</h1>
+        <p>All Tasks Integrated • 28+ CLI Commands • AI Agent Monitoring • Enterprise Ready</p>
+    </div>
+
+    <div class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- System Overview -->
+        <div class="system-overview">
+            <div class="overview-stat">
+                <div class="overview-number">{{ status.total_campaigns or 0 }}</div>
+                <div class="overview-label">Total Campaigns</div>
+            </div>
+            <div class="overview-stat">
+                <div class="overview-number">{{ status.total_outputs or 0 }}</div>
+                <div class="overview-label">Generated Outputs</div>
+            </div>
+            <div class="overview-stat">
+                <div class="overview-number">{{ status.cli_commands_available or 28 }}</div>
+                <div class="overview-label">CLI Commands Available</div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>🔧 Core System Status</h3>
+                <div class="status-item">
+                    <span>Main Pipeline</span>
+                    <span class="status-value {{ 'status-ready' if status.system_ready else 'status-error' }}">
+                        {{ 'Ready' if status.system_ready else 'Not Available' }}
+                    </span>
+                </div>
+                <div class="status-item">
+                    <span>CLI Commands</span>
+                    <span class="status-value status-ready">{{ status.cli_commands_available or 28 }} Available</span>
+                </div>
+                <div class="status-item">
+                    <span>Last Updated</span>
+                    <span class="status-value">{{ status.last_updated[:19] if status.last_updated else 'Unknown' }}</span>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <h3>🤖 Task 3 AI Systems</h3>
+                {% if status.task3_systems %}
+                    <div class="status-item">
+                        <span>Production Agent</span>
+                        <span class="status-value {{ 'status-ready' if status.task3_systems.production else 'status-error' }}">
+                            {{ 'Active' if status.task3_systems.production else 'Offline' }}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span>Enterprise System</span>
+                        <span class="status-value {{ 'status-ready' if status.task3_systems.enterprise else 'status-error' }}">
+                            {{ 'Active' if status.task3_systems.enterprise else 'Offline' }}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span>Quantum Consciousness</span>
+                        <span class="status-value {{ 'status-ready' if status.task3_systems.quantum else 'status-error' }}">
+                            {{ 'Active' if status.task3_systems.quantum else 'Offline' }}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span>Omniscient Intelligence</span>
+                        <span class="status-value {{ 'status-ready' if status.task3_systems.omniscient else 'status-error' }}">
+                            {{ 'Active' if status.task3_systems.omniscient else 'Offline' }}
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="status-item">
+                        <span>AI Systems</span>
+                        <span class="status-value status-warning">Loading...</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="status-card">
+                <h3>📊 Campaign Statistics</h3>
+                <div class="status-item">
+                    <span>Active Campaigns</span>
+                    <span class="status-value status-ready">{{ campaigns|length }}</span>
+                </div>
+                <div class="status-item">
+                    <span>Total Campaigns</span>
+                    <span class="status-value">{{ status.total_campaigns or 0 }}</span>
+                </div>
+                <div class="status-item">
+                    <span>Output Directories</span>
+                    <span class="status-value">{{ status.total_outputs or 0 }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="actions-section">
+            <h3 style="margin-bottom: 1.5rem; color: #2d3748;">🎯 Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">📝 Create Campaign</a>
+                <a href="{{ url_for('analytics') }}" class="btn btn-info">📈 View Analytics</a>
+                <a href="{{ url_for('cli_commands') }}" class="btn btn-success">⚡ Run CLI Commands</a>
+                <a href="{{ url_for('api_status') }}" class="btn btn-warning">🔍 System API</a>
+            </div>
+        </div>
+
+        <!-- Recent Campaigns -->
+        <div class="campaigns-section">
+            <div class="campaigns-header">
+                <h3 style="color: #2d3748;">📋 Recent Campaigns</h3>
+                <a href="{{ url_for('create_campaign') }}" class="btn btn-primary btn-sm">+ New Campaign</a>
+            </div>
+
+            {% if campaigns %}
+                <div class="campaign-grid">
+                    {% for campaign in campaigns %}
+                        <div class="campaign-card">
+                            <div class="campaign-title">{{ campaign.name }}</div>
+                            <div class="campaign-meta">
+                                ID: {{ campaign.id }} • Created: {{ campaign.created }}
+                            </div>
+                            
+                            {% if campaign.products %}
+                                <div class="campaign-products">
+                                    {% for product in campaign.products %}
+                                        <span class="product-tag">{{ product }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="campaign-actions">
+                                <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" class="btn btn-info btn-sm">👁️ View</a>
+                                <a href="{{ url_for('run_pipeline', campaign_id=campaign.id) }}" class="btn btn-primary btn-sm">🚀 Run Pipeline</a>
+                                <a href="{{ url_for('run_task3', campaign_id=campaign.id) }}" class="btn btn-success btn-sm">🤖 Task 3 AI</a>
+                                <a href="{{ url_for('run_enterprise', campaign_id=campaign.id) }}" class="btn btn-warning btn-sm">🏢 Enterprise</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-campaigns">
+                    <div class="no-campaigns-icon">📭</div>
+                    <h3>No campaigns yet</h3>
+                    <p>Create your first campaign to get started with automated creative generation!</p>
+                    <br>
+                    <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">Create First Campaign</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh status every 30 seconds
+        setInterval(function() {
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    // Update status indicators without full page reload
+                    console.log('Status updated:', data);
+                })
+                .catch(error => console.log('Status update failed:', error));
+        }, 30000);
+    </script>
+</body>
+</html>
