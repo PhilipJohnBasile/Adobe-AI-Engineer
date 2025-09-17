@@ -513,7 +513,7 @@ PROFILING=true python3 main.py generate brief.yaml
 
 ## 📄 License
 
-This project is part of an enterprise AI engineer assessment.
+GNU Affero General Public License v3.0 - See [LICENSE](LICENSE) file for details.
 
 ## 🏆 Achievements
 
