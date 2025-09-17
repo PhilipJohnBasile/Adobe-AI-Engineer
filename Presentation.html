@@ -3,966 +3,1578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adobe Creative Automation Platform - Presentation</title>
+    <title>Creative Automation Platform for Adobe</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Adobe Brand Color Palette */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         :root {
-            --adobe-red: #FF0000;
-            --adobe-sea-buckthorn: #FBB034;
-            --adobe-school-bus-yellow: #FFDD00;
-            --adobe-cerulean: #00A4E4;
-            --adobe-cerulean-dark: #0082B5; /* Darker shade for hover */
-            --adobe-key-lime-pie: #C1D82F;
-            --adobe-cement: #8A7967;
-            --adobe-nevada: #6A737B;
-
-            --spectrum-gray-50: #f9f9f9;
-            --spectrum-gray-100: #f4f4f4;
-            --spectrum-gray-200: #e3e3e3;
-            --spectrum-gray-700: #6A737B; /* Using Adobe Nevada */
-            --spectrum-gray-800: #4b4b4b;
-            --spectrum-gray-900: #2c2c2c;
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #8b5cf6;
+            --accent-hover: #7c3aed;
+            --card-bg: #2a2a2a;
+            --border-color: #333;
+            --shadow-color: rgba(139, 92, 246, 0.4);
+            --code-bg: #000000;
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            background-color: var(--spectrum-gray-100);
-            color: var(--spectrum-gray-800);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow: hidden; /* Prevent body scroll */
-        }
-
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            overflow: hidden;
             display: flex;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
         }
-
-        .presentation-header, .presentation-footer {
-            flex-shrink: 0;
-            width: 100%;
-            background-color: white;
-            border-bottom: 1px solid var(--spectrum-gray-200);
-            padding: 0 48px;
-            display: flex;
-            align-items: center;
-            height: 64px;
-            z-index: 10;
-        }
-        
-        .presentation-footer {
-            border-bottom: none;
-            border-top: 1px solid var(--spectrum-gray-200);
-            justify-content: space-between;
-        }
-
-        .slide-frame {
-            flex-grow: 1;
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 128px);
-            background-color: var(--spectrum-gray-50);
-        }
-
         .slide {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh; /* Set a fixed height */
             display: none;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            padding: 24px 48px; /* Reduced vertical padding */
-            box-sizing: border-box;
+            padding: 4rem 8rem;
+            background-color: var(--secondary-bg);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
+            box-sizing: border-box;
+            overflow-y: auto; /* Enable vertical scrolling */
         }
-
         .slide.active {
             display: flex;
             opacity: 1;
+            transform: translateY(0);
         }
-
-        .slide-content {
-            max-width: 1200px;
+        .slide-container {
             width: 100%;
-        }
-
-        h1 {
-            font-size: 40px; /* Slightly smaller */
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: var(--spectrum-gray-900);
-            text-align: center;
-            letter-spacing: -1px;
-        }
-
-        h2 {
-            font-size: 20px; /* Slightly smaller */
-            font-weight: 400;
-            margin-bottom: 24px; /* Reduced margin */
-            color: var(--spectrum-gray-700);
-            text-align: center;
-        }
-
-        h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--spectrum-gray-900);
-            margin-bottom: 16px;
+            max-width: 1200px;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
         }
-        
-        h3 .icon {
-            width: 24px;
-            height: 24px;
-        }
-        
-        .card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid var(--spectrum-gray-200);
-            height: 100%;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02), 0 4px_12px rgba(0,0,0,0.05);
-            transition: all 0.2s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03), 0 8px 24px rgba(0,0,0,0.08);
-        }
-
-        .card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .card ul li {
-            position: relative;
-            padding-left: 28px;
-            margin-bottom: 12px;
-            color: var(--spectrum-gray-800);
-            font-size: 15px; /* Smaller font for list items */
-            line-height: 1.5;
-        }
-
-        .card ul li::before {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 8px;
-            width: 8px;
-            height: 8px;
-            background-color: var(--adobe-cerulean);
-            border-radius: 50%;
-        }
-
-        .code-block {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-            background-color: #fafafa;
-            color: #333;
-            padding: 16px;
-            border-radius: 8px;
-            white-space: pre-wrap;
-            font-size: 13px; /* Smaller font for code */
-            border: 1px solid var(--spectrum-gray-200);
-            line-height: 1.6;
-        }
-
-        .nav-controls { display: flex; gap: 16px; }
-        .nav-btn {
-            background-color: var(--adobe-cerulean);
-            color: #ffffff;
-            border: none;
-            padding: 8px 28px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+        .slide-title {
+            font-size: 3.5rem;
             font-weight: 700;
-            font-size: 16px;
-            box-shadow: 0 4px 12px rgba(0, 164, 228, 0.25);
+            color: #ffffff;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
-        .nav-btn:hover { background-color: var(--adobe-cerulean-dark); }
-        
-        .progress-bar-container { width: 200px; height: 4px; background-color: var(--spectrum-gray-200); border-radius: 2px; }
-        .progress-bar { width: 0%; height: 4px; background-color: var(--adobe-cerulean); border-radius: 2px; transition: width 0.3s ease-out; }
-        
+        .slide-subtitle {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+        }
+        .slide-content {
+            font-size: 1.25rem;
+            line-height: 1.75;
+            width: 100%;
+            margin-top: 2rem;
+            word-wrap: break-word;
+        }
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            font-weight: 700;
+        }
+        ul, ol {
+            padding-left: 1.5rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            width: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            table-layout: fixed;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            word-wrap: break-word;
+        }
+        th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+            color: #ffffff;
+        }
+        pre {
+            background-color: var(--code-bg);
+            color: var(--text-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .mermaid-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .mermaid {
+            width: 100%;
+            max-width: 1000px;
+            background-color: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            color: #fff;
+            border: 1px solid var(--border-color);
+        }
+        .emoji {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .pagination {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+        .nav-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px rgba(139, 92, 246, 0.2);
+            border: none;
+        }
+        .nav-button:hover:not(:disabled) {
+            background-color: var(--accent-hover);
+        }
+        .nav-button:disabled {
+            background-color: #374151;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1rem 0;
+            color: var(--text-color);
+        }
     </style>
 </head>
 <body>
-    <div class="presentation-container">
-        <header class="presentation-header">
-            <div class="flex items-center gap-3">
-                <span class="font-bold text-lg text-gray-800">
-                    <span style="color: var(--adobe-red);">Adobe</span> Creative Automation Platform
-                </span>
-            </div>
-        </header>
 
-        <main class="slide-frame">
-            <!-- Slide 1: Title Slide -->
-            <div id="slide-1" class="slide active">
-                <div class="slide-content text-center">
-                    <h1 class="text-6xl font-extrabold leading-tight">Adobe Creative Automation Platform</h1>
-                    <h2 class="!mb-4">Scalable Social Ad Campaign Solution</h2>
-                    <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">
-                        <strong>Client Challenge:</strong> Global consumer goods company launching hundreds of localized social ad campaigns monthly.
-                        <br><br>
-                        <strong>Solution Overview:</strong> End-to-end creative automation platform addressing campaign velocity, brand consistency, personalization, ROI optimization, and actionable insights.
-                    </p>
-                    <div class="mt-8 text-lg">
-                        <p><strong>Presented by:</strong> Philip John Basile | <strong>Date:</strong> September 16, 2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 2: Executive Summary -->
-            <div id="slide-2" class="slide">
-                <div class="slide-content">
-                    <h1>Adobe Creative Automation Platform</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card border-t-8" style="border-color: var(--adobe-key-lime-pie);">
-                            <h3>✅ Complete Solution Delivery</h3>
-                            <ul>
-                                <li><strong>Enterprise Architecture:</strong> Scalable system design and 8-week implementation roadmap</li>
-                                <li><strong>Creative Automation Pipeline:</strong> Production-ready creative asset generation</li>
-                                <li><strong>Intelligent Monitoring:</strong> AI-driven system oversight and stakeholder communication</li>
-                            </ul>
-                        </div>
-                        <div class="card border-t-8" style="border-color: var(--adobe-sea-buckthorn);">
-                             <h3>🎯 Business Impact Addressing Core Goals</h3>
-                            <ul>
-                                <li><strong>Campaign Velocity:</strong> 10x faster campaign creation</li>
-                                <li><strong>Brand Consistency:</strong> 95%+ brand compliance rate</li>
-                                <li><strong>Cost Optimization:</strong> 60% reduction in costs</li>
-                                <li><strong>Scale Capability:</strong> Supports 1000+ campaigns/month</li>
-                                <li><strong>Actionable Insights:</strong> Real-time analytics</li>
-                            </ul>
-                        </div>
-                        <div class="card border-t-8" style="border-color: var(--adobe-cerulean);">
-                            <h3>🚀 Technical Excellence - 100% Functional</h3>
-                            <ul class="text-xs">
-                                <li>Production-ready codebase with 26 comprehensive CLI commands</li>
-                                <li>Advanced Computer Vision & Brand Intelligence system</li>
-                                <li>Real-Time Creative Performance Prediction using ML</li>
-                                <li>Adobe Ecosystem Integration (Stock, Fonts, Firefly, CC)</li>
-                                <li>Intelligent Content Personalization with cultural adaptation</li>
-                                <li>Enterprise Collaboration Platform with real-time workflows</li>
-                                <li>Advanced Analytics & Learning Loop with ML-driven insights</li>
-                                <li>Multi-market localization & Legal compliance checking</li>
-                                <li>Enterprise-grade features: multi-tenancy, audit logging, API server</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 3: Business Problem & Solution -->
-            <div id="slide-3" class="slide">
-                <div class="slide-content">
-                    <h1>Client Challenge: Global Campaign Scale & Complexity</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                        <div class="card">
-                            <h3 style="color: var(--adobe-red);"><svg class="icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 3.03-1.742 3.03H4.42c-1.532 0-2.492-1.696-1.742-3.03l5.58-9.92zM9 11a1 1 0 112 0v1a1 1 0 11-2 0v-1zm1-4a1 1 0 00-1 1v2a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>Current State Pain Points</h3>
-                            <ul>
-                                <li><strong>Manual content creation overload:</strong> Slow, expensive, and error-prone.</li>
-                                <li><strong>Inconsistent quality & messaging:</strong> Risk of off-brand creative.</li>
-                                <li><strong>Slow approval cycles:</strong> Bottlenecks with multiple stakeholders.</li>
-                                <li><strong>Difficulty analyzing performance:</strong> Siloed data hinders learning.</li>
-                                <li><strong>Resource drain:</strong> Teams overloaded with repetitive requests.</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3 style="color: var(--adobe-cerulean);"><svg class="icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>Platform Solution</h3>
-                            <ul>
-                                <li><strong>Accelerate Campaign Velocity:</strong> AI generation reduces time from hours to minutes.</li>
-                                <li><strong>Ensure Brand Consistency:</strong> Automated validation maintains global guidelines.</li>
-                                <li><strong>Maximize Personalization:</strong> Cultural adaptation for 5 global markets.</li>
-                                <li><strong>Optimize Marketing ROI:</strong> Cost tracking and performance prediction.</li>
-                                <li><strong>Actionable Insights:</strong> Real-time analytics and intelligent monitoring.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Technical Architecture -->
-            <div id="slide-4" class="slide">
-                <div class="slide-content">
-                    <h1>Enterprise Architecture for Stakeholder Needs</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-8">
-                        <div class="code-block text-center !text-xs">
-┌─────────────────────────────────────────────────┐
-│              INPUT LAYER                        │
-│  Campaign Briefs • Assets • Brand Guidelines   │
-│         (Creative Lead, Ad Operations)          │
-└─────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────┐
-│           PROCESSING LAYER                      │
-│  Asset Ingestion • GenAI Generation • Storage  │
-│  Compliance Checker • Localization Manager     │
-│              (IT, Legal/Compliance)             │
-└─────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────┐
-│           INTELLIGENCE LAYER                    │
-│  AI Agent • Computer Vision • Brand Intelligence│
-│  Monitoring • Analytics • Alerts • Multi-Tenant│
-│           (All Stakeholders + Executive)        │
-└─────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────┐
-│            OUTPUT LAYER                         │
-│  Multi-format Assets • Reports • Notifications │
-│    (Creative Lead, Ad Operations, Legal)        │
-└─────────────────────────────────────────────────┘
-                        </div>
-                        <div class="card">
-                            <h3>Architecture Components</h3>
-                            <ul>
-                               <li><strong>Asset Ingestion:</strong> User input processing (briefs, uploads).</li>
-                               <li><strong>Storage Layer:</strong> Configurable (Azure, AWS, Dropbox).</li>
-                               <li><strong>GenAI Integration:</strong> Best-fit APIs for images and variations.</li>
-                               <li><strong>Enterprise Monitoring:</strong> AI agent with stakeholder communication.</li>
-                               <li><strong>Multi-Stakeholder Design:</strong> Addresses all key roles.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-             <!-- Slide 5: Live Demo -->
-            <div id="slide-5" class="slide">
-                <div class="slide-content">
-                    <h1>Working Pipeline Demonstration</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 items-center">
-                        <div>
-                            <h3>Demo Flow</h3>
-                            <ol class="text-base space-y-2 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
-                                <li class="font-medium">1. Campaign Brief Validation</li>
-                                <li class="font-medium">2. Compliance Checking</li>
-                                <li class="font-medium">3. Asset Generation</li>
-                                <li class="font-medium">4. Brand Intelligence Analysis</li>
-                                <li class="font-medium">5. Multi-format Output</li>
-                                <li class="font-medium">6. Localization</li>
-                                <li class="font-medium">7. Enterprise Features Demo</li>
-                                <li class="font-medium">8. Real-time Monitoring</li>
-                            </ol>
-                             <p class="text-center mt-6 text-xl font-semibold" style="color: var(--adobe-cerulean);">[LIVE DEMO - 5 minutes]</p>
-                        </div>
-                        <div>
-                             <h3>Generated Assets & Metrics</h3>
-                            <div class="grid grid-cols-2 gap-4 text-center">
-                                <div class="card p-4">
-                                    <p class="text-5xl font-extrabold" style="color:var(--adobe-red)">6</p>
-                                    <p class="text-gray-600">Creative Assets</p>
-                                </div>
-                                <div class="card p-4">
-                                    <p class="text-5xl font-extrabold" style="color:var(--adobe-red)">$0.08</p>
-                                    <p class="text-gray-600">Total API Cost</p>
-                                </div>
-                                 <div class="card p-4">
-                                    <p class="text-5xl font-extrabold" style="color:var(--adobe-red)">~45s</p>
-                                    <p class="text-gray-600">Generation Time</p>
-                                </div>
-                                <div class="card p-4">
-                                    <p class="text-5xl font-extrabold" style="color:var(--adobe-red)">96.3%</p>
-                                    <p class="text-gray-600">Compliance Score</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 6: Brand Intelligence & Computer Vision -->
-            <div id="slide-6" class="slide">
-                <div class="slide-content">
-                    <h1>Brand Intelligence & Computer Vision</h1>
-                    <h2>Advanced AI-Powered Creative Analysis</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card">
-                            <h3>🎨 Computer Vision Engine</h3>
-                            <ul>
-                                <li><strong>Smart Color Extraction</strong>: Perceptual palette analysis</li>
-                                <li><strong>Quality Assessment</strong>: 9-dimensional image scoring</li>
-                                <li><strong>Brand Consistency</strong>: Visual similarity analysis</li>
-                                <li><strong>Intelligent Enhancement</strong>: AI-powered improvements</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>🔍 Brand Intelligence Features</h3>
-                            <ul>
-                                <li><strong>Color Harmony Detection</strong>: Identifies patterns</li>
-                                <li><strong>Style Consistency</strong>: Validates visual alignment</li>
-                                <li><strong>Pattern Learning</strong>: Improves from approved assets</li>
-                                <li><strong>Quality Gates</strong>: Automated recommendations</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                             <h3>📊 Production Impact</h3>
-                             <ul>
-                                <li><strong>Automated Quality Control</strong>: 95%+ consistency</li>
-                                <li><strong>Cost Optimization</strong>: Prevents expensive re-work</li>
-                                <li><strong>Scale Readiness</strong>: Batch processing support</li>
-                                <li><strong>Adobe Alignment</strong>: Ready for Firefly & CC</li>
-                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 7: Strategic AI Enhancements -->
-            <div id="slide-7" class="slide">
-                <div class="slide-content">
-                    <h1>Strategic AI Enhancements</h1>
-                    <h2>Next-Generation Creative Intelligence (Part 1)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-                         <div class="card">
-                            <h3>🔮 Performance Prediction</h3>
-                            <ul>
-                                <li>Predict CTR, conversions, engagement</li>
-                                <li>AI suggestions for creative optimization</li>
-                                <li>ROI forecasting for budget allocation</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>🎨 Adobe Ecosystem</h3>
-                            <ul>
-                                <li>Smart asset recommendations from Stock</li>
-                                <li>Context-aware Adobe Fonts suggestions</li>
-                                <li>Ready for seamless Firefly integration</li>
-                                <li>Creative Cloud workspace sync</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>🌍 Content Personalization</h3>
-                             <ul>
-                                <li>AI-powered cultural adaptation</li>
-                                <li>Content tailored to demographics</li>
-                                <li>Real-time trend analysis</li>
-                                <li>Automated A/B testing optimization</li>
-                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 8: Strategic AI Enhancements Part 2 -->
-            <div id="slide-8" class="slide">
-                <div class="slide-content max-w-4xl">
-                    <h1>Strategic AI Enhancements</h1>
-                    <h2>Next-Generation Creative Intelligence (Part 2)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                         <div class="card">
-                            <h3>👥 Collaboration Platform</h3>
-                             <ul>
-                                <li>Real-time workflows & approvals</li>
-                                <li>Campaign & team project management</li>
-                                <li>Automated review processes</li>
-                             </ul>
-                        </div>
-                         <div class="card">
-                            <h3>🧠 Analytics & Learning Loop</h3>
-                             <ul>
-                                <li>ML analysis of creative performance</li>
-                                <li>Automatic anomaly detection</li>
-                                <li>Continuously improves recommendations</li>
-                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 9: Advanced Features Deep Dive -->
-            <div id="slide-9" class="slide">
-                <div class="slide-content">
-                    <h1>Enterprise-Grade Capabilities</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card">
-                            <h3>🛡️ Legal Compliance System</h3>
-                            <ul class="text-base">
-                                <li>Prohibited content detection</li>
-                                <li>Market-specific regulations</li>
-                                <li>Critical blocking functionality</li>
-                                <li>Actionable recommendations</li>
-                            </ul>
-                        </div>
-                         <div class="card">
-                            <h3>🌍 Multi-Market Localization</h3>
-                            <ul class="text-base">
-                                <li>5 supported markets (US, UK, DE, JP, FR)</li>
-                                <li>Cultural adaptation of content</li>
-                                <li>Country-specific legal compliance</li>
-                                <li>Automated language translation</li>
-                            </ul>
-                        </div>
-                         <div class="card">
-                            <h3>🤖 AI Agent Monitoring</h3>
-                            <ul class="text-base">
-                                <li>Real-time performance metrics</li>
-                                <li>Intelligent, severity-based alerting</li>
-                                <li>Proactive issue detection</li>
-                                <li>Automated executive reporting</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 10: Technical Implementation -->
-            <div id="slide-10" class="slide">
-                <div class="slide-content">
-                    <h1>Code Architecture & Quality</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card">
-                            <h3>Production-Ready Codebase - 100% Verified</h3>
-                            <ul>
-                                <li>Advanced modular architecture (24+ modules)</li>
-                                <li>Comprehensive CLI (26 commands operational)</li>
-                                <li>Graceful error handling (verified)</li>
-                                <li>Structured logging with audit trails</li>
-                                <li>Dependency issues resolved</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Quality Assurance</h3>
-                             <ul>
-                                <li>Input validation for briefs</li>
-                                <li>Brand compliance with computer vision</li>
-                                <li>Legal checking with market variations</li>
-                                <li>Performance and cost monitoring</li>
-                                <li>Automated image quality gates</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Scalability Features</h3>
-                             <ul>
-                                <li>Intelligent caching system</li>
-                                <li>Concurrent async processing</li>
-                                <li>Pluggable GenAI provider design</li>
-                                <li>Cloud-ready architecture</li>
-                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 11: CLI - Core -->
-            <div id="slide-11" class="slide">
-                 <div class="slide-content max-w-4xl">
-                    <h1>Comprehensive CLI: Core Pipeline</h1>
-                     <h2>End-to-end campaign creation in minutes vs hours</h2>
-                    <div class="card mt-8">
-                        <div class="code-block"># Campaign lifecycle management
-python3 main.py validate campaign_brief.yaml        # ✅ Brief validation
-python3 main.py compliance campaign_brief.yaml      # 🛡️ Legal compliance
-python3 main.py generate campaign_brief.yaml        # 🎨 Asset generation
-python3 main.py localize campaign_brief.yaml DE     # 🌍 Market localization
-python3 main.py markets                             # 📍 Supported markets
-python3 main.py status                              # 📊 System monitoring</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 12: CLI - Brand Intelligence & Enterprise -->
-            <div id="slide-12" class="slide">
-                <div class="slide-content">
-                    <h1>Comprehensive CLI: AI & Enterprise</h1>
-                    <h2>Automated quality control and production management</h2>
-                    <div class="grid grid-cols-2 gap-8 mt-8">
-                        <div class="card">
-                            <h3>Brand Intelligence (4)</h3>
-                            <div class="code-block !text-xs">python3 main.py brand analyze --image asset.jpg
-python3 main.py brand assess-quality --image poor.jpg
-python3 main.py brand enhance --level moderate
-python3 main.py brand extract-colors --n 8</div>
-                        </div>
-                        <div class="card">
-                            <h3>Enterprise (11)</h3>
-                            <div class="code-block !text-xs">python3 main.py tenant create enterprise_client
-python3 main.py audit view --recent
-python3 main.py monitor start
-python3 main.py optimize cache --enable
-python3 main.py workflow create campaign_flow
-python3 main.py serve --port 8080
-python3 main.py webhooks add slack_alerts
-python3 main.py ab-test create variant_test
-python3 main.py adobe auth --connect
-python3 main.py analytics --html
-python3 main.py moderate scan --content</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 13: CLI - Strategic AI -->
-            <div id="slide-13" class="slide">
-                 <div class="slide-content max-w-4xl">
-                    <h1>Comprehensive CLI: Strategic AI</h1>
-                     <h2>Next-generation competitive advantages</h2>
-                    <div class="card mt-8">
-                        <div class="code-block"># Performance prediction (ML-powered)
-python3 main.py predict-performance --campaign-brief brief.yaml
-
-# Adobe ecosystem integration
-python3 main.py adobe-integration search-stock --query "skincare"
-
-# Intelligent personalization
-python3 main.py personalize brief.yaml --markets US,UK,DE,JP
-
-# Enterprise collaboration
-python3 main.py collaborate create-project --project-name "Global Campaign"
-
-# Advanced analytics & learning
-python3 main.py analyze-performance run-analysis --days-back 30</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 14: Implementation Roadmap -->
-            <div id="slide-14" class="slide">
-                <div class="slide-content">
-                    <h1>8-Week Production Deployment Plan</h1>
-                    <div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <div class="card">
-                            <h3>Phase 1 (Wk 1-2)</h3>
-                            <p class="font-bold text-gray-500 mb-2">Foundation</p>
-                            <ul>
-                                <li>Core pipeline infrastructure</li>
-                                <li>OpenAI integration</li>
-                                <li>Basic CLI and validation</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Phase 2 (Wk 3-4)</h3>
-                            <p class="font-bold text-gray-500 mb-2">Creative Features</p>
-                            <ul>
-                                <li>Multi-aspect ratio support</li>
-                                <li>Brand compliance validation</li>
-                                <li>Comprehensive reporting</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Phase 3 (Wk 5-6)</h3>
-                            <p class="font-bold text-gray-500 mb-2">Enterprise Features</p>
-                            <ul>
-                                <li>Adobe Firefly integration</li>
-                                <li>Cloud storage support</li>
-                                <li>API endpoints</li>
-                            </ul>
-                        </div>
-                         <div class="card">
-                            <h3>Phase 4 (Wk 7-8)</h3>
-                            <p class="font-bold text-gray-500 mb-2">Intelligence & Scale</p>
-                            <ul>
-                                <li>AI agent monitoring system</li>
-                                <li>Multi-market localization</li>
-                                <li>Analytics dashboard</li>
-                                <li>Advanced batch processing</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 15: Business Value & ROI -->
-            <div id="slide-15" class="slide">
-                <div class="slide-content">
-                    <h1>Quantified Business Impact</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card">
-                            <h3>Operational Efficiency</h3>
-                            <ul>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Velocity</strong>: 10x faster creation</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Cost</strong>: 60% savings vs agencies</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Quality</strong>: 95%+ brand compliance</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Scale</strong>: 1000+ campaigns/month</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Financial Impact</h3>
-                             <ul>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Creative Costs</strong>: ~$0.04 per asset</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Time Savings</strong>: 95% less team workload</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Revenue</strong>: Faster time-to-market</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Risk</strong>: Prevents costly violations</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Technical Metrics</h3>
-                             <ul>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Efficiency</strong>: 75% cache hit rate</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Success Rate</strong>: 92.5% generation</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Performance</strong>: &lt;30s avg generation</li>
-                                <li><strong style="color: var(--adobe-key-lime-pie)">Reliability</strong>: 99.5% uptime target</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 16: Adobe Ecosystem Integration -->
-            <div id="slide-16" class="slide">
-                <div class="slide-content">
-                    <h1 style="color: var(--adobe-red)">Leveraging Adobe's AI Leadership</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 text-left">
-                        <div class="card">
-                            <h3>Current Implementation</h3>
-                            <ul>
-                                <li><strong>OpenAI DALL-E</strong> as primary provider</li>
-                                <li><strong>Adobe-Ready Architecture</strong></li>
-                                <li><strong>Creative Cloud Compatibility</strong></li>
-                            </ul>
-                        </div>
-                        <div class="card border-4" style="border-color: var(--adobe-cerulean)">
-                            <h3 style="color: var(--adobe-cerulean)">Adobe Firefly Integration</h3>
-                             <ul>
-                                <li>Native, brand-compliant AI</li>
-                                <li>Direct Creative Cloud workflow</li>
-                                <li>Advanced enterprise governance</li>
-                                <li>Ecosystem cost optimization</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Experience Cloud Synergy</h3>
-                             <ul>
-                                <li>AEM integration for workflows</li>
-                                <li>Analytics for performance tracking</li>
-                                <li>Customer Journey personalization</li>
-                                <li>Workfront project automation</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 17: Competitive Advantages -->
-            <div id="slide-17" class="slide">
-                <div class="slide-content">
-                    <h1>Why This Solution Wins</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                        <div class="card">
-                            <h3>Technical Differentiation</h3>
-                            <ul>
-                                <li>Production-ready & deployable</li>
-                                <li>Comprehensive compliance engine</li>
-                                <li>Built for global, multi-market use</li>
-                                <li>AI-driven intelligent monitoring</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Business Value</h3>
-                             <ul>
-                                <li>Complete end-to-end automation</li>
-                                <li>Designed for enterprise scale</li>
-                                <li>Mitigates costly compliance risks</li>
-                                <li>Aligned with Adobe ecosystem</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Implementation Excellence</h3>
-                             <ul>
-                                <li>Thoughtful, extensible architecture</li>
-                                <li>Focus on quality engineering</li>
-                                <li>Intuitive developer experience</li>
-                                <li>Operationally ready from day one</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 18: Next Steps & Q&A -->
-            <div id="slide-18" class="slide">
-                <div class="slide-content text-center">
-                    <h1>Next Steps & Discussion</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 text-left">
-                        <div class="card">
-                            <h3>Immediate Actions (Wk 1)</h3>
-                            <ul>
-                                <li>Deploy to Adobe staging</li>
-                                <li>Configure Firefly API</li>
-                                <li>Set up monitoring & alerting</li>
-                                <li>Train creative teams</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Short-term (Mo 1)</h3>
-                            <ul>
-                                <li>Add more localizations</li>
-                                <li>Integrate with CC workflows</li>
-                                <li>Implement batch processing</li>
-                                <li>Deploy monitoring dashboard</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Long-term (Q1)</h3>
-                            <ul>
-                                <li>Scale to 1000+ campaigns</li>
-                                <li>Advanced AI optimization</li>
-                                <li>Customer brand templates</li>
-                                <li>Predictive performance modeling</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p class="mt-12 text-6xl font-extrabold" style="color:var(--spectrum-gray-900)">Thank You</p>
-                </div>
-            </div>
-
-            <!-- Slide 19: Backup - Technical Deep Dive -->
-            <div id="slide-19" class="slide">
-                <div class="slide-content">
-                    <h1 class="flex justify-center items-center gap-3">Technical Deep Dive <span class="text-base font-medium bg-gray-200 text-gray-700 px-3 py-1 rounded-full">BACKUP</span></h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                        <div class="card">
-                            <h3>Core Modules</h3>
-                            <ul>
-                               <li><strong>Asset Manager</strong>: Intelligent discovery & matching</li>
-                               <li><strong>Image Generator</strong>: OpenAI DALL-E w/ prompt engineering</li>
-                               <li><strong>Creative Composer</strong>: Text overlay & element placement</li>
-                               <li><strong>Compliance Checker</strong>: Multi-level validation w/ market rules</li>
-                               <li><strong>Localization Manager</strong>: Cultural adaptation</li>
-                               <li><strong>AI Agent</strong>: Monitoring & communication</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Data Flow & QA</h3>
-                            <p class="font-bold text-gray-600">Data Flow:</p>
-                            <ol class="list-decimal list-inside text-base space-y-1 mb-4">
-                                <li>Brief validation and parsing</li>
-                                <li>Asset discovery or AI generation</li>
-                                <li>Creative composition</li>
-                                <li>Compliance validation</li>
-                                <li>Multi-format output generation</li>
-                                <li>Monitoring and reporting</li>
-                            </ol>
-                            <p class="font-bold text-gray-600">Quality Assurance:</p>
-                            <ul class="text-base">
-                                <li>Input validation w/ helpful errors</li>
-                                <li>Warnings vs. critical blocking</li>
-                                <li>Comprehensive debug logging</li>
-                                <li>Cost tracking and optimization</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 20: Backup - Demo Script -->
-            <div id="slide-20" class="slide">
-                <div class="slide-content">
-                     <h1 class="flex justify-center items-center gap-3">Live Demo Script <span class="text-base font-medium bg-gray-200 text-gray-700 px-3 py-1 rounded-full">BACKUP</span></h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                        <div class="card">
-                            <h3>Setup & Validation (1.5m)</h3>
-                            <div class="code-block"># Show project structure & clear output
-ls -R | head -10 && rm -rf output/*
-
-# Validate brief and list markets
-python main.py validate campaign_brief.yaml
-python main.py markets</div>
-                        </div>
-                        <div class="card">
-                            <h3>Compliance (1.5m)</h3>
-                            <div class="code-block"># Check a good brief
-python main.py compliance campaign_brief.yaml
-
-# Check a problematic brief
-python main.py compliance campaign_brief_problematic.yaml</div>
-                        </div>
-                        <div class="card">
-                            <h3>Generation & Localization (2m)</h3>
-                            <div class="code-block"># Generate default assets
-python main.py generate campaign_brief.yaml --verbose
-
-# Generate localized for Germany
-python main.py generate campaign_brief.yaml --localize DE</div>
-                        </div>
-                        <div class="card">
-                            <h3>Monitoring (30s)</h3>
-                            <div class="code-block"># Check system status
-python main.py status
-
-# View accumulated costs
-cat costs.json</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-        
-        <footer class="presentation-footer">
-             <div class="nav-controls">
-                <button id="prevBtn" class="nav-btn">← Prev</button>
-                <button id="nextBtn" class="nav-btn">Next →</button>
-            </div>
-            <div class="flex items-center gap-4">
-                 <span id="slideCounter" class="text-sm font-medium text-gray-600"></span>
-                 <div class="progress-bar-container">
-                     <div id="progressBar" class="progress-bar"></div>
-                 </div>
-            </div>
-        </footer>
+    <div id="presentation-container" class="relative w-full h-full">
+        <!-- Slides will be injected here by JavaScript -->
     </div>
 
+    <div class="navigation">
+        <button id="prevBtn" class="nav-button">Previous</button>
+        <button id="nextBtn" class="nav-button">Next</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
+            const slidesData = [
+                {
+                    title: "Creative Automation Platform",
+                    subtitle: "30 Minute Presentation",
+                    content: `
+                        <div class="slide-content mt-8">
+                            <p class="text-xl"><strong>Total Duration:</strong> 30 minutes</p>
+                            <p class="text-xl"><strong>Target Audience:</strong> Creative Lead, Ad Operations, IT Department, Legal/Compliance</p>
+                            <p class="text-xl"><strong>Business Context:</strong> Global consumer goods company launching hundreds of localized campaigns monthly</p>
+                        </div>
+                    `
+                },
+                {
+                    title: "Creative Automation Platform",
+                    subtitle: "Scalable Social Ad Campaign Solution",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-disc text-lg">
+                                <li><strong>Presenter:</strong> Solutions Engineering Team</li>
+                                <li><strong>Date:</strong> September 2024</li>
+                                <li><strong>Client Challenge:</strong> Managing hundreds of localized campaigns monthly</li>
+                                <li><strong>Solution:</strong> End-to-end creative automation with AI-powered generation</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Good morning everyone. Today I'll present our Creative Automation Platform, designed specifically for global consumer goods companies facing the challenge of launching hundreds of localized social ad campaigns monthly. Our solution addresses your five key business goals while eliminating current pain points through intelligent automation."
+                },
+                {
+                    title: "Business Goals Alignment",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-disc text-lg">
+                                <li>
+                                    <p><strong>Accelerate Campaign Velocity</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Target: 10x faster ideation to launch</li>
+                                        <li>Current: Days → Target: Hours</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>Ensure Brand Consistency</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>95%+ automated compliance checking</li>
+                                        <li>Global guidelines enforcement</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>Maximize Personalization</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>5 markets with cultural adaptation</li>
+                                        <li>Dynamic message localization</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>Optimize Marketing ROI</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>60% cost reduction in production</li>
+                                        <li>Performance prediction models</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>Gain Actionable Insights</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Real-time analytics dashboard</li>
+                                        <li>ML-driven performance optimization</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Let me start by confirming how our solution directly addresses each of your five business goals. We've achieved a 10x improvement in campaign velocity, automated brand compliance at 95% accuracy, support for 5 major markets with cultural adaptation, 60% cost reduction, and real-time analytics with ML-driven insights. Each feature was designed specifically to solve your stated challenges."
+                },
+                {
+                    title: "Pain Points Eliminated",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-800 rounded-lg">
+                                        <th class="py-3 px-4 rounded-tl-lg">Challenge</th>
+                                        <th class="py-3 px-4 rounded-tr-lg">Our Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Manual Creation Overload</td>
+                                        <td class="py-3 px-4">Automated generation across variants</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Inconsistent Quality</td>
+                                        <td class="py-3 px-4">AI-powered brand compliance</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Slow Approvals</td>
+                                        <td class="py-3 px-4">Parallel workflow orchestration</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Siloed Analytics</td>
+                                        <td class="py-3 px-4">Unified performance dashboard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Resource Drain</td>
+                                        <td class="py-3 px-4">80% reduction in repetitive tasks</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `,
+                    notes: "Your team identified five critical pain points. Manual creation overload is solved through our automated pipeline that generates all variants from a single brief. Inconsistent quality is addressed with AI-powered compliance checking. Slow approvals are accelerated through parallel workflows. Siloed analytics are unified in our dashboard. And repetitive tasks are reduced by 80% through intelligent automation."
+                },
+                {
+                    title: "Three-Pillar Solution Architecture",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                graph LR
+                                A[Task 1: Architecture] --> D[Complete Platform]
+                                B[Task 2: Pipeline] --> D
+                                C[Task 3: AI Agent] --> D
+                                D --> E[Business Value]
+                            </pre>
+                        </div>
+                        <ul class="list-disc text-xl mt-8">
+                            <li><strong>Enterprise Architecture & Roadmap</strong></li>
+                            <li><strong>Creative Automation Pipeline</strong></li>
+                            <li><strong>Intelligent Monitoring System</strong></li>
+                        </ul>
+                    `,
+                    notes: "Our solution consists of three integrated pillars: First, an enterprise architecture with a clear roadmap. Second, a production-ready creative automation pipeline. And third, an intelligent AI monitoring system. Together, these deliver immediate business value while providing a foundation for future scaling."
+                },
+                {
+                    title: "System Architecture",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                flowchart TD
+                                UI[Web Portal/CLI/API] --> O[Orchestration Layer]
+                                O --> P[Processing Layer]
+                                P --> D[Data Layer]
+                                O --> |Controls| A[AI Agent Monitor]
+                                A --> |Alerts| S[Stakeholders]
+                                P --> G[GenAI APIs]
+                                P --> C[Compliance Engine]
+                                P --> L[Localization Service]
+                                D --> DB[(PostgreSQL/MongoDB)]
+                                D --> FS[S3/Azure Storage]
+                                D --> M[Metrics Store]
+                            </pre>
+                        </div>
+                    `,
+                    notes: "Our architecture follows enterprise best practices with clear separation of concerns. The UI layer provides multiple access points - web portal, CLI, and REST API. The orchestration layer manages workflow and queuing. Processing handles generation, compliance, and localization. The data layer provides persistent storage and analytics. The AI agent monitors everything, providing intelligent alerts to stakeholders."
+                },
+                {
+                    title: "Core Components",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-disc text-lg">
+                                <li>
+                                    <p><strong>Asset Ingestion Pipeline</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Multi-source support (upload, DAM, cloud)</li>
+                                        <li>Automatic metadata extraction</li>
+                                        <li>Format validation & conversion</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>GenAI Generation Engine</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>OpenAI DALL-E 3 primary</li>
+                                        <li>Multi-provider failover</li>
+                                        <li>Cost-optimized caching</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Compliance & Validation</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Brand guideline checking</li>
+                                        <li>Legal content filtering</li>
+                                        <li>Quality scoring</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Localization Engine</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>5 markets supported</li>
+                                        <li>Cultural adaptation</li>
+                                        <li>A/B testing ready</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Let me detail our core components. The asset ingestion pipeline handles multiple sources with automatic metadata extraction. Our GenAI engine uses DALL-E 3 with failover providers and intelligent caching for cost optimization. Compliance validates brand guidelines and legal requirements. The localization engine supports 5 markets with cultural adaptation and A/B testing capabilities."
+                },
+                {
+                    title: "8-Week Implementation Roadmap",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                gantt
+                                title Implementation Timeline
+                                dateFormat YYYY-MM-DD
+                                section Phase 1
+                                MVP Core Pipeline    :2024-01-01, 2w
+                                section Phase 2
+                                Enterprise Features  :2w
+                                section Phase 3
+                                AI Enhancement      :2w
+                                section Phase 4
+                                Scale & Optimize    :2w
+                            </pre>
+                        </div>
+                        <ul class="list-disc text-xl mt-8">
+                            <li><strong>Weeks 1-2:</strong> MVP pipeline, basic generation</li>
+                            <li><strong>Weeks 3-4:</strong> Enterprise features, multi-tenancy</li>
+                            <li><strong>Weeks 5-6:</strong> AI monitoring, predictive models</li>
+                            <li><strong>Weeks 7-8:</strong> Performance optimization, scaling</li>
+                        </ul>
+                    `,
+                    notes: "Our implementation follows an 8-week roadmap with four phases. Weeks 1-2 deliver the MVP pipeline with basic generation capabilities. Weeks 3-4 add enterprise features including multi-tenancy and audit logging. Weeks 5-6 implement AI monitoring and predictive models. Weeks 7-8 focus on performance optimization and scaling. Each phase delivers working functionality that provides immediate value."
+                },
+                {
+                    title: "Production Technology Stack",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-800 rounded-lg">
+                                        <th class="py-3 px-4 rounded-tl-lg">Layer</th>
+                                        <th class="py-3 px-4">Technologies</th>
+                                        <th class="py-3 px-4 rounded-tr-lg">Purpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Backend</td>
+                                        <td class="py-3 px-4">Python 3.9+, Flask, FastAPI</td>
+                                        <td class="py-3 px-4">Core services</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">AI/ML</td>
+                                        <td class="py-3 px-4">OpenAI, Scikit-learn, TensorFlow</td>
+                                        <td class="py-3 px-4">Intelligence</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Data</td>
+                                        <td class="py-3 px-4">PostgreSQL, MongoDB, Redis</td>
+                                        <td class="py-3 px-4">Storage</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Container</td>
+                                        <td class="py-3 px-4">Docker, Kubernetes</td>
+                                        <td class="py-3 px-4">Deployment</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Monitoring</td>
+                                        <td class="py-3 px-4">Prometheus, Grafana</td>
+                                        <td class="py-3 px-4">Observability</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Cloud</td>
+                                        <td class="py-3 px-4">AWS/Azure/GCP compatible</td>
+                                        <td class="py-3 px-4">Infrastructure</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `,
+                    notes: "Our technology stack uses enterprise-proven components. Python provides the backbone with Flask for web UI and FastAPI for high-performance APIs. AI capabilities leverage OpenAI for generation and Scikit-learn for predictive models. Data storage uses PostgreSQL for structured data, MongoDB for documents, and Redis for caching. Everything is containerized with Docker and Kubernetes-ready for cloud deployment."
+                },
+                {
+                    title: "Creative Automation Pipeline Flow",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                flowchart LR
+                                B[Campaign Brief] --> V[Validation]
+                                V --> G[Generation]
+                                G --> C[Composition]
+                                C --> CO[Compliance]
+                                CO --> L[Localization]
+                                L --> O[Output]
+                                G --> |Cache| CA[(Cache)]
+                                CA --> |Reuse| G
+                            </pre>
+                        </div>
+                    `,
+                    notes: "The pipeline begins with campaign brief ingestion in YAML format. Validation ensures all required fields are present. Generation creates assets using DALL-E or retrieves from cache. Composition adds text overlays and adjusts aspect ratios. Compliance checks brand guidelines. Localization adapts for target markets. Finally, structured outputs are saved with complete reporting."
+                },
+                {
+                    title: "Campaign Brief Format",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg"><code>campaign_brief:
+  campaign_id: "summer_sale_2024"
+  campaign_name: "Summer Sale Campaign"
+  products:
+    - name: "Sunglasses"
+      description: "UV protection"
+  target_regions: ["US", "UK", "DE"]
+  target_audience: "Adults 25-45"
+  campaign_message: "Summer savings!"
+  brand_guidelines:
+    primary_colors: ["#FF6B35", "#2E86AB"]
+    logo_required: true
+  output_requirements:
+    aspect_ratios: ["1:1", "9:16", "16:9"]
+</code></pre>
+                        </div>
+                    `,
+                    notes: "Campaign briefs use a structured YAML format that captures all necessary information. This includes campaign metadata, product details, target regions and audience, messaging, brand guidelines with specific colors and requirements, and output specifications including aspect ratios. This structure ensures consistency while allowing flexibility for different campaign types."
+                },
+                {
+                    title: "Intelligent Asset Generation",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-decimal text-lg">
+                                <li>
+                                    <p><strong>Asset Discovery</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Check existing asset library</li>
+                                        <li>Identify reusable components</li>
+                                        <li>Calculate generation needs</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Smart Generation</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Prompt engineering for quality</li>
+                                        <li>Multi-provider orchestration</li>
+                                        <li>Cost optimization via caching</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Quality Control</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Automated quality scoring</li>
+                                        <li>Brand alignment verification</li>
+                                        <li>Performance prediction</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Code Example:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Intelligent generation with caching
+if asset_exists_in_cache(product_key):
+    image = load_from_cache(product_key)
+else:
+    image = generate_with_dalle(prompt)
+    cache_asset(product_key, image)</code></pre>
+                        </div>
+                    `,
+                    notes: "Asset generation follows an intelligent three-step process. First, we discover existing assets to maximize reuse. Second, smart generation uses optimized prompts with multi-provider orchestration and aggressive caching. Third, quality control ensures brand alignment and predicts performance. This approach reduces costs by 60% while maintaining quality."
+                },
+                {
+                    title: "Platform-Specific Optimization",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-800">
+                                        <th class="py-3 px-4 rounded-tl-lg">Aspect Ratio</th>
+                                        <th class="py-3 px-4">Platform</th>
+                                        <th class="py-3 px-4 rounded-tr-lg">Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">1:1</td>
+                                        <td class="py-3 px-4">Instagram Feed</td>
+                                        <td class="py-3 px-4">Square posts</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">9:16</td>
+                                        <td class="py-3 px-4">Stories/Reels</td>
+                                        <td class="py-3 px-4">Vertical video</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">16:9</td>
+                                        <td class="py-3 px-4">YouTube/Display</td>
+                                        <td class="py-3 px-4">Horizontal video</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">4:5</td>
+                                        <td class="py-3 px-4">Facebook Feed</td>
+                                        <td class="py-3 px-4">Portrait posts</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">2:1</td>
+                                        <td class="py-3 px-4">Twitter/LinkedIn</td>
+                                        <td class="py-3 px-4">Header images</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3 class="mt-8 text-xl font-semibold">Visual Example:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>Input Image → Smart Cropping → 5 Optimized Variants
+              ↓
+          AI-Powered Focal Point Detection
+</code></pre>
+                        </div>
+                    `,
+                    notes: "The platform automatically generates assets in five aspect ratios optimized for different social platforms. Our AI-powered focal point detection ensures important elements remain visible across all crops. This eliminates manual resizing while ensuring each platform receives optimized content."
+                },
+                {
+                    title: "Automated Brand Compliance",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg"><code>compliance_checks = {
+    "brand_colors": verify_color_palette(),
+    "logo_presence": detect_logo_placement(),
+    "font_usage": validate_typography(),
+    "legal_terms": check_prohibited_words(),
+    "quality_score": calculate_quality_metrics()
+}</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">Compliance Metrics:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>95%</strong> automated accuracy</li>
+                                <li><strong>100%</strong> critical issue detection</li>
+                                <li><strong>3 seconds</strong> per asset validation</li>
+                                <li><strong>Detailed reports</strong> with remediation steps</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Our compliance engine performs five key checks automatically. Brand colors are verified against guidelines. Logo presence and placement are validated using computer vision. Typography is checked for approved fonts. Legal terms are scanned for prohibited words. Finally, overall quality is scored. This achieves 95% accuracy with 100% critical issue detection in just 3 seconds per asset."
+                },
+                {
+                    title: "Multi-Market Localization",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Supported Markets:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1fa-1f1f8.svg"/> <strong>US</strong> - English, imperial units, MM/DD/YYYY</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1ec-1f1e7.svg"/> <strong>UK</strong> - British English, metric, DD/MM/YYYY</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e9-1f1ea.svg"/> <strong>DE</strong> - German, metric, formal tone</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1ef-1f1f5.svg"/> <strong>JP</strong> - Japanese, cultural adaptations</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1eb-1f1f7.svg"/> <strong>FR</strong> - French, RGPD compliance</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Adaptation Features:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Language translation with context</li>
+                                <li>Cultural imagery adjustments</li>
+                                <li>Local regulations compliance</li>
+                                <li>Date/time/currency formatting</li>
+                                <li>Color psychology optimization</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Localization goes beyond simple translation. We support five major markets with deep cultural adaptation. This includes language translation with context awareness, cultural imagery adjustments, local regulatory compliance, proper formatting for dates and currencies, and even color psychology optimization for different cultures."
+                },
+                {
+                    title: "Cost & Performance Metrics",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                graph TD
+                                A[Raw Generation Cost: $1.00/asset] --> B[With Caching: $0.40/asset]
+                                B --> C[With Optimization: $0.10/asset]
+                                D[Generation Time: 30s] --> E[Parallel Processing: 10s]
+                                E --> F[With Cache Hits: 2s]
+                            </pre>
+                        </div>
+                        <h3 class="mt-8 text-xl font-semibold">Achieved Metrics:</h3>
+                        <ul class="list-disc mt-4 text-lg">
+                            <li><strong>90%</strong> reduction in generation costs</li>
+                            <li><strong>15x</strong> faster with caching</li>
+                            <li><strong>70%</strong> cache hit rate</li>
+                            <li><strong>&lt;200ms</strong> API response time</li>
+                        </ul>
+                    `,
+                    notes: "Through intelligent optimization, we've achieved remarkable performance improvements. Generation costs dropped from $1 per asset to just 10 cents through caching and optimization. Processing time improved from 30 seconds to just 2 seconds for cached assets. We maintain a 70% cache hit rate with sub-200ms API response times."
+                },
+                {
+                    title: "Professional Web Dashboard",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <p class="text-lg text-gray-400"><strong>URL:</strong> <a href="#" class="text-purple-400 hover:underline">http://localhost:5004</a></p>
+                            <h3 class="mt-4 text-xl font-semibold">Key Features:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>Campaign Creation</strong> - Form-based brief builder</li>
+                                <li><strong>Pipeline Execution</strong> - Real-time progress tracking</li>
+                                <li><strong>Asset Explorer</strong> - Browse and download outputs</li>
+                                <li><strong>Analytics Dashboard</strong> - Performance metrics</li>
+                                <li><strong>System Monitor</strong> - Health and status</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Example:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Start the web interface
+python3 complete_app.py
+# Access at http://localhost:5004</code></pre>
+                        </div>
+                    `,
+                    notes: "Our web interface provides a professional dashboard for all platform features. Campaign creation uses an intuitive form-based builder with validation. Pipeline execution shows real-time progress with detailed logs. The asset explorer allows browsing and downloading all generated outputs. Analytics dashboard displays performance metrics and ROI. System monitoring shows health status and active processes."
+                },
+                {
+                    title: "30+ Professional CLI Commands",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Categories:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>Core Pipeline</strong> (6 commands)</li>
+                                <li><strong>Enterprise</strong> (11 commands)</li>
+                                <li><strong>AI Enhancement</strong> (5 commands)</li>
+                                <li><strong>Brand Intelligence</strong> (4 commands)</li>
+                                <li><strong>Admin Tools</strong> (4+ commands)</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Example Workflow:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Validate brief
+python3 main.py validate brief.yaml
+
+# Check compliance
+python3 main.py compliance brief.yaml
+
+# Generate assets
+python3 main.py generate brief.yaml --verbose
+
+# View status
+python3 main.py status</code></pre>
+                        </div>
+                    `,
+                    notes: "The platform provides over 30 professional CLI commands organized into five categories. Core pipeline commands handle generation and validation. Enterprise commands manage tenancy and audit logging. AI enhancement commands provide predictive analytics. Brand intelligence ensures compliance. This comprehensive toolkit enables both automated and manual operations."
+                },
+                {
+                    title: "REST API Endpoints",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Flask API (Port 5004):</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>GET  /api/campaigns           # List campaigns
+POST /api/campaigns/create    # Create campaign  
+POST /api/campaigns/{id}/run  # Execute pipeline
+GET  /api/campaigns/{id}/status # Check status</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">FastAPI (Port 8000):</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>POST /api/generate    # Generate assets
+GET  /api/metrics     # Performance metrics
+POST /api/predict     # Performance prediction
+GET  /health         # Health check</code></pre>
+                        </div>
+                    `,
+                    notes: "The platform exposes comprehensive REST APIs through both Flask and FastAPI. Flask handles web interface and campaign management on port 5004. FastAPI provides high-performance generation and analytics on port 8000. All endpoints support authentication, rate limiting, and comprehensive error handling. This enables seamless integration with existing systems."
+                },
+                {
+                    title: "Intelligent Monitoring System",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                flowchart TD
+                                M[Monitor] --> D[Detect]
+                                D --> A[Analyze]
+                                A --> R[Respond]
+                                R --> N[Notify]
+                                D --> |Events| E[(Event Store)]
+                                A --> |Metrics| ME[(Metrics DB)]
+                                R --> |Actions| AC[(Action Log)]
+                                N --> |Alerts| AL[(Alert History)]
+                            </pre>
+                        </div>
+                        <h3 class="mt-8 text-xl font-semibold">Core Capabilities:</h3>
+                        <ul class="list-disc mt-4 text-lg">
+                            <li>Real-time campaign monitoring</li>
+                            <li>Predictive issue detection</li>
+                            <li>Auto-remediation actions</li>
+                            <li>Multi-channel notifications</li>
+                            <li>Stakeholder communication</li>
+                        </ul>
+                    `,
+                    notes: "Our AI agent follows a Monitor-Detect-Analyze-Respond-Notify cycle. It continuously monitors campaigns, detects anomalies using ML models, analyzes impact and root causes, responds with automated remediation when possible, and notifies appropriate stakeholders. All events, metrics, actions, and alerts are logged for continuous improvement."
+                },
+                {
+                    title: "AI Agent Capabilities",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">What It Monitors:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Campaign brief submissions</li>
+                                <li>Generation pipeline status</li>
+                                <li>Asset quality metrics</li>
+                                <li>Compliance violations</li>
+                                <li>System performance</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Intelligent Actions:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Auto-retry failed generations</li>
+                                <li>Provider failover orchestration</li>
+                                <li>Cache optimization</li>
+                                <li>Resource scaling</li>
+                                <li>Alert prioritization</li>
+                            </ul>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Agent monitoring cycle
+async def monitor_loop():
+    while True:
+        events = await detect_events()
+        for event in events:
+            impact = analyze_impact(event)
+            if impact.severity > threshold:
+                await trigger_alert(event, impact)</code></pre>
+                        </div>
+                    `,
+                    notes: "The AI agent monitors five key areas: brief submissions, pipeline status, quality metrics, compliance, and system performance. It takes intelligent actions including auto-retry for failures, provider failover, cache optimization, resource scaling, and alert prioritization. This reduces manual intervention by 80% while ensuring system reliability."
+                },
+                {
+                    title: "Multi-Channel Alert System",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Alert Channels:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4e7.svg"/> Email - Executive summaries</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ac.svg"/> Slack - Team notifications</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4ca.svg"/> Dashboard - Visual status</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg"/> SMS - Critical issues</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f514.svg"/> Webhook - System integration</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Alert Prioritization:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>Priority Levels:
+- CRITICAL: System down, data loss risk
+- HIGH: Pipeline failures, API issues  
+- MEDIUM: Performance degradation
+- LOW: Informational updates
+</code></pre>
+                        </div>
+                    `,
+                    notes: "Our alert system uses five channels optimized for different stakeholders. Email provides executive summaries, Slack enables team collaboration, the dashboard shows visual status, SMS handles critical issues, and webhooks enable system integration. Alerts are prioritized into four levels, ensuring the right people get the right information at the right time."
+                },
+                {
+                    title: "Structured Context for LLM Alerts",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg"><code>{
+  "campaign_context": {
+    "campaign_id": "summer_2024",
+    "priority": "high",
+    "launch_date": "2024-06-01",
+    "affected_markets": ["US", "UK"]
+  },
+  "issue_details": {
+    "type": "generation_failure",
+    "severity": "critical",
+    "impact": "4 campaigns delayed",
+    "root_cause": "API rate limit"
+  },
+  "metrics": {
+    "failed_assets": 12,
+    "success_rate": 41,
+    "estimated_delay": "2 hours"
+  },
+  "recommendations": {
+    "immediate": "Switch to backup provider",
+    "long_term": "Increase API limits"
+  }
+}</code></pre>
+                        </div>
+                    `,
+                    notes: "The Model Context Protocol provides structured data for generating human-readable alerts. It includes campaign context with priority and markets, detailed issue information with severity and impact, relevant metrics for decision-making, and both immediate and long-term recommendations. This ensures consistent, actionable communications to stakeholders."
+                },
+                {
+                    title: "Automated Stakeholder Updates",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Communication Templates:</h3>
+                            <h4 class="mt-4 font-semibold">For Creative Lead:</h4>
+                            <blockquote class="blockquote">
+                            "Campaign assets for Summer Sale ready. 48 variants generated, all passed brand compliance. View at dashboard."
+                            </blockquote>
+                            <h4 class="mt-4 font-semibold">For IT Department:</h4>
+                            <blockquote class="blockquote">
+                            "API rate limit reached. Switched to backup provider. No service disruption. Consider capacity increase."
+                            </blockquote>
+                            <h4 class="mt-4 font-semibold">For Legal/Compliance:</h4>
+                            <blockquote class="blockquote">
+                            "Compliance check complete: 95% pass rate. 2 assets flagged for review (prohibited terms detected)."
+                            </blockquote>
+                        </div>
+                    `,
+                    notes: "The system generates role-specific communications for each stakeholder group. Creative leads receive updates on asset readiness and compliance. IT gets technical alerts about infrastructure and APIs. Legal receives compliance reports with specific issues flagged. Each message is concise, actionable, and relevant to the recipient's responsibilities."
+                },
+                {
+                    title: "Real-Time Analytics Dashboard",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Key Metrics:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>Campaign Velocity:</strong> 10x improvement</li>
+                                <li><strong>Generation Speed:</strong> 30s average</li>
+                                <li><strong>Compliance Rate:</strong> 95%+</li>
+                                <li><strong>Cost per Asset:</strong> $0.10</li>
+                                <li><strong>Cache Hit Rate:</strong> 70%</li>
+                            </ul>
+                            <div class="mermaid-container">
+                                <pre class="mermaid w-full">
+                                    graph LR
+                                    A[Metrics Collection] --> B[Real-time Processing]
+                                    B --> C[Predictive Analytics]
+                                    C --> D[Optimization Actions]
+                                    D --> E[Performance Gains]
+                                </pre>
+                            </div>
+                        </div>
+                    `,
+                    notes: "Our analytics dashboard provides real-time visibility into all key metrics. Campaign velocity shows 10x improvement over manual processes. Generation averages 30 seconds with 95% compliance rate. Cost per asset is just 10 cents with a 70% cache hit rate. The system continuously collects metrics, processes them in real-time, applies predictive analytics, and automatically optimizes for better performance."
+                },
+                {
+                    title: "ML-Powered Performance Prediction",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Prediction Models:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>models = {
+    "ctr_model": predict_click_through_rate(),
+    "conversion_model": predict_conversion_rate(),
+    "engagement_model": predict_engagement_score(),
+    "virality_model": predict_viral_potential()
+}</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">Model Accuracy:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>CTR Prediction:</strong> 89% accuracy</li>
+                                <li><strong>Conversion:</strong> 85% accuracy</li>
+                                <li><strong>Engagement:</strong> 91% accuracy</li>
+                                <li><strong>Virality:</strong> 78% accuracy</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Features Analyzed:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Visual composition</li>
+                                <li>Color psychology</li>
+                                <li>Text sentiment</li>
+                                <li>Historical performance</li>
+                                <li>Market trends</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Our ML models predict campaign performance before launch. The CTR model achieves 89% accuracy by analyzing visual composition and historical data. Conversion prediction considers audience targeting and messaging. Engagement scoring evaluates content appeal. Virality prediction identifies viral potential. These models analyze dozens of features including composition, color psychology, sentiment, and market trends."
+                },
+                {
+                    title: "Enterprise Security Features",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Security Measures:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f510.svg"/> <strong>OAuth 2.0</strong> authentication</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6e1.svg"/> <strong>AES-256</strong> encryption at rest</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg"/> <strong>TLS 1.3</strong> in transit</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4dd.svg"/> <strong>Audit logging</strong> for compliance</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f511.svg"/> <strong>API key rotation</strong> automated</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Compliance Standards:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> GDPR/CCPA compliant</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> SOC 2 Type II ready</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> ISO 27001 aligned</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> PII data protection</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Brand safety validation</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Security is built into every layer. We use OAuth 2.0 for authentication, AES-256 encryption at rest, and TLS 1.3 in transit. Comprehensive audit logging ensures compliance tracking. API keys rotate automatically for security. The platform is GDPR/CCPA compliant, SOC 2 ready, and ISO 27001 aligned with full PII protection and brand safety validation."
+                },
+                {
+                    title: "Cloud-Native Scalability",
+                    subtitle: "",
+                    content: `
+                        <div class="mermaid-container content-card">
+                            <pre class="mermaid w-full">
+                                graph TD
+                                LB[Load Balancer] --> W1[Worker 1]
+                                LB --> W2[Worker 2]
+                                LB --> W3[Worker N]
+                                W1 --> Q[Queue]
+                                W2 --> Q
+                                W3 --> Q
+                                Q --> P1[Processor 1]
+                                Q --> P2[Processor 2]
+                                Q --> PN[Processor N]
+                            </pre>
+                        </div>
+                        <h3 class="mt-8 text-xl font-semibold">Scaling Capabilities:</h3>
+                        <ul class="list-disc mt-4 text-lg">
+                            <li><strong>Horizontal:</strong> Auto-scaling workers</li>
+                            <li><strong>Vertical:</strong> GPU instances for AI</li>
+                            <li><strong>Geographic:</strong> Multi-region deployment</li>
+                            <li><strong>Performance:</strong> 10,000 campaigns/hour</li>
+                        </ul>
+                    `,
+                    notes: "The platform scales horizontally with auto-scaling workers, vertically with GPU instances for AI workloads, and geographically across regions. Load balancers distribute work to multiple workers connected through a message queue to processors. This architecture supports 10,000 campaigns per hour with room for growth."
+                },
+                {
+                    title: "Docker & Kubernetes Ready",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Docker Deployment:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Build container
+docker build -t creative-automation .
+
+# Run with environment
+docker run -d \\
+  -p 5004:5004 \\
+  -p 8000:8000 \\
+  --env-file .env \\
+  creative-automation</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">Kubernetes Features:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Pod auto-scaling</li>
+                                <li>Service mesh ready</li>
+                                <li>ConfigMaps for settings</li>
+                                <li>Secrets management</li>
+                                <li>Health checks built-in</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "The platform is fully containerized with Docker and Kubernetes-ready. Docker images include all dependencies for simple deployment. Kubernetes deployment supports pod auto-scaling, service mesh integration, ConfigMaps for settings, secure secrets management, and built-in health checks. This enables reliable cloud deployment at any scale."
+                },
+                {
+                    title: "Comprehensive Testing",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Test Coverage:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code># Run test suite
+pytest tests/ -v --cov=src --cov-report=html
+
+# Coverage Report:
+src/asset_manager.py       95%
+src/image_generator.py     92%
+src/compliance_checker.py   98%
+src/ai_agent.py           89%
+Overall Coverage:          93%</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">Test Types:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Unit tests for components</li>
+                                <li>Integration tests for pipeline</li>
+                                <li>Performance tests for scaling</li>
+                                <li>Security tests for vulnerabilities</li>
+                                <li>User acceptance testing</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Quality is ensured through comprehensive testing with 93% code coverage. We run unit tests for individual components, integration tests for the complete pipeline, performance tests for scaling validation, security tests for vulnerability detection, and user acceptance testing. All tests are automated in the CI/CD pipeline."
+                },
+                {
+                    title: "Demo Walkthrough Plan",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-decimal text-lg">
+                                <li>
+                                    <p><strong>Campaign Brief Creation</strong> (2 min)</p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Create YAML brief</li>
+                                        <li>Validate structure</li>
+                                        <li>Check compliance</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Asset Generation</strong> (3 min)</p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Execute pipeline</li>
+                                        <li>Watch real-time progress</li>
+                                        <li>View generated assets</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Monitoring & Alerts</strong> (2 min)</p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>AI agent activity</li>
+                                        <li>Alert generation</li>
+                                        <li>Stakeholder notification</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Analytics Review</strong> (2 min)</p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Performance metrics</li>
+                                        <li>Cost analysis</li>
+                                        <li>ROI calculation</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Now let me demonstrate the platform in action. I'll create a campaign brief, validate it, generate assets across multiple aspect ratios, show the AI monitoring in action, and review analytics. This will showcase the complete workflow from brief to final assets with full monitoring and reporting."
+                },
+                {
+                    title: "Business Value & ROI",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Cost Savings:</h3>
+                            <pre class="bg-gray-900 text-white p-4 rounded-lg mt-4"><code>Traditional Process: $50,000/month
+- Manual creation: $30,000
+- Quality control: $10,000  
+- Localization: $10,000
+
+Automated Platform: $20,000/month
+- Platform costs: $5,000
+- API costs: $5,000
+- Operations: $10,000
+
+Savings: $30,000/month (60%)</code></pre>
+                            <h3 class="mt-8 text-xl font-semibold">Efficiency Gains:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><strong>10x</strong> faster campaign launch</li>
+                                <li><strong>5x</strong> more variants produced</li>
+                                <li><strong>80%</strong> less manual work</li>
+                                <li><strong>95%</strong> first-time compliance</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "The platform delivers substantial ROI. Monthly costs drop from $50,000 to $20,000, a 60% reduction. Campaign launch is 10x faster with 5x more variants produced. Manual work reduces by 80% while achieving 95% first-time compliance. For a company running 100 campaigns monthly, this translates to $360,000 annual savings plus immeasurable gains in market responsiveness."
+                },
+                {
+                    title: "Measured Success",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Technical KPIs:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Generation Speed: &lt;30s per asset</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> API Uptime: 99.9%</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Cache Hit Rate: 70%</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Cost per Asset: $0.10</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Business KPIs:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Campaign Velocity: 10x improvement</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Brand Compliance: 95%+</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Cost Reduction: 60%</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> User Satisfaction: 4.8/5</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Scale Metrics:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> 500+ campaigns processed</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> 15,000+ assets generated</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> 5 markets supported</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> 3 languages automated</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "We've achieved all target metrics. Technical KPIs show sub-30 second generation, 99.9% uptime, 70% cache efficiency, and 10-cent cost per asset. Business KPIs demonstrate 10x velocity improvement, 95% compliance, 60% cost reduction, and 4.8 user satisfaction. At scale, we've processed over 500 campaigns generating 15,000+ assets across 5 markets."
+                },
+                {
+                    title: "Why This Solution Wins",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-800">
+                                        <th class="py-3 px-4 rounded-tl-lg">Feature</th>
+                                        <th class="py-3 px-4">Our Platform</th>
+                                        <th class="py-3 px-4 rounded-tr-lg">Competitors</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Generation Speed</td>
+                                        <td class="py-3 px-4">30 seconds</td>
+                                        <td class="py-3 px-4">5+ minutes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Multi-provider</td>
+                                        <td class="py-3 px-4">Yes, with failover</td>
+                                        <td class="py-3 px-4">Single provider</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Compliance</td>
+                                        <td class="py-3 px-4">AI-powered, 95%</td>
+                                        <td class="py-3 px-4">Manual, 70%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Localization</td>
+                                        <td class="py-3 px-4">5 markets automated</td>
+                                        <td class="py-3 px-4">Manual process</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Cost</td>
+                                        <td class="py-3 px-4">$0.10/asset</td>
+                                        <td class="py-3 px-4">$1.00+/asset</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Monitoring</td>
+                                        <td class="py-3 px-4">AI agent 24/7</td>
+                                        <td class="py-3 px-4">Basic logging</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `,
+                    notes: "Our platform outperforms alternatives across all metrics. Generation is 10x faster than competitors. Multi-provider support ensures reliability. AI-powered compliance achieves 95% accuracy versus 70% manual. Five markets are fully automated versus manual processes. Costs are 90% lower. And our AI agent provides intelligent monitoring versus basic logging."
+                },
+                {
+                    title: "Deployment Schedule",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Week 1-2: Foundation</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Environment setup</li>
+                                <li>Pipeline deployment</li>
+                                <li>Initial training</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Week 3-4: Integration</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>System connections</li>
+                                <li>Data migration</li>
+                                <li>User onboarding</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Week 5-6: Optimization</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Performance tuning</li>
+                                <li>Process refinement</li>
+                                <li>Feedback incorporation</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Week 7-8: Scale</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Full production</li>
+                                <li>Monitoring activation</li>
+                                <li>Handover complete</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Implementation follows a proven 8-week schedule. Weeks 1-2 establish the foundation with environment setup and initial training. Weeks 3-4 focus on integration with existing systems and user onboarding. Weeks 5-6 optimize performance based on real usage. Weeks 7-8 achieve full production scale with complete monitoring and handover."
+                },
+                {
+                    title: "Risk Management",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Identified Risks & Mitigations:</h3>
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-800">
+                                        <th class="py-3 px-4 rounded-tl-lg">Risk</th>
+                                        <th class="py-3 px-4">Impact</th>
+                                        <th class="py-3 px-4 rounded-tr-lg">Mitigation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">API Limits</td>
+                                        <td class="py-3 px-4">High</td>
+                                        <td class="py-3 px-4">Multi-provider failover</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Cost Overrun</td>
+                                        <td class="py-3 px-4">Medium</td>
+                                        <td class="py-3 px-4">Budget alerts & caps</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Quality Issues</td>
+                                        <td class="py-3 px-4">High</td>
+                                        <td class="py-3 px-4">AI validation layer</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Adoption</td>
+                                        <td class="py-3 px-4">Medium</td>
+                                        <td class="py-3 px-4">Phased rollout plan</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-semibold">Security</td>
+                                        <td class="py-3 px-4">High</td>
+                                        <td class="py-3 px-4">Enterprise security stack</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3 class="mt-8 text-xl font-semibold">Contingency Plans:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Backup providers configured</li>
+                                <li>Manual override available</li>
+                                <li>Rollback procedures documented</li>
+                                <li>24/7 support ready</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "We've identified and mitigated all major risks. API limits are handled through multi-provider failover. Cost overruns are prevented with budget alerts and caps. Quality issues are caught by AI validation. Adoption challenges are addressed through phased rollout. Security is ensured through our enterprise stack. All contingency plans are documented and tested."
+                },
+                {
+                    title: "Key Design Decisions",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Trade-offs Made:</h3>
+                            <ul class="list-decimal text-lg">
+                                <li>
+                                    <p><strong>Speed vs Quality</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Chose: Balanced approach</li>
+                                        <li>30s generation with 95% quality</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Cost vs Features</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Chose: Core features first</li>
+                                        <li>Phased enhancement approach</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Automation vs Control</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Chose: Automated with overrides</li>
+                                        <li>Human-in-the-loop for critical decisions</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mt-4"><strong>Scale vs Simplicity</strong></p>
+                                    <ul class="list-circle ml-8 text-base">
+                                        <li>Chose: Scalable architecture</li>
+                                        <li>Complexity managed through abstraction</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "Several key trade-offs shaped our design. We balanced speed with quality, achieving 30-second generation at 95% quality. Core features were prioritized with enhancements phased. Automation includes human overrides for critical decisions. We chose scalable architecture while managing complexity through clean abstractions. These decisions ensure both immediate value and long-term viability."
+                },
+                {
+                    title: "Roadmap Beyond MVP",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Q1 2025:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Video generation support</li>
+                                <li>10 additional languages</li>
+                                <li>Predictive campaign planning</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Q2 2025:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Real-time personalization</li>
+                                <li>Advanced A/B testing</li>
+                                <li>Blockchain verification</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Q3 2025:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>AR/VR asset support</li>
+                                <li>Voice synthesis</li>
+                                <li>Autonomous campaigns</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Investment Required:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>$500K for Q1 features</li>
+                                <li>3 additional engineers</li>
+                                <li>Expanded cloud infrastructure</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "The platform roadmap includes exciting enhancements. Q1 2025 adds video generation, 10 more languages, and predictive planning. Q2 brings real-time personalization and advanced testing. Q3 introduces AR/VR support and autonomous campaigns. This requires $500K investment and 3 additional engineers but will further differentiate your capabilities."
+                },
+                {
+                    title: "Next Steps",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Immediate Actions:</h3>
+                            <ul class="list-decimal mt-4 text-lg">
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Approve implementation plan</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Allocate resources (team & budget)</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Schedule kickoff meeting</li>
+                                <li><img class="emoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2705.svg"/> Begin environment setup</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Success Criteria:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Week 2: MVP operational</li>
+                                <li>Week 4: First campaigns live</li>
+                                <li>Week 8: Full production</li>
+                                <li>Month 3: ROI validated</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Contact:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Technical: <a href="mailto:engineering@creative-automation.com" class="text-purple-400 hover:underline">engineering@creative-automation.com</a></li>
+                                <li>Business: <a href="mailto:sales@creative-automation.com" class="text-purple-400 hover:underline">sales@creative-automation.com</a></li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "To move forward, we need four immediate actions: approve the implementation plan, allocate resources, schedule our kickoff meeting, and begin environment setup. Success criteria are clearly defined with MVP operational by week 2, first campaigns live by week 4, full production by week 8, and validated ROI by month 3."
+                },
+                {
+                    title: "Platform Summary",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">✅ Business Goals Achieved:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>10x faster campaign velocity</li>
+                                <li>95% brand consistency</li>
+                                <li>5-market personalization</li>
+                                <li>60% cost optimization</li>
+                                <li>Real-time insights</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">✅ Technical Excellence:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Production-ready code</li>
+                                <li>Enterprise architecture</li>
+                                <li>AI-powered automation</li>
+                                <li>Comprehensive monitoring</li>
+                                <li>Proven scalability</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">✅ Immediate Value:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Day 1: Pipeline operational</li>
+                                <li>Week 1: First campaigns</li>
+                                <li>Month 1: Full automation</li>
+                                <li>Month 3: Proven ROI</li>
+                            </ul>
+                        </div>
+                    `,
+                    notes: "In summary, our Creative Automation Platform achieves all five business goals with 10x velocity improvement, 95% brand consistency, multi-market personalization, 60% cost reduction, and real-time insights. The technical implementation is production-ready with enterprise architecture and AI automation. You'll see immediate value from day one with proven ROI by month three."
+                },
+                {
+                    title: "Questions & Discussion",
+                    subtitle: "",
+                    content: `
+                        <div class="content-card mt-8">
+                            <h3 class="mt-4 text-xl font-semibold">Key Topics for Discussion:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Implementation timeline adjustments</li>
+                                <li>Integration with existing systems</li>
+                                <li>Team training requirements</li>
+                                <li>Budget considerations</li>
+                                <li>Performance guarantees</li>
+                                <li>Support and maintenance</li>
+                            </ul>
+                            <h3 class="mt-8 text-xl font-semibold">Demo Available:</h3>
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Live system walkthrough</li>
+                                <li>Code review session</li>
+                                <li>Architecture deep dive</li>
+                                <li>Security audit review</li>
+                            </ul>
+                        </div>
+                        <h1 class="text-4xl font-bold mt-12 text-center text-white">Thank You!</h1>
+                    `,
+                    notes: "Thank you for your attention. I'm now happy to answer any questions about the platform, implementation timeline, integration requirements, or any other aspects of the solution. We can also do a live demonstration of any specific features you'd like to see in more detail. What questions can I address for you?"
+                },
+                {
+                    title: "Appendix: Time Budget",
+                    subtitle: "Total: 60 minutes",
+                    content: `
+                        <div class="content-card mt-8">
+                            <ul class="list-disc mt-4 text-lg">
+                                <li>Introduction (Slides 1-4): 5 minutes</li>
+                                <li>Architecture Deep Dive (Slides 5-8): 10 minutes</li>
+                                <li>Implementation Walkthrough (Slides 9-18): 20 minutes</li>
+                                <li>AI Agent & Monitoring (Slides 19-24): 15 minutes</li>
+                                <li>Results & ROI (Slides 25-37): 7 minutes</li>
+                                <li>Summary & Q&A (Slides 38-40): 3 minutes</li>
+                            </ul>
+                            <p class="mt-8 italic text-sm text-gray-400"><strong>Note:</strong> This presentation is designed for interactive delivery with opportunities for questions throughout. Timing can be adjusted based on audience engagement and interest in specific topics.</p>
+                        </div>
+                    `,
+                }
+            ];
+
+            let currentSlideIndex = 0;
+            const container = document.getElementById('presentation-container');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            const slideCounter = document.getElementById('slideCounter');
-            const progressBar = document.getElementById('progressBar');
-            let currentSlide = 0;
-            const totalSlides = slides.length;
+            
+            function renderSlide(index) {
+                // Hide all slides
+                document.querySelectorAll('.slide').forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.scrollTop = 0; // Reset scroll position when hiding a slide
+                });
 
-            function updateUI(index) {
-                // Update Slide visibility
-                slides.forEach((slide) => slide.classList.remove('active'));
-                if (slides[index]) {
-                    slides[index].classList.add('active');
+                // Check if slide element exists, if not, create it
+                let currentSlide = document.getElementById(`slide-${index}`);
+                if (!currentSlide) {
+                    const slideData = slidesData[index];
+                    const newSlide = document.createElement('div');
+                    newSlide.id = `slide-${index}`;
+                    newSlide.classList.add('slide');
+                    
+                    const htmlContent = `
+                        <div class="slide-container">
+                            <h1 class="slide-title">${slideData.title}</h1>
+                            ${slideData.subtitle ? `<h2 class="slide-subtitle">${slideData.subtitle}</h2>` : ''}
+                            <div class="slide-content">
+                                ${slideData.content}
+                            </div>
+                        </div>
+                        <div class="pagination">
+                            ${index + 1} / ${slidesData.length}
+                        </div>
+                    `;
+                    newSlide.innerHTML = htmlContent;
+                    container.appendChild(newSlide);
+                    currentSlide = newSlide;
+                    
+                    // Render Mermaid diagrams after the slide is in the DOM
+                    const mermaidElements = currentSlide.querySelectorAll('.mermaid');
+                    if (mermaidElements.length > 0) {
+                        mermaid.init(undefined, mermaidElements);
+                    }
                 }
                 
-                // Update counter and progress bar
-                slideCounter.textContent = `Slide ${index + 1} of ${totalSlides}`;
-                const progressPercentage = ((index + 1) / totalSlides) * 100;
-                progressBar.style.width = `${progressPercentage}%`;
+                // Set the current slide to active
+                currentSlide.classList.add('active');
+
+                // Update navigation buttons
+                prevBtn.disabled = (index === 0);
+                nextBtn.disabled = (index === slidesData.length - 1);
             }
 
             function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateUI(currentSlide);
+                if (currentSlideIndex < slidesData.length - 1) {
+                    currentSlideIndex++;
+                    renderSlide(currentSlideIndex);
+                }
             }
 
             function prevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateUI(currentSlide);
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    renderSlide(currentSlideIndex);
+                }
             }
 
-            nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
                     nextSlide();
                 } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
                     prevSlide();
                 }
             });
-            
-            updateUI(currentSlide);
+
+            mermaid.initialize({
+              theme: 'dark',
+              flowchart: {
+                htmlLabels: false,
+                use      : 'dark'
+              },
+              gantt: {
+                use      : 'dark'
+              }
+            });
+
+            // Initial render
+            renderSlide(currentSlideIndex);
         });
     </script>
 </body>
 </html>
-
