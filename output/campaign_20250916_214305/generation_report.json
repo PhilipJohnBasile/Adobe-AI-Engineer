@@ -1,0 +1,23 @@
+{
+  "campaign_id": "campaign_20250916_214305",
+  "generated_at": "2025-09-16T21:49:00.667939",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "North America",
+  "campaign_message": "The games you love. The way you want to play. Handheld to home in a heartbeat with smoother, sharper, faster play everywhere.",
+  "generated_files": [
+    "switch2/1x1.jpg",
+    "switch2/16x9.jpg",
+    "switch2/9x16.jpg",
+    "switch_oled/1x1.jpg",
+    "switch_oled/16x9.jpg",
+    "switch_oled/9x16.jpg",
+    "switch_lite/1x1.jpg",
+    "switch_lite/16x9.jpg",
+    "switch_lite/9x16.jpg"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "campaign_id": "campaign_20250916_222538",
+  "generated_at": "2025-09-16T22:26:29.873569",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "DE, JP, UK",
+  "campaign_message": "Wenn du damit ein Haus bauen kannst, kannst du auch damit einen Computer bauen!",
+  "generated_files": [
+    "computers_brick/1x1.jpg",
+    "computers_brick/16x9.jpg",
+    "computers_brick/9x16.jpg",
+    "computers_dirt/1x1.jpg",
+    "computers_dirt/16x9.jpg",
+    "computers_dirt/9x16.jpg",
+    "computers_stucco/1x1.jpg",
+    "computers_stucco/16x9.jpg",
+    "computers_stucco/9x16.jpg"
+  ]
+}

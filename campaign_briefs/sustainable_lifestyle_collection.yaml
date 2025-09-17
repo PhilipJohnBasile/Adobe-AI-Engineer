@@ -1,0 +1,98 @@
+campaign_brief:
+  campaign_id: sustainable_lifestyle_collection
+  campaign_name: "Eco-Conscious Living Collection"
+  campaign_message: "Small changes, big impact. Discover our sustainable lifestyle collection that doesn't compromise on style or quality."
+  
+  target_audience: "environmentally conscious millennials and Gen-Z, aged 22-40, urban professionals"
+  
+  target_regions:
+    - US
+    - CA
+    - UK
+    - AU
+    - NZ
+    - SE  # Sweden
+    - NL  # Netherlands
+  
+  products:
+    - name: "Bamboo Essential Kit"
+      description: "Complete zero-waste bathroom essentials made from sustainable bamboo"
+      target_keywords:
+        - "bamboo"
+        - "zero waste"
+        - "sustainable"
+        - "eco-friendly"
+        - "bathroom essentials"
+    
+    - name: "Recycled Ocean Plastic Bags"
+      description: "Stylish bags made from 100% recycled ocean plastic"
+      target_keywords:
+        - "ocean plastic"
+        - "recycled"
+        - "sustainable fashion"
+        - "eco bags"
+    
+    - name: "Solar Power Bank"
+      description: "Portable solar-powered charger for sustainable energy on-the-go"
+      target_keywords:
+        - "solar power"
+        - "renewable energy"
+        - "portable charger"
+        - "sustainable tech"
+  
+  brand_guidelines:
+    primary_colors:
+      - "#2D5016"  # Forest Green
+      - "#8FBC8F"  # Sea Green
+      - "#F4E4C1"  # Natural Beige
+      - "#87CEEB"  # Sky Blue
+      - "#D2691E"  # Earth Brown
+    
+    fonts:
+      - "Poppins"
+      - "Playfair Display"
+      - "Montserrat"
+    
+    tone: "warm and inclusive, inspiring, educational, optimistic about the future"
+  
+  budget_constraints:
+    generation_limit: 15
+    max_api_cost: 45.00
+  
+  timeline:
+    launch_date: "2025-04-22"  # Earth Day
+    priority: "high"
+    rush_order: false
+  
+  output_requirements:
+    aspect_ratios:
+      - "1:1"
+      - "9:16"
+      - "16:9"
+      - "4:5"
+    
+    formats:
+      - "JPG"
+      - "PNG"
+    
+    quality: "high"
+    
+    special_requirements:
+      - "Natural, organic textures"
+      - "Soft, natural lighting"
+      - "Include plants and nature elements"
+      - "Minimal, clean aesthetic"
+      - "Show products in real-life context"
+  
+  sustainability_metrics:
+    carbon_neutral: true
+    plastic_free_packaging: true
+    fair_trade_certified: true
+    donation_pledge: "1% of sales to environmental causes"
+  
+  call_to_action:
+    primary: "Shop Sustainable"
+    secondary: "Learn Our Impact"
+    urgency: "Join 10,000+ eco-warriors"
+  
+  created_at: "2025-09-17T03:16:00.000Z"

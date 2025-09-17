@@ -1,0 +1,51 @@
+campaign_brief:
+  campaign_id: flash_sale_weekend
+  campaign_name: "48-Hour Flash Sale"
+  campaign_message: "48 HOURS ONLY! Up to 70% off everything. No code needed."
+  
+  target_audience: "bargain hunters and existing customers"
+  
+  target_regions:
+    - US
+  
+  products:
+    - name: "Everything On Sale"
+      description: "Sitewide discount on all products"
+      target_keywords:
+        - "sale"
+        - "discount"
+        - "flash sale"
+        - "limited time"
+  
+  brand_guidelines:
+    primary_colors:
+      - "#FF0000"  # Sale Red
+      - "#FFD700"  # Gold
+      - "#000000"  # Black
+    
+    fonts:
+      - "Impact"
+      - "Arial Black"
+    
+    tone: "urgent, exciting, value-focused"
+  
+  budget_constraints:
+    generation_limit: 5
+    max_api_cost: 10.00
+  
+  timeline:
+    launch_date: "2025-09-20"
+    priority: "critical"
+    rush_order: true
+  
+  output_requirements:
+    aspect_ratios:
+      - "1:1"
+      - "9:16"
+    
+    formats:
+      - "JPG"
+    
+    quality: "standard"
+  
+  created_at: "2025-09-17T03:17:00.000Z"

@@ -1,0 +1,15 @@
+{
+  "campaign_id": "flash_sale_weekend",
+  "generated_at": "2025-09-17T08:18:44.853817",
+  "products": 1,
+  "aspect_ratios": [
+    "1:1",
+    "9:16"
+  ],
+  "target_region": "US",
+  "campaign_message": "48 HOURS ONLY! Up to 70% off everything. No code needed.",
+  "generated_files": [
+    "everything_on_sale/1x1.jpg",
+    "everything_on_sale/9x16.jpg"
+  ]
+}

@@ -1,0 +1,30 @@
+campaign_brief:
+  campaign_id: campaign_20250916_232706
+  campaign_message: Join the future of technology. Where breakthrough ideas meet revolutionary
+    solutions. Register now for early bird access.
+  campaign_name: Tech Innovation Summit 2025
+  created_at: '2025-09-17T03:27:06.763Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+  products:
+  - description: 'Product: AI Development Platform'
+    name: AI Development Platform
+  - description: 'Product: Quantum Computing Simulator'
+    name: Quantum Computing Simulator
+  - description: 'Product: Blockchain Security Suite'
+    name: Blockchain Security Suite
+  - description: 'Product: IoT Management Console'
+    name: IoT Management Console
+  target_audience: Tech leaders, CTOs, developers, and innovation managers aged 28-55
+  target_regions:
+  - US
+  - DE
+  - FR
+  - JP
+  - UK
+  - CA

@@ -1,0 +1,43 @@
+campaign_brief:
+  campaign_id: campaign_20250916_222538
+  campaign_message: If you can build a house with it you can build a comptuer with
+    it too!
+  campaign_name: Computers
+  created_at: '2025-09-17T02:25:38.188Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    quality: premium
+  products:
+  - description: 'Product: computers_dirt'
+    name: computers_dirt
+  - description: 'Product: computers_brick'
+    name: computers_brick
+  - description: 'Product: computers_stucco'
+    name: computers_stucco
+  target_audience: dad's who have been building things with dirt for way too long
+  target_regions:
+  - DE
+  - JP
+  - UK
+  brand_guidelines:
+    primary_colors:
+    - '#007BFF'
+    - '#28A745'
+    - '#FFC107'
+    fonts:
+    - Georgia
+    - Times New Roman
+    - Serif
+    tone: medium campaign with friendly and approachable
+  budget_constraints:
+    generation_limit: 9
+    max_api_cost: 21.0
+  timeline:
+    launch_date: '2026-02-26'
+    priority: critical
+    rush_order: true

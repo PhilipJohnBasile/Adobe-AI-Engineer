@@ -1,0 +1,43 @@
+campaign_brief:
+  campaign_id: test_comprehensive_ui
+  campaign_name: "Test Comprehensive UI"
+  campaign_message: "Experience the future of innovation with our revolutionary products."
+  target_audience: "tech-savvy professionals aged 25-45"
+  target_regions:
+    - US
+    - CA
+    - UK
+  products:
+    - name: "Smart Watch Pro"
+      description: "Advanced smartwatch with health monitoring and GPS"
+      target_keywords: ["smartwatch", "health", "GPS", "advanced"]
+    - name: "Wireless Earbuds Elite"
+      description: "Premium wireless earbuds with noise cancellation"
+      target_keywords: ["wireless", "earbuds", "premium", "noise-cancellation"]
+  brand_guidelines:
+    primary_colors:
+      - "#1473E6"
+      - "#FF5722"
+      - "#4CAF50"
+    fonts:
+      - "Inter"
+      - "Roboto"
+      - "San Francisco"
+    tone: "innovative and forward-thinking"
+  budget_constraints:
+    generation_limit: 12
+    max_api_cost: 35.00
+  timeline:
+    launch_date: "2025-01-15"
+    priority: "high"
+    rush_order: true
+  output_requirements:
+    aspect_ratios:
+      - "1:1"
+      - "9:16"
+      - "16:9"
+    formats:
+      - "JPG"
+      - "PNG"
+    quality: "premium"
+  created_at: "2025-09-17T02:50:00.000Z"

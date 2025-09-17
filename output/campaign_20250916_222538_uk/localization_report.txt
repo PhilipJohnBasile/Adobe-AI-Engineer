@@ -1,0 +1,19 @@
+============================================================
+LOCALIZATION REPORT
+============================================================
+Campaign: campaign_20250916_222538
+Target Market: UK
+Language: en-GB
+Currency: GBP
+
+🌍 CULTURAL ADAPTATIONS:
+----------------------------------------
+Messaging Tone: polite
+Formality Level: semi-formal
+Recommended CTAs: Shop Now, Discover More, Learn More
+
+⚖️ REGULATORY REQUIREMENTS:
+----------------------------------------
+Age Restrictions: 18+
+Prohibited Claims: medical, cure, guaranteed
+Disclaimer Placement: bottom

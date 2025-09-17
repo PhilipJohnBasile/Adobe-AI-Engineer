@@ -1,0 +1,15 @@
+{
+  "campaign_id": "test_localization_fix_2024",
+  "generated_at": "2025-09-16T22:18:38.109725",
+  "products": 1,
+  "aspect_ratios": [
+    "1:1",
+    "9:16"
+  ],
+  "target_region": "US, DE, JP",
+  "campaign_message": "Erleben Sie die Zukunft der Gesundheits\u00fcberwachung.",
+  "generated_files": [
+    "smart_watch_premium/1x1.jpg",
+    "smart_watch_premium/9x16.jpg"
+  ]
+}

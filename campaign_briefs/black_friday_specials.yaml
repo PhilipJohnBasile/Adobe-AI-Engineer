@@ -59,7 +59,8 @@ campaign_brief:
     - anti-aging
     - natural
   target_audience: high priority customers aged 25-45
-  target_region: US
+  target_regions:
+  - US
   timeline:
     launch_date: '2024-11-29'
     priority: high

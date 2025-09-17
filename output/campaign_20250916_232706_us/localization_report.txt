@@ -1,0 +1,19 @@
+============================================================
+LOCALIZATION REPORT
+============================================================
+Campaign: campaign_20250916_232706
+Target Market: US
+Language: en-US
+Currency: USD
+
+🌍 CULTURAL ADAPTATIONS:
+----------------------------------------
+Messaging Tone: direct
+Formality Level: casual
+Recommended CTAs: Shop Now, Get Yours, Try Today
+
+⚖️ REGULATORY REQUIREMENTS:
+----------------------------------------
+Age Restrictions: 18+
+Prohibited Claims: medical, therapeutic
+Disclaimer Placement: bottom

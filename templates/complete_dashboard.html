@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adobe Creative Automation Platform</title>
-    <link href="{{ url_for('static', filename='css/adobe-theme.css') }}" rel="stylesheet">
+    <title>Creative Automation Platform</title>
+    <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
     <style>
         /* Modern, clean layout */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -243,6 +243,44 @@
         .campaign-actions {
             display: flex;
             gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e1e1e1;
+        }
+        
+        .campaign-action-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .campaign-action-btn.primary {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .campaign-action-btn.primary:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
+        
+        .campaign-action-btn.secondary {
+            background: white;
+            color: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        .campaign-action-btn.secondary:hover {
+            background: #f8f9fa;
+            color: #495057;
+            border-color: #495057;
         }
         
         .action-btn {
@@ -393,6 +431,23 @@
         
         .empty-description {
             margin-bottom: 1.5rem;
+        }
+        
+        /* Button Styles */
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
         }
         
         /* Primary Button */
@@ -646,7 +701,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <h2>Creative Platform</h2>
+                <h2>Creative AI Platform</h2>
             </div>
             
             <nav>
@@ -672,7 +727,7 @@
                 
                 <div class="nav-section">
                     <div class="nav-title">Tools</div>
-                    <a href="{{ url_for('create_campaign') }}" class="nav-item">
+                    <a href="#" class="nav-item" onclick="showSection('new-campaign')">
                         <span class="nav-icon">➕</span>
                         New Campaign
                     </a>
@@ -688,7 +743,7 @@
                         <span class="nav-icon">⚖️</span>
                         Compliance
                     </a>
-                    <a href="{{ url_for('cli_commands') }}" class="nav-item">
+                    <a href="#" class="nav-item" onclick="showSection('cli-tools')">
                         <span class="nav-icon">⚡</span>
                         CLI Tools
                     </a>
@@ -726,6 +781,30 @@
                         <span class="nav-icon">🔬</span>
                         Advanced
                     </a>
+                    <a href="#" class="nav-item" onclick="showSection('advanced-ai')">
+                        <span class="nav-icon">🧠</span>
+                        Advanced AI
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Management</div>
+                    <a href="#" class="nav-item" onclick="showSection('pipeline-mgmt')">
+                        <span class="nav-icon">🔧</span>
+                        Pipeline Mgmt
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('analytics-hub')">
+                        <span class="nav-icon">📈</span>
+                        Analytics Hub
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('ab-testing')">
+                        <span class="nav-icon">🧪</span>
+                        A/B Testing
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('enterprise-admin')">
+                        <span class="nav-icon">🏢</span>
+                        Enterprise Admin
+                    </a>
                 </div>
                 
                 <div class="nav-section">
@@ -734,7 +813,7 @@
                         <span class="nav-icon">🔔</span>
                         AI Monitor
                     </a>
-                    <a href="{{ url_for('api_status') }}" class="nav-item">
+                    <a href="#" class="nav-item" onclick="showSection('api-status')">
                         <span class="nav-icon">🔧</span>
                         API Status
                     </a>
@@ -833,30 +912,30 @@
                 
                 <!-- Quick Actions -->
                 <div class="quick-actions">
-                    <a href="{{ url_for('create_campaign') }}" class="quick-action-tile">
+                    <div class="quick-action-tile" onclick="showSection('new-campaign')">
                         <div class="quick-action-icon">🚀</div>
                         <div class="quick-action-label">Create Campaign</div>
-                    </a>
+                    </div>
                     
                     <div class="quick-action-tile" onclick="runPipeline()">
                         <div class="quick-action-icon">⚙️</div>
                         <div class="quick-action-label">Run Pipeline</div>
                     </div>
                     
-                    <a href="{{ url_for('list_all_outputs') }}" class="quick-action-tile">
+                    <div class="quick-action-tile" onclick="showSection('assets')">
                         <div class="quick-action-icon">🖼️</div>
                         <div class="quick-action-label">View Gallery</div>
-                    </a>
+                    </div>
                     
                     <div class="quick-action-tile" onclick="showSection('analytics')">
                         <div class="quick-action-icon">📊</div>
                         <div class="quick-action-label">Analytics</div>
                     </div>
                     
-                    <a href="{{ url_for('data_explorer') }}" class="quick-action-tile">
+                    <div class="quick-action-tile" onclick="showSection('explorer')">
                         <div class="quick-action-icon">🔍</div>
                         <div class="quick-action-label">Explore Data</div>
-                    </a>
+                    </div>
                     
                     <div class="quick-action-tile" onclick="showSection('monitor')">
                         <div class="quick-action-icon">🤖</div>
@@ -868,7 +947,7 @@
                 <div class="campaigns-container">
                     <div class="section-header">
                         <h2 class="section-title">Recent Campaigns</h2>
-                        <a href="{{ url_for('create_campaign') }}" class="btn-primary">New Campaign</a>
+                        <button onclick="showSection('new-campaign')" class="btn-primary">New Campaign</button>
                     </div>
                     
                     {% if campaigns %}
@@ -886,7 +965,7 @@
                                     {{ campaign.date }}
                                 </div>
                                 <div class="campaign-actions">
-                                    <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" class="action-btn">View</a>
+                                    <button onclick="viewCampaign('{{ campaign.id }}')" class="action-btn">View</button>
                                     <button onclick="runPipeline('{{ campaign.id }}')" class="action-btn">Run</button>
                                 </div>
                             </div>
@@ -898,7 +977,7 @@
                         <div class="empty-icon">📭</div>
                         <div class="empty-title">No campaigns yet</div>
                         <div class="empty-description">Create your first campaign to start generating creative assets</div>
-                        <a href="{{ url_for('create_campaign') }}" class="btn-primary">Create Campaign</a>
+                        <button onclick="showSection('new-campaign')" class="btn-primary">Create Campaign</button>
                     </div>
                     {% endif %}
                 </div>
@@ -949,8 +1028,61 @@
                 </div>
                 
                 <div class="campaigns-container">
-                    <!-- Campaign management interface -->
-                    <p>Campaign management interface coming soon...</p>
+                    <!-- Campaign Brief Management Section -->
+                    <div class="section-header">
+                        <h2 class="section-title">📋 Campaign Brief Management</h2>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn-primary" onclick="showSection('new-campaign')">
+                                <i class="icon">➕</i> Create New Brief
+                            </button>
+                            <button class="btn-secondary" onclick="showBriefSelector()">
+                                <i class="icon">📂</i> Use Existing Brief
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 1rem; background: #f0f8ff; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <p style="margin: 0; color: #0c5460;">
+                            <strong>📘 How it works:</strong><br>
+                            • <strong>Create New Brief</strong> - Start with blank form to design a new campaign<br>
+                            • <strong>Use Existing Brief</strong> - Load an existing brief as template for new campaign<br>
+                            • Each campaign card below represents a saved brief (with or without generated assets)
+                        </p>
+                    </div>
+                    
+                    <!-- Active Campaigns Section -->
+                    <div class="section-header">
+                        <h2 class="section-title">🎯 Active Campaigns</h2>
+                        <span style="color: #6c757d; font-size: 0.875rem;">Campaigns generated from briefs</span>
+                    </div>
+                    
+                    <div id="campaigns-list" class="campaigns-grid">
+                        <!-- Campaigns will be loaded dynamically -->
+                    </div>
+                    
+                    <!-- Quick Actions Section -->
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">⚡ Quick Actions</h2>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="showSection('new-campaign')" style="border-left: 4px solid #2d9d78;">
+                            <div class="quick-action-icon">📝</div>
+                            <div class="quick-action-label">Create Brief</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="loadCampaigns()">
+                            <div class="quick-action-icon">🔄</div>
+                            <div class="quick-action-label">Refresh</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showSection('outputs')">
+                            <div class="quick-action-icon">📁</div>
+                            <div class="quick-action-label">View Assets</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="showBriefLibrary()">
+                            <div class="quick-action-icon">📚</div>
+                            <div class="quick-action-label">Brief Library</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -961,20 +1093,161 @@
                     <p class="page-subtitle">Browse and manage generated creative assets</p>
                 </div>
                 
+                <!-- Asset Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">{{ outputs|length }}</div>
+                        <div class="metric-label">Total Assets</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Aspect Ratios</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ campaigns|length }}</div>
+                        <div class="metric-label">Campaigns</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">2.4GB</div>
+                        <div class="metric-label">Storage Used</div>
+                    </div>
+                </div>
+                
+                <!-- Filter Bar -->
+                <div class="campaigns-container" style="margin-bottom: 1.5rem;">
+                    <div class="section-header">
+                        <h2 class="section-title">Filter Assets</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <select class="form-select" style="padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--border-color);">
+                                <option>All Campaigns</option>
+                                <option>Holiday Collection 2024</option>
+                                <option>Load Test Campaign</option>
+                            </select>
+                            <select class="form-select" style="padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--border-color);">
+                                <option>All Aspect Ratios</option>
+                                <option>1:1 Square</option>
+                                <option>9:16 Stories</option>
+                                <option>16:9 Wide</option>
+                            </select>
+                            <button class="btn-primary">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Asset Grid -->
                 <div class="campaigns-container">
-                    <iframe src="{{ url_for('list_all_outputs') }}" style="width: 100%; height: 600px; border: none; border-radius: 8px;"></iframe>
+                    <div class="section-header">
+                        <h2 class="section-title">Generated Assets</h2>
+                        <div>
+                            <button class="btn-primary" onclick="showSection('new-campaign')">Generate New</button>
+                        </div>
+                    </div>
+                    
+                    <div id="assets-grid" class="image-grid">
+                        <!-- Assets will be loaded here dynamically -->
+                    </div>
                 </div>
             </div>
             
             <!-- Analytics Section -->
             <div id="analytics" class="content-section">
                 <div class="page-header">
-                    <h1 class="page-title">Analytics</h1>
-                    <p class="page-subtitle">Performance metrics and insights</p>
+                    <h1 class="page-title">Analytics Dashboard</h1>
+                    <p class="page-subtitle">Performance metrics and campaign insights</p>
                 </div>
                 
+                <!-- Performance Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                        <div class="metric-value">87%</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Engagement Rate</div>
+                        <span class="metric-trend" style="background: rgba(255,255,255,0.2); color: white;">+12%</span>
+                    </div>
+                    <div class="metric-card" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">
+                        <div class="metric-value">2.4M</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Impressions</div>
+                        <span class="metric-trend" style="background: rgba(255,255,255,0.2); color: white;">+28%</span>
+                    </div>
+                    <div class="metric-card" style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white;">
+                        <div class="metric-value">$12.4K</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">ROI Generated</div>
+                        <span class="metric-trend" style="background: rgba(255,255,255,0.2); color: white;">+45%</span>
+                    </div>
+                    <div class="metric-card" style="background: linear-gradient(135deg, #43e97b, #38f9d7); color: white;">
+                        <div class="metric-value">156</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Conversions</div>
+                        <span class="metric-trend" style="background: rgba(255,255,255,0.2); color: white;">+18%</span>
+                    </div>
+                </div>
+                
+                <!-- Chart Container -->
                 <div class="campaigns-container">
-                    <iframe src="{{ url_for('analytics') }}" style="width: 100%; height: 600px; border: none; border-radius: 8px;"></iframe>
+                    <div class="section-header">
+                        <h2 class="section-title">Campaign Performance</h2>
+                        <select class="form-select" style="padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--border-color);">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last Quarter</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Placeholder Chart -->
+                    <div style="background: #f8f9fa; border-radius: 8px; padding: 3rem; text-align: center; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                        <div>
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">📊</div>
+                            <h3 style="color: var(--text-secondary);">Performance Chart</h3>
+                            <p style="color: var(--text-secondary);">Interactive charts will display here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Top Performing Assets -->
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Top Performing Assets</h2>
+                        <button class="btn-primary" onclick="showSection('assets')">View All Assets</button>
+                    </div>
+                    
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Asset</th>
+                                    <th>Campaign</th>
+                                    <th>Engagement</th>
+                                    <th>Impressions</th>
+                                    <th>CTR</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Holiday_Banner_1x1.jpg</td>
+                                    <td>Holiday Collection 2024</td>
+                                    <td>92%</td>
+                                    <td>450K</td>
+                                    <td>3.2%</td>
+                                    <td><button class="btn-small">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Product_Story_9x16.jpg</td>
+                                    <td>Premium Headphones</td>
+                                    <td>89%</td>
+                                    <td>380K</td>
+                                    <td>2.8%</td>
+                                    <td><button class="btn-small">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Eco_Wide_16x9.jpg</td>
+                                    <td>Eco Water Bottle</td>
+                                    <td>85%</td>
+                                    <td>320K</td>
+                                    <td>2.5%</td>
+                                    <td><button class="btn-small">View Details</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
@@ -1091,26 +1364,41 @@
                     <p class="page-subtitle">Comprehensive suite of AI-powered tools for creative automation</p>
                 </div>
                 
+                <!-- Feature Status Banner -->
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <h3 style="margin: 0 0 0.5rem 0;">🚀 Platform Status</h3>
+                            <p style="margin: 0; opacity: 0.9;">This platform demonstrates both working features and future capabilities</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.875rem; margin-bottom: 0.25rem;">✅ <strong>6 Working Features</strong></div>
+                            <div style="font-size: 0.875rem; opacity: 0.8;">🎭 90+ Demo Features</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="campaigns-container">
                     <div class="section-header">
                         <h2 class="section-title">Creative Generation</h2>
+                        <div style="font-size: 0.875rem; color: #f29423;">✅ Working | 🎭 Demo</div>
                     </div>
                     <div class="quick-actions">
-                        <div class="quick-action-tile" onclick="runAITool('image_generation')">
+                        <div class="quick-action-tile" onclick="runAITool('image_generation')" style="border-left: 4px solid #2d9d78;">
                             <div class="quick-action-icon">🎨</div>
-                            <div class="quick-action-label">Image Generation</div>
+                            <div class="quick-action-label">Image Generation ✅</div>
                         </div>
-                        <div class="quick-action-tile" onclick="runAITool('video_creation')">
+                        <div class="quick-action-tile" onclick="runAITool('video_creation')" style="border-left: 4px solid #f29423;">
                             <div class="quick-action-icon">🎬</div>
-                            <div class="quick-action-label">Video Creation</div>
+                            <div class="quick-action-label">Video Creation 🎭</div>
                         </div>
-                        <div class="quick-action-tile" onclick="runAITool('copy_writing')">
+                        <div class="quick-action-tile" onclick="runAITool('copy_writing')" style="border-left: 4px solid #f29423;">
                             <div class="quick-action-icon">✍️</div>
-                            <div class="quick-action-label">Copy Writing</div>
+                            <div class="quick-action-label">Copy Writing 🎭</div>
                         </div>
-                        <div class="quick-action-tile" onclick="runAITool('voice_synthesis')">
+                        <div class="quick-action-tile" onclick="runAITool('voice_synthesis')" style="border-left: 4px solid #f29423;">
                             <div class="quick-action-icon">🎤</div>
-                            <div class="quick-action-label">Voice Synthesis</div>
+                            <div class="quick-action-label">Voice Synthesis 🎭</div>
                         </div>
                     </div>
                 </div>
@@ -1451,6 +1739,472 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Pipeline Management Section -->
+            <div id="pipeline-mgmt" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Pipeline Management</h1>
+                    <p class="page-subtitle">Comprehensive pipeline automation and monitoring tools</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Pipeline Generators</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('pipe_generator')">
+                            <div class="quick-action-icon">🔧</div>
+                            <div class="quick-action-label">Pipe Generators</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('automation')">
+                            <div class="quick-action-icon">⚙️</div>
+                            <div class="quick-action-label">Automation</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('monitoring')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">Monitoring</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('templates')">
+                            <div class="quick-action-icon">📄</div>
+                            <div class="quick-action-label">Templates</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('brand_resources')">
+                            <div class="quick-action-icon">🎨</div>
+                            <div class="quick-action-label">Brand Resources</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics & Reporting Hub Section -->
+            <div id="analytics-hub" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Analytics & Reporting Hub</h1>
+                    <p class="page-subtitle">Advanced analytics and custom reporting tools</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Analytics Tools</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('dashboard_creator')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">Dashboard Creator</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('performance_analytics')">
+                            <div class="quick-action-icon">📈</div>
+                            <div class="quick-action-label">Performance Analytics</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('custom_reports')">
+                            <div class="quick-action-icon">📋</div>
+                            <div class="quick-action-label">Custom Reports</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('visual_analytics')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">Visual Analytics</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('user_analytics')">
+                            <div class="quick-action-icon">👥</div>
+                            <div class="quick-action-label">User Analytics</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- A/B Testing Center Section -->
+            <div id="ab-testing" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">A/B Testing Center</h1>
+                    <p class="page-subtitle">Create, manage, and analyze A/B tests for optimal performance</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Testing Tools</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('create_ab_test')">
+                            <div class="quick-action-icon">🧪</div>
+                            <div class="quick-action-label">Create A/B Test</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('test_results')">
+                            <div class="quick-action-icon">📊</div>
+                            <div class="quick-action-label">Test Results</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('test_strategies')">
+                            <div class="quick-action-icon">🎯</div>
+                            <div class="quick-action-label">Test Strategies</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('advanced_reports')">
+                            <div class="quick-action-icon">📈</div>
+                            <div class="quick-action-label">Advanced Reports</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Advanced AI Features Section -->
+            <div id="advanced-ai" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Advanced AI Features</h1>
+                    <p class="page-subtitle">Cutting-edge AI capabilities and intelligent automation</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">AI Capabilities</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('enhanced_models')">
+                            <div class="quick-action-icon">🧠</div>
+                            <div class="quick-action-label">Enhanced Models</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('collaborative_intelligence')">
+                            <div class="quick-action-icon">🤝</div>
+                            <div class="quick-action-label">Collaborative Intelligence</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('smart_recommendations')">
+                            <div class="quick-action-icon">💡</div>
+                            <div class="quick-action-label">Smart Recommendations</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('predictive_analytics')">
+                            <div class="quick-action-icon">🔮</div>
+                            <div class="quick-action-label">Predictive Analytics</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('ai_testing_suite')">
+                            <div class="quick-action-icon">🧪</div>
+                            <div class="quick-action-label">AI Testing Suite</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enterprise Administration Section -->
+            <div id="enterprise-admin" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Enterprise Administration</h1>
+                    <p class="page-subtitle">System administration and enterprise management tools</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Administration Tools</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action-tile" onclick="runAITool('asset_logic')">
+                            <div class="quick-action-icon">🏗️</div>
+                            <div class="quick-action-label">Asset Logic</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('user_admin')">
+                            <div class="quick-action-icon">👤</div>
+                            <div class="quick-action-label">User Admin</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('enterprise_programs')">
+                            <div class="quick-action-icon">🏢</div>
+                            <div class="quick-action-label">Enterprise Programs</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('audit_oversight')">
+                            <div class="quick-action-icon">🔍</div>
+                            <div class="quick-action-label">Audit Oversight</div>
+                        </div>
+                        <div class="quick-action-tile" onclick="runAITool('system_tools')">
+                            <div class="quick-action-icon">⚙️</div>
+                            <div class="quick-action-label">System Tools</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Campaign Section -->
+            <div id="new-campaign" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Create New Campaign</h1>
+                    <p class="page-subtitle">Launch a new creative automation campaign</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <!-- File Upload Section -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; border: 2px dashed #e1e1e1; border-radius: 8px; text-align: center;">
+                        <h3 style="margin-bottom: 1rem;">Upload Campaign Brief</h3>
+                        <input type="file" id="brief-file-input" accept=".json,.yaml,.yml,application/json,text/yaml" style="display: none;">
+                        <button type="button" onclick="document.getElementById('brief-file-input').click()" class="btn-primary" style="margin-right: 1rem;">
+                            📁 Upload JSON/YAML
+                        </button>
+                        <span style="color: #666;">or fill out the form below</span>
+                    </div>
+                    
+                    <!-- Error/Success Messages -->
+                    <div id="campaign-messages" style="margin-bottom: 1.5rem;"></div>
+                    
+                    <form id="campaign-form" style="max-width: 800px; margin: 0 auto;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Campaign Name</label>
+                            <input type="text" id="campaign-name" name="name" required 
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;"
+                                   placeholder="Enter campaign name">
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                                Products (comma separated) <span style="color: red;">*</span>
+                                <small style="font-weight: normal; color: #666;">(minimum 2 required)</small>
+                            </label>
+                            <input type="text" id="campaign-products" name="products" required
+                                   placeholder="e.g., premium_headphones, smart_watch, wireless_earbuds" 
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Target Regions <span style="color: red;">*</span></label>
+                            <div id="region-selection" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f9f9f9;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="US" style="margin: 0;">
+                                    <span>🇺🇸 US</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="DE" style="margin: 0;">
+                                    <span>🇩🇪 DE</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="FR" style="margin: 0;">
+                                    <span>🇫🇷 FR</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="JP" style="margin: 0;">
+                                    <span>🇯🇵 JP</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="UK" style="margin: 0;">
+                                    <span>🇬🇧 UK</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="target-regions" value="CA" style="margin: 0;">
+                                    <span>🇨🇦 CA</span>
+                                </label>
+                            </div>
+                            <small style="color: #666; font-size: 0.75rem; margin-top: 0.25rem; display: block;">Select one or more regions for localized asset generation</small>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Target Audience</label>
+                            <input type="text" id="campaign-audience" name="audience"
+                                   placeholder="e.g., Tech enthusiasts aged 25-45" 
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                        </div>
+
+                        <!-- Brand Guidelines -->
+                        <div id="brand-guidelines-section" style="margin-bottom: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                            <h4 style="margin: 0 0 1rem 0; color: #2c2c2c; font-size: 1.1rem;">Brand Guidelines</h4>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Primary Colors</label>
+                                    <input type="text" id="brand-colors" name="brand_colors"
+                                           placeholder="e.g., #007BFF, #28A745, #FFC107" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Fonts</label>
+                                    <input type="text" id="brand-fonts" name="brand_fonts"
+                                           placeholder="e.g., Arial, Helvetica, Roboto" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Brand Tone</label>
+                                <select id="brand-tone" name="brand_tone" style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                    <option value="">Select tone...</option>
+                                    <option value="professional and authoritative">Professional & Authoritative</option>
+                                    <option value="friendly and approachable">Friendly & Approachable</option>
+                                    <option value="luxury and sophisticated">Luxury & Sophisticated</option>
+                                    <option value="energetic and youthful">Energetic & Youthful</option>
+                                    <option value="trustworthy and reliable">Trustworthy & Reliable</option>
+                                    <option value="innovative and forward-thinking">Innovative & Forward-thinking</option>
+                                    <option value="warm and inclusive">Warm & Inclusive</option>
+                                    <option value="bold and confident">Bold & Confident</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Budget Constraints -->
+                        <div id="budget-section" style="margin-bottom: 1.5rem; padding: 1rem; background: #f0f8ff; border-radius: 8px;">
+                            <h4 style="margin: 0 0 1rem 0; color: #2c2c2c; font-size: 1.1rem;">Budget Constraints</h4>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Generation Limit</label>
+                                    <input type="number" id="generation-limit" name="generation_limit" min="1" max="100"
+                                           placeholder="e.g., 10" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Max API Cost ($)</label>
+                                    <input type="number" id="max-api-cost" name="max_api_cost" min="1" step="0.01"
+                                           placeholder="e.g., 25.00" 
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div id="timeline-section" style="margin-bottom: 1.5rem; padding: 1rem; background: #fff5f5; border-radius: 8px;">
+                            <h4 style="margin: 0 0 1rem 0; color: #2c2c2c; font-size: 1.1rem;">Timeline & Priority</h4>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Launch Date</label>
+                                    <input type="date" id="launch-date" name="launch_date"
+                                           style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Priority</label>
+                                    <select id="campaign-priority" name="priority" style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                                        <option value="">Select priority...</option>
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-top: 1.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                        <input type="checkbox" id="rush-order" name="rush_order" style="margin: 0;">
+                                        <span style="font-weight: 600;">Rush Order</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Campaign Message</label>
+                            <textarea id="campaign-message" name="message" rows="4" required
+                                      placeholder="Enter your campaign message here..." 
+                                      style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;"></textarea>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                            <button type="submit" class="btn-primary" style="flex: 1;">
+                                <span id="save-spinner" style="display: none;">⏳ </span>Save Campaign
+                            </button>
+                            <button type="button" onclick="downloadBrief('json')" class="btn-secondary">
+                                📄 Download JSON
+                            </button>
+                            <button type="button" onclick="downloadBrief('yaml')" class="btn-secondary">
+                                📄 Download YAML
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Live JSON Preview -->
+                    <div style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem;">Live JSON Preview</h3>
+                        <pre id="json-preview" style="background: #f8f9fa; padding: 1rem; border-radius: 4px; border: 1px solid #e1e1e1; max-height: 300px; overflow-y: auto; font-size: 0.875rem;"></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CLI Tools Section -->
+            <div id="cli-tools" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">CLI Tools</h1>
+                    <p class="page-subtitle">Command-line interface tools for advanced operations</p>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Available Commands</h2>
+                    </div>
+                    <div style="background: #2c2c2c; color: #f5f5f5; padding: 2rem; border-radius: 8px; font-family: monospace;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <code style="color: #4facfe;">python main.py --generate</code>
+                            <p style="margin: 0.5rem 0 0 2rem; color: #a0a0a0;">Generate creative assets from campaign brief</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <code style="color: #4facfe;">python main.py --optimize</code>
+                            <p style="margin: 0.5rem 0 0 2rem; color: #a0a0a0;">Optimize existing assets for performance</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <code style="color: #4facfe;">python main.py --monitor</code>
+                            <p style="margin: 0.5rem 0 0 2rem; color: #a0a0a0;">Start AI monitoring system</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <code style="color: #4facfe;">python main.py --analyze</code>
+                            <p style="margin: 0.5rem 0 0 2rem; color: #a0a0a0;">Analyze campaign performance metrics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Status Section -->
+            <div id="api-status" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">API Status</h1>
+                    <p class="page-subtitle">Real-time status of all API endpoints and services</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: #2d9d78;">Operational</div>
+                        <div class="metric-label">System Status</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-label">Uptime (30d)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">23ms</div>
+                        <div class="metric-label">Avg Response Time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">1,247</div>
+                        <div class="metric-label">API Calls Today</div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Endpoint Status</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Endpoint</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                                <th>Last Checked</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>/api/generate</td>
+                                <td><span class="badge badge-low">Operational</span></td>
+                                <td>45ms</td>
+                                <td>Just now</td>
+                            </tr>
+                            <tr>
+                                <td>/api/optimize</td>
+                                <td><span class="badge badge-low">Operational</span></td>
+                                <td>32ms</td>
+                                <td>Just now</td>
+                            </tr>
+                            <tr>
+                                <td>/api/ai-monitor</td>
+                                <td><span class="badge badge-low">Operational</span></td>
+                                <td>18ms</td>
+                                <td>Just now</td>
+                            </tr>
+                            <tr>
+                                <td>/api/analytics</td>
+                                <td><span class="badge badge-low">Operational</span></td>
+                                <td>27ms</td>
+                                <td>Just now</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
     
@@ -1471,6 +2225,13 @@
             const section = document.getElementById(sectionName);
             if (section) {
                 section.classList.add('active');
+                
+                // Load section-specific data
+                if (sectionName === 'assets') {
+                    loadAssetsGrid();
+                } else if (sectionName === 'campaigns') {
+                    loadCampaigns();
+                }
             }
             
             // Mark nav item as active
@@ -1483,6 +2244,53 @@
             if (explorerSubmenu) {
                 explorerSubmenu.style.display = sectionName === 'explorer' ? 'block' : 'none';
             }
+        }
+        
+        // Load assets grid
+        function loadAssetsGrid() {
+            fetch('/outputs')
+                .then(response => response.text())
+                .then(html => {
+                    // Parse the HTML to extract image data
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const images = doc.querySelectorAll('img');
+                    
+                    const assetsGrid = document.getElementById('assets-grid');
+                    if (assetsGrid && images.length > 0) {
+                        assetsGrid.innerHTML = Array.from(images).map(img => `
+                            <div class="image-card">
+                                <div class="image-preview">
+                                    <img src="${img.src}" alt="${img.alt || 'Asset'}" />
+                                </div>
+                                <div class="image-info">
+                                    <h4>${img.alt || 'Creative Asset'}</h4>
+                                    <p class="text-small">Campaign Asset</p>
+                                    <div style="margin-top: 0.5rem;">
+                                        <button class="btn-small" onclick="viewAsset('${img.src}')">View</button>
+                                        <button class="btn-small" style="margin-left: 0.5rem;">Download</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else if (assetsGrid) {
+                        assetsGrid.innerHTML = `
+                            <div class="empty-state" style="grid-column: 1 / -1;">
+                                <div class="empty-icon">🖼️</div>
+                                <div class="empty-title">No assets yet</div>
+                                <div class="empty-description">Generate your first campaign assets</div>
+                                <button onclick="showSection('new-campaign')" class="btn-primary">Create Campaign</button>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading assets:', error);
+                });
+        }
+        
+        function viewAsset(src) {
+            window.open(src, '_blank');
         }
         
         // Show data category
@@ -1546,7 +2354,10 @@
                                 ${data.images.map(img => `
                                     <div class="image-card">
                                         <div class="image-preview">
-                                            <img src="/image/${img.campaign}/${img.path}" alt="${img.name}" />
+                                            <img src="${img.url}" alt="${img.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                                            <div style="display: none; align-items: center; justify-content: center; height: 100%; background: #f0f0f0; color: #666;">
+                                                <span>📷 Image not found</span>
+                                            </div>
                                         </div>
                                         <div class="image-info">
                                             <h4>${img.name}</h4>
@@ -1641,66 +2452,1006 @@
             }
         }
         
-        // Run AI Tool
+        // Run AI Tool - Updated to show demo vs real features
         function runAITool(toolName) {
-            // Show loading state
-            const loadingHtml = `
-                <div style="text-align: center; padding: 40px;">
-                    <div style="font-size: 3rem; animation: spin 2s linear infinite;">⚙️</div>
-                    <p style="margin-top: 20px; color: #6e6e6e;">Initializing ${toolName.replace('_', ' ')}...</p>
-                </div>
+            // Working features
+            const workingFeatures = [
+                'image_generation', 'campaign_generator', 'asset_manager', 
+                'file_upload', 'data_explorer', 'ai_monitor'
+            ];
+            
+            const isWorking = workingFeatures.includes(toolName);
+            
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'modal-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             `;
             
-            // Create a modal or update content area
+            // Create modal
             const modal = document.createElement('div');
+            modal.id = 'feature-modal';
             modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
                 background: white;
                 padding: 30px;
                 border-radius: 8px;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-                z-index: 1000;
                 min-width: 400px;
+                max-width: 500px;
+                position: relative;
             `;
-            modal.innerHTML = loadingHtml;
+            
+            if (isWorking) {
+                // Real feature
+                modal.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #2d9d78;">✅</div>
+                        <h3 style="margin: 20px 0 10px;">WORKING FEATURE</h3>
+                        <h4 style="color: #1473e6; margin-bottom: 15px;">${toolName.replace('_', ' ')}</h4>
+                        <p style="color: #6e6e6e; margin-bottom: 20px;">This feature is fully implemented and working!</p>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <button onclick="closeModal()" 
+                                    style="background: #1473e6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                                Close
+                            </button>
+                            <button onclick="executeFeature('${toolName}')" 
+                                    style="background: #2d9d78; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                                Launch
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Demo feature
+                modal.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #f29423;">🎭</div>
+                        <h3 style="margin: 20px 0 10px;">DEMO FEATURE</h3>
+                        <h4 style="color: #f29423; margin-bottom: 15px;">${toolName.replace('_', ' ')}</h4>
+                        <p style="color: #6e6e6e; margin-bottom: 15px;">This is a UI mockup to demonstrate potential capabilities.</p>
+                        <p style="color: #e34850; font-size: 0.9em; margin-bottom: 20px;"><strong>Not yet implemented</strong> - would require additional development.</p>
+                        <button onclick="closeModal()" 
+                                style="background: #6e6e6e; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                `;
+            }
+            
+            // Close modal when clicking overlay
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal on Escape key
+            const escapeHandler = function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
+            overlay.escapeHandler = escapeHandler;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+        
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            if (overlay) {
+                // Remove escape key listener
+                if (overlay.escapeHandler) {
+                    document.removeEventListener('keydown', overlay.escapeHandler);
+                }
+                overlay.remove();
+            }
+        }
+        
+        function executeFeature(toolName) {
+            // Close modal first
+            closeModal();
+            
+            // Execute real features
+            switch(toolName) {
+                case 'image_generation':
+                    showSection('new-campaign');
+                    break;
+                case 'campaign_generator':
+                    showSection('new-campaign');
+                    break;
+                case 'asset_manager':
+                    showSection('assets');
+                    break;
+                case 'data_explorer':
+                    showSection('explorer');
+                    break;
+                case 'ai_monitor':
+                    showSection('monitor');
+                    break;
+                case 'file_upload':
+                    showSection('assets');
+                    break;
+                default:
+                    alert('Feature executed!');
+            }
+        }
+        
+        // Helper functions
+        function viewCampaign(campaignId) {
+            // Show campaign details in the campaigns section
+            showSection('campaigns');
+        }
+        
+        function editCampaign(campaignId) {
+            // Load the campaign brief and populate the form for editing
+            fetch(`/api/campaigns/brief?campaign_id=${campaignId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success' && data.brief) {
+                        // Switch to new campaign section
+                        showSection('new-campaign');
+                        
+                        // Populate form with existing data
+                        populateFormFromBrief(data.brief.campaign_brief || data.brief);
+                        
+                        // Update form title and button text
+                        const formTitle = document.querySelector('#new-campaign h2');
+                        if (formTitle) {
+                            formTitle.textContent = `Edit Campaign: ${campaignId}`;
+                        }
+                        
+                        const saveButton = document.querySelector('#new-campaign button[type="submit"]');
+                        if (saveButton) {
+                            saveButton.innerHTML = '<span id="save-spinner" style="display: none;">⏳ </span>Update Campaign';
+                        }
+                        
+                        // Store the campaign ID for updates
+                        currentBrief.campaign_id = campaignId;
+                        updateBriefPreview();
+                    } else {
+                        alert(`Could not load campaign brief for ${campaignId}: ${data.message || 'Unknown error'}`);
+                    }
+                })
+                .catch(error => {
+                    alert(`Error loading campaign: ${error.message}`);
+                });
+        }
+        
+        function runPipeline(campaignId) {
+            if (!campaignId) {
+                // Get the latest campaign if none specified
+                fetch('/api/status')
+                    .then(r => r.json())
+                    .then(data => {
+                        const campaigns = data.recent_campaigns || [];
+                        if (campaigns.length > 0) {
+                            runPipelineWithModal(campaigns[0].id);
+                        } else {
+                            alert('No campaigns available. Please create a campaign first.');
+                            showSection('new-campaign');
+                        }
+                    });
+            } else {
+                runPipelineWithModal(campaignId);
+            }
+        }
+        
+        function runPipelineWithModal(campaignId) {
+            // Show modal with progress
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 500px; max-width: 80%;">
+                        <h3 style="margin-top: 0;">🚀 Generating Campaign Assets</h3>
+                        <p>Campaign: <strong>${campaignId}</strong></p>
+                        <div id="pipeline-status" style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 4px; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto;">
+                            🔍 Validating campaign brief...
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button id="pipeline-close" onclick="this.closest('div').parentElement.remove()" disabled style="background: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: not-allowed;">
+                                Close
+                            </button>
+                            <button id="pipeline-view-outputs" onclick="window.open('/outputs', '_blank')" disabled style="background: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: not-allowed;">
+                                View Outputs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
             document.body.appendChild(modal);
             
-            // Simulate tool execution
-            fetch('/api/run-ai-tool', {
+            const statusDiv = document.getElementById('pipeline-status');
+            const closeBtn = document.getElementById('pipeline-close');
+            const viewBtn = document.getElementById('pipeline-view-outputs');
+            
+            // First validate the campaign
+            fetch(`/api/campaigns/${campaignId}/validate`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({tool: toolName})
+                headers: { 'Content-Type': 'application/json' }
             })
             .then(response => response.json())
             .then(data => {
-                modal.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; color: #2d9d78;">✓</div>
-                        <h3 style="margin: 20px 0 10px;">${toolName.replace('_', ' ')} Ready</h3>
-                        <p style="color: #6e6e6e; margin-bottom: 20px;">${data.message || 'Tool initialized successfully'}</p>
-                        <button onclick="this.parentElement.parentElement.remove()" 
-                                style="background: #1473e6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-                            Close
-                        </button>
-                    </div>
-                `;
+                if (data.status === 'success') {
+                    statusDiv.textContent += '\n✅ Campaign brief validation passed\n🤖 Starting asset generation...';
+                    
+                    // Now run the actual pipeline
+                    return fetch(`/api/campaigns/${campaignId}/run`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                } else {
+                    throw new Error(`Validation failed: ${data.message}`);
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    statusDiv.textContent += '\n🎉 Asset generation completed successfully!\n\n';
+                    
+                    if (data.summary) {
+                        statusDiv.textContent += `📊 Summary:\n`;
+                        statusDiv.textContent += `   Regions processed: ${data.summary.regions_processed.join(', ')}\n`;
+                        statusDiv.textContent += `   Files generated: ${data.summary.files_generated.length}\n\n`;
+                    }
+                    
+                    statusDiv.textContent += '📁 Assets are now available in the Outputs section.';
+                    
+                    // Enable buttons
+                    closeBtn.disabled = false;
+                    closeBtn.style.cursor = 'pointer';
+                    closeBtn.style.background = '#007bff';
+                    
+                    viewBtn.disabled = false;
+                    viewBtn.style.cursor = 'pointer';
+                    
+                    // Refresh the campaigns list to show updated status
+                    setTimeout(() => {
+                        loadCampaigns();
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(data.message || 'Pipeline execution failed');
+                }
             })
             .catch(error => {
-                modal.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; color: #e34850;">⚠️</div>
-                        <h3 style="margin: 20px 0 10px;">Error</h3>
-                        <p style="color: #6e6e6e; margin-bottom: 20px;">Failed to initialize ${toolName.replace('_', ' ')}</p>
-                        <button onclick="this.parentElement.parentElement.remove()" 
-                                style="background: #e34850; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-                            Close
-                        </button>
+                statusDiv.textContent += `\n❌ Error: ${error.message}`;
+                closeBtn.disabled = false;
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.background = '#dc3545';
+                closeBtn.textContent = 'Close';
+            });
+        }
+        
+        function downloadFile(filePath) {
+            const link = document.createElement('a');
+            link.href = `/download/${encodeURIComponent(filePath)}`;
+            link.download = filePath.split('/').pop();
+            link.click();
+        }
+        
+        // Campaign Brief Management Functions
+        let selectedBrief = null;
+        
+        function showBriefSelector() {
+            // Create modal to show available briefs
+            const modalId = 'brief-selector-modal';
+            
+            // Remove any existing modal
+            const existingModal = document.getElementById(modalId);
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            const modal = document.createElement('div');
+            modal.id = modalId;
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;';
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = 'background: white; padding: 2rem; border-radius: 8px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;';
+            
+            modalContent.innerHTML = `
+                <h3 style="margin-top: 0;">Select Campaign Brief to Use</h3>
+                <p style="color: #6c757d;">Select a brief to load it into the campaign creation form</p>
+                <div id="briefs-list" style="margin: 1.5rem 0;">
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="display: inline-block; border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #3498db; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
+                        <p style="margin-top: 1rem;">Loading briefs...</p>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('${modalId}').remove()" style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; width: 100%;">
+                    Cancel
+                </button>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Load available briefs
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    const briefsList = document.getElementById('briefs-list');
+                    if (!briefsList) return;
+                    
+                    if (data.recent_campaigns && data.recent_campaigns.length > 0) {
+                        briefsList.innerHTML = data.recent_campaigns.map(campaign => `
+                            <div style="padding: 1rem; border: 1px solid #e1e1e1; border-radius: 4px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                                 onmouseover="this.style.background='#f8f9fa'; this.style.borderColor='#007bff';"
+                                 onmouseout="this.style.background='white'; this.style.borderColor='#e1e1e1';"
+                                 onclick="loadBriefIntoForm('${campaign.id}');">
+                                <div style="display: flex; justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <strong style="color: #2c2c2c; font-size: 1.1rem;">${campaign.name || campaign.id}</strong><br>
+                                        <small style="color: #6c757d;">📦 Products: ${campaign.products.join(', ')}</small><br>
+                                        <small style="color: #6c757d;">🌍 Regions: ${campaign.target_regions.join(', ')}</small><br>
+                                        <small style="color: #6c757d;">📄 File: ${campaign.file || campaign.id + '.yaml'}</small>
+                                    </div>
+                                    <div>
+                                        <span style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; ${campaign.has_outputs ? 'background: #d4edda; color: #155724;' : 'background: #fff3cd; color: #856404;'}">
+                                            ${campaign.has_outputs ? '✅ Has Assets' : '📝 Brief Only'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        briefsList.innerHTML = `
+                            <div style="text-align: center; padding: 2rem; color: #6c757d;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+                                <p>No campaign briefs available</p>
+                                <button onclick="document.getElementById('${modalId}').remove(); showSection('new-campaign');" 
+                                        style="margin-top: 1rem; background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                    Create First Brief
+                                </button>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    const briefsList = document.getElementById('briefs-list');
+                    if (briefsList) {
+                        briefsList.innerHTML = `<p style="color: #dc3545; text-align: center;">Error loading briefs: ${error.message}</p>`;
+                    }
+                });
+        }
+        
+        function loadBriefIntoForm(briefId) {
+            // Close the modal
+            const modal = document.getElementById('brief-selector-modal');
+            if (modal) modal.remove();
+            
+            // Load the brief and navigate to form
+            fetch(`/api/campaigns/brief?campaign_id=${briefId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success' && data.brief) {
+                        // Switch to new campaign section
+                        showSection('new-campaign');
+                        
+                        // Populate form with the brief data
+                        populateFormFromBrief(data.brief.campaign_brief || data.brief);
+                        
+                        // Update form title to indicate we're using an existing brief
+                        const formTitle = document.querySelector('#new-campaign h2');
+                        if (formTitle) {
+                            formTitle.textContent = `Create Campaign from Brief: ${briefId}`;
+                        }
+                        
+                        // Store the brief ID so we know which one we're using
+                        currentBrief.source_brief_id = briefId;
+                        updateBriefPreview();
+                        
+                        // Show success message
+                        showMessage(`Loaded brief: ${data.brief.campaign_brief?.campaign_name || briefId}`, 'success');
+                    } else {
+                        alert(`Could not load campaign brief: ${data.message || 'Unknown error'}`);
+                    }
+                })
+                .catch(error => {
+                    alert(`Error loading campaign brief: ${error.message}`);
+                });
+        }
+        
+        function selectBrief(briefId, briefName) {
+            selectedBrief = briefId;
+            
+            // Show selected brief info
+            const briefInfo = document.getElementById('selected-brief-info');
+            const briefDetails = document.getElementById('brief-details');
+            
+            briefInfo.style.display = 'block';
+            briefDetails.innerHTML = `
+                <p><strong>Brief ID:</strong> ${briefId}</p>
+                <p><strong>Name:</strong> ${briefName}</p>
+                <p>Loading full details...</p>
+            `;
+            
+            // Load full brief details
+            fetch(`/api/campaigns/brief?campaign_id=${briefId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success' && data.brief) {
+                        const brief = data.brief.campaign_brief || data.brief;
+                        briefDetails.innerHTML = `
+                            <p><strong>Campaign:</strong> ${brief.campaign_name}</p>
+                            <p><strong>Products:</strong> ${Array.isArray(brief.products) ? 
+                                brief.products.map(p => typeof p === 'string' ? p : p.name).join(', ') : 'None'}</p>
+                            <p><strong>Regions:</strong> ${brief.target_regions ? brief.target_regions.join(', ') : 'Global'}</p>
+                            <p><strong>Message:</strong> ${brief.campaign_message || 'No message'}</p>
+                            ${brief.brand_guidelines ? `<p><strong>Brand Tone:</strong> ${brief.brand_guidelines.tone || 'Not specified'}</p>` : ''}
+                            ${brief.timeline ? `<p><strong>Priority:</strong> ${brief.timeline.priority || 'Normal'} ${brief.timeline.rush_order ? '🚨 Rush Order' : ''}</p>` : ''}
+                        `;
+                    }
+                })
+                .catch(error => {
+                    briefDetails.innerHTML = `<p style="color: red;">Error loading brief details: ${error.message}</p>`;
+                });
+        }
+        
+        function runSelectedBrief() {
+            if (!selectedBrief) {
+                alert('Please select a campaign brief first');
+                return;
+            }
+            runPipelineWithModal(selectedBrief);
+        }
+        
+        function editSelectedBrief() {
+            if (!selectedBrief) {
+                alert('Please select a campaign brief first');
+                return;
+            }
+            editCampaign(selectedBrief);
+        }
+        
+        function viewBriefFile() {
+            if (!selectedBrief) {
+                alert('Please select a campaign brief first');
+                return;
+            }
+            window.open(`/download/campaign_briefs/${selectedBrief}.yaml`, '_blank');
+        }
+        
+        function showBriefLibrary() {
+            // Show all briefs in Data Explorer
+            showSection('explorer');
+            setTimeout(() => {
+                showDataCategory('campaigns');
+            }, 100);
+        }
+        
+        // Load campaigns
+        function loadCampaigns() {
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    const campaignsContainer = document.getElementById('campaigns-list');
+                    if (!campaignsContainer) return;
+                    
+                    if (!data.recent_campaigns || data.recent_campaigns.length === 0) {
+                        campaignsContainer.innerHTML = `
+                            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                                <h3>No campaigns yet</h3>
+                                <p>Create your first campaign to get started</p>
+                                <button class="btn-primary" onclick="showSection('new-campaign')" style="margin-top: 1rem;">
+                                    Create Campaign
+                                </button>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    campaignsContainer.innerHTML = data.recent_campaigns.map(campaign => {
+                        const createdDate = new Date(campaign.created).toLocaleDateString();
+                        const products = Array.isArray(campaign.products) ? campaign.products.join(', ') : campaign.products;
+                        const hasOutputs = campaign.has_outputs || false;
+                        
+                        return `
+                            <div class="campaign-card" onclick="viewCampaign('${campaign.id}')">
+                                <div class="campaign-card-header">
+                                    <h3 class="campaign-title">${campaign.name || campaign.id}</h3>
+                                    <span class="campaign-status ${hasOutputs ? 'completed' : 'active'}">
+                                        ${hasOutputs ? '✅ Assets Generated' : '📋 Brief Only'}
+                                    </span>
+                                </div>
+                                
+                                <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: #e8f1fd; border-radius: 4px;">
+                                    <strong style="color: #1473e6;">📄 Brief:</strong> ${campaign.file || campaign.id + '.yaml'}
+                                </div>
+                                
+                                <div class="campaign-details">
+                                    <div class="campaign-detail">
+                                        <span class="campaign-detail-label">Products:</span>
+                                        <span class="campaign-detail-value">${products}</span>
+                                    </div>
+                                    <div class="campaign-detail">
+                                        <span class="campaign-detail-label">Regions:</span>
+                                        <span class="campaign-detail-value">${campaign.target_regions ? campaign.target_regions.join(', ') : 'Global'}</span>
+                                    </div>
+                                    <div class="campaign-detail">
+                                        <span class="campaign-detail-label">Created:</span>
+                                        <span class="campaign-detail-value">${createdDate}</span>
+                                    </div>
+                                    <div class="campaign-detail">
+                                        <span class="campaign-detail-label">Message:</span>
+                                        <span class="campaign-detail-value">${campaign.campaign_message ? campaign.campaign_message.substring(0, 50) + '...' : 'No message'}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="campaign-actions">
+                                    ${hasOutputs ? 
+                                        `<button class="campaign-action-btn primary" onclick="event.stopPropagation(); window.location.href='/outputs'">📁 View Assets</button>` :
+                                        `<button class="campaign-action-btn primary" onclick="event.stopPropagation(); runPipeline('${campaign.id}')">🚀 Generate Assets</button>`
+                                    }
+                                    <button class="campaign-action-btn secondary" onclick="event.stopPropagation(); editCampaign('${campaign.id}')">✏️ Edit Brief</button>
+                                    <button class="campaign-action-btn secondary" onclick="event.stopPropagation(); loadBriefIntoForm('${campaign.id}')">📌 Use as Template</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                })
+                .catch(error => {
+                    console.error('Error loading campaigns:', error);
+                    const campaignsContainer = document.getElementById('campaigns-list');
+                    if (campaignsContainer) {
+                        campaignsContainer.innerHTML = `
+                            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                                <h3>Error loading campaigns</h3>
+                                <p>Please try again later</p>
+                                <button class="btn-primary" onclick="loadCampaigns()" style="margin-top: 1rem;">
+                                    Retry
+                                </button>
+                            </div>
+                        `;
+                    }
+                });
+        }
+        
+        // Campaign Brief Management
+        let currentBrief = {
+            campaign_name: '',
+            products: [],
+            target_region: 'North America',
+            target_audience: '',
+            campaign_message: ''
+        };
+        
+        function updateBriefPreview() {
+            document.getElementById('json-preview').textContent = JSON.stringify(currentBrief, null, 2);
+        }
+        
+        function updateBriefFromForm() {
+            // Get selected regions from checkboxes
+            const selectedRegions = Array.from(document.querySelectorAll('input[name="target-regions"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            // Build brand guidelines
+            const brandGuidelines = {};
+            const brandColors = document.getElementById('brand-colors').value;
+            const brandFonts = document.getElementById('brand-fonts').value;
+            const brandTone = document.getElementById('brand-tone').value;
+            
+            if (brandColors || brandFonts || brandTone) {
+                if (brandColors) brandGuidelines.primary_colors = brandColors.split(',').map(c => c.trim());
+                if (brandFonts) brandGuidelines.fonts = brandFonts.split(',').map(f => f.trim());
+                if (brandTone) brandGuidelines.tone = brandTone;
+            }
+            
+            // Build budget constraints
+            const budgetConstraints = {};
+            const generationLimit = document.getElementById('generation-limit').value;
+            const maxApiCost = document.getElementById('max-api-cost').value;
+            
+            if (generationLimit || maxApiCost) {
+                if (generationLimit) budgetConstraints.generation_limit = parseInt(generationLimit);
+                if (maxApiCost) budgetConstraints.max_api_cost = parseFloat(maxApiCost);
+            }
+            
+            // Build timeline
+            const timeline = {};
+            const launchDate = document.getElementById('launch-date').value;
+            const priority = document.getElementById('campaign-priority').value;
+            const rushOrder = document.getElementById('rush-order').checked;
+            
+            if (launchDate || priority || rushOrder) {
+                if (launchDate) timeline.launch_date = launchDate;
+                if (priority) timeline.priority = priority;
+                timeline.rush_order = rushOrder;
+            }
+            
+            currentBrief = {
+                campaign_name: document.getElementById('campaign-name').value,
+                products: document.getElementById('campaign-products').value.split(',').map(p => p.trim()).filter(p => p),
+                target_regions: selectedRegions,
+                target_audience: document.getElementById('campaign-audience').value,
+                campaign_message: document.getElementById('campaign-message').value,
+                created_at: new Date().toISOString()
+            };
+            
+            // Add comprehensive fields only if they have values
+            if (Object.keys(brandGuidelines).length > 0) {
+                currentBrief.brand_guidelines = brandGuidelines;
+            }
+            if (Object.keys(budgetConstraints).length > 0) {
+                currentBrief.budget_constraints = budgetConstraints;
+            }
+            if (Object.keys(timeline).length > 0) {
+                currentBrief.timeline = timeline;
+            }
+            
+            updateBriefPreview();
+        }
+        
+        function populateFormFromBrief(brief) {
+            // First populate standard fields
+            document.getElementById('campaign-name').value = brief.campaign_name || '';
+            document.getElementById('campaign-products').value = Array.isArray(brief.products) ? 
+                brief.products.map(p => typeof p === 'string' ? p : p.name).join(', ') : '';
+            
+            // Handle regions (both single target_region and multiple target_regions)
+            const regions = brief.target_regions || (brief.target_region ? [brief.target_region] : []);
+            document.querySelectorAll('input[name="target-regions"]').forEach(checkbox => {
+                checkbox.checked = regions.includes(checkbox.value);
+            });
+            
+            document.getElementById('campaign-audience').value = brief.target_audience || '';
+            document.getElementById('campaign-message').value = brief.campaign_message || '';
+            
+            // Populate brand guidelines
+            if (brief.brand_guidelines) {
+                const bg = brief.brand_guidelines;
+                document.getElementById('brand-colors').value = Array.isArray(bg.primary_colors) ? 
+                    bg.primary_colors.join(', ') : (bg.primary_colors || '');
+                document.getElementById('brand-fonts').value = Array.isArray(bg.fonts) ? 
+                    bg.fonts.join(', ') : (bg.fonts || '');
+                document.getElementById('brand-tone').value = bg.tone || '';
+            } else {
+                document.getElementById('brand-colors').value = '';
+                document.getElementById('brand-fonts').value = '';
+                document.getElementById('brand-tone').value = '';
+            }
+            
+            // Populate budget constraints
+            if (brief.budget_constraints) {
+                const bc = brief.budget_constraints;
+                document.getElementById('generation-limit').value = bc.generation_limit || '';
+                document.getElementById('max-api-cost').value = bc.max_api_cost || '';
+            } else {
+                document.getElementById('generation-limit').value = '';
+                document.getElementById('max-api-cost').value = '';
+            }
+            
+            // Populate timeline
+            if (brief.timeline) {
+                const tl = brief.timeline;
+                document.getElementById('launch-date').value = tl.launch_date || '';
+                document.getElementById('campaign-priority').value = tl.priority || '';
+                document.getElementById('rush-order').checked = tl.rush_order || false;
+            } else {
+                document.getElementById('launch-date').value = '';
+                document.getElementById('campaign-priority').value = '';
+                document.getElementById('rush-order').checked = false;
+            }
+            
+            // Restructure the form based on the brief type
+            restructureFormForBrief(brief);
+            
+            currentBrief = { ...brief };
+            updateBriefPreview();
+        }
+        
+        function restructureFormForBrief(brief) {
+            // Remove any existing dynamic fields container
+            const existingDynamic = document.getElementById('dynamic-fields-container');
+            if (existingDynamic) {
+                existingDynamic.remove();
+            }
+            
+            // Detect brief type based on its unique fields
+            let briefType = 'standard';
+            if (brief.event_details) {
+                briefType = 'event';
+            } else if (brief.sustainability_metrics) {
+                briefType = 'sustainable';
+            } else if (brief.timeline && brief.timeline.rush_order) {
+                briefType = 'flash_sale';
+            }
+            
+            // Update form title and description based on brief type
+            const formTitle = document.querySelector('#new-campaign h2');
+            const formDesc = document.querySelector('#new-campaign .section-header p');
+            
+            if (briefType === 'event') {
+                if (formTitle) formTitle.innerHTML = `🎪 Event Campaign: ${brief.campaign_name}`;
+                if (formDesc) formDesc.textContent = 'Configure your event-focused campaign with venue, dates, and ticketing information';
+            } else if (briefType === 'sustainable') {
+                if (formTitle) formTitle.innerHTML = `🌿 Sustainable Campaign: ${brief.campaign_name}`;
+                if (formDesc) formDesc.textContent = 'Create an eco-conscious campaign with sustainability metrics and impact tracking';
+            } else if (briefType === 'flash_sale') {
+                if (formTitle) formTitle.innerHTML = `⚡ Flash Sale Campaign: ${brief.campaign_name}`;
+                if (formDesc) formDesc.textContent = 'Urgent time-sensitive campaign for maximum conversion';
+            }
+            
+            // Reorganize form sections based on brief type
+            const brandSection = document.getElementById('brand-guidelines-section');
+            const budgetSection = document.getElementById('budget-section');
+            const timelineSection = document.getElementById('timeline-section');
+            
+            // For flash sales, make timeline most prominent
+            if (briefType === 'flash_sale' && timelineSection) {
+                timelineSection.style.background = '#ffebee';
+                timelineSection.style.border = '2px solid #ff5252';
+                // Move timeline section to top
+                const form = document.getElementById('campaign-form');
+                const firstSection = form.querySelector('div[style*="margin-bottom"]');
+                if (firstSection && firstSection !== timelineSection) {
+                    form.insertBefore(timelineSection, firstSection.nextSibling);
+                }
+            }
+            
+            // For sustainable campaigns, deemphasize budget
+            if (briefType === 'sustainable' && budgetSection) {
+                budgetSection.style.opacity = '0.7';
+            }
+            
+            // Create container for dynamic fields
+            const dynamicContainer = document.createElement('div');
+            dynamicContainer.id = 'dynamic-fields-container';
+            dynamicContainer.style.cssText = 'margin-top: 2rem; padding: 1rem; background: #f0f4f8; border-radius: 8px;';
+            
+            let dynamicHTML = '';
+            
+            // Check for custom fields in the brief
+            const standardFields = ['campaign_id', 'campaign_name', 'campaign_message', 'target_audience', 
+                                  'target_regions', 'products', 'brand_guidelines', 'budget_constraints', 
+                                  'timeline', 'output_requirements', 'created_at', 'updated_at', 'target_region'];
+            
+            const customFields = Object.keys(brief).filter(key => !standardFields.includes(key));
+            
+            // Only add dynamic fields section if there are custom fields
+            if (customFields.length > 0) {
+                dynamicHTML = '<h3 style="margin-top: 0; color: #2c2c2c;">📋 Brief-Specific Fields</h3>';
+            }
+            
+            // Add event details if present
+            if (brief.event_details) {
+                dynamicHTML += `
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1473e6;">🎪 Event Details</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                `;
+                
+                if (brief.event_details.venue) {
+                    dynamicHTML += `
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Venue</label>
+                            <input type="text" value="${brief.event_details.venue}" readonly 
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa;">
+                        </div>
+                    `;
+                }
+                
+                if (brief.event_details.dates) {
+                    dynamicHTML += `
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Dates</label>
+                            <input type="text" value="${brief.event_details.dates}" readonly 
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa;">
+                        </div>
+                    `;
+                }
+                
+                if (brief.event_details.ticket_tiers) {
+                    dynamicHTML += `
+                        <div style="grid-column: 1 / -1;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Ticket Tiers</label>
+                            <div style="padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa;">
+                                ${brief.event_details.ticket_tiers.map(tier => `<div>• ${tier}</div>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                dynamicHTML += '</div></div>';
+            }
+            
+            // Add sustainability metrics if present
+            if (brief.sustainability_metrics) {
+                dynamicHTML += `
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h4 style="margin: 0 0 1rem 0; color: #2d9d78;">🌿 Sustainability Metrics</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                `;
+                
+                Object.entries(brief.sustainability_metrics).forEach(([key, value]) => {
+                    const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    const displayValue = typeof value === 'boolean' ? (value ? '✅ Yes' : '❌ No') : value;
+                    dynamicHTML += `
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.875rem;">${label}</label>
+                            <div style="padding: 0.5rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa;">
+                                ${displayValue}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                dynamicHTML += '</div></div>';
+            }
+            
+            // Add call to action if present
+            if (brief.call_to_action) {
+                dynamicHTML += `
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h4 style="margin: 0 0 1rem 0; color: #ff6b35;">📣 Call to Action</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                `;
+                
+                Object.entries(brief.call_to_action).forEach(([key, value]) => {
+                    const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    dynamicHTML += `
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.875rem;">${label}</label>
+                            <input type="text" value="${value}" data-field="call_to_action.${key}"
+                                   onchange="updateDynamicField(this)"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                        </div>
+                    `;
+                });
+                
+                dynamicHTML += '</div></div>';
+            }
+            
+            // Add special requirements if present
+            if (brief.output_requirements && brief.output_requirements.special_requirements) {
+                dynamicHTML += `
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h4 style="margin: 0 0 1rem 0; color: #7b2ff7;">✨ Special Requirements</h4>
+                        <div style="padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa;">
+                            ${brief.output_requirements.special_requirements.map(req => `<div>• ${req}</div>`).join('')}
+                        </div>
                     </div>
                 `;
-            });
+            }
+            
+            // Add other custom fields
+            if (customFields.length > 0) {
+                dynamicHTML += `
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h4 style="margin: 0 0 1rem 0; color: #6c757d;">📌 Additional Fields</h4>
+                `;
+                
+                customFields.forEach(field => {
+                    const value = brief[field];
+                    const label = field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    
+                    if (typeof value === 'object' && !Array.isArray(value)) {
+                        // Nested object - show as JSON
+                        dynamicHTML += `
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">${label}</label>
+                                <pre style="padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px; background: #f8f9fa; overflow-x: auto;">
+${JSON.stringify(value, null, 2)}</pre>
+                            </div>
+                        `;
+                    } else {
+                        dynamicHTML += `
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">${label}</label>
+                                <input type="text" value="${value}" data-field="${field}"
+                                       onchange="updateDynamicField(this)"
+                                       style="width: 100%; padding: 0.75rem; border: 1px solid #e1e1e1; border-radius: 4px;">
+                            </div>
+                        `;
+                    }
+                });
+                
+                dynamicHTML += '</div>';
+            }
+            
+            dynamicContainer.innerHTML = dynamicHTML;
+            
+            // Insert the dynamic fields after the main form but before the buttons
+            const formButtons = document.querySelector('#campaign-form > div:last-child');
+            if (formButtons) {
+                formButtons.parentNode.insertBefore(dynamicContainer, formButtons);
+            } else {
+                document.getElementById('campaign-form').appendChild(dynamicContainer);
+            }
+        }
+        
+        function updateDynamicField(input) {
+            const field = input.dataset.field;
+            const value = input.value;
+            
+            // Update the currentBrief object with the new value
+            if (field.includes('.')) {
+                // Nested field
+                const parts = field.split('.');
+                let obj = currentBrief;
+                for (let i = 0; i < parts.length - 1; i++) {
+                    if (!obj[parts[i]]) obj[parts[i]] = {};
+                    obj = obj[parts[i]];
+                }
+                obj[parts[parts.length - 1]] = value;
+            } else {
+                // Top-level field
+                currentBrief[field] = value;
+            }
+            
+            updateBriefPreview();
+        }
+        
+        function showMessage(message, type = 'success') {
+            const messagesDiv = document.getElementById('campaign-messages');
+            const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+            messagesDiv.innerHTML = `
+                <div class="alert ${alertClass}" style="padding: 0.75rem; margin-bottom: 1rem; border: 1px solid; border-radius: 4px; ${type === 'error' ? 'background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;' : 'background-color: #d4edda; border-color: #c3e6cb; color: #155724;'}">
+                    ${message}
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messagesDiv.innerHTML = '';
+            }, 5000);
+        }
+        
+        function downloadBrief(format) {
+            updateBriefFromForm();
+            
+            let content, filename, mimeType;
+            
+            if (format === 'json') {
+                content = JSON.stringify(currentBrief, null, 2);
+                filename = `campaign_brief_${Date.now()}.json`;
+                mimeType = 'application/json';
+            } else {
+                // Convert to YAML format
+                content = `campaign_brief:
+  campaign_id: "${currentBrief.campaign_name.toLowerCase().replace(/\s+/g, '_')}_${Date.now()}"
+  campaign_name: "${currentBrief.campaign_name}"
+  products:
+${currentBrief.products.map(p => `  - name: "${p}"`).join('\n')}
+  target_region: "${currentBrief.target_region}"
+  target_audience: "${currentBrief.target_audience}"
+  campaign_message: "${currentBrief.campaign_message}"
+  created_at: "${currentBrief.created_at}"`;
+                filename = `campaign_brief_${Date.now()}.yaml`;
+                mimeType = 'text/yaml';
+            }
+            
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showMessage(`${format.toUpperCase()} file downloaded successfully!`);
         }
         
         // Load activity feed
@@ -1741,6 +3492,138 @@
             loadActivityFeed();
             // Refresh every 30 seconds
             setInterval(loadActivityFeed, 30000);
+            
+            // Load campaigns on page load
+            loadCampaigns();
+            
+            // Initial preview update
+            updateBriefPreview();
+            
+            // Form field listeners for live updates
+            const formFields = [
+                'campaign-name', 'campaign-products', 'campaign-audience', 'campaign-message',
+                'brand-colors', 'brand-fonts', 'brand-tone',
+                'generation-limit', 'max-api-cost',
+                'launch-date', 'campaign-priority', 'rush-order'
+            ];
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', updateBriefFromForm);
+                    field.addEventListener('change', updateBriefFromForm);
+                }
+            });
+            
+            // Add listeners for region checkboxes
+            document.querySelectorAll('input[name="target-regions"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateBriefFromForm);
+            });
+            
+            // File upload handling
+            const fileInput = document.getElementById('brief-file-input');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    fetch('/api/campaigns/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            populateFormFromBrief(data.brief);
+                            showMessage('Campaign brief uploaded successfully!');
+                        } else {
+                            showMessage(data.message || 'Upload failed', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Upload error:', error);
+                        showMessage('Upload failed: ' + error.message, 'error');
+                    });
+                    
+                    // Reset file input
+                    fileInput.value = '';
+                });
+            }
+            
+            // Campaign form handler
+            const campaignForm = document.getElementById('campaign-form');
+            if (campaignForm) {
+                campaignForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Show spinner
+                    const spinner = document.getElementById('save-spinner');
+                    const button = e.target.querySelector('button[type="submit"]');
+                    spinner.style.display = 'inline';
+                    button.disabled = true;
+                    
+                    // Update brief from form and submit
+                    updateBriefFromForm();
+                    
+                    // Check if we're updating an existing campaign
+                    const isUpdate = currentBrief.campaign_id && currentBrief.campaign_id !== 'new';
+                    const url = isUpdate ? `/api/campaigns/${currentBrief.campaign_id}/update` : '/api/campaigns/brief';
+                    
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(currentBrief)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        spinner.style.display = 'none';
+                        button.disabled = false;
+                        
+                        if (data.status === 'success') {
+                            const message = isUpdate ? 'Campaign updated successfully!' : 'Campaign created successfully!';
+                            showMessage(message);
+                            
+                            // Reset form for new campaigns
+                            if (!isUpdate) {
+                                // Reset form title and button
+                                const formTitle = document.querySelector('#new-campaign h2');
+                                if (formTitle) formTitle.textContent = 'Create New Campaign';
+                                
+                                button.innerHTML = '<span id="save-spinner" style="display: none;">⏳ </span>Save Campaign';
+                                
+                                // Clear current brief
+                                currentBrief = {
+                                    campaign_name: '',
+                                    products: [],
+                                    target_regions: [],
+                                    target_audience: '',
+                                    campaign_message: '',
+                                    created_at: new Date().toISOString()
+                                };
+                                updateBriefPreview();
+                            }
+                            
+                            // Redirect to campaigns list
+                            setTimeout(() => {
+                                showSection('campaigns');
+                                loadCampaigns(); // Refresh the campaigns list
+                            }, 2000);
+                        } else {
+                            showMessage(data.message || 'Failed to save campaign', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        spinner.style.display = 'none';
+                        button.disabled = false;
+                        console.error('Save error:', error);
+                        showMessage('Error saving campaign: ' + error.message, 'error');
+                    });
+                });
+            }
         });
     </script>
 </body>

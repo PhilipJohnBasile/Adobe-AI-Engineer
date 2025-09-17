@@ -1,5 +1,5 @@
 """
-Adobe Creative Automation Platform - Professional Web Interface
+Creative Automation Platform - Professional Web Interface
 Production-ready creative automation pipeline with enterprise monitoring and AI-driven insights
 Streamlined interface for campaign creation, asset generation, and performance analytics
 """
@@ -13,6 +13,10 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Web framework
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, send_file
@@ -57,10 +61,66 @@ def get_system_status():
             'enterprise': Path('src/enterprise_ai_monitor.py').exists()
         }
         
-        # Get campaigns
-        campaigns = []
+        # Get campaigns with details - match brief files with output folders
+        brief_files = []
         for pattern in ['*.yaml', '*.yml', '*.json']:
-            campaigns.extend(Path(CAMPAIGN_BRIEFS_FOLDER).glob(pattern))
+            brief_files.extend(Path(CAMPAIGN_BRIEFS_FOLDER).glob(pattern))
+        
+        output_dirs = {d.name: d for d in Path(OUTPUT_FOLDER).iterdir() if d.is_dir()}
+        
+        recent_campaigns = []
+        for brief_file in brief_files:
+            try:
+                with open(brief_file, 'r') as f:
+                    if brief_file.suffix.lower() in ['.yaml', '.yml']:
+                        data = yaml.safe_load(f)
+                    else:
+                        data = json.load(f)
+                
+                # Handle both old and new campaign brief formats
+                if 'campaign_brief' in data:
+                    # New format with campaign_brief wrapper
+                    brief_data = data['campaign_brief']
+                    campaign_name = brief_data.get('campaign_name', brief_file.stem)
+                    campaign_message = brief_data.get('campaign_message', '')
+                    products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in brief_data.get('products', [])]
+                    target_regions = brief_data.get('target_regions', [brief_data.get('target_region', 'Global')])
+                else:
+                    # Old format without wrapper
+                    campaign_name = data.get('campaign_name', brief_file.stem)
+                    campaign_message = data.get('campaign_message', '')
+                    products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in data.get('products', [])]
+                    target_regions = data.get('target_regions', [data.get('target_region', 'Global')])
+                
+                # Check for matching output folders (including localized versions)
+                has_outputs = False
+                possible_output_names = [brief_file.stem]
+                
+                # Add localized versions if multi-region
+                if len(target_regions) > 1:
+                    for region in target_regions:
+                        possible_output_names.append(f"{brief_file.stem}_{region.lower()}")
+                
+                for output_name in possible_output_names:
+                    if output_name in output_dirs:
+                        has_outputs = True
+                        break
+                
+                recent_campaigns.append({
+                    'id': brief_file.stem,
+                    'name': campaign_name,
+                    'products': products,
+                    'target_regions': target_regions,
+                    'campaign_message': campaign_message,
+                    'has_outputs': has_outputs,
+                    'created': datetime.fromtimestamp(brief_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M'),
+                    'file': brief_file.name
+                })
+            except Exception as e:
+                logger.warning(f"Error reading {brief_file}: {e}")
+        
+        # Sort by creation time
+        recent_campaigns.sort(key=lambda x: x['created'], reverse=True)
         
         # Get outputs
         output_dirs = [d for d in Path(OUTPUT_FOLDER).iterdir() if d.is_dir()]
@@ -68,7 +128,8 @@ def get_system_status():
         return {
             'system_ready': main_py_available,
             'ai_monitor_systems': ai_monitor_systems,
-            'total_campaigns': len(campaigns),
+            'total_campaigns': len(recent_campaigns),
+            'recent_campaigns': recent_campaigns[:10],  # Include recent campaigns
             'total_outputs': len(output_dirs),
             'cli_commands_available': 28,  # From main.py
             'last_updated': datetime.now().isoformat()
@@ -109,12 +170,16 @@ def get_latest_image():
 def run_cli_command(command: List[str], timeout: int = 300) -> Dict[str, Any]:
     """Run a CLI command safely"""
     try:
+        # Ensure environment variables are passed to subprocess
+        env = os.environ.copy()
+        
         result = subprocess.run(
             command,
             capture_output=True,
             text=True,
             timeout=timeout,
-            cwd=Path.cwd()
+            cwd=Path.cwd(),
+            env=env
         )
         
         return {
@@ -143,47 +208,12 @@ def dashboard():
     """Main dashboard showing everything"""
     status = get_system_status()
     
-    # Get recent campaigns
-    campaigns = []
-    brief_files = []
-    for pattern in ['*.yaml', '*.yml', '*.json']:
-        brief_files.extend(Path(CAMPAIGN_BRIEFS_FOLDER).glob(pattern))
-    
-    for brief_file in brief_files:
-        try:
-            with open(brief_file, 'r') as f:
-                if brief_file.suffix.lower() in ['.yaml', '.yml']:
-                    data = yaml.safe_load(f)
-                else:
-                    data = json.load(f)
-            
-            # Handle both old and new campaign brief formats
-            if 'campaign_brief' in data:
-                # New format with campaign_brief wrapper
-                brief_data = data['campaign_brief']
-                campaign_name = brief_data.get('campaign_name', brief_file.stem)
-                products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in brief_data.get('products', [])]
-            else:
-                # Old format without wrapper
-                campaign_name = data.get('campaign_name', brief_file.stem)
-                products = [p.get('name', str(p)) if isinstance(p, dict) else str(p) for p in data.get('products', [])]
-            
-            campaigns.append({
-                'id': brief_file.stem,
-                'name': campaign_name,
-                'products': products,
-                'created': datetime.fromtimestamp(brief_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M'),
-                'file': brief_file.name
-            })
-        except Exception as e:
-            logger.warning(f"Error reading {brief_file}: {e}")
-    
-    # Sort by creation time
-    campaigns.sort(key=lambda x: x['created'], reverse=True)
+    # Use campaigns from system status to avoid duplication
+    campaigns = status.get('recent_campaigns', [])
     
     return render_template('complete_dashboard.html', 
                          status=status, 
-                         campaigns=campaigns[:10])  # Show recent 10
+                         campaigns=campaigns)
 
 @app.route('/create-campaign')
 def create_campaign():
@@ -221,7 +251,7 @@ def upload_campaign():
                 'campaign_id': campaign_id,
                 'campaign_name': request.form.get('campaign_name', 'Untitled Campaign'),
                 'products': products_list,
-                'target_region': request.form.get('target_region', 'Global'),
+                'target_regions': request.form.getlist('target_regions') or [request.form.get('target_region', 'Global')],
                 'target_audience': {
                     'age_range': '25-45',
                     'demographics': request.form.get('target_audience', 'General')
@@ -380,7 +410,7 @@ def cli_commands():
         {'name': 'analytics', 'description': 'Generate analytics dashboard'},
         {'name': 'ab-test', 'description': 'A/B testing: create, start, status, report'},
         {'name': 'webhooks', 'description': 'Webhook management: add, remove, list, test'},
-        {'name': 'adobe', 'description': 'Adobe integration: status, demo, migrate'},
+        {'name': 'integrate', 'description': 'Third-party integrations: status, demo, migrate'},
         {'name': 'monitor', 'description': 'System monitoring: start, status, metrics'},
         {'name': 'moderate', 'description': 'Content moderation: scan, validate, report'},
         {'name': 'workflow', 'description': 'Workflow management: create, execute, status'},
@@ -389,7 +419,7 @@ def cli_commands():
         {'name': 'audit', 'description': 'Audit logging: log, report, search, export'},
         {'name': 'brand', 'description': 'Brand analysis: analyze, extract-colors, assess-quality'},
         {'name': 'predict-performance', 'description': 'Predict asset performance using AI'},
-        {'name': 'adobe-integration', 'description': 'Adobe Stock, Fonts, Firefly integration'},
+        {'name': 'api-connect', 'description': 'External API connections and webhooks'},
         {'name': 'personalize', 'description': 'Personalize campaigns for audiences'},
         {'name': 'collaborate', 'description': 'Team collaboration features'},
         {'name': 'analyze-performance', 'description': 'Performance analysis and learning'},
@@ -662,18 +692,18 @@ def api_run_ai_tool():
             'ab-test-results': ['python3', 'main.py', 'ab_test', 'status'],
             'ab-test-reports': ['python3', 'main.py', 'ab_test', 'report'],
             
-            # Adobe Integration Suite
-            'adobe-stock-search': ['python3', 'main.py', 'adobe-integration', 'search-stock', '--query', 'creative'],
-            'adobe-firefly': ['python3', 'main.py', 'adobe-integration', 'firefly'],
-            'adobe-fonts': ['python3', 'main.py', 'adobe-integration', 'fonts'],
-            'adobe-workspace': ['python3', 'main.py', 'adobe-integration', 'workspace'],
-            'adobe-express': ['python3', 'main.py', 'adobe', 'status'],
+            # External Integration Suite
+            'stock-search': ['python3', 'main.py', 'integration', 'search-stock', '--query', 'creative'],
+            'ai-generate': ['python3', 'main.py', 'integration', 'generate'],
+            'font-library': ['python3', 'main.py', 'integration', 'fonts'],
+            'workspace': ['python3', 'main.py', 'integration', 'workspace'],
+            'api-status': ['python3', 'main.py', 'api', 'status'],
             
             # System-wide tools
             'analytics': ['python3', 'main.py', 'analytics'],
             'monitor': ['python3', 'main.py', 'monitor', 'status'],
             'audit': ['python3', 'main.py', 'audit', 'report'],
-            'adobe-integration': ['python3', 'main.py', 'adobe', 'status'],
+            'integration-status': ['python3', 'main.py', 'integrate', 'status'],
             'collaborate': ['python3', 'main.py', 'collaborate', 'status'],
             'workflow': ['python3', 'main.py', 'workflow', 'status'],
             'optimize': ['python3', 'main.py', 'optimize', 'report'],
@@ -685,7 +715,7 @@ def api_run_ai_tool():
             'moderate-content': ['python3', 'main.py', 'moderate', 'report'],
             'ab-testing': ['python3', 'main.py', 'ab_test', 'list'],
             'brand-intelligence': ['python3', 'main.py', 'brand', 'report'],
-            'adobe-advanced': ['python3', 'main.py', 'adobe_integration', 'status'],
+            'advanced-integration': ['python3', 'main.py', 'integration', 'advanced'],
             'performance-analysis': ['python3', 'main.py', 'analyze_performance', 'run-analysis'],
             
             # Enterprise Administration
@@ -887,22 +917,29 @@ def api_explorer_data(section):
             if output_path.exists():
                 for campaign_dir in output_path.iterdir():
                     if campaign_dir.is_dir():
-                        for file in campaign_dir.rglob('*'):
-                            if file.is_file() and file.suffix.lower() in ['.jpg', '.png', '.jpeg']:
-                                relative_path = file.relative_to(output_path)
-                                images.append({
-                                    'name': file.name,
-                                    'url': url_for('serve_image', 
-                                                 campaign_id=campaign_dir.name, 
-                                                 filename=str(file.relative_to(campaign_dir))),
-                                    'campaign': campaign_dir.name,
-                                    'size': f'{file.stat().st_size // 1024}KB'
-                                })
+                        for product_dir in campaign_dir.iterdir():
+                            if product_dir.is_dir():
+                                for file in product_dir.glob('*'):
+                                    if file.is_file() and file.suffix.lower() in ['.jpg', '.png', '.jpeg']:
+                                        # Create proper path for image URL
+                                        relative_path = f"{product_dir.name}/{file.name}"
+                                        images.append({
+                                            'name': file.name,
+                                            'url': url_for('serve_image', 
+                                                         campaign_id=campaign_dir.name, 
+                                                         filename=relative_path),
+                                            'campaign': campaign_dir.name,
+                                            'product': product_dir.name,
+                                            'size': f'{file.stat().st_size // 1024}KB',
+                                            'dimensions': file.stem.split('_')[-1] if '_' in file.stem else 'unknown'
+                                        })
             
             return jsonify({'images': images})
             
         elif section == 'logs':
             logs = []
+            
+            # Check for actual log files first
             logs_path = Path('logs')
             if logs_path.exists():
                 for log_file in sorted(logs_path.glob('*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:50]:
@@ -917,10 +954,38 @@ def api_explorer_data(section):
                     except:
                         pass
             
+            # Add recent pipeline activity as logs
+            output_path = Path(OUTPUT_FOLDER)
+            if output_path.exists():
+                for campaign_dir in sorted(output_path.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True)[:20]:
+                    if campaign_dir.is_dir():
+                        # Check for generation report
+                        report_file = campaign_dir / 'generation_report.json'
+                        if report_file.exists():
+                            try:
+                                with open(report_file) as f:
+                                    report_data = json.load(f)
+                                    logs.append({
+                                        'level': 'INFO',
+                                        'timestamp': report_data.get('generated_at', ''),
+                                        'message': f"Campaign '{report_data.get('campaign_id', campaign_dir.name)}' generated {len(report_data.get('generated_files', []))} assets"
+                                    })
+                            except:
+                                pass
+                        else:
+                            # Fallback to directory modification time
+                            logs.append({
+                                'level': 'INFO',
+                                'timestamp': datetime.fromtimestamp(campaign_dir.stat().st_mtime).isoformat(),
+                                'message': f"Campaign '{campaign_dir.name}' created"
+                            })
+            
             return jsonify({'logs': logs})
             
         elif section == 'alerts':
             alerts = []
+            
+            # Check for actual alert files first
             alerts_path = Path('alerts')
             if alerts_path.exists():
                 for alert_file in sorted(alerts_path.glob('*.json'), key=lambda x: x.stat().st_mtime, reverse=True)[:20]:
@@ -936,6 +1001,43 @@ def api_explorer_data(section):
                     except:
                         pass
             
+            # Generate system status alerts
+            output_path = Path(OUTPUT_FOLDER)
+            if output_path.exists():
+                # Check for compliance issues
+                for campaign_dir in output_path.iterdir():
+                    if campaign_dir.is_dir():
+                        compliance_file = campaign_dir / 'compliance_report.txt'
+                        if compliance_file.exists():
+                            try:
+                                with open(compliance_file, 'r') as f:
+                                    content = f.read()
+                                    if 'REVIEW REQUIRED' in content:
+                                        alerts.append({
+                                            'title': 'Compliance Issue',
+                                            'message': f"Campaign {campaign_dir.name} requires review before launch",
+                                            'severity': 'warning',
+                                            'timestamp': datetime.fromtimestamp(compliance_file.stat().st_mtime).isoformat()
+                                        })
+                                    elif 'FAILED' in content:
+                                        alerts.append({
+                                            'title': 'Compliance Failure',
+                                            'message': f"Campaign {campaign_dir.name} failed compliance checks",
+                                            'severity': 'error',
+                                            'timestamp': datetime.fromtimestamp(compliance_file.stat().st_mtime).isoformat()
+                                        })
+                            except:
+                                pass
+            
+            # Add system health alerts
+            current_time = datetime.now()
+            alerts.append({
+                'title': 'System Status',
+                'message': 'Creative Automation Platform is running normally',
+                'severity': 'success',
+                'timestamp': current_time.isoformat()
+            })
+            
             return jsonify({'alerts': alerts})
             
         else:
@@ -944,6 +1046,471 @@ def api_explorer_data(section):
     except Exception as e:
         logger.error(f"Error in data explorer API: {e}")
         return jsonify({'error': str(e)}), 500
+
+def load_campaign_brief(file_path):
+    """Load and validate campaign brief from file"""
+    try:
+        with open(file_path, 'r') as f:
+            if file_path.endswith('.json'):
+                return json.load(f)
+            else:  # yaml
+                return yaml.safe_load(f)
+    except Exception as e:
+        logger.error(f"Error loading brief {file_path}: {e}")
+        return None
+
+def save_campaign_brief(brief_data, brief_id=None):
+    """Save campaign brief to file"""
+    try:
+        if not brief_id:
+            brief_id = f"campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        
+        # Ensure campaign_briefs folder exists
+        Path(CAMPAIGN_BRIEFS_FOLDER).mkdir(exist_ok=True)
+        
+        # Wrap in campaign_brief structure to match existing pattern
+        wrapped_data = {
+            'campaign_brief': {
+                'campaign_id': brief_id,
+                'campaign_name': brief_data.get('campaign_name', ''),
+                'products': [
+                    {'name': p.strip(), 'description': f"Product: {p.strip()}"} 
+                    if isinstance(p, str) else p 
+                    for p in brief_data.get('products', [])
+                ],
+                'target_regions': brief_data.get('target_regions') or [brief_data.get('target_region', 'Global')],
+                'target_audience': brief_data.get('target_audience', ''),
+                'campaign_message': brief_data.get('campaign_message', ''),
+                'created_at': brief_data.get('created_at', datetime.now().isoformat()),
+                'output_requirements': {
+                    'aspect_ratios': ['1:1', '9:16', '16:9'],
+                    'formats': ['JPG']
+                }
+            }
+        }
+        
+        # Save as YAML
+        yaml_path = Path(CAMPAIGN_BRIEFS_FOLDER) / f"{brief_id}.yaml"
+        with open(yaml_path, 'w') as f:
+            yaml.dump(wrapped_data, f, default_flow_style=False, allow_unicode=True)
+        
+        return str(yaml_path)
+    except Exception as e:
+        logger.error(f"Error saving brief: {e}")
+        return None
+
+def validate_campaign_brief(brief_data):
+    """Validate campaign brief structure"""
+    required_fields = ['campaign_name', 'products', 'campaign_message']
+    
+    for field in required_fields:
+        if field not in brief_data or not brief_data[field]:
+            return False, f"Missing required field: {field}"
+    
+    # Check that either target_region or target_regions is provided
+    has_target_region = brief_data.get('target_region')
+    has_target_regions = brief_data.get('target_regions')
+    
+    if not has_target_region and not has_target_regions:
+        return False, "Missing required field: target_regions (select at least one region)"
+    
+    products = brief_data.get('products', [])
+    if isinstance(products, str):
+        products = [p.strip() for p in products.split(',') if p.strip()]
+    
+    if len(products) < 2:
+        return False, "At least 2 products are required"
+    
+    return True, "Valid"
+
+@app.route('/healthz')
+def healthz():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'timestamp': datetime.now().isoformat(),
+        'version': '1.0.0'
+    })
+
+@app.route('/api/campaigns/brief', methods=['GET', 'POST'])
+def campaign_brief():
+    """Campaign brief API endpoint"""
+    if request.method == 'GET':
+        # Check if specific campaign ID requested
+        campaign_id = request.args.get('campaign_id')
+        
+        if campaign_id:
+            # Load specific campaign brief
+            brief_file = None
+            for ext in ['yaml', 'yml', 'json']:
+                candidate = Path(CAMPAIGN_BRIEFS_FOLDER) / f"{campaign_id}.{ext}"
+                if candidate.exists():
+                    brief_file = candidate
+                    break
+            
+            if brief_file:
+                try:
+                    with open(brief_file, 'r') as f:
+                        if brief_file.suffix.lower() in ['.yaml', '.yml']:
+                            data = yaml.safe_load(f)
+                        else:
+                            data = json.load(f)
+                    
+                    return jsonify({
+                        'status': 'success',
+                        'brief': data,
+                        'file_path': str(brief_file)
+                    })
+                except Exception as e:
+                    return jsonify({
+                        'status': 'error',
+                        'message': f'Error loading campaign brief: {e}'
+                    }), 500
+            else:
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Campaign brief not found: {campaign_id}'
+                }), 404
+        else:
+            # Return current/latest brief
+            latest_brief_path = get_latest_campaign()
+            if latest_brief_path:
+                brief_data = load_campaign_brief(latest_brief_path)
+                if brief_data:
+                    return jsonify({
+                        'status': 'success',
+                        'brief': brief_data,
+                        'file_path': latest_brief_path
+                    })
+            
+            return jsonify({
+                'status': 'success',
+                'brief': None,
+                'message': 'No campaign briefs found'
+            })
+    
+    elif request.method == 'POST':
+        try:
+            # Handle both JSON and form data
+            if request.is_json:
+                brief_data = request.get_json()
+            else:
+                # Handle form data
+                brief_data = {
+                    'campaign_name': request.form.get('name', ''),
+                    'products': [p.strip() for p in request.form.get('products', '').split(',') if p.strip()],
+                    'target_regions': request.form.getlist('target_regions') or [request.form.get('region', 'Global')],
+                    'campaign_message': request.form.get('message', ''),
+                    'created_at': datetime.now().isoformat()
+                }
+            
+            # Validate brief
+            is_valid, message = validate_campaign_brief(brief_data)
+            if not is_valid:
+                return jsonify({
+                    'status': 'error',
+                    'message': message
+                }), 400
+            
+            # Save brief
+            brief_path = save_campaign_brief(brief_data)
+            if brief_path:
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Campaign brief saved successfully',
+                    'file_path': brief_path,
+                    'brief': brief_data
+                })
+            else:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Failed to save campaign brief'
+                }), 500
+                
+        except Exception as e:
+            logger.error(f"Error in campaign brief endpoint: {e}")
+            return jsonify({
+                'status': 'error',
+                'message': f'Server error: {str(e)}'
+            }), 500
+
+@app.route('/api/campaigns/upload', methods=['POST'])
+def upload_campaign_brief():
+    """Upload campaign brief file"""
+    try:
+        if 'file' not in request.files:
+            return jsonify({'status': 'error', 'message': 'No file provided'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'status': 'error', 'message': 'No file selected'}), 400
+        
+        if not allowed_file(file.filename):
+            return jsonify({'status': 'error', 'message': 'Invalid file type. Only JSON and YAML files are allowed.'}), 400
+        
+        # Read and parse file
+        file_content = file.read().decode('utf-8')
+        try:
+            if file.filename.endswith('.json'):
+                brief_data = json.loads(file_content)
+            else:  # yaml/yml
+                brief_data = yaml.safe_load(file_content)
+        except Exception as parse_error:
+            return jsonify({
+                'status': 'error', 
+                'message': f'Failed to parse file: {str(parse_error)}'
+            }), 400
+        
+        # Extract from campaign_brief wrapper if present
+        if 'campaign_brief' in brief_data:
+            brief_data = brief_data['campaign_brief']
+        
+        # Normalize field names
+        normalized_brief = {
+            'campaign_name': brief_data.get('campaign_name', ''),
+            'products': brief_data.get('products', []),
+            'target_regions': brief_data.get('target_regions') or [brief_data.get('target_region', 'Global')],
+            'target_audience': brief_data.get('target_audience', ''),
+            'campaign_message': brief_data.get('campaign_message', '')
+        }
+        
+        # Validate brief
+        is_valid, message = validate_campaign_brief(normalized_brief)
+        if not is_valid:
+            return jsonify({'status': 'error', 'message': message}), 400
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'File uploaded and parsed successfully',
+            'brief': normalized_brief
+        })
+        
+    except Exception as e:
+        logger.error(f"Error uploading brief: {e}")
+        return jsonify({'status': 'error', 'message': f'Upload error: {str(e)}'}), 500
+
+@app.route('/api/campaigns/<campaign_id>/run', methods=['POST'])
+def api_run_campaign(campaign_id):
+    """API endpoint to run campaign pipeline with detailed feedback"""
+    try:
+        # Find the campaign brief file
+        brief_file = None
+        for ext in ['yaml', 'yml', 'json']:
+            candidate = Path(CAMPAIGN_BRIEFS_FOLDER) / f"{campaign_id}.{ext}"
+            if candidate.exists():
+                brief_file = candidate
+                break
+        
+        if not brief_file:
+            return jsonify({
+                'status': 'error',
+                'message': f'Campaign brief not found: {campaign_id}'
+            }), 404
+        
+        # Get selected regions from request if provided
+        data = request.get_json() or {}
+        selected_regions = data.get('regions', [])
+        
+        # Validate campaign brief first
+        validate_command = ['python3', 'main.py', 'validate', str(brief_file)]
+        validate_result = run_cli_command(validate_command, timeout=30)
+        
+        if not validate_result['success']:
+            return jsonify({
+                'status': 'error',
+                'message': 'Campaign brief validation failed',
+                'details': validate_result.get('stderr', 'Unknown validation error')
+            }), 400
+        
+        # Run the main pipeline
+        generate_command = ['python3', 'main.py', 'generate', str(brief_file)]
+        
+        # Add region-specific flags if provided
+        if selected_regions and len(selected_regions) == 1:
+            generate_command.extend(['--localize', selected_regions[0]])
+        
+        # Run with extended timeout for generation
+        result = run_cli_command(generate_command, timeout=900)  # 15 minutes
+        
+        if result['success']:
+            # Parse output for key information
+            output_lines = result['stdout'].split('\n')
+            
+            # Extract generation summary
+            summary_info = {
+                'campaign_id': campaign_id,
+                'completed': True,
+                'output': result['stdout'],
+                'regions_processed': [],
+                'files_generated': []
+            }
+            
+            # Parse output for regions and files
+            for line in output_lines:
+                if 'Processing region:' in line:
+                    region = line.split('Processing region:')[1].strip()
+                    summary_info['regions_processed'].append(region)
+                elif 'Generated:' in line and '.jpg' in line:
+                    file_path = line.split('Generated:')[1].strip()
+                    summary_info['files_generated'].append(file_path)
+            
+            return jsonify({
+                'status': 'success',
+                'message': f'Pipeline completed successfully for {campaign_id}',
+                'summary': summary_info,
+                'output': result['stdout']
+            })
+        else:
+            return jsonify({
+                'status': 'error',
+                'message': 'Pipeline execution failed',
+                'details': result.get('stderr', 'Unknown error'),
+                'output': result.get('stdout', '')
+            }), 500
+            
+    except Exception as e:
+        logger.error(f"Error running campaign {campaign_id}: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Internal error: {str(e)}'
+        }), 500
+
+@app.route('/api/campaigns/<campaign_id>/validate', methods=['POST'])
+def api_validate_campaign(campaign_id):
+    """API endpoint to validate campaign brief"""
+    try:
+        # Find the campaign brief file
+        brief_file = None
+        for ext in ['yaml', 'yml', 'json']:
+            candidate = Path(CAMPAIGN_BRIEFS_FOLDER) / f"{campaign_id}.{ext}"
+            if candidate.exists():
+                brief_file = candidate
+                break
+        
+        if not brief_file:
+            return jsonify({
+                'status': 'error',
+                'message': f'Campaign brief not found: {campaign_id}'
+            }), 404
+        
+        # Run validation
+        command = ['python3', 'main.py', 'validate', str(brief_file)]
+        result = run_cli_command(command, timeout=30)
+        
+        if result['success']:
+            return jsonify({
+                'status': 'success',
+                'message': 'Campaign brief is valid',
+                'output': result['stdout']
+            })
+        else:
+            return jsonify({
+                'status': 'error',
+                'message': 'Campaign brief validation failed',
+                'details': result.get('stderr', 'Unknown validation error'),
+                'output': result.get('stdout', '')
+            }), 400
+            
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Internal error: {str(e)}'
+        }), 500
+
+@app.route('/api/campaigns/<campaign_id>/update', methods=['POST'])
+def api_update_campaign(campaign_id):
+    """API endpoint to update an existing campaign brief"""
+    try:
+        # Get the updated data
+        brief_data = request.get_json()
+        if not brief_data:
+            return jsonify({
+                'status': 'error',
+                'message': 'No data provided'
+            }), 400
+        
+        # Find the existing campaign brief file
+        brief_file = None
+        for ext in ['yaml', 'yml', 'json']:
+            candidate = Path(CAMPAIGN_BRIEFS_FOLDER) / f"{campaign_id}.{ext}"
+            if candidate.exists():
+                brief_file = candidate
+                break
+        
+        if not brief_file:
+            return jsonify({
+                'status': 'error',
+                'message': f'Campaign brief not found: {campaign_id}'
+            }), 404
+        
+        # Validate the updated brief
+        is_valid, message = validate_campaign_brief(brief_data)
+        if not is_valid:
+            return jsonify({
+                'status': 'error',
+                'message': message
+            }), 400
+        
+        # Update the campaign brief file
+        try:
+            # Wrap in campaign_brief structure if needed
+            if 'campaign_brief' not in brief_data:
+                wrapped_data = {
+                    'campaign_brief': {
+                        'campaign_id': campaign_id,
+                        'campaign_name': brief_data.get('campaign_name', ''),
+                        'products': [
+                            {'name': p.strip(), 'description': f"Product: {p.strip()}"} 
+                            if isinstance(p, str) else p
+                            for p in brief_data.get('products', [])
+                        ],
+                        'target_regions': brief_data.get('target_regions', []),
+                        'target_audience': brief_data.get('target_audience', ''),
+                        'campaign_message': brief_data.get('campaign_message', ''),
+                        'created_at': brief_data.get('created_at', datetime.now().isoformat()),
+                        'updated_at': datetime.now().isoformat()
+                    }
+                }
+                
+                # Add comprehensive fields if they exist
+                if brief_data.get('brand_guidelines'):
+                    wrapped_data['campaign_brief']['brand_guidelines'] = brief_data['brand_guidelines']
+                if brief_data.get('budget_constraints'):
+                    wrapped_data['campaign_brief']['budget_constraints'] = brief_data['budget_constraints']
+                if brief_data.get('timeline'):
+                    wrapped_data['campaign_brief']['timeline'] = brief_data['timeline']
+                if brief_data.get('output_requirements'):
+                    wrapped_data['campaign_brief']['output_requirements'] = brief_data['output_requirements']
+            else:
+                wrapped_data = brief_data
+                wrapped_data['campaign_brief']['updated_at'] = datetime.now().isoformat()
+            
+            # Save the updated file
+            with open(brief_file, 'w', encoding='utf-8') as f:
+                if brief_file.suffix.lower() in ['.yaml', '.yml']:
+                    yaml.dump(wrapped_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+                else:
+                    json.dump(wrapped_data, f, indent=2, ensure_ascii=False)
+            
+            return jsonify({
+                'status': 'success',
+                'message': 'Campaign updated successfully',
+                'file_path': str(brief_file),
+                'brief': wrapped_data
+            })
+            
+        except Exception as e:
+            return jsonify({
+                'status': 'error',
+                'message': f'Error saving campaign: {e}'
+            }), 500
+        
+    except Exception as e:
+        logger.error(f"Error updating campaign {campaign_id}: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Internal error: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     print("🚀 Creative Automation System - Web Interface")

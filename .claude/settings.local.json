@@ -24,7 +24,13 @@
       "Bash(tree:*)",
       "Bash(open /Users/pjb/Git/Adobe-AI-Engineer/Presentation.html)",
       "Bash(open http://localhost:5004)",
-      "Bash(open http://localhost:5004/explorer)"
+      "Bash(open http://localhost:5004/explorer)",
+      "Bash(open test_integration.html)",
+      "Bash(source .env)",
+      "Bash(export OPENAI_API_KEY)",
+      "Bash(npm install:*)",
+      "Bash(marp:*)",
+      "Bash(open PRESENTATION_60min.html)"
     ],
     "deny": [],
     "ask": []

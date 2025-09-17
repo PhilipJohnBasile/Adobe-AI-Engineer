@@ -1,0 +1,17 @@
+============================================================
+COMPLIANCE REPORT
+============================================================
+Campaign: campaign_20250916_214305
+Checked at: 2025-09-16T21:47:56.237740
+Compliance Score: 100.0%
+Overall Status: APPROVED: All compliance checks passed.
+
+✅ PASSED CHECKS:
+----------------------------------------
+• Medical: 4 checks passed
+• Absolute: 4 checks passed
+• Inappropriate: 4 checks passed
+• Competitive: 4 checks passed
+• Age: 8 checks passed
+• Gendered: 4 checks passed
+• Ableist: 4 checks passed

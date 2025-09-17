@@ -26,11 +26,13 @@ def validate_campaign_brief(brief: Dict[Any, Any]) -> bool:
     required_fields = [
         'campaign_brief.campaign_id',
         'campaign_brief.products',
-        'campaign_brief.target_region',
         'campaign_brief.target_audience',
         'campaign_brief.campaign_message',
         'campaign_brief.output_requirements.aspect_ratios'
     ]
+    
+    # Check for either target_region or target_regions
+    region_fields = ['campaign_brief.target_region', 'campaign_brief.target_regions']
     
     def get_nested_value(data: Dict, path: str) -> Any:
         """Get nested dictionary value using dot notation."""
@@ -49,6 +51,17 @@ def validate_campaign_brief(brief: Dict[Any, Any]) -> bool:
         if get_nested_value(brief, field_path) is None:
             logging.error(f"Missing required field: {field_path}")
             return False
+    
+    # Check that at least one region field exists
+    has_region = False
+    for region_field in region_fields:
+        if get_nested_value(brief, region_field) is not None:
+            has_region = True
+            break
+    
+    if not has_region:
+        logging.error("Missing required field: either target_region or target_regions must be specified")
+        return False
     
     # Validate products structure
     products = brief['campaign_brief']['products']

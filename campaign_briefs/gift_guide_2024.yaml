@@ -53,7 +53,8 @@ campaign_brief:
     - organic
     - premium
   target_audience: high priority customers aged 25-45
-  target_region: US
+  target_regions:
+  - US
   timeline:
     launch_date: '2024-12-10'
     priority: high

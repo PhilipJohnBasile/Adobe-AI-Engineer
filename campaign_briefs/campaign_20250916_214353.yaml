@@ -1,0 +1,39 @@
+campaign_brief:
+  campaign_id: campaign_20250916_214353
+  campaign_message: Test message
+  campaign_name: Test Campaign
+  created_at: '2025-09-16T21:43:53.630538'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    quality: high
+  products:
+  - description: 'Product: test_product_1'
+    name: test_product_1
+  - description: 'Product: test_product_2'
+    name: test_product_2
+  target_audience: medium priority customers aged 25-45
+  target_regions:
+  - US
+  - CA
+  brand_guidelines:
+    primary_colors:
+    - '#495057'
+    - '#007BFF'
+    - '#F8F9FA'
+    fonts:
+    - Arial
+    - Helvetica
+    - Roboto
+    tone: high campaign with energetic and youthful
+  budget_constraints:
+    generation_limit: 36
+    max_api_cost: 56.0
+  timeline:
+    launch_date: '2025-10-31'
+    priority: high
+    rush_order: true

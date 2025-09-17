@@ -1,0 +1,23 @@
+============================================================
+COMPLIANCE REPORT
+============================================================
+Campaign: multi_region_test_2024
+Checked at: 2025-09-16T22:07:11.984321
+Compliance Score: 94.1%
+Overall Status: REVIEW REQUIRED: 2 warnings should be addressed before launch.
+
+⚠️  WARNINGS (Should Fix):
+----------------------------------------
+• Remove or replace prohibited absolute_claims terms: guaranteed
+• Brand guidelines require logo placement
+
+✅ PASSED CHECKS:
+----------------------------------------
+• Medical: 4 checks passed
+• Inappropriate: 4 checks passed
+• Competitive: 4 checks passed
+• Age: 8 checks passed
+• Gendered: 4 checks passed
+• Ableist: 4 checks passed
+• Absolute: 3 checks passed
+• Brand: 1 checks passed

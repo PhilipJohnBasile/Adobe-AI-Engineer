@@ -1,0 +1,20 @@
+{
+  "campaign_id": "campaign_20250916_220947",
+  "generated_at": "2025-09-16T22:10:23.578920",
+  "products": 2,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "Global",
+  "campaign_message": "You liked to play games when you were younger now play them now too!",
+  "generated_files": [
+    "atari2600/1x1.jpg",
+    "atari2600/16x9.jpg",
+    "atari2600/9x16.jpg",
+    "atari7800/1x1.jpg",
+    "atari7800/16x9.jpg",
+    "atari7800/9x16.jpg"
+  ]
+}

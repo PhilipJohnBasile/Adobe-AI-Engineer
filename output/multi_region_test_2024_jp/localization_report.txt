@@ -1,0 +1,19 @@
+============================================================
+LOCALIZATION REPORT
+============================================================
+Campaign: multi_region_test_2024
+Target Market: JP
+Language: ja-JP
+Currency: JPY
+
+🌍 CULTURAL ADAPTATIONS:
+----------------------------------------
+Messaging Tone: respectful
+Formality Level: formal
+Recommended CTAs: 今すぐ購入, 詳細を見る, 体験する
+
+⚖️ REGULATORY REQUIREMENTS:
+----------------------------------------
+Age Restrictions: 20+
+Prohibited Claims: medical, therapeutic, miracle
+Disclaimer Placement: prominent

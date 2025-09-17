@@ -1,0 +1,22 @@
+campaign_brief:
+  campaign_id: campaign_20250916_230700
+  campaign_message: Experience the future of innovation with our revolutionary products.
+  campaign_name: Test Comprehensive UIk
+  created_at: '2025-09-17T03:07:00.025Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+  products:
+  - description: 'Product: Smart Watch Pro'
+    name: Smart Watch Pro
+  - description: 'Product: Wireless Earbuds Elite'
+    name: Wireless Earbuds Elite
+  target_audience: tech-savvy professionals aged 25-45
+  target_regions:
+  - US
+  - UK
+  - CA

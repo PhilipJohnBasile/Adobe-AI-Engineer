@@ -1,0 +1,37 @@
+campaign_brief:
+  campaign_id: multi_region_test_2024
+  campaign_name: Global Product Launch Campaign
+  campaign_message: "Experience Innovation Like Never Before - Premium Quality Guaranteed"
+  
+  products:
+    - name: "Smart Watch Pro"
+      description: "Advanced fitness tracking with heart rate monitoring and GPS"
+      target_keywords: ["smart", "fitness", "premium", "health"]
+    - name: "Wireless Earbuds Elite" 
+      description: "High-fidelity audio with active noise cancellation technology"
+      target_keywords: ["wireless", "audio", "premium", "music"]
+    - name: "Portable Charger Max"
+      description: "Fast-charging power bank with wireless charging capability"
+      target_keywords: ["charging", "portable", "fast", "wireless"]
+  
+  target_audience: "Tech-savvy professionals aged 25-45 with disposable income"
+  
+  target_regions:
+    - "US"
+    - "DE" 
+    - "FR"
+    - "JP"
+  
+  output_requirements:
+    aspect_ratios: ["1:1", "9:16", "16:9"]
+    formats: ["JPG", "PNG"]
+    quality: "premium"
+  
+  brand_guidelines:
+    primary_colors: ["#0066CC", "#FF6B35", "#2ECC71"]
+    fonts: ["Arial", "Helvetica", "Open Sans"]
+    tone: "innovative and premium"
+    
+  budget_constraints:
+    max_api_cost: 50.0
+    generation_limit: 12

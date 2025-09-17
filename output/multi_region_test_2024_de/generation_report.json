@@ -1,0 +1,23 @@
+{
+  "campaign_id": "multi_region_test_2024",
+  "generated_at": "2025-09-16T22:07:14.665398",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "US, DE, FR, JP",
+  "campaign_message": "Erleben Sie Innovation wie nie zuvor - Premium-Qualit\u00e4t garantiert.",
+  "generated_files": [
+    "wireless_earbuds_elite/1x1.jpg",
+    "wireless_earbuds_elite/16x9.jpg",
+    "wireless_earbuds_elite/9x16.jpg",
+    "smart_watch_pro/1x1.jpg",
+    "smart_watch_pro/16x9.jpg",
+    "smart_watch_pro/9x16.jpg",
+    "portable_charger_max/1x1.jpg",
+    "portable_charger_max/16x9.jpg",
+    "portable_charger_max/9x16.jpg"
+  ]
+}

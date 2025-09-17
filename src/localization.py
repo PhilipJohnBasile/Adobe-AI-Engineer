@@ -220,18 +220,52 @@ class LocalizationManager:
         return localized_brief
     
     def _translate_message(self, message: str, target_language: str) -> str:
-        """Translate campaign message to target language."""
+        """Translate campaign message to target language using OpenAI."""
         
+        # Check for cached translations first
         translations = self.localization_data.get("translations", {}).get("campaign_messages", {})
-        
         if message in translations and target_language in translations[message]:
             return translations[message][target_language]
         
-        # If no translation available, return original with note
+        # If English, return original
         if target_language.startswith("en"):
             return message
-        else:
-            return f"{message} [Translation needed for {target_language}]"
+        
+        # Use OpenAI for translation
+        try:
+            import openai
+            import os
+            
+            client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+            
+            # Map language codes to full language names
+            language_map = {
+                "de-DE": "German",
+                "fr-FR": "French", 
+                "ja-JP": "Japanese",
+                "es-ES": "Spanish",
+                "it-IT": "Italian"
+            }
+            
+            target_lang_name = language_map.get(target_language, target_language)
+            
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": f"You are a professional marketing translator. Translate the following marketing message to {target_lang_name}, maintaining the tone and marketing appeal. Return only the translated text."},
+                    {"role": "user", "content": message}
+                ],
+                max_tokens=200,
+                temperature=0.3
+            )
+            
+            translated_message = response.choices[0].message.content.strip()
+            logger.info(f"Translated '{message}' to {target_language}: '{translated_message}'")
+            return translated_message
+            
+        except Exception as e:
+            logger.error(f"Translation failed for {target_language}: {e}")
+            return f"{message} [Translation failed for {target_language}]"
     
     def _adapt_brand_guidelines(self, guidelines: Dict[str, Any], market_data: Dict[str, Any]) -> Dict[str, Any]:
         """Adapt brand guidelines for cultural preferences."""

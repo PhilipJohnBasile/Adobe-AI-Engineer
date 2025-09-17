@@ -102,6 +102,11 @@ class ImageGenerator:
             f"Product description: {product_description}."
         ]
         
+        # Add localized campaign message for context
+        campaign_message = campaign_brief.get('campaign_message', '')
+        if campaign_message:
+            prompt_parts.append(f"Campaign context: {campaign_message}.")
+        
         # Add target audience context
         if 'target_audience' in campaign_brief:
             audience = campaign_brief['target_audience']
@@ -126,11 +131,12 @@ class ImageGenerator:
         # Style specifications
         style_specs = [
             "Professional product photography",
-            "Clean white background",
+            "Clean white background or minimal context",
             "Good lighting",
             "High resolution",
             "Commercial advertising style",
-            "Photorealistic"
+            "Photorealistic",
+            "No text or typography in the image"
         ]
         
         prompt_parts.extend(style_specs)

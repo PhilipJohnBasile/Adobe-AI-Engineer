@@ -1,0 +1,19 @@
+============================================================
+LOCALIZATION REPORT
+============================================================
+Campaign: multi_region_test_2024
+Target Market: FR
+Language: fr-FR
+Currency: EUR
+
+🌍 CULTURAL ADAPTATIONS:
+----------------------------------------
+Messaging Tone: elegant
+Formality Level: formal
+Recommended CTAs: Acheter maintenant, Découvrir, En savoir plus
+
+⚖️ REGULATORY REQUIREMENTS:
+----------------------------------------
+Age Restrictions: 18+
+Prohibited Claims: medical, miraculous, guaranteed
+Disclaimer Placement: visible

@@ -42,4 +42,5 @@ campaign_brief:
   - DE
   - JP
   - FR
-  target_region: GLOBAL
+  target_regions:
+  - GLOBAL

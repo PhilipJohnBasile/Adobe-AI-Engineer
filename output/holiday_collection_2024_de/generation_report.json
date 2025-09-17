@@ -1,0 +1,23 @@
+{
+  "campaign_id": "holiday_collection_2024",
+  "generated_at": "2025-09-16T21:58:58.331106",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "US",
+  "campaign_message": "Entdecken Sie Exzellenz - Kritischer Start",
+  "generated_files": [
+    "smart_fitness_tracker/1x1.jpg",
+    "smart_fitness_tracker/16x9.jpg",
+    "smart_fitness_tracker/9x16.jpg",
+    "eco-friendly_water_bottle/1x1.jpg",
+    "eco-friendly_water_bottle/16x9.jpg",
+    "eco-friendly_water_bottle/9x16.jpg",
+    "premium_wireless_headphones/1x1.jpg",
+    "premium_wireless_headphones/16x9.jpg",
+    "premium_wireless_headphones/9x16.jpg"
+  ]
+}

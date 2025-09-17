@@ -1,0 +1,23 @@
+{
+  "campaign_id": "campaign_20250916_222538",
+  "generated_at": "2025-09-16T22:26:31.425239",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "DE, JP, UK",
+  "campaign_message": "\u5bb6\u3092\u5efa\u3066\u308b\u3053\u3068\u304c\u3067\u304d\u308b\u306a\u3089\u3001\u305d\u308c\u3067\u30b3\u30f3\u30d4\u30e5\u30fc\u30bf\u30fc\u3082\u4f5c\u308c\u307e\u3059\uff01",
+  "generated_files": [
+    "computers_brick/1x1.jpg",
+    "computers_brick/16x9.jpg",
+    "computers_brick/9x16.jpg",
+    "computers_dirt/1x1.jpg",
+    "computers_dirt/16x9.jpg",
+    "computers_dirt/9x16.jpg",
+    "computers_stucco/1x1.jpg",
+    "computers_stucco/16x9.jpg",
+    "computers_stucco/9x16.jpg"
+  ]
+}

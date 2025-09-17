@@ -89,6 +89,111 @@ def load_campaign_brief(brief_path: str) -> Dict:
         raise typer.Exit(1)
 
 
+def generate_region_assets(campaign_brief: Dict, campaign_id: str, region: str, 
+                          assets_dir: str, output_dir: str, force_generate: bool, 
+                          skip_compliance: bool, verbose: bool, localization_manager=None) -> Dict:
+    """Generate assets for a specific region."""
+    
+    # Initialize components
+    asset_manager = AssetManager(assets_dir)
+    image_generator = ImageGenerator()
+    creative_composer = CreativeComposer()
+    compliance_checker = ComplianceChecker()
+    
+    # Create output directory structure
+    output_path = Path(output_dir) / campaign_id
+    output_path.mkdir(parents=True, exist_ok=True)
+    
+    console.print(f"📁 Output directory: {output_path}")
+    
+    # Run compliance check
+    if not skip_compliance:
+        console.print("🛡️  Running compliance check...")
+        compliance_result = compliance_checker.check_campaign_brief(campaign_brief)
+        
+        if compliance_result['issues']['critical']:
+            console.print("[red]❌ Critical compliance issues found![/red]")
+            raise Exception("Critical compliance issues found")
+        
+        elif compliance_result['issues']['warnings']:
+            console.print(f"[yellow]⚠️  Compliance warnings found (Score: {compliance_result['compliance_score']:.1f}%)[/yellow]")
+            for warning in compliance_result['issues']['warnings']:
+                console.print(f"  • {warning['recommendation']}")
+        
+        else:
+            console.print(f"[green]✅ Compliance check passed (Score: {compliance_result['compliance_score']:.1f}%)[/green]")
+        
+        # Save compliance report
+        compliance_report_path = output_path / 'compliance_report.txt'
+        with open(compliance_report_path, 'w') as f:
+            f.write(compliance_checker.generate_compliance_report(campaign_brief))
+        console.print(f"📋 Compliance report saved: {compliance_report_path}")
+    
+    # Save localization report if localization was applied
+    if localization_manager:
+        localization_report_path = output_path / 'localization_report.txt'
+        original_brief = campaign_brief.copy()  # For report generation
+        with open(localization_report_path, 'w') as f:
+            f.write(localization_manager.generate_localization_report(original_brief, campaign_brief, region))
+        console.print(f"🌍 Localization report saved: {localization_report_path}")
+    
+    # Process each product in the campaign
+    products = campaign_brief['campaign_brief']['products']
+    aspect_ratios = campaign_brief['campaign_brief']['output_requirements']['aspect_ratios']
+    
+    for product in products:
+        product_name = product['name']
+        
+        # Create product output directory
+        product_output = output_path / product_name.replace(' ', '_').lower()
+        product_output.mkdir(exist_ok=True)
+        
+        # Generate assets for each aspect ratio
+        for aspect_ratio in aspect_ratios:
+            # Check if asset already exists (unless force_generate is True)
+            output_file = product_output / f"{aspect_ratio.replace(':', 'x')}.jpg"
+            if output_file.exists() and not force_generate:
+                console.print(f"✅ {output_file} already exists (use --force to regenerate)")
+                continue
+            
+            # Try to find existing asset
+            existing_asset = asset_manager.find_product_asset(product_name)
+            
+            if existing_asset:
+                console.print(f"📎 Using existing asset: {existing_asset}")
+                base_image_path = existing_asset
+            else:
+                # Generate new asset using AI
+                console.print(f"🤖 Generating new asset for {product_name}")
+                base_image_path = image_generator.generate_product_image(
+                    product, 
+                    campaign_brief['campaign_brief']
+                )
+            
+            # Compose final creative with text overlay
+            final_creative = creative_composer.compose_creative(
+                base_image_path,
+                campaign_brief['campaign_brief'],
+                product,
+                aspect_ratio
+            )
+            
+            # Save final creative
+            final_creative.save(output_file, format='JPEG', quality=95)
+            console.print(f"✅ Generated: {output_file}")
+    
+    # Generate summary report
+    generate_summary_report(campaign_brief, output_path)
+    
+    return {
+        'region': region,
+        'campaign_id': campaign_id,
+        'output_path': str(output_path),
+        'products_processed': len(products),
+        'assets_generated': len(products) * len(aspect_ratios)
+    }
+
+
 @app.command()
 def generate(
     brief: str = typer.Argument(..., help="Path to campaign brief (YAML or JSON)"),
@@ -113,7 +218,62 @@ def generate(
     campaign_brief = load_campaign_brief(brief)
     campaign_id = campaign_brief.get('campaign_brief', {}).get('campaign_id', 'unknown')
     
-    # Apply localization if requested
+    # Check for multi-region automatic processing
+    brief_data = campaign_brief.get('campaign_brief', {})
+    target_regions = brief_data.get('target_regions', [])
+    
+    # If multiple regions specified and no specific localization requested, process all regions
+    if target_regions and len(target_regions) > 1 and not localize_for:
+        console.print(f"🌍 [bold green]Multi-region campaign detected![/bold green]")
+        console.print(f"📍 Target regions: {', '.join(target_regions)}")
+        console.print(f"🔄 Will generate assets for all {len(target_regions)} regions automatically\n")
+        
+        # Process each region
+        all_results = []
+        for region in target_regions:
+            console.print(f"[bold cyan]🚀 Processing region: {region}[/bold cyan]")
+            
+            try:
+                # Create a copy of the original brief for this region
+                region_brief = load_campaign_brief(brief)
+                
+                # Apply localization for this region
+                localization_manager = LocalizationManager()
+                supported_markets = localization_manager.get_supported_markets()
+                
+                if region in supported_markets:
+                    console.print(f"🌍 Localizing campaign for market: {region}")
+                    region_brief = localization_manager.localize_campaign_brief(region_brief, region)
+                    region_campaign_id = f"{campaign_id}_{region.lower()}"
+                else:
+                    console.print(f"⚠️ Market {region} not in supported markets, using default localization")
+                    region_campaign_id = f"{campaign_id}_{region.lower()}"
+                
+                # Generate assets for this region
+                result = generate_region_assets(
+                    region_brief, region_campaign_id, region, assets_dir, output_dir, 
+                    force_generate, skip_compliance, verbose, localization_manager if region in supported_markets else None
+                )
+                all_results.append(result)
+                
+                console.print(f"✅ [green]Completed region: {region}[/green]\n")
+                
+            except Exception as e:
+                console.print(f"❌ [red]Error processing region {region}: {e}[/red]")
+                if verbose:
+                    import traceback
+                    console.print(traceback.format_exc())
+                continue
+        
+        # Generate summary report for all regions
+        console.print(f"🎉 [bold green]Multi-region campaign generation completed![/bold green]")
+        console.print(f"📊 Successfully processed {len(all_results)} out of {len(target_regions)} regions")
+        for result in all_results:
+            console.print(f"  📁 {result['region']}: {result['output_path']}")
+        
+        return
+    
+    # Apply localization if requested (single region mode)
     original_brief = campaign_brief.copy()
     if localize_for:
         console.print(f"🌍 Localizing campaign for market: {localize_for}")
@@ -131,114 +291,17 @@ def generate(
         
         console.print(f"✅ Campaign localized for {localize_for}")
     
-    # Initialize components
-    asset_manager = AssetManager(assets_dir)
-    image_generator = ImageGenerator()
-    creative_composer = CreativeComposer()
-    compliance_checker = ComplianceChecker()
-    
-    # Create output directory structure
-    output_path = Path(output_dir) / campaign_id
-    output_path.mkdir(parents=True, exist_ok=True)
-    
-    console.print(f"📁 Output directory: {output_path}")
-    
-    # Run compliance check
-    if not skip_compliance:
-        console.print("🛡️  Running compliance check...")
-        compliance_result = compliance_checker.check_campaign_brief(campaign_brief)
-        
-        if compliance_result['issues']['critical']:
-            console.print("[red]❌ Critical compliance issues found![/red]")
-            console.print(compliance_checker.generate_compliance_report(campaign_brief))
-            console.print("\n[red]Generation blocked due to compliance violations.[/red]")
-            console.print("[yellow]Use --skip-compliance to override (not recommended)[/yellow]")
-            raise typer.Exit(1)
-        
-        elif compliance_result['issues']['warnings']:
-            console.print(f"[yellow]⚠️  Compliance warnings found (Score: {compliance_result['compliance_score']:.1f}%)[/yellow]")
-            for warning in compliance_result['issues']['warnings']:
-                console.print(f"  • {warning['recommendation']}")
-            console.print("\n[yellow]Proceeding with generation...[/yellow]")
-        
-        else:
-            console.print(f"[green]✅ Compliance check passed (Score: {compliance_result['compliance_score']:.1f}%)[/green]")
-        
-        # Save compliance report
-        compliance_report_path = output_path / 'compliance_report.txt'
-        with open(compliance_report_path, 'w') as f:
-            f.write(compliance_checker.generate_compliance_report(campaign_brief))
-        console.print(f"📋 Compliance report saved: {compliance_report_path}")
-    
-    # Save localization report if localization was applied
-    if localize_for and 'localization_manager' in locals():
-        localization_report_path = output_path / 'localization_report.txt'
-        with open(localization_report_path, 'w') as f:
-            f.write(localization_manager.generate_localization_report(original_brief, campaign_brief, localize_for))
-        console.print(f"🌍 Localization report saved: {localization_report_path}")
-    
+    # Single region processing - use the same function as multi-region
     try:
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            console=console
-        ) as progress:
-            
-            # Process each product in the campaign
-            products = campaign_brief['campaign_brief']['products']
-            aspect_ratios = campaign_brief['campaign_brief']['output_requirements']['aspect_ratios']
-            
-            for product in products:
-                product_name = product['name']
-                task = progress.add_task(f"Processing {product_name}...", total=None)
-                
-                # Create product output directory
-                product_output = output_path / product_name.replace(' ', '_').lower()
-                product_output.mkdir(exist_ok=True)
-                
-                # Generate assets for each aspect ratio
-                for aspect_ratio in aspect_ratios:
-                    progress.update(task, description=f"Generating {product_name} - {aspect_ratio}")
-                    
-                    # Check if asset already exists (unless force_generate is True)
-                    output_file = product_output / f"{aspect_ratio.replace(':', 'x')}.jpg"
-                    if output_file.exists() and not force_generate:
-                        console.print(f"✅ {output_file} already exists (use --force to regenerate)")
-                        continue
-                    
-                    # Try to find existing asset
-                    existing_asset = asset_manager.find_product_asset(product_name)
-                    
-                    if existing_asset:
-                        console.print(f"📎 Using existing asset: {existing_asset}")
-                        base_image_path = existing_asset
-                    else:
-                        # Generate new asset using AI
-                        console.print(f"🤖 Generating new asset for {product_name}")
-                        base_image_path = image_generator.generate_product_image(
-                            product, 
-                            campaign_brief['campaign_brief']
-                        )
-                    
-                    # Compose final creative with text overlay
-                    final_creative = creative_composer.compose_creative(
-                        base_image_path,
-                        campaign_brief['campaign_brief'],
-                        product,
-                        aspect_ratio
-                    )
-                    
-                    # Save final creative
-                    final_creative.save(output_file, format='JPEG', quality=95)
-                    console.print(f"✅ Generated: {output_file}")
-                
-                progress.update(task, description=f"✅ Completed {product_name}")
-        
-        # Generate summary report
-        generate_summary_report(campaign_brief, output_path)
+        region_name = localize_for if localize_for else 'default'
+        result = generate_region_assets(
+            campaign_brief, campaign_id, region_name, assets_dir, output_dir,
+            force_generate, skip_compliance, verbose, 
+            localization_manager if localize_for else None
+        )
         
         console.print(f"\n[bold green]🎉 Campaign generation completed![/bold green]")
-        console.print(f"📁 All assets saved to: {output_path}")
+        console.print(f"📁 All assets saved to: {result['output_path']}")
         
     except Exception as e:
         console.print(f"[red]❌ Error during generation: {e}[/red]")
@@ -256,7 +319,8 @@ def generate_summary_report(campaign_brief: Dict, output_path: Path):
         'generated_at': datetime.now().isoformat(),
         'products': len(campaign_brief['campaign_brief']['products']),
         'aspect_ratios': campaign_brief['campaign_brief']['output_requirements']['aspect_ratios'],
-        'target_region': campaign_brief['campaign_brief']['target_region'],
+        'target_region': campaign_brief['campaign_brief'].get('target_region', 
+                                                          ', '.join(campaign_brief['campaign_brief'].get('target_regions', ['Unknown']))),
         'campaign_message': campaign_brief['campaign_brief']['campaign_message'],
         'generated_files': []
     }
@@ -287,7 +351,12 @@ def validate(brief: str = typer.Argument(..., help="Path to campaign brief to va
         # Print summary
         brief_data = campaign_brief['campaign_brief']
         console.print(f"\n📋 Campaign: {brief_data['campaign_id']}")
-        console.print(f"🎯 Target: {brief_data['target_region']}")
+        # Handle both single region and multiple regions
+        if 'target_regions' in brief_data:
+            regions = ', '.join(brief_data['target_regions'])
+            console.print(f"🎯 Target Regions: {regions}")
+        else:
+            console.print(f"🎯 Target: {brief_data['target_region']}")
         console.print(f"📱 Products: {len(brief_data['products'])}")
         console.print(f"📐 Aspect Ratios: {', '.join(brief_data['output_requirements']['aspect_ratios'])}")
         

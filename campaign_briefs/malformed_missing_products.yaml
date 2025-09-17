@@ -1,3 +1,28 @@
 campaign_brief:
   campaign_id: test_missing
-  target_region: US
+  target_regions:
+  - US
+  brand_guidelines:
+    primary_colors:
+    - '#6F42C1'
+    - '#28A745'
+    - '#FFD700'
+    fonts:
+    - Playfair Display
+    - Merriweather
+    - Lora
+    tone: medium campaign with warm and inclusive
+  budget_constraints:
+    generation_limit: 9
+    max_api_cost: 20.0
+  timeline:
+    launch_date: '2025-12-30'
+    priority: high
+    rush_order: true
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    formats:
+    - JPG
+    quality: premium

@@ -1,0 +1,42 @@
+campaign_brief:
+  campaign_id: campaign_20250916_214244
+  campaign_message: The games you love. The way you want to play. Handheld to home
+    in a heartbeat with smoother, sharper, faster play everywhere.
+  campaign_name: Nintendo
+  created_at: '2025-09-17T01:42:44.737Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    quality: standard
+  products:
+  - description: 'Product: switch2'
+    name: switch2
+  - description: 'Product: switch_lite'
+    name: switch_lite
+  - description: 'Product: switch_oled'
+    name: switch_oled
+  target_audience: medium priority customers aged 35-55
+  target_regions:
+  - US
+  - CA
+  brand_guidelines:
+    primary_colors:
+    - '#495057'
+    - '#007BFF'
+    - '#F8F9FA'
+    fonts:
+    - Montserrat
+    - Open Sans
+    - Lato
+    tone: medium campaign with professional and authoritative
+  budget_constraints:
+    generation_limit: 31
+    max_api_cost: 62.0
+  timeline:
+    launch_date: '2025-10-24'
+    priority: high
+    rush_order: true

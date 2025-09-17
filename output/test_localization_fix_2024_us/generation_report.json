@@ -1,0 +1,15 @@
+{
+  "campaign_id": "test_localization_fix_2024",
+  "generated_at": "2025-09-16T22:18:36.621333",
+  "products": 1,
+  "aspect_ratios": [
+    "1:1",
+    "9:16"
+  ],
+  "target_region": "US, DE, JP",
+  "campaign_message": "Experience the future of health monitoring",
+  "generated_files": [
+    "smart_watch_premium/1x1.jpg",
+    "smart_watch_premium/9x16.jpg"
+  ]
+}

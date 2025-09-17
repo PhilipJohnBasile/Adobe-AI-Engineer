@@ -1,0 +1,1201 @@
+.
+├── __pycache__
+│   ├── main.cpython-313.pyc
+│   └── simple_app.cpython-313.pyc
+├── alerts
+│   ├── alert_1758047480_0.json
+│   ├── alert_1758047480_1.json
+│   ├── alert_1758047480_2.json
+│   ├── alert_1758047480_3.json
+│   ├── alert_1758047480_4.json
+│   ├── alert_1758047481_5.json
+│   ├── alert_1758047482_6.json
+│   ├── alert_1758047482_7.json
+│   ├── alert_1758047483_8.json
+│   ├── alert_1758047484_10.json
+│   ├── alert_1758047484_11.json
+│   ├── alert_1758047484_12.json
+│   ├── alert_1758047484_9.json
+│   ├── alert_1758047485_0.json
+│   ├── alert_1758047485_1.json
+│   ├── alert_1758047485_2.json
+│   ├── alert_1758047485_3.json
+│   ├── alert_1758047485_4.json
+│   ├── alert_1758047485_5.json
+│   ├── alert_1758047486_0.json
+│   ├── alert_1758047486_1.json
+│   ├── alert_1758047486_10.json
+│   ├── alert_1758047486_11.json
+│   ├── alert_1758047486_12.json
+│   ├── alert_1758047486_13.json
+│   ├── alert_1758047486_14.json
+│   ├── alert_1758047486_15.json
+│   ├── alert_1758047486_16.json
+│   ├── alert_1758047486_17.json
+│   ├── alert_1758047486_18.json
+│   ├── alert_1758047486_19.json
+│   ├── alert_1758047486_2.json
+│   ├── alert_1758047486_20.json
+│   ├── alert_1758047486_21.json
+│   ├── alert_1758047486_22.json
+│   ├── alert_1758047486_23.json
+│   ├── alert_1758047486_24.json
+│   ├── alert_1758047486_25.json
+│   ├── alert_1758047486_26.json
+│   ├── alert_1758047486_27.json
+│   ├── alert_1758047486_28.json
+│   ├── alert_1758047486_29.json
+│   ├── alert_1758047486_3.json
+│   ├── alert_1758047486_30.json
+│   ├── alert_1758047486_4.json
+│   ├── alert_1758047486_5.json
+│   ├── alert_1758047486_6.json
+│   ├── alert_1758047486_7.json
+│   ├── alert_1758047486_8.json
+│   ├── alert_1758047486_9.json
+│   ├── alert_1758047487_31.json
+│   ├── alert_1758047487_32.json
+│   ├── alert_1758047487_33.json
+│   ├── alert_1758047487_34.json
+│   ├── alert_1758047487_35.json
+│   ├── alert_1758047488_36.json
+│   ├── alert_1758047488_37.json
+│   ├── alert_1758047488_38.json
+│   ├── alert_1758047488_39.json
+│   ├── alert_1758047488_40.json
+│   ├── alert_1758047488_41.json
+│   ├── alert_1758047489_42.json
+│   ├── alert_1758047489_43.json
+│   ├── alert_1758047489_44.json
+│   ├── alert_1758047489_45.json
+│   ├── alert_1758047489_46.json
+│   ├── alert_1758047489_47.json
+│   ├── alert_1758047489_48.json
+│   ├── alert_1758047490_49.json
+│   ├── alert_1758047490_50.json
+│   ├── alert_1758047490_51.json
+│   ├── alert_1758047490_52.json
+│   ├── alert_1758047490_53.json
+│   ├── alert_1758047490_54.json
+│   ├── alert_1758047490_55.json
+│   ├── alert_1758047490_56.json
+│   ├── alert_1758047491_57.json
+│   ├── alert_1758047491_58.json
+│   ├── alert_1758047491_59.json
+│   ├── alert_1758047491_60.json
+│   ├── alert_1758047491_61.json
+│   ├── alert_1758047491_62.json
+│   ├── alert_1758047491_63.json
+│   ├── alert_1758047491_64.json
+│   ├── alert_1758047491_65.json
+│   ├── alert_1758047491_66.json
+│   ├── alert_1758047491_67.json
+│   ├── alert_1758047492_68.json
+│   ├── alert_1758047492_69.json
+│   ├── alert_1758047492_70.json
+│   ├── alert_1758047492_71.json
+│   ├── alert_1758047492_72.json
+│   ├── alert_1758047492_73.json
+│   ├── alert_1758047492_74.json
+│   ├── alert_1758047493_75.json
+│   ├── alert_1758047493_76.json
+│   ├── alert_1758047493_77.json
+│   ├── alert_1758047493_78.json
+│   ├── alert_1758047493_79.json
+│   ├── alert_1758047493_80.json
+│   ├── alert_1758047493_81.json
+│   ├── alert_1758047493_82.json
+│   ├── alert_1758047493_83.json
+│   ├── alert_1758047494_84.json
+│   ├── alert_1758047494_85.json
+│   ├── alert_1758047494_86.json
+│   ├── alert_1758047494_87.json
+│   ├── alert_1758047494_88.json
+│   ├── alert_1758047494_89.json
+│   ├── alert_1758047494_90.json
+│   ├── alert_1758047494_91.json
+│   ├── alert_1758047494_92.json
+│   ├── alert_1758047494_93.json
+│   ├── alert_1758047494_94.json
+│   ├── alert_1758047495_100.json
+│   ├── alert_1758047495_101.json
+│   ├── alert_1758047495_102.json
+│   ├── alert_1758047495_95.json
+│   ├── alert_1758047495_96.json
+│   ├── alert_1758047495_97.json
+│   ├── alert_1758047495_98.json
+│   ├── alert_1758047495_99.json
+│   ├── alert_1758047496_103.json
+│   ├── alert_1758047496_104.json
+│   ├── alert_1758047496_105.json
+│   ├── alert_1758047496_106.json
+│   ├── alert_1758047496_107.json
+│   ├── alert_1758047496_108.json
+│   ├── alert_1758047496_109.json
+│   ├── alert_1758047497_110.json
+│   ├── alert_1758047497_111.json
+│   ├── alert_1758047497_112.json
+│   ├── alert_1758047497_113.json
+│   ├── alert_1758047497_114.json
+│   ├── alert_1758047497_115.json
+│   ├── alert_1758047497_116.json
+│   ├── alert_1758047497_117.json
+│   ├── alert_1758047497_118.json
+│   ├── alert_1758047498_119.json
+│   ├── alert_1758047498_120.json
+│   ├── alert_1758047498_121.json
+│   ├── alert_1758047498_122.json
+│   ├── alert_1758047498_123.json
+│   ├── alert_1758047498_124.json
+│   ├── alert_1758047498_125.json
+│   ├── alert_1758047498_126.json
+│   ├── alert_1758047499_127.json
+│   ├── alert_1758047499_128.json
+│   ├── alert_1758047499_129.json
+│   ├── alert_1758047499_130.json
+│   ├── alert_1758047499_131.json
+│   ├── alert_1758047499_132.json
+│   ├── alert_1758047499_133.json
+│   ├── alert_1758047499_134.json
+│   ├── alert_1758047499_135.json
+│   ├── alert_1758047499_136.json
+│   ├── alert_1758047499_137.json
+│   ├── alert_1758047500_138.json
+│   ├── alert_1758047500_139.json
+│   ├── alert_1758047500_140.json
+│   ├── alert_1758047500_141.json
+│   ├── alert_1758047500_142.json
+│   ├── alert_1758047500_143.json
+│   ├── alert_1758047500_144.json
+│   ├── alert_1758047500_145.json
+│   ├── alert_1758047500_146.json
+│   ├── alert_1758047501_147.json
+│   ├── alert_1758047501_148.json
+│   ├── alert_1758047501_149.json
+│   ├── alert_1758047501_150.json
+│   ├── alert_1758047501_151.json
+│   ├── alert_1758047501_152.json
+│   ├── alert_1758047501_153.json
+│   ├── alert_1758047501_154.json
+│   ├── alert_1758047501_155.json
+│   ├── alert_1758047502_156.json
+│   ├── alert_1758047502_157.json
+│   ├── alert_1758047502_158.json
+│   ├── alert_1758047502_159.json
+│   ├── alert_1758047502_160.json
+│   ├── alert_1758047502_162.json
+│   ├── alert_1758047502_163.json
+│   ├── alert_1758047502_164.json
+│   ├── alert_1758047503_165.json
+│   ├── alert_1758047503_166.json
+│   ├── alert_1758047503_167.json
+│   ├── alert_1758047503_168.json
+│   ├── alert_1758047503_169.json
+│   ├── alert_1758047503_170.json
+│   ├── alert_1758047503_171.json
+│   ├── alert_1758047503_172.json
+│   ├── alert_1758047503_173.json
+│   ├── alert_1758047504_174.json
+│   ├── alert_1758047504_175.json
+│   ├── alert_1758047504_176.json
+│   ├── alert_1758047504_177.json
+│   ├── alert_1758047504_178.json
+│   ├── alert_1758047504_180.json
+│   ├── alert_1758047504_181.json
+│   ├── alert_1758047504_182.json
+│   ├── alert_1758047504_183.json
+│   ├── alert_1758047505_184.json
+│   ├── alert_1758047505_185.json
+│   ├── alert_1758047505_186.json
+│   ├── alert_1758047505_187.json
+│   ├── alert_1758047505_188.json
+│   ├── alert_1758047505_189.json
+│   ├── alert_1758047505_190.json
+│   ├── alert_1758047505_191.json
+│   ├── alert_1758047505_192.json
+│   ├── alert_1758047506_193.json
+│   ├── alert_1758047506_194.json
+│   ├── alert_1758047506_196.json
+│   ├── alert_1758047506_197.json
+│   ├── alert_1758047506_198.json
+│   ├── alert_1758047506_199.json
+│   ├── alert_1758047506_200.json
+│   ├── alert_1758047507_201.json
+│   ├── alert_1758047507_202.json
+│   ├── alert_1758047507_203.json
+│   ├── alert_1758047507_204.json
+│   ├── alert_1758047507_205.json
+│   ├── alert_1758047507_206.json
+│   ├── alert_1758047507_207.json
+│   ├── alert_1758047507_208.json
+│   ├── alert_1758047508_209.json
+│   ├── alert_1758047508_210.json
+│   ├── alert_1758047508_212.json
+│   ├── alert_1758047508_213.json
+│   ├── alert_1758047508_214.json
+│   ├── alert_1758047508_215.json
+│   ├── alert_1758047508_216.json
+│   ├── alert_1758047509_217.json
+│   ├── alert_1758047509_218.json
+│   ├── alert_1758047509_219.json
+│   ├── alert_1758047509_220.json
+│   ├── alert_1758047509_221.json
+│   ├── alert_1758047510_0.json
+│   ├── alert_1758047510_1.json
+│   ├── alert_1758047510_2.json
+│   ├── alert_1758047510_222.json
+│   ├── alert_1758047510_223.json
+│   ├── alert_1758047510_224.json
+│   ├── alert_1758047510_225.json
+│   └── alert_1758047510_3.json
+├── analytics_dashboard.html
+├── analytics_report.json
+├── analytics.db
+├── app.py
+├── assets
+├── audit_logs.db
+├── backups
+├── batch_output
+│   ├── batch_report_20250915_195959.json
+│   └── summer_skincare_2024
+│       ├── compliance_report.txt
+│       ├── generation_report.json
+│       ├── hydrating_face_serum
+│       │   ├── 16x9.jpg
+│       │   ├── 1x1.jpg
+│       │   └── 9x16.jpg
+│       └── spf_50_sunscreen
+│           ├── 16x9.jpg
+│           ├── 1x1.jpg
+│           └── 9x16.jpg
+├── batch_test
+├── brand_assets
+│   ├── brand_profile.json
+│   └── brand_reference.jpg
+├── cache
+│   ├── 4a79ad237c12a06732b20e4df1c8382e.cache
+│   ├── 8efab1e8c8557cc6571e3f196b9658a6.cache
+│   └── cache_metadata.db
+├── cache.json
+├── campaign_brief_fitness.yaml
+├── campaign_brief_food.yaml
+├── campaign_brief_problematic.yaml
+├── campaign_brief_skincare.yaml
+├── campaign_brief_tech.yaml
+├── campaign_briefs
+│   ├── black_friday_specials.yaml
+│   ├── campaign_20250916_214244.yaml
+│   ├── campaign_20250916_214305.yaml
+│   ├── campaign_20250916_214353.yaml
+│   ├── campaign_20250916_220947.yaml
+│   ├── campaign_20250916_222538.yaml
+│   ├── campaign_20250916_230700.yaml
+│   ├── campaign_20250916_232706.yaml
+│   ├── flash_sale_weekend.yaml
+│   ├── gift_guide_2024.yaml
+│   ├── global_sustainability_2024.yaml
+│   ├── holiday_collection_2024.yaml
+│   ├── load_test_campaign_000.yaml
+│   ├── load_test_campaign_001.yaml
+│   ├── load_test_campaign_002.yaml
+│   ├── load_test_campaign_003.yaml
+│   ├── load_test_campaign_004.yaml
+│   ├── load_test_campaign_005.yaml
+│   ├── load_test_campaign_006.yaml
+│   ├── load_test_campaign_007.yaml
+│   ├── load_test_campaign_008.yaml
+│   ├── load_test_campaign_009.yaml
+│   ├── load_test_campaign_010.yaml
+│   ├── load_test_campaign_011.yaml
+│   ├── load_test_campaign_012.yaml
+│   ├── load_test_campaign_013.yaml
+│   ├── load_test_campaign_014.yaml
+│   ├── load_test_campaign_015.yaml
+│   ├── load_test_campaign_016.yaml
+│   ├── load_test_campaign_017.yaml
+│   ├── load_test_campaign_018.yaml
+│   ├── load_test_campaign_019.yaml
+│   ├── malformed_empty_brief.yaml
+│   ├── malformed_invalid_yaml.yaml
+│   ├── malformed_missing_campaign_brief_key.yaml
+│   ├── malformed_missing_products.yaml
+│   ├── sustainable_lifestyle_collection.yaml
+│   ├── tech_innovation_summit_2025.yaml
+│   ├── test_comprehensive_campaign.yaml
+│   ├── urgent_product_launch.yaml
+│   └── winter_fashion_line.yaml
+├── campaigns
+├── cdn_cache
+│   ├── asia-pacific
+│   ├── eu-west
+│   ├── us-east
+│   └── us-west
+├── CLAUDE.md
+├── collaboration_assets
+├── collaboration.db
+├── complete_app.py
+├── compliance_reports
+│   ├── gdpr_report_48825536.json
+│   ├── gdpr_report_649e669d.json
+│   ├── gdpr_report_9477c705.json
+│   ├── gdpr_report_b590091a.json
+│   ├── gdpr_report_e7b6971f.json
+│   ├── gdpr_report_fc2b0d16.json
+│   └── gdpr_report_ff967fcf.json
+├── config
+│   └── campaign_brief_example.yaml
+├── costs.json
+├── create_demo_images.py
+├── creative_cloud_assets
+├── demo_images
+│   ├── campaign_good.jpg
+│   ├── campaign_medium.jpg
+│   ├── campaign_noisy.jpg
+│   ├── campaign_offbrand.jpg
+│   ├── campaign_poor_enhanced.jpg
+│   └── campaign_poor.jpg
+├── DEMO_SCRIPT.md
+├── demo_test.yaml
+├── docker-compose.yml
+├── docker-entrypoint.sh
+├── Dockerfile
+├── fonts_cache
+├── generated
+├── generated_cache
+│   ├── ai_analytics_platform_dall-e-3_1024x1024.png
+│   ├── ai_development_platform_dall-e-3_1024x1024.png
+│   ├── atari2600_dall-e-3_1024x1024.png
+│   ├── atari7800_dall-e-3_1024x1024.png
+│   ├── cloud_infrastructure_dall-e-3_1024x1024.png
+│   ├── computers_brick_dall-e-3_1024x1024.png
+│   ├── computers_dirt_dall-e-3_1024x1024.png
+│   ├── computers_stucco_dall-e-3_1024x1024.png
+│   ├── eco-friendly_water_bottle_dall-e-3_1024x1024.png
+│   ├── enterprise_software_suite_dall-e-3_1024x1024.png
+│   ├── everything_on_sale_dall-e-3_1024x1024.png
+│   ├── hydrating_face_serum_dall-e-3_1024x1024.png
+│   ├── portable_charger_max_dall-e-3_1024x1024.png
+│   ├── pre-workout_energy_boost_dall-e-3_1024x1024.png
+│   ├── premium_wireless_headphones_dall-e-3_1024x1024.png
+│   ├── product_a_dall-e-3_1024x1024.png
+│   ├── product_b_dall-e-3_1024x1024.png
+│   ├── protein_powder_chocolate_dall-e-3_1024x1024.png
+│   ├── quantum_computing_simulator_dall-e-3_1024x1024.png
+│   ├── security_camera_system_dall-e-3_1024x1024.png
+│   ├── smart_fitness_tracker_dall-e-3_1024x1024.png
+│   ├── smart_thermostat_pro_dall-e-3_1024x1024.png
+│   ├── smart_watch_premium_dall-e-3_1024x1024.png
+│   ├── smart_watch_pro_dall-e-3_1024x1024.png
+│   ├── spf_50_sunscreen_dall-e-3_1024x1024.png
+│   ├── switch_lite_dall-e-3_1024x1024.png
+│   ├── switch_oled_dall-e-3_1024x1024.png
+│   ├── switch2_dall-e-3_1024x1024.png
+│   ├── voice_assistant_hub_dall-e-3_1024x1024.png
+│   └── wireless_earbuds_elite_dall-e-3_1024x1024.png
+├── job.md
+├── LICENSE
+├── localization_map_example.json
+├── logs
+│   ├── alert_alert_1758047480_0_communication.json
+│   ├── alert_alert_1758047480_0_email.txt
+│   ├── alert_alert_1758047480_1_communication.json
+│   ├── alert_alert_1758047480_1_email.txt
+│   ├── alert_alert_1758047480_2_communication.json
+│   ├── alert_alert_1758047480_2_email.txt
+│   ├── alert_alert_1758047480_3_communication.json
+│   ├── alert_alert_1758047480_3_email.txt
+│   ├── alert_alert_1758047480_4_communication.json
+│   ├── alert_alert_1758047480_4_email.txt
+│   ├── alert_alert_1758047481_5_communication.json
+│   ├── alert_alert_1758047481_5_email.txt
+│   ├── alert_alert_1758047482_6_communication.json
+│   ├── alert_alert_1758047482_6_email.txt
+│   ├── alert_alert_1758047482_7_communication.json
+│   ├── alert_alert_1758047482_7_email.txt
+│   ├── alert_alert_1758047483_8_communication.json
+│   ├── alert_alert_1758047483_8_email.txt
+│   ├── alert_alert_1758047484_9_communication.json
+│   ├── alert_alert_1758047484_9_email.txt
+│   ├── alert_alert_1758047485_0_communication.json
+│   ├── alert_alert_1758047485_0_email.txt
+│   ├── alert_alert_1758047485_1_communication.json
+│   ├── alert_alert_1758047485_1_email.txt
+│   ├── alert_alert_1758047485_2_communication.json
+│   ├── alert_alert_1758047485_2_email.txt
+│   ├── alert_alert_1758047485_3_communication.json
+│   ├── alert_alert_1758047485_3_email.txt
+│   ├── alert_alert_1758047485_4_communication.json
+│   ├── alert_alert_1758047485_4_email.txt
+│   ├── alert_alert_1758047485_5_communication.json
+│   ├── alert_alert_1758047485_5_email.txt
+│   ├── alert_alert_1758047486_0_communication.json
+│   ├── alert_alert_1758047486_0_email.txt
+│   ├── alert_alert_1758047486_1_communication.json
+│   ├── alert_alert_1758047486_1_email.txt
+│   ├── alert_alert_1758047486_10_communication.json
+│   ├── alert_alert_1758047486_10_email.txt
+│   ├── alert_alert_1758047486_11_communication.json
+│   ├── alert_alert_1758047486_11_email.txt
+│   ├── alert_alert_1758047486_12_communication.json
+│   ├── alert_alert_1758047486_12_email.txt
+│   ├── alert_alert_1758047486_13_communication.json
+│   ├── alert_alert_1758047486_13_email.txt
+│   ├── alert_alert_1758047486_14_communication.json
+│   ├── alert_alert_1758047486_14_email.txt
+│   ├── alert_alert_1758047486_15_communication.json
+│   ├── alert_alert_1758047486_15_email.txt
+│   ├── alert_alert_1758047486_16_communication.json
+│   ├── alert_alert_1758047486_16_email.txt
+│   ├── alert_alert_1758047486_17_communication.json
+│   ├── alert_alert_1758047486_17_email.txt
+│   ├── alert_alert_1758047486_18_communication.json
+│   ├── alert_alert_1758047486_18_email.txt
+│   ├── alert_alert_1758047486_19_communication.json
+│   ├── alert_alert_1758047486_19_email.txt
+│   ├── alert_alert_1758047486_2_communication.json
+│   ├── alert_alert_1758047486_2_email.txt
+│   ├── alert_alert_1758047486_20_communication.json
+│   ├── alert_alert_1758047486_20_email.txt
+│   ├── alert_alert_1758047486_21_communication.json
+│   ├── alert_alert_1758047486_21_email.txt
+│   ├── alert_alert_1758047486_22_communication.json
+│   ├── alert_alert_1758047486_22_email.txt
+│   ├── alert_alert_1758047486_23_communication.json
+│   ├── alert_alert_1758047486_23_email.txt
+│   ├── alert_alert_1758047486_24_communication.json
+│   ├── alert_alert_1758047486_24_email.txt
+│   ├── alert_alert_1758047486_25_communication.json
+│   ├── alert_alert_1758047486_25_email.txt
+│   ├── alert_alert_1758047486_26_communication.json
+│   ├── alert_alert_1758047486_26_email.txt
+│   ├── alert_alert_1758047486_27_communication.json
+│   ├── alert_alert_1758047486_27_email.txt
+│   ├── alert_alert_1758047486_28_communication.json
+│   ├── alert_alert_1758047486_28_email.txt
+│   ├── alert_alert_1758047486_29_communication.json
+│   ├── alert_alert_1758047486_29_email.txt
+│   ├── alert_alert_1758047486_3_communication.json
+│   ├── alert_alert_1758047486_3_email.txt
+│   ├── alert_alert_1758047486_30_communication.json
+│   ├── alert_alert_1758047486_30_email.txt
+│   ├── alert_alert_1758047486_4_communication.json
+│   ├── alert_alert_1758047486_4_email.txt
+│   ├── alert_alert_1758047486_5_communication.json
+│   ├── alert_alert_1758047486_5_email.txt
+│   ├── alert_alert_1758047486_6_communication.json
+│   ├── alert_alert_1758047486_6_email.txt
+│   ├── alert_alert_1758047486_7_communication.json
+│   ├── alert_alert_1758047486_7_email.txt
+│   ├── alert_alert_1758047486_8_communication.json
+│   ├── alert_alert_1758047486_8_email.txt
+│   ├── alert_alert_1758047486_9_communication.json
+│   ├── alert_alert_1758047486_9_email.txt
+│   ├── alert_alert_1758047487_31_communication.json
+│   ├── alert_alert_1758047487_31_email.txt
+│   ├── alert_alert_1758047487_32_communication.json
+│   ├── alert_alert_1758047487_32_email.txt
+│   ├── alert_alert_1758047487_33_communication.json
+│   ├── alert_alert_1758047487_33_email.txt
+│   ├── alert_alert_1758047487_34_communication.json
+│   ├── alert_alert_1758047487_34_email.txt
+│   ├── alert_alert_1758047487_35_communication.json
+│   ├── alert_alert_1758047487_35_email.txt
+│   ├── alert_alert_1758047488_36_communication.json
+│   ├── alert_alert_1758047488_36_email.txt
+│   ├── alert_alert_1758047488_37_communication.json
+│   ├── alert_alert_1758047488_37_email.txt
+│   ├── alert_alert_1758047488_38_communication.json
+│   ├── alert_alert_1758047488_38_email.txt
+│   ├── alert_alert_1758047488_39_communication.json
+│   ├── alert_alert_1758047488_39_email.txt
+│   ├── alert_alert_1758047488_40_communication.json
+│   ├── alert_alert_1758047488_40_email.txt
+│   ├── alert_alert_1758047488_41_communication.json
+│   ├── alert_alert_1758047488_41_email.txt
+│   ├── alert_alert_1758047489_42_communication.json
+│   ├── alert_alert_1758047489_42_email.txt
+│   ├── alert_alert_1758047489_43_communication.json
+│   ├── alert_alert_1758047489_43_email.txt
+│   ├── alert_alert_1758047489_44_communication.json
+│   ├── alert_alert_1758047489_44_email.txt
+│   ├── alert_alert_1758047489_45_communication.json
+│   ├── alert_alert_1758047489_45_email.txt
+│   ├── alert_alert_1758047489_46_communication.json
+│   ├── alert_alert_1758047489_46_email.txt
+│   ├── alert_alert_1758047489_47_communication.json
+│   ├── alert_alert_1758047489_47_email.txt
+│   ├── alert_alert_1758047489_48_communication.json
+│   ├── alert_alert_1758047489_48_email.txt
+│   ├── alert_alert_1758047490_49_communication.json
+│   ├── alert_alert_1758047490_49_email.txt
+│   ├── alert_alert_1758047490_50_communication.json
+│   ├── alert_alert_1758047490_50_email.txt
+│   ├── alert_alert_1758047490_51_communication.json
+│   ├── alert_alert_1758047490_51_email.txt
+│   ├── alert_alert_1758047490_52_communication.json
+│   ├── alert_alert_1758047490_52_email.txt
+│   ├── alert_alert_1758047490_53_communication.json
+│   ├── alert_alert_1758047490_53_email.txt
+│   ├── alert_alert_1758047490_54_communication.json
+│   ├── alert_alert_1758047490_54_email.txt
+│   ├── alert_alert_1758047490_55_communication.json
+│   ├── alert_alert_1758047490_55_email.txt
+│   ├── alert_alert_1758047490_56_communication.json
+│   ├── alert_alert_1758047490_56_email.txt
+│   ├── alert_alert_1758047491_57_communication.json
+│   ├── alert_alert_1758047491_57_email.txt
+│   ├── alert_alert_1758047491_58_communication.json
+│   ├── alert_alert_1758047491_58_email.txt
+│   ├── alert_alert_1758047491_59_communication.json
+│   ├── alert_alert_1758047491_59_email.txt
+│   ├── alert_alert_1758047491_60_communication.json
+│   ├── alert_alert_1758047491_60_email.txt
+│   ├── alert_alert_1758047491_61_communication.json
+│   ├── alert_alert_1758047491_61_email.txt
+│   ├── alert_alert_1758047491_62_communication.json
+│   ├── alert_alert_1758047491_62_email.txt
+│   ├── alert_alert_1758047491_63_communication.json
+│   ├── alert_alert_1758047491_63_email.txt
+│   ├── alert_alert_1758047491_64_communication.json
+│   ├── alert_alert_1758047491_64_email.txt
+│   ├── alert_alert_1758047491_65_communication.json
+│   ├── alert_alert_1758047491_65_email.txt
+│   ├── alert_alert_1758047491_66_communication.json
+│   ├── alert_alert_1758047491_66_email.txt
+│   ├── alert_alert_1758047491_67_communication.json
+│   ├── alert_alert_1758047491_67_email.txt
+│   ├── alert_alert_1758047492_68_communication.json
+│   ├── alert_alert_1758047492_68_email.txt
+│   ├── alert_alert_1758047492_69_communication.json
+│   ├── alert_alert_1758047492_69_email.txt
+│   ├── alert_alert_1758047492_70_communication.json
+│   ├── alert_alert_1758047492_70_email.txt
+│   ├── alert_alert_1758047492_71_communication.json
+│   ├── alert_alert_1758047492_71_email.txt
+│   ├── alert_alert_1758047492_72_communication.json
+│   ├── alert_alert_1758047492_72_email.txt
+│   ├── alert_alert_1758047492_73_communication.json
+│   ├── alert_alert_1758047492_73_email.txt
+│   ├── alert_alert_1758047492_74_communication.json
+│   ├── alert_alert_1758047492_74_email.txt
+│   ├── alert_alert_1758047493_75_communication.json
+│   ├── alert_alert_1758047493_75_email.txt
+│   ├── alert_alert_1758047493_76_communication.json
+│   ├── alert_alert_1758047493_76_email.txt
+│   ├── alert_alert_1758047493_77_communication.json
+│   ├── alert_alert_1758047493_77_email.txt
+│   ├── alert_alert_1758047493_78_communication.json
+│   ├── alert_alert_1758047493_78_email.txt
+│   ├── alert_alert_1758047493_79_communication.json
+│   ├── alert_alert_1758047493_79_email.txt
+│   ├── alert_alert_1758047493_80_communication.json
+│   ├── alert_alert_1758047493_80_email.txt
+│   ├── alert_alert_1758047493_81_communication.json
+│   ├── alert_alert_1758047493_81_email.txt
+│   ├── alert_alert_1758047493_82_communication.json
+│   ├── alert_alert_1758047493_82_email.txt
+│   ├── alert_alert_1758047493_83_communication.json
+│   ├── alert_alert_1758047493_83_email.txt
+│   ├── alert_alert_1758047494_84_communication.json
+│   ├── alert_alert_1758047494_84_email.txt
+│   ├── alert_alert_1758047494_85_communication.json
+│   ├── alert_alert_1758047494_85_email.txt
+│   ├── alert_alert_1758047494_86_communication.json
+│   ├── alert_alert_1758047494_86_email.txt
+│   ├── alert_alert_1758047494_87_communication.json
+│   ├── alert_alert_1758047494_87_email.txt
+│   ├── alert_alert_1758047494_88_communication.json
+│   ├── alert_alert_1758047494_88_email.txt
+│   ├── alert_alert_1758047494_89_communication.json
+│   ├── alert_alert_1758047494_89_email.txt
+│   ├── alert_alert_1758047494_90_communication.json
+│   ├── alert_alert_1758047494_90_email.txt
+│   ├── alert_alert_1758047494_91_communication.json
+│   ├── alert_alert_1758047494_91_email.txt
+│   ├── alert_alert_1758047494_92_communication.json
+│   ├── alert_alert_1758047494_92_email.txt
+│   ├── alert_alert_1758047494_93_communication.json
+│   ├── alert_alert_1758047494_93_email.txt
+│   ├── alert_alert_1758047494_94_communication.json
+│   ├── alert_alert_1758047494_94_email.txt
+│   ├── alert_alert_1758047495_100_communication.json
+│   ├── alert_alert_1758047495_100_email.txt
+│   ├── alert_alert_1758047495_101_communication.json
+│   ├── alert_alert_1758047495_101_email.txt
+│   ├── alert_alert_1758047495_102_communication.json
+│   ├── alert_alert_1758047495_102_email.txt
+│   ├── alert_alert_1758047495_95_communication.json
+│   ├── alert_alert_1758047495_95_email.txt
+│   ├── alert_alert_1758047495_96_communication.json
+│   ├── alert_alert_1758047495_96_email.txt
+│   ├── alert_alert_1758047495_97_communication.json
+│   ├── alert_alert_1758047495_97_email.txt
+│   ├── alert_alert_1758047495_98_communication.json
+│   ├── alert_alert_1758047495_98_email.txt
+│   ├── alert_alert_1758047495_99_communication.json
+│   ├── alert_alert_1758047495_99_email.txt
+│   ├── alert_alert_1758047496_103_communication.json
+│   ├── alert_alert_1758047496_103_email.txt
+│   ├── alert_alert_1758047496_104_communication.json
+│   ├── alert_alert_1758047496_104_email.txt
+│   ├── alert_alert_1758047496_105_communication.json
+│   ├── alert_alert_1758047496_105_email.txt
+│   ├── alert_alert_1758047496_106_communication.json
+│   ├── alert_alert_1758047496_106_email.txt
+│   ├── alert_alert_1758047496_107_communication.json
+│   ├── alert_alert_1758047496_107_email.txt
+│   ├── alert_alert_1758047496_108_communication.json
+│   ├── alert_alert_1758047496_108_email.txt
+│   ├── alert_alert_1758047496_109_communication.json
+│   ├── alert_alert_1758047496_109_email.txt
+│   ├── alert_alert_1758047497_110_communication.json
+│   ├── alert_alert_1758047497_110_email.txt
+│   ├── alert_alert_1758047497_111_communication.json
+│   ├── alert_alert_1758047497_111_email.txt
+│   ├── alert_alert_1758047497_112_communication.json
+│   ├── alert_alert_1758047497_112_email.txt
+│   ├── alert_alert_1758047497_113_communication.json
+│   ├── alert_alert_1758047497_113_email.txt
+│   ├── alert_alert_1758047497_114_communication.json
+│   ├── alert_alert_1758047497_114_email.txt
+│   ├── alert_alert_1758047497_115_communication.json
+│   ├── alert_alert_1758047497_115_email.txt
+│   ├── alert_alert_1758047497_116_communication.json
+│   ├── alert_alert_1758047497_116_email.txt
+│   ├── alert_alert_1758047497_117_communication.json
+│   ├── alert_alert_1758047497_117_email.txt
+│   ├── alert_alert_1758047497_118_communication.json
+│   ├── alert_alert_1758047497_118_email.txt
+│   ├── alert_alert_1758047498_119_communication.json
+│   ├── alert_alert_1758047498_119_email.txt
+│   ├── alert_alert_1758047498_120_communication.json
+│   ├── alert_alert_1758047498_120_email.txt
+│   ├── alert_alert_1758047498_121_communication.json
+│   ├── alert_alert_1758047498_121_email.txt
+│   ├── alert_alert_1758047498_122_communication.json
+│   ├── alert_alert_1758047498_122_email.txt
+│   ├── alert_alert_1758047498_123_communication.json
+│   ├── alert_alert_1758047498_123_email.txt
+│   ├── alert_alert_1758047498_124_communication.json
+│   ├── alert_alert_1758047498_124_email.txt
+│   ├── alert_alert_1758047498_125_communication.json
+│   ├── alert_alert_1758047498_125_email.txt
+│   ├── alert_alert_1758047498_126_communication.json
+│   ├── alert_alert_1758047498_126_email.txt
+│   ├── alert_alert_1758047499_127_communication.json
+│   ├── alert_alert_1758047499_127_email.txt
+│   ├── alert_alert_1758047499_128_communication.json
+│   ├── alert_alert_1758047499_128_email.txt
+│   ├── alert_alert_1758047499_129_communication.json
+│   ├── alert_alert_1758047499_129_email.txt
+│   ├── alert_alert_1758047499_130_communication.json
+│   ├── alert_alert_1758047499_130_email.txt
+│   ├── alert_alert_1758047499_131_communication.json
+│   ├── alert_alert_1758047499_131_email.txt
+│   ├── alert_alert_1758047499_132_communication.json
+│   ├── alert_alert_1758047499_132_email.txt
+│   ├── alert_alert_1758047499_133_communication.json
+│   ├── alert_alert_1758047499_133_email.txt
+│   ├── alert_alert_1758047499_134_communication.json
+│   ├── alert_alert_1758047499_134_email.txt
+│   ├── alert_alert_1758047499_135_communication.json
+│   ├── alert_alert_1758047499_135_email.txt
+│   ├── alert_alert_1758047499_136_communication.json
+│   ├── alert_alert_1758047499_136_email.txt
+│   ├── alert_alert_1758047499_137_communication.json
+│   ├── alert_alert_1758047499_137_email.txt
+│   ├── alert_alert_1758047500_138_communication.json
+│   ├── alert_alert_1758047500_138_email.txt
+│   ├── alert_alert_1758047500_139_communication.json
+│   ├── alert_alert_1758047500_139_email.txt
+│   ├── alert_alert_1758047500_140_communication.json
+│   ├── alert_alert_1758047500_140_email.txt
+│   ├── alert_alert_1758047500_141_communication.json
+│   ├── alert_alert_1758047500_141_email.txt
+│   ├── alert_alert_1758047500_142_communication.json
+│   ├── alert_alert_1758047500_142_email.txt
+│   ├── alert_alert_1758047500_143_communication.json
+│   ├── alert_alert_1758047500_143_email.txt
+│   ├── alert_alert_1758047500_144_communication.json
+│   ├── alert_alert_1758047500_144_email.txt
+│   ├── alert_alert_1758047500_145_communication.json
+│   ├── alert_alert_1758047500_145_email.txt
+│   ├── alert_alert_1758047500_146_communication.json
+│   ├── alert_alert_1758047500_146_email.txt
+│   ├── alert_alert_1758047501_147_communication.json
+│   ├── alert_alert_1758047501_147_email.txt
+│   ├── alert_alert_1758047501_149_communication.json
+│   ├── alert_alert_1758047501_149_email.txt
+│   ├── alert_alert_1758047501_150_communication.json
+│   ├── alert_alert_1758047501_150_email.txt
+│   ├── alert_alert_1758047501_151_communication.json
+│   ├── alert_alert_1758047501_151_email.txt
+│   ├── alert_alert_1758047501_152_communication.json
+│   ├── alert_alert_1758047501_152_email.txt
+│   ├── alert_alert_1758047501_153_communication.json
+│   ├── alert_alert_1758047501_153_email.txt
+│   ├── alert_alert_1758047501_154_communication.json
+│   ├── alert_alert_1758047501_154_email.txt
+│   ├── alert_alert_1758047501_155_communication.json
+│   ├── alert_alert_1758047501_155_email.txt
+│   ├── alert_alert_1758047502_156_communication.json
+│   ├── alert_alert_1758047502_156_email.txt
+│   ├── alert_alert_1758047502_157_communication.json
+│   ├── alert_alert_1758047502_157_email.txt
+│   ├── alert_alert_1758047502_158_communication.json
+│   ├── alert_alert_1758047502_158_email.txt
+│   ├── alert_alert_1758047502_159_communication.json
+│   ├── alert_alert_1758047502_159_email.txt
+│   ├── alert_alert_1758047502_160_communication.json
+│   ├── alert_alert_1758047502_160_email.txt
+│   ├── alert_alert_1758047502_161_communication.json
+│   ├── alert_alert_1758047502_161_email.txt
+│   ├── alert_alert_1758047502_162_communication.json
+│   ├── alert_alert_1758047502_162_email.txt
+│   ├── alert_alert_1758047502_163_communication.json
+│   ├── alert_alert_1758047502_163_email.txt
+│   ├── alert_alert_1758047503_165_communication.json
+│   ├── alert_alert_1758047503_165_email.txt
+│   ├── alert_alert_1758047503_166_communication.json
+│   ├── alert_alert_1758047503_166_email.txt
+│   ├── alert_alert_1758047503_167_communication.json
+│   ├── alert_alert_1758047503_167_email.txt
+│   ├── alert_alert_1758047503_168_communication.json
+│   ├── alert_alert_1758047503_168_email.txt
+│   ├── alert_alert_1758047503_169_communication.json
+│   ├── alert_alert_1758047503_169_email.txt
+│   ├── alert_alert_1758047503_170_communication.json
+│   ├── alert_alert_1758047503_170_email.txt
+│   ├── alert_alert_1758047503_171_communication.json
+│   ├── alert_alert_1758047503_171_email.txt
+│   ├── alert_alert_1758047503_172_communication.json
+│   ├── alert_alert_1758047503_172_email.txt
+│   ├── alert_alert_1758047503_173_communication.json
+│   ├── alert_alert_1758047503_173_email.txt
+│   ├── alert_alert_1758047504_174_communication.json
+│   ├── alert_alert_1758047504_174_email.txt
+│   ├── alert_alert_1758047504_175_communication.json
+│   ├── alert_alert_1758047504_175_email.txt
+│   ├── alert_alert_1758047504_176_communication.json
+│   ├── alert_alert_1758047504_176_email.txt
+│   ├── alert_alert_1758047504_177_communication.json
+│   ├── alert_alert_1758047504_177_email.txt
+│   ├── alert_alert_1758047504_178_communication.json
+│   └── alert_alert_1758047504_178_email.txt
+├── main.py
+├── models
+│   ├── brand_recall_model.joblib
+│   ├── brand_recall_scaler.joblib
+│   ├── conversion_rate_model.joblib
+│   ├── conversion_rate_scaler.joblib
+│   ├── ctr_model.joblib
+│   ├── ctr_scaler.joblib
+│   ├── engagement_score_model.joblib
+│   └── engagement_score_scaler.joblib
+├── monitoring
+│   ├── grafana
+│   │   ├── dashboards
+│   │   │   └── task3-dashboard.json
+│   │   └── datasources
+│   │       └── prometheus.yml
+│   └── prometheus.yml
+├── my_code_structure.txt
+├── next_gen_demo.py
+├── optimized_images
+├── output
+│   ├── campaign_20250916_214305
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── switch_lite
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── switch_oled
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── switch2
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── campaign_20250916_220947
+│   │   ├── atari2600
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── atari7800
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── compliance_report.txt
+│   │   └── generation_report.json
+│   ├── campaign_20250916_222538_de
+│   │   ├── compliance_report.txt
+│   │   ├── computers_brick
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_dirt
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_stucco
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── localization_report.txt
+│   ├── campaign_20250916_222538_jp
+│   │   ├── compliance_report.txt
+│   │   ├── computers_brick
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_dirt
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_stucco
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── localization_report.txt
+│   ├── campaign_20250916_222538_uk
+│   │   ├── compliance_report.txt
+│   │   ├── computers_brick
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_dirt
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── computers_stucco
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── localization_report.txt
+│   ├── campaign_20250916_232706_us
+│   │   ├── ai_development_platform
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── compliance_report.txt
+│   │   ├── localization_report.txt
+│   │   └── quantum_computing_simulator
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── flash_sale_weekend_us
+│   │   ├── compliance_report.txt
+│   │   ├── everything_on_sale
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── localization_report.txt
+│   ├── holiday_collection_2024
+│   │   ├── compliance_report.txt
+│   │   ├── eco-friendly_water_bottle
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   ├── premium_wireless_headphones
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── smart_fitness_tracker
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── holiday_collection_2024_de
+│   │   ├── compliance_report.txt
+│   │   ├── eco-friendly_water_bottle
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   ├── premium_wireless_headphones
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── smart_fitness_tracker
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── load_test_campaign_004
+│   │   ├── compliance_report.txt
+│   │   ├── eco-friendly_water_bottle
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── premium_wireless_headphones
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── load_test_campaign_019
+│   │   ├── compliance_report.txt
+│   │   ├── eco-friendly_water_bottle
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── generation_report.json
+│   │   └── premium_wireless_headphones
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── multi_region_test_2024
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── portable_charger_max
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── smart_watch_pro
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── wireless_earbuds_elite
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── multi_region_test_2024_de
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   ├── portable_charger_max
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── smart_watch_pro
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── wireless_earbuds_elite
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── multi_region_test_2024_fr
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   ├── portable_charger_max
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── smart_watch_pro
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── wireless_earbuds_elite
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── multi_region_test_2024_jp
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   ├── portable_charger_max
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── smart_watch_pro
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── wireless_earbuds_elite
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── multi_region_test_2024_us
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   ├── portable_charger_max
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   ├── smart_watch_pro
+│   │   │   ├── 16x9.jpg
+│   │   │   ├── 1x1.jpg
+│   │   │   └── 9x16.jpg
+│   │   └── wireless_earbuds_elite
+│   │       ├── 16x9.jpg
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── test_localization_fix_2024_de
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   └── smart_watch_premium
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   ├── test_localization_fix_2024_jp
+│   │   ├── compliance_report.txt
+│   │   ├── generation_report.json
+│   │   ├── localization_report.txt
+│   │   └── smart_watch_premium
+│   │       ├── 1x1.jpg
+│   │       └── 9x16.jpg
+│   └── test_localization_fix_2024_us
+│       ├── compliance_report.txt
+│       ├── generation_report.json
+│       ├── localization_report.txt
+│       └── smart_watch_premium
+│           ├── 1x1.jpg
+│           └── 9x16.jpg
+├── performance_prediction_20250915_195305.json
+├── performance_prediction_20250915_201405.json
+├── personalization_results_20250915_201424.json
+├── pipeline.log
+├── Presentation.html
+├── PRESENTATION.md
+├── quantum_leap_demo.py
+├── README.md
+├── requirements.txt
+├── security
+│   ├── compliance_config.yaml
+│   └── encryption.py
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-313.pyc
+│   │   ├── ab_testing.cpython-313.pyc
+│   │   ├── adobe_ecosystem.cpython-313.pyc
+│   │   ├── advanced_analytics.cpython-313.pyc
+│   │   ├── advanced_communication_engine.cpython-313.pyc
+│   │   ├── ai_agent.cpython-313.pyc
+│   │   ├── analytics_dashboard.cpython-313.pyc
+│   │   ├── api_server.cpython-313.pyc
+│   │   ├── asset_manager.cpython-313.pyc
+│   │   ├── audit_compliance.cpython-313.pyc
+│   │   ├── batch_processor.cpython-313.pyc
+│   │   ├── brand_intelligence.cpython-313.pyc
+│   │   ├── collaboration_platform.cpython-313.pyc
+│   │   ├── compliance_checker.cpython-313.pyc
+│   │   ├── comprehensive_context_protocol.cpython-313.pyc
+│   │   ├── comprehensive_model_context_protocol.cpython-313.pyc
+│   │   ├── content_moderation.cpython-313.pyc
+│   │   ├── content_personalization.cpython-313.pyc
+│   │   ├── creative_composer.cpython-313.pyc
+│   │   ├── enhanced_diversity_tracker.cpython-313.pyc
+│   │   ├── enhanced_task3_system.cpython-313.pyc
+│   │   ├── enterprise_ai_monitor.cpython-313.pyc
+│   │   ├── enterprise_task3_system.cpython-313.pyc
+│   │   ├── genai_communications.cpython-313.pyc
+│   │   ├── genai_failure_communications.cpython-313.pyc
+│   │   ├── image_generator.cpython-313.pyc
+│   │   ├── intelligent_brief_monitor.cpython-313.pyc
+│   │   ├── intelligent_orchestrator.cpython-313.pyc
+│   │   ├── localization.cpython-313.pyc
+│   │   ├── monitoring.cpython-313.pyc
+│   │   ├── multi_tenant.cpython-313.pyc
+│   │   ├── next_gen_task3_system.cpython-313.pyc
+│   │   ├── performance_optimization.cpython-313.pyc
+│   │   ├── performance_prediction.cpython-313.pyc
+│   │   ├── pipeline_integration.cpython-313.pyc
+│   │   ├── pipeline_orchestrator.cpython-313.pyc
+│   │   ├── predictive_asset_flagging.cpython-313.pyc
+│   │   ├── production_ai_agent.cpython-313.pyc
+│   │   ├── production_ai_monitor.cpython-313.pyc
+│   │   ├── production_task3_system.cpython-313.pyc
+│   │   ├── quantum_leap_task3.cpython-313.pyc
+│   │   ├── realtime_dashboard.cpython-313.pyc
+│   │   ├── revolutionary_ai_system.cpython-313.pyc
+│   │   ├── task3_practical_agent.cpython-313.pyc
+│   │   ├── transcendent_ai_system.cpython-313.pyc
+│   │   ├── ultimate_stakeholder_experience.cpython-313.pyc
+│   │   ├── unified_task123_system.cpython-313.pyc
+│   │   ├── utils.cpython-313.pyc
+│   │   ├── variant_intelligence.cpython-313.pyc
+│   │   ├── webhook_notifications.cpython-313.pyc
+│   │   └── workflow_orchestration.cpython-313.pyc
+│   ├── ab_testing.py
+│   ├── adobe_ecosystem.py
+│   ├── advanced_analytics.py
+│   ├── advanced_communication_engine.py
+│   ├── ai_agent_enhanced.py
+│   ├── ai_agent.py
+│   ├── analytics_dashboard.py
+│   ├── api_server.py
+│   ├── asset_manager.py
+│   ├── audit_compliance.py
+│   ├── batch_processor.py
+│   ├── brand_intelligence.py
+│   ├── collaboration_platform.py
+│   ├── compliance_checker.py
+│   ├── comprehensive_context_protocol.py
+│   ├── comprehensive_model_context_protocol.py
+│   ├── content_moderation.py
+│   ├── content_personalization.py
+│   ├── creative_composer.py
+│   ├── enhanced_diversity_tracker.py
+│   ├── enhanced_task3_system.py
+│   ├── enterprise_ai_monitor.py
+│   ├── genai_communications.py
+│   ├── genai_failure_communications.py
+│   ├── image_generator.py
+│   ├── intelligent_brief_monitor.py
+│   ├── intelligent_orchestrator.py
+│   ├── localization.py
+│   ├── monitoring.py
+│   ├── multi_tenant.py
+│   ├── next_gen_task3_system.py
+│   ├── performance_optimization.py
+│   ├── performance_prediction.py
+│   ├── pipeline_integration.py
+│   ├── pipeline_orchestrator.py
+│   ├── predictive_asset_flagging.py
+│   ├── production_ai_agent.py
+│   ├── production_ai_monitor.py
+│   ├── quantum_leap_task3.py
+│   ├── realtime_dashboard.py
+│   ├── revolutionary_ai_system.py
+│   ├── task3_practical_agent.py
+│   ├── transcendent_ai_system.py
+│   ├── ultimate_stakeholder_experience.py
+│   ├── unified_task123_system.py
+│   ├── utils.py
+│   ├── variant_intelligence.py
+│   ├── webhook_notifications.py
+│   └── workflow_orchestration.py
+├── static
+│   └── css
+│       └── theme.css
+├── TASK.md
+├── task1_architecture.md
+├── task3_agent.log
+├── task3_complete_documentation.md
+├── templates
+│   ├── analytics.html
+│   ├── cli_commands.html
+│   ├── complete_create.html
+│   ├── complete_dashboard.html
+│   ├── create_campaign.html
+│   ├── dashboard.html
+│   ├── data_explorer.html
+│   ├── outputs_gallery.html
+│   └── view_campaign.html
+├── tenants.db
+├── test_ai_agent_comprehensive.py
+├── test_ai_agent_enhanced.py
+├── test_ai_agent_ultra_comprehensive.py
+├── test_assets
+├── test_complete_enhanced_task3.py
+├── test_enhanced_features.py
+├── test_enhanced_task3.py
+├── test_integration.html
+├── test_multi_region_brief.yaml
+├── test_task3_complete.py
+├── test_task3_comprehensive.py
+├── test_task3_simple.py
+├── tests
+│   ├── __pycache__
+│   │   ├── test_enterprise_task3.cpython-313-pytest-8.4.2.pyc
+│   │   └── test_production_task3.cpython-313-pytest-8.4.2.pyc
+│   ├── test_enterprise_task3.py
+│   └── test_production_task3.py
+├── upgrade_campaign_briefs.py
+├── uploads
+└── workflows.json
+
+109 directories, 1090 files

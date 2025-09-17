@@ -1,0 +1,114 @@
+campaign_brief:
+  campaign_id: tech_innovation_summit_2025
+  campaign_name: "Tech Innovation Summit 2025"
+  campaign_message: "Join the future of technology. Where breakthrough ideas meet revolutionary solutions. Register now for early bird access."
+  
+  target_audience: "Tech leaders, CTOs, developers, and innovation managers aged 28-55"
+  
+  target_regions:
+    - US
+    - UK
+    - DE
+    - JP
+    - CA
+  
+  products:
+    - name: "AI Development Platform"
+      description: "Enterprise-grade AI development platform with built-in MLOps capabilities"
+      target_keywords:
+        - "artificial intelligence"
+        - "machine learning"
+        - "MLOps"
+        - "enterprise AI"
+        - "development platform"
+    
+    - name: "Quantum Computing Simulator"
+      description: "Cloud-based quantum computing simulator for research and development"
+      target_keywords:
+        - "quantum computing"
+        - "quantum simulator"
+        - "cloud computing"
+        - "research platform"
+    
+    - name: "Blockchain Security Suite"
+      description: "Comprehensive blockchain security and audit tools for enterprises"
+      target_keywords:
+        - "blockchain"
+        - "security"
+        - "smart contracts"
+        - "audit tools"
+        - "enterprise security"
+    
+    - name: "IoT Management Console"
+      description: "Centralized IoT device management and monitoring platform"
+      target_keywords:
+        - "IoT"
+        - "device management"
+        - "monitoring"
+        - "edge computing"
+        - "connected devices"
+  
+  brand_guidelines:
+    primary_colors:
+      - "#00D4FF"  # Electric Cyan
+      - "#7B2FF7"  # Purple Tech
+      - "#FF6B35"  # Innovation Orange
+      - "#0A0A0A"  # Deep Black
+    
+    fonts:
+      - "Inter"
+      - "Space Mono"
+      - "IBM Plex Sans"
+    
+    tone: "cutting-edge, innovative, authoritative yet accessible, future-focused"
+  
+  budget_constraints:
+    generation_limit: 20
+    max_api_cost: 75.00
+  
+  timeline:
+    launch_date: "2025-03-15"
+    priority: "critical"
+    rush_order: true
+  
+  output_requirements:
+    aspect_ratios:
+      - "1:1"     # Instagram/LinkedIn
+      - "9:16"    # Stories/Reels
+      - "16:9"    # YouTube/Web
+      - "4:5"     # Facebook/Instagram Feed
+      - "2:1"     # Twitter/LinkedIn Banner
+    
+    formats:
+      - "JPG"
+      - "PNG"
+      - "WEBP"
+    
+    quality: "premium"
+    
+    special_requirements:
+      - "Include holographic/futuristic visual effects"
+      - "Dark theme with neon accents"
+      - "Tech-grid patterns in background"
+      - "Minimalist but impactful design"
+  
+  event_details:
+    venue: "San Francisco Convention Center"
+    dates: "March 15-17, 2025"
+    ticket_tiers:
+      - "Early Bird: $499"
+      - "Regular: $799"
+      - "VIP: $1499"
+    
+    keynote_speakers:
+      - "Leading AI researchers"
+      - "Fortune 500 CTOs"
+      - "Startup unicorn founders"
+  
+  call_to_action:
+    primary: "Register Now - Save 40%"
+    secondary: "Download Summit Agenda"
+    urgency: "Limited Early Bird Tickets Available"
+  
+  created_at: "2025-09-17T03:15:00.000Z"
+  updated_at: "2025-09-17T03:15:00.000Z"

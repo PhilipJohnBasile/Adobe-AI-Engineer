@@ -1,0 +1,42 @@
+campaign_brief:
+  campaign_id: campaign_20250916_220947
+  campaign_message: You liked to play games when you were younger now play them now
+    too!
+  campaign_name: Atari
+  created_at: '2025-09-17T02:09:47.828Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+    quality: high
+  products:
+  - description: 'Product: atari2600'
+    name: atari2600
+  - description: 'Product: atari7800'
+    name: atari7800
+  target_audience: middle aged men 40-55
+  target_regions:
+  - US
+  - DE
+  - FR
+  - JP
+  brand_guidelines:
+    primary_colors:
+    - '#6F42C1'
+    - '#28A745'
+    - '#FFD700'
+    fonts:
+    - Playfair Display
+    - Merriweather
+    - Lora
+    tone: critical campaign with professional and authoritative
+  budget_constraints:
+    generation_limit: 23
+    max_api_cost: 36.0
+  timeline:
+    launch_date: '2025-11-06'
+    priority: medium
+    rush_order: false

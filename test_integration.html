@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campaign Integration Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            max-width: 1200px; 
+            margin: 0 auto;
+        }
+        .campaign-card {
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: white;
+        }
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .campaign-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        .campaign-status.active {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .campaign-status.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .campaign-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e1e1e1;
+        }
+        button {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button.primary {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        button.secondary {
+            background: white;
+            color: #6c757d;
+        }
+        #log {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Campaign Integration Test</h1>
+    <p>This page demonstrates the complete campaign workflow with GUI-CLI integration.</p>
+    
+    <div id="campaigns"></div>
+    
+    <h2>Test Log:</h2>
+    <div id="log"></div>
+
+    <script>
+        const log = (message) => {
+            const logDiv = document.getElementById('log');
+            logDiv.textContent += `${new Date().toISOString().split('T')[1].split('.')[0]} - ${message}\n`;
+        };
+
+        const loadCampaigns = async () => {
+            log('Loading campaigns...');
+            try {
+                const response = await fetch('http://localhost:5004/api/status');
+                const data = await response.json();
+                
+                const campaignsDiv = document.getElementById('campaigns');
+                campaignsDiv.innerHTML = '';
+                
+                data.recent_campaigns.forEach(campaign => {
+                    const card = document.createElement('div');
+                    card.className = 'campaign-card';
+                    card.innerHTML = `
+                        <div class="campaign-header">
+                            <div>
+                                <h3>${campaign.name || campaign.id}</h3>
+                                <p>Products: ${campaign.products.join(', ')}</p>
+                                <p>Regions: ${campaign.target_regions.join(', ')}</p>
+                            </div>
+                            <span class="campaign-status ${campaign.has_outputs ? 'completed' : 'active'}">
+                                ${campaign.has_outputs ? '✅ Completed' : '🔄 Active'}
+                            </span>
+                        </div>
+                        <div class="campaign-actions">
+                            ${campaign.has_outputs ? 
+                                `<button class="primary" onclick="viewAssets('${campaign.id}')">View Assets</button>` :
+                                `<button class="primary" onclick="generateAssets('${campaign.id}')">Generate Assets</button>`
+                            }
+                            <button class="secondary" onclick="editCampaign('${campaign.id}')">Edit</button>
+                        </div>
+                    `;
+                    campaignsDiv.appendChild(card);
+                });
+                
+                log(`Loaded ${data.recent_campaigns.length} campaigns`);
+            } catch (error) {
+                log(`Error loading campaigns: ${error.message}`);
+            }
+        };
+
+        const generateAssets = async (campaignId) => {
+            log(`Starting asset generation for ${campaignId}...`);
+            
+            try {
+                // Validate first
+                log('Validating campaign brief...');
+                const validateResponse = await fetch(`http://localhost:5004/api/campaigns/${campaignId}/validate`, {
+                    method: 'POST'
+                });
+                const validateData = await validateResponse.json();
+                
+                if (validateData.status !== 'success') {
+                    log(`Validation failed: ${validateData.message}`);
+                    return;
+                }
+                log('✅ Validation passed');
+                
+                // Run pipeline
+                log('Running pipeline...');
+                const runResponse = await fetch(`http://localhost:5004/api/campaigns/${campaignId}/run`, {
+                    method: 'POST'
+                });
+                const runData = await runResponse.json();
+                
+                if (runData.status === 'success') {
+                    log('✅ Pipeline completed successfully!');
+                    if (runData.summary) {
+                        log(`   Regions: ${runData.summary.regions_processed.join(', ')}`);
+                        log(`   Files: ${runData.summary.files_generated.length} generated`);
+                    }
+                    setTimeout(loadCampaigns, 2000);
+                } else {
+                    log(`Pipeline failed: ${runData.message}`);
+                }
+            } catch (error) {
+                log(`Error: ${error.message}`);
+            }
+        };
+
+        const editCampaign = async (campaignId) => {
+            log(`Loading campaign ${campaignId} for editing...`);
+            
+            try {
+                const response = await fetch(`http://localhost:5004/api/campaigns/brief?campaign_id=${campaignId}`);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    log(`✅ Loaded campaign: ${JSON.stringify(data.brief.campaign_brief.campaign_name)}`);
+                    alert(`Campaign loaded: ${data.brief.campaign_brief.campaign_name}\n\nIn the full UI, this would populate the edit form.`);
+                } else {
+                    log(`Failed to load: ${data.message}`);
+                }
+            } catch (error) {
+                log(`Error: ${error.message}`);
+            }
+        };
+
+        const viewAssets = (campaignId) => {
+            log(`Opening assets for ${campaignId}...`);
+            window.open(`http://localhost:5004/outputs`, '_blank');
+        };
+
+        // Load campaigns on page load
+        loadCampaigns();
+    </script>
+</body>
+</html>
