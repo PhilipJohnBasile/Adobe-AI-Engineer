@@ -230,6 +230,6 @@ def download_file(filename):
 
 if __name__ == '__main__':
     print("🚀 Starting Task 3 Creative Automation Web UI...")
-    print("📊 Dashboard: http://localhost:5000")
+    print("📊 Dashboard: http://localhost:5004")
     print("🎯 Create campaigns, monitor progress, download results!")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5004)

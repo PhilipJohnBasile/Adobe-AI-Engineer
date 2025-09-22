@@ -30,7 +30,9 @@
       "Bash(export OPENAI_API_KEY)",
       "Bash(npm install:*)",
       "Bash(marp:*)",
-      "Bash(open PRESENTATION_60min.html)"
+      "Bash(open PRESENTATION_60min.html)",
+      "Bash(pip3 list:*)",
+      "Bash(open Presentation.html)"
     ],
     "deny": [],
     "ask": []
