@@ -47,44 +47,126 @@ The Creative Automation Platform is a production-ready solution designed for glo
 - ✅ **Webhook System**: Real-time event notifications
 - ✅ **A/B Testing Framework**: Creative variant optimization
 
-## 🚀 Quick Start
+## 🚀 Quick Start - Complete Setup Guide
 
 ### Prerequisites
 - Python 3.9 or higher
-- OpenAI API key
+- OpenAI API key (free tier works)
 - 4GB RAM minimum
 - 10GB disk space
 
-### Installation
+### Step-by-Step Installation
 
+#### 1. Clone the Repository
 ```bash
 # Clone the repository
 git clone https://github.com/your-org/Adobe-AI-Engineer
 cd Adobe-AI-Engineer
+```
 
+#### 2. Set Up Python Environment
+```bash
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
 
-# Configure environment
-cp .env.example .env
-# Edit .env and add your OpenAI API key: OPENAI_API_KEY=your-key-here
+# On Windows:
+# venv\Scripts\activate
 ```
 
-## 💻 Usage
+#### 3. Install Dependencies
+```bash
+# Install all required packages (this may take 2-3 minutes)
+pip install -r requirements.txt
+```
 
-### Web Interface (Recommended)
+#### 4. Get OpenAI API Key
+1. Go to https://platform.openai.com/api-keys
+2. Sign up or log in to your OpenAI account
+3. Click "Create new secret key"
+4. Copy the key (starts with `sk-...`)
 
-Start the enterprise web platform:
+#### 5. Configure Environment
+```bash
+# Create .env file from example
+cp .env.example .env
+
+# Edit .env file
+# On macOS/Linux:
+nano .env  # or use: vim .env
+
+# On Windows:
+# notepad .env
+```
+
+Add your OpenAI API key to the `.env` file:
+```
+OPENAI_API_KEY=sk-your-actual-api-key-here
+```
+
+Save and close the file (in nano: Ctrl+X, then Y, then Enter)
+
+## 💻 Running the Application
+
+### Start the Web Interface
 
 ```bash
-python3 complete_app.py
+# Make sure your virtual environment is activated
+# You should see (venv) in your terminal prompt
+
+# Start the Flask application
+python app.py
 ```
 
-Access at: **http://localhost:5004**
+You should see:
+```
+* Running on http://127.0.0.1:5004
+* Debug mode: on
+```
+
+### Access the Application
+
+Open your browser and go to: **http://localhost:5004**
+
+### How to Use the Web Interface
+
+1. **Upload Campaign Brief**:
+   - Click "Choose File" button
+   - Select a campaign brief YAML file (e.g., `campaign_brief_tech.yaml`)
+   - Click "Generate Creatives"
+
+2. **View Generated Assets**:
+   - Wait for the pipeline to complete (usually 30-60 seconds)
+   - Generated images will appear on the page
+   - Each image shows the aspect ratio and product
+
+3. **Access Additional Features**:
+   - **Monitor Dashboard**: Navigate to http://localhost:5004/monitor
+   - **Analytics**: Navigate to http://localhost:5004/analytics
+   - **Asset Explorer**: Navigate to http://localhost:5004/explorer
+
+### Sample Campaign Briefs
+
+The project includes several ready-to-use campaign briefs:
+- `campaign_brief_tech.yaml` - Technology products campaign
+- `campaign_brief_skincare.yaml` - Skincare products campaign  
+- `campaign_brief_food.yaml` - Food products campaign
+- `campaign_brief_fitness.yaml` - Fitness products campaign
+
+### Troubleshooting
+
+**If the server doesn't start:**
+- Make sure port 5004 is not in use
+- Verify your virtual environment is activated
+- Check that all dependencies installed correctly
+
+**If image generation fails:**
+- Verify your OpenAI API key is correctly set in `.env`
+- Check you have API credits available
+- Try with a simpler campaign brief first
 
 #### Web Platform Features
 - 📝 **Campaign Creation**: Dynamic form-based brief creation with validation

@@ -32,7 +32,8 @@
       "Bash(marp:*)",
       "Bash(open PRESENTATION_60min.html)",
       "Bash(pip3 list:*)",
-      "Bash(open Presentation.html)"
+      "Bash(open Presentation.html)",
+      "Bash(source:*)"
     ],
     "deny": [],
     "ask": []
