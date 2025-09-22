@@ -58,7 +58,7 @@ cp .env.example .env
 "The easiest way to use the platform is through the web interface. Let's start it:"
 
 ```bash
-python3 complete_app.py
+python app.py
 ```
 
 "The server is now running on port 5004. Let me open the browser..."
@@ -274,7 +274,7 @@ If something doesn't work during recording:
 
 ## Files to Highlight
 
-- `complete_app.py` - Main web application
+- `app.py` - Main Flask web application
 - `main.py` - CLI interface
 - `src/` directory - Core implementation
 - `campaign_briefs/` - Example campaigns

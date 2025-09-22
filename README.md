@@ -11,6 +11,8 @@
 
 A comprehensive creative automation platform that revolutionizes social ad campaign production through AI-driven automation, achieving **10x faster campaign velocity** while maintaining brand consistency and compliance at scale.
 
+📔 **[View Complete Technology Stack Documentation](TECHNOLOGY_STACK.md)** - Detailed explanation of all technologies used and architectural decisions
+
 ## 📊 Platform Overview
 
 The Creative Automation Platform is a production-ready solution designed for global consumer goods companies launching hundreds of localized campaigns monthly. It combines cutting-edge AI technology with enterprise-grade reliability to transform creative production workflows.
@@ -257,7 +259,7 @@ Adobe-AI-Engineer/
 ├── alerts/                        # AI monitoring alerts
 ├── analytics_report.json          # Performance analytics
 ├── main.py                        # CLI interface (30+ commands)
-├── complete_app.py                # Web platform server
+├── app.py                         # Flask web platform server
 ├── requirements.txt               # Python dependencies
 ├── Dockerfile                     # Production container
 ├── task1_architecture.md          # System architecture documentation
@@ -577,7 +579,7 @@ Actions Needed:
 ### Environment Setup
 ```bash
 # Development mode with hot reload
-FLASK_ENV=development python3 complete_app.py
+FLASK_ENV=development python app.py
 
 # Run with debug logging
 python3 main.py generate brief.yaml --verbose --debug

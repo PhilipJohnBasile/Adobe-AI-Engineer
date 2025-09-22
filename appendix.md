@@ -2,7 +2,7 @@
 
 ## API Endpoints Reference
 
-### Flask API Server (Port 5004) - complete_app.py
+### Flask API Server (Port 5004) - app.py
 
 | Method | Path | Purpose | Example Request/Response |
 |--------|------|---------|-------------------------|
@@ -309,7 +309,7 @@ lsof -i :5004
 kill -9 <PID>
 
 # Or use alternative port
-FLASK_PORT=5005 python3 complete_app.py
+FLASK_PORT=5005 python app.py
 ```
 
 ### Issue 5: Database Lock
