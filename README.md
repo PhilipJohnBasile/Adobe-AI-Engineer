@@ -120,7 +120,7 @@ Save and close the file (in nano: Ctrl+X, then Y, then Enter)
 # You should see (venv) in your terminal prompt
 
 # Start the Flask application
-python app.py
+python3 complete_app.py
 ```
 
 You should see:
@@ -259,7 +259,8 @@ Adobe-AI-Engineer/
 ├── alerts/                        # AI monitoring alerts
 ├── analytics_report.json          # Performance analytics
 ├── main.py                        # CLI interface (30+ commands)
-├── app.py                         # Flask web platform server
+├── complete_app.py                # Flask web platform server (main entry point)
+├── app.py                         # Basic Flask server (deprecated)
 ├── requirements.txt               # Python dependencies
 ├── Dockerfile                     # Production container
 ├── task1_architecture.md          # System architecture documentation
@@ -579,7 +580,7 @@ Actions Needed:
 ### Environment Setup
 ```bash
 # Development mode with hot reload
-FLASK_ENV=development python app.py
+FLASK_ENV=development python3 complete_app.py
 
 # Run with debug logging
 python3 main.py generate brief.yaml --verbose --debug

@@ -406,7 +406,7 @@ Through intelligent optimization, we've achieved remarkable performance improvem
 
 ```python
 # Start the web interface
-python app.py
+python3 complete_app.py
 # Access at http://localhost:5004
 ```
 

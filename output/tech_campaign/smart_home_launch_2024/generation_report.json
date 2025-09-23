@@ -1,0 +1,23 @@
+{
+  "campaign_id": "smart_home_launch_2024",
+  "generated_at": "2025-09-23T12:12:25.198104",
+  "products": 3,
+  "aspect_ratios": [
+    "1:1",
+    "9:16",
+    "16:9"
+  ],
+  "target_region": "North America",
+  "campaign_message": "Make Your Home Smarter",
+  "generated_files": [
+    "smart_thermostat_pro/1x1.jpg",
+    "smart_thermostat_pro/16x9.jpg",
+    "smart_thermostat_pro/9x16.jpg",
+    "security_camera_system/1x1.jpg",
+    "security_camera_system/16x9.jpg",
+    "security_camera_system/9x16.jpg",
+    "voice_assistant_hub/1x1.jpg",
+    "voice_assistant_hub/16x9.jpg",
+    "voice_assistant_hub/9x16.jpg"
+  ]
+}

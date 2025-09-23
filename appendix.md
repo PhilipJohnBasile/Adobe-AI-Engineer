@@ -309,7 +309,7 @@ lsof -i :5004
 kill -9 <PID>
 
 # Or use alternative port
-FLASK_PORT=5005 python app.py
+FLASK_PORT=5005 python3 complete_app.py
 ```
 
 ### Issue 5: Database Lock

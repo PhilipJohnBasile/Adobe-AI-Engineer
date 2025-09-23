@@ -30,7 +30,7 @@ python3 -c "import os; print('API Key Set' if os.getenv('OPENAI_API_KEY') or ope
 **Terminal 1:**
 ```bash
 # Start the main web application
-python app.py
+python3 complete_app.py
 ```
 **Expected Output:**
 ```
@@ -188,7 +188,7 @@ docker run -d \
   -v $(pwd)/campaign_briefs:/app/campaign_briefs \
   --env-file .env \
   creative-automation:latest \
-  python app.py
+  python3 complete_app.py
 ```
 
 ### Step 3: Execute Commands in Container
@@ -337,7 +337,7 @@ echo "OPENAI_API_KEY=your-valid-key" > .env
 
 # Restart application
 pkill -f app.py
-python app.py
+python3 complete_app.py
 ```
 
 ### Issue: Port Already in Use
@@ -348,7 +348,7 @@ lsof -i :5004
 kill -9 <PID>
 
 # Or use different port
-python app.py --port 5005
+python3 complete_app.py --port 5005
 ```
 
 ### Issue: Missing Dependencies

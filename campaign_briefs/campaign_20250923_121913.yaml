@@ -1,0 +1,20 @@
+campaign_brief:
+  campaign_id: campaign_20250923_121913
+  campaign_message: Discover Excellence - Medium Launch
+  campaign_name: Test Campaign
+  created_at: '2025-09-23T16:19:13.888Z'
+  output_requirements:
+    aspect_ratios:
+    - '1:1'
+    - '9:16'
+    - '16:9'
+    formats:
+    - JPG
+  products:
+  - description: 'Product: Premium Wireless Headphones'
+    name: Premium Wireless Headphones
+  - description: 'Product: Eco-Friendly Water Bottle'
+    name: Eco-Friendly Water Bottle
+  target_audience: medium priority customers aged 25-45
+  target_regions:
+  - US

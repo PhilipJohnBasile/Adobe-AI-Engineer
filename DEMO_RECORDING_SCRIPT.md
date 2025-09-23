@@ -58,7 +58,7 @@ cp .env.example .env
 "The easiest way to use the platform is through the web interface. Let's start it:"
 
 ```bash
-python app.py
+python3 complete_app.py
 ```
 
 "The server is now running on port 5004. Let me open the browser..."
