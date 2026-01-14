@@ -1559,25 +1559,28 @@ class ComprehensiveModelContextProtocol:
                 insights.append("High performance maintained despite elevated risk levels - monitoring effectiveness confirmed")
             elif risk_score < 0.3 and success_rate < 0.80:
                 insights.append("Performance issues detected in low-risk environment - investigate operational factors")
-        except:
+        except (KeyError, TypeError, AttributeError):
+            # Missing or malformed risk/performance data
             pass
-        
+
         # Analyze stakeholder satisfaction vs system performance
         try:
             satisfaction = context.get("business_intelligence", {}).get("client_satisfaction_metrics", {}).get("overall_satisfaction", 0.9)
             quality = context.get("operational_metrics", {}).get("quality_metrics", {}).get("average_quality_score", 8.4)
-            
+
             if satisfaction > 0.9 and quality > 8.5:
                 insights.append("Strong alignment between system quality and client satisfaction - maintain current standards")
-        except:
+        except (KeyError, TypeError, AttributeError):
+            # Missing or malformed satisfaction/quality data
             pass
-        
+
         # Analyze predictive accuracy
         try:
             predictions = context.get("predictive_insights", {})
             if predictions:
                 insights.append("Predictive analytics providing proactive insights for optimization")
-        except:
+        except (KeyError, TypeError, AttributeError):
+            # Missing predictive insights data
             pass
         
         return insights

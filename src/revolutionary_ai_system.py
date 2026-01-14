@@ -256,7 +256,8 @@ class ComputerVisionAnalyst:
                 labels = kmeans.fit_predict(color_histograms)
                 diversity_score = len(set(labels)) / len(color_histograms)
                 return min(1.0, diversity_score * 2)  # Normalize
-            except:
+            except Exception:
+                # KMeans clustering failed, fallback to default
                 pass
                 
         return 0.7  # Fallback score
@@ -329,7 +330,8 @@ class SemanticAnalyzer:
         if NLP_AVAILABLE:
             try:
                 self.sentiment_analyzer = pipeline("sentiment-analysis")
-            except:
+            except Exception:
+                # Sentiment analysis model failed to load, will use fallback
                 pass
                 
     async def analyze_content_diversity(self, content_texts: List[str]) -> Dict[str, Any]:

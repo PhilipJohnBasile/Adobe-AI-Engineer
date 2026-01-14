@@ -203,27 +203,244 @@ class IntelligentBriefMonitor:
     
     async def _monitor_slack_channels(self):
         """Monitor Slack channels for brief uploads and mentions"""
-        # Implementation would use Slack API to monitor channels
-        # This is a placeholder for the actual Slack integration
-        pass
-    
+        slack_config = self.monitor_config.get("slack", {})
+        if not slack_config.get("token"):
+            self.logger.info("⚠️ Slack monitoring disabled - no token configured")
+            return
+
+        headers = {"Authorization": f"Bearer {slack_config['token']}"}
+        channels = slack_config.get("channels", [])
+        last_timestamps = {}
+
+        while True:
+            try:
+                for channel in channels:
+                    # Get channel history
+                    params = {"channel": channel, "limit": 10}
+                    if channel in last_timestamps:
+                        params["oldest"] = last_timestamps[channel]
+
+                    response = requests.get(
+                        "https://slack.com/api/conversations.history",
+                        headers=headers,
+                        params=params,
+                        timeout=30
+                    )
+
+                    if response.status_code == 200:
+                        data = response.json()
+                        if data.get("ok"):
+                            for message in data.get("messages", []):
+                                # Check for file attachments (briefs)
+                                files = message.get("files", [])
+                                for file_info in files:
+                                    if file_info.get("name", "").endswith(('.yaml', '.yml', '.json')):
+                                        await self._process_slack_file(file_info, headers)
+                                # Update timestamp
+                                last_timestamps[channel] = message.get("ts", last_timestamps.get(channel))
+
+                await asyncio.sleep(30)  # Check Slack every 30 seconds
+            except Exception as e:
+                self.logger.error(f"❌ Slack monitoring error: {e}")
+                await asyncio.sleep(60)
+
+    async def _process_slack_file(self, file_info: Dict, headers: Dict):
+        """Download and process a file from Slack"""
+        try:
+            file_url = file_info.get("url_private_download")
+            if file_url:
+                response = requests.get(file_url, headers=headers, timeout=30)
+                if response.status_code == 200:
+                    # Save to temp location and process
+                    temp_path = Path(f"cache/slack_{file_info['id']}_{file_info['name']}")
+                    temp_path.parent.mkdir(exist_ok=True)
+                    temp_path.write_bytes(response.content)
+                    await self._process_new_file(str(temp_path), "slack_upload")
+                    self.logger.info(f"📥 Downloaded Slack file: {file_info['name']}")
+        except Exception as e:
+            self.logger.error(f"❌ Error processing Slack file: {e}")
+
     async def _monitor_api_endpoints(self):
         """Monitor REST API endpoints for brief submissions"""
-        # Implementation would poll configured API endpoints
-        # This is a placeholder for API monitoring
-        pass
-    
+        api_config = self.monitor_config.get("api_endpoints", [])
+        if not api_config:
+            self.logger.info("⚠️ API monitoring disabled - no endpoints configured")
+            return
+
+        while True:
+            try:
+                for endpoint in api_config:
+                    url = endpoint.get("url")
+                    method = endpoint.get("method", "GET")
+                    auth_header = endpoint.get("auth_header", {})
+
+                    response = requests.request(
+                        method,
+                        url,
+                        headers=auth_header,
+                        timeout=30
+                    )
+
+                    if response.status_code == 200:
+                        briefs = response.json()
+                        if isinstance(briefs, list):
+                            for brief_data in briefs:
+                                brief_id = brief_data.get("id", hashlib.md5(str(brief_data).encode()).hexdigest()[:8])
+                                if brief_id not in self.brief_cache:
+                                    # Save brief to file and process
+                                    temp_path = Path(f"cache/api_{brief_id}.yaml")
+                                    temp_path.parent.mkdir(exist_ok=True)
+                                    with open(temp_path, 'w') as f:
+                                        yaml.dump(brief_data, f)
+                                    await self._process_new_file(str(temp_path), "api_fetch")
+                                    self.logger.info(f"📡 Fetched brief from API: {brief_id}")
+
+                await asyncio.sleep(endpoint.get("poll_interval", 60))
+            except Exception as e:
+                self.logger.error(f"❌ API monitoring error: {e}")
+                await asyncio.sleep(120)
+
     async def _monitor_cloud_storage(self):
         """Monitor cloud storage (S3, Google Drive, etc.) for new briefs"""
-        # Implementation would monitor cloud storage for new files
-        # This is a placeholder for cloud storage integration
-        pass
-    
+        cloud_config = self.monitor_config.get("cloud_storage", {})
+        provider = cloud_config.get("provider")
+
+        if not provider:
+            self.logger.info("⚠️ Cloud storage monitoring disabled - no provider configured")
+            return
+
+        while True:
+            try:
+                if provider == "s3":
+                    await self._check_s3_bucket(cloud_config)
+                elif provider == "gcs":
+                    await self._check_gcs_bucket(cloud_config)
+                elif provider == "azure":
+                    await self._check_azure_container(cloud_config)
+
+                await asyncio.sleep(cloud_config.get("poll_interval", 120))
+            except Exception as e:
+                self.logger.error(f"❌ Cloud storage monitoring error: {e}")
+                await asyncio.sleep(300)
+
+    async def _check_s3_bucket(self, config: Dict):
+        """Check AWS S3 bucket for new briefs"""
+        try:
+            import boto3
+            s3 = boto3.client('s3',
+                aws_access_key_id=config.get("access_key"),
+                aws_secret_access_key=config.get("secret_key"),
+                region_name=config.get("region", "us-east-1")
+            )
+            bucket = config.get("bucket")
+            prefix = config.get("prefix", "briefs/")
+
+            response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
+            for obj in response.get("Contents", []):
+                key = obj["Key"]
+                if key.endswith(('.yaml', '.yml', '.json')):
+                    etag = obj["ETag"]
+                    if etag not in self.brief_cache:
+                        # Download and process
+                        temp_path = Path(f"cache/s3_{Path(key).name}")
+                        temp_path.parent.mkdir(exist_ok=True)
+                        s3.download_file(bucket, key, str(temp_path))
+                        await self._process_new_file(str(temp_path), "s3_download")
+                        self.logger.info(f"☁️ Downloaded from S3: {key}")
+        except ImportError:
+            self.logger.warning("⚠️ boto3 not installed - S3 monitoring unavailable")
+        except Exception as e:
+            self.logger.error(f"❌ S3 check error: {e}")
+
+    async def _check_gcs_bucket(self, config: Dict):
+        """Check Google Cloud Storage bucket for new briefs"""
+        try:
+            from google.cloud import storage
+            client = storage.Client()
+            bucket = client.bucket(config.get("bucket"))
+            prefix = config.get("prefix", "briefs/")
+
+            blobs = bucket.list_blobs(prefix=prefix)
+            for blob in blobs:
+                if blob.name.endswith(('.yaml', '.yml', '.json')):
+                    if blob.md5_hash not in self.brief_cache:
+                        temp_path = Path(f"cache/gcs_{Path(blob.name).name}")
+                        temp_path.parent.mkdir(exist_ok=True)
+                        blob.download_to_filename(str(temp_path))
+                        await self._process_new_file(str(temp_path), "gcs_download")
+                        self.logger.info(f"☁️ Downloaded from GCS: {blob.name}")
+        except ImportError:
+            self.logger.warning("⚠️ google-cloud-storage not installed - GCS monitoring unavailable")
+        except Exception as e:
+            self.logger.error(f"❌ GCS check error: {e}")
+
+    async def _check_azure_container(self, config: Dict):
+        """Check Azure Blob Storage container for new briefs"""
+        try:
+            from azure.storage.blob import BlobServiceClient
+            connection_string = config.get("connection_string")
+            container_name = config.get("container")
+            prefix = config.get("prefix", "briefs/")
+
+            blob_service = BlobServiceClient.from_connection_string(connection_string)
+            container = blob_service.get_container_client(container_name)
+
+            for blob in container.list_blobs(name_starts_with=prefix):
+                if blob.name.endswith(('.yaml', '.yml', '.json')):
+                    if blob.etag not in self.brief_cache:
+                        temp_path = Path(f"cache/azure_{Path(blob.name).name}")
+                        temp_path.parent.mkdir(exist_ok=True)
+                        blob_client = container.get_blob_client(blob.name)
+                        with open(temp_path, 'wb') as f:
+                            f.write(blob_client.download_blob().readall())
+                        await self._process_new_file(str(temp_path), "azure_download")
+                        self.logger.info(f"☁️ Downloaded from Azure: {blob.name}")
+        except ImportError:
+            self.logger.warning("⚠️ azure-storage-blob not installed - Azure monitoring unavailable")
+        except Exception as e:
+            self.logger.error(f"❌ Azure check error: {e}")
+
     async def _monitor_webhook_queue(self):
         """Process incoming webhook notifications"""
-        # Implementation would process webhook queue
-        # This is a placeholder for webhook processing
-        pass
+        webhook_config = self.monitor_config.get("webhook", {})
+        queue_path = Path(webhook_config.get("queue_path", "cache/webhook_queue"))
+
+        if not webhook_config.get("enabled", False):
+            self.logger.info("⚠️ Webhook monitoring disabled")
+            return
+
+        queue_path.mkdir(parents=True, exist_ok=True)
+
+        while True:
+            try:
+                # Process any queued webhook payloads
+                for payload_file in queue_path.glob("*.json"):
+                    try:
+                        with open(payload_file, 'r') as f:
+                            payload = json.load(f)
+
+                        # Extract brief data from webhook payload
+                        brief_data = payload.get("brief") or payload.get("data") or payload
+                        brief_id = payload.get("id", payload_file.stem)
+
+                        if brief_id not in self.brief_cache:
+                            # Save as YAML and process
+                            temp_path = Path(f"cache/webhook_{brief_id}.yaml")
+                            with open(temp_path, 'w') as f:
+                                yaml.dump(brief_data, f)
+                            await self._process_new_file(str(temp_path), "webhook")
+                            self.logger.info(f"🔔 Processed webhook brief: {brief_id}")
+
+                        # Remove processed payload
+                        payload_file.unlink()
+
+                    except Exception as e:
+                        self.logger.error(f"❌ Error processing webhook payload {payload_file}: {e}")
+
+                await asyncio.sleep(5)  # Check webhook queue every 5 seconds
+            except Exception as e:
+                self.logger.error(f"❌ Webhook monitoring error: {e}")
+                await asyncio.sleep(30)
     
     def _is_valid_brief_file(self, file_path: Path) -> bool:
         """Validate if file could be a campaign brief"""
@@ -411,7 +628,8 @@ class AIBriefAnalyzer:
                     urgency_score += 0.6
                 elif days_until <= 7:
                     urgency_score += 0.4
-            except:
+            except (ValueError, TypeError):
+                # Invalid deadline format, skip deadline-based urgency calculation
                 pass
         
         # Check tags

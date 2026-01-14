@@ -808,24 +808,83 @@ class EnterpriseAlertSystem:
         # Stakeholder configurations
         self.stakeholder_configs = self._load_stakeholder_configs()
 
-    def _setup_email_client(self):
-        """Setup email client for alerts"""
-        return None  # Email client not configured
+    def _setup_email_client(self) -> Optional[Dict[str, Any]]:
+        """Setup email client for alerts using environment variables"""
+        smtp_host = os.environ.get("SMTP_HOST")
+        smtp_port = os.environ.get("SMTP_PORT", "587")
+        smtp_user = os.environ.get("SMTP_USER")
+        smtp_pass = os.environ.get("SMTP_PASS")
 
-    def _setup_slack_client(self):
-        """Setup Slack client for alerts"""
-        return None  # Slack client not configured
+        if not all([smtp_host, smtp_user, smtp_pass]):
+            self.logger.info("⚠️ Email notifications disabled - SMTP not configured")
+            return None
 
-    def _setup_teams_client(self):
-        """Setup Microsoft Teams client for alerts"""
-        return None  # Teams client not configured
+        return {
+            "host": smtp_host,
+            "port": int(smtp_port),
+            "user": smtp_user,
+            "password": smtp_pass,
+            "from_address": os.environ.get("SMTP_FROM", smtp_user)
+        }
+
+    def _setup_slack_client(self) -> Optional[Dict[str, Any]]:
+        """Setup Slack client for alerts using environment variables"""
+        slack_token = os.environ.get("SLACK_BOT_TOKEN")
+        slack_channel = os.environ.get("SLACK_ALERT_CHANNEL")
+
+        if not slack_token:
+            self.logger.info("⚠️ Slack notifications disabled - token not configured")
+            return None
+
+        return {
+            "token": slack_token,
+            "default_channel": slack_channel or "#alerts",
+            "api_url": "https://slack.com/api/chat.postMessage"
+        }
+
+    def _setup_teams_client(self) -> Optional[Dict[str, Any]]:
+        """Setup Microsoft Teams client for alerts using webhook URL"""
+        teams_webhook = os.environ.get("TEAMS_WEBHOOK_URL")
+
+        if not teams_webhook:
+            self.logger.info("⚠️ Teams notifications disabled - webhook not configured")
+            return None
+
+        return {
+            "webhook_url": teams_webhook
+        }
 
     def _load_stakeholder_configs(self) -> Dict[str, Any]:
-        """Load stakeholder notification configurations"""
+        """Load stakeholder notification configurations from config file or defaults"""
+        config_path = Path("config/stakeholders.yaml")
+
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    return yaml.safe_load(f) or {}
+            except Exception as e:
+                self.logger.error(f"❌ Error loading stakeholder config: {e}")
+
+        # Default configuration
         return {
-            "leadership": {"email": "leadership@company.com", "preferred_channels": ["email"]},
-            "creative_lead": {"email": "creative@company.com", "preferred_channels": ["email"]},
-            "ad_ops": {"email": "adops@company.com", "preferred_channels": ["email"]}
+            "leadership": {
+                "email": os.environ.get("LEADERSHIP_EMAIL", "leadership@company.com"),
+                "slack_user": os.environ.get("LEADERSHIP_SLACK"),
+                "preferred_channels": ["email", "slack"],
+                "alert_threshold": "high"
+            },
+            "creative_lead": {
+                "email": os.environ.get("CREATIVE_EMAIL", "creative@company.com"),
+                "slack_user": os.environ.get("CREATIVE_SLACK"),
+                "preferred_channels": ["email", "slack"],
+                "alert_threshold": "medium"
+            },
+            "ad_ops": {
+                "email": os.environ.get("ADOPS_EMAIL", "adops@company.com"),
+                "slack_user": os.environ.get("ADOPS_SLACK"),
+                "preferred_channels": ["email"],
+                "alert_threshold": "low"
+            }
         }
 
     async def route_alert(self, alert: IntelligentAlert):
@@ -853,22 +912,144 @@ class EnterpriseAlertSystem:
         self.logger.info(f"📧 Alert {alert.id} routed to {len(target_stakeholders)} stakeholders")
     
     async def _send_email_alert(self, alert: IntelligentAlert, stakeholder: str):
-        """Send email alert with rich formatting"""
+        """Send email alert with rich formatting via SMTP"""
         if not self.email_client:
+            self.logger.debug(f"Email skipped for {stakeholder} - no SMTP configured")
             return
-        
-        # Generate email content
-        subject = f"[{alert.severity.name}] {alert.title}"
-        body = await self._generate_email_body(alert, stakeholder)
-        
-        # Send email
-        msg = MIMEText(body, 'html')
-        msg['Subject'] = subject
-        msg['From'] = "ai-agent@company.com"
-        msg['To'] = self.stakeholder_configs[stakeholder]["email"]
-        
-        # Send via SMTP (placeholder)
-        self.logger.info(f"📧 Email alert sent to {stakeholder}")
+
+        try:
+            # Generate email content
+            subject = f"[{alert.severity.name}] {alert.title}"
+            body = await self._generate_email_body(alert, stakeholder)
+
+            # Build email message
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = subject
+            msg['From'] = self.email_client["from_address"]
+            msg['To'] = self.stakeholder_configs[stakeholder]["email"]
+            msg.attach(MIMEText(body, 'html'))
+
+            # Send via SMTP
+            with smtplib.SMTP(self.email_client["host"], self.email_client["port"]) as server:
+                server.starttls()
+                server.login(self.email_client["user"], self.email_client["password"])
+                server.send_message(msg)
+
+            self.logger.info(f"📧 Email alert sent to {stakeholder}")
+
+        except Exception as e:
+            self.logger.error(f"❌ Failed to send email to {stakeholder}: {e}")
+
+    async def _send_slack_alert(self, alert: IntelligentAlert, stakeholder: str):
+        """Send Slack alert to channel or user"""
+        if not self.slack_client:
+            self.logger.debug(f"Slack skipped for {stakeholder} - not configured")
+            return
+
+        try:
+            stakeholder_config = self.stakeholder_configs.get(stakeholder, {})
+            channel = stakeholder_config.get("slack_user") or self.slack_client["default_channel"]
+
+            # Build Slack message with blocks for rich formatting
+            severity_emoji = {"CRITICAL": "🔴", "HIGH": "🟠", "MEDIUM": "🟡", "LOW": "🟢"}.get(alert.severity.name, "⚪")
+
+            payload = {
+                "channel": channel,
+                "text": f"{severity_emoji} {alert.title}",
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {"type": "plain_text", "text": f"{severity_emoji} {alert.title}"}
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {"type": "mrkdwn", "text": f"*Severity:* {alert.severity.name}"},
+                            {"type": "mrkdwn", "text": f"*Category:* {alert.category}"},
+                            {"type": "mrkdwn", "text": f"*Time:* {alert.timestamp.strftime('%Y-%m-%d %H:%M')}"},
+                            {"type": "mrkdwn", "text": f"*Impact:* {alert.business_impact}"}
+                        ]
+                    },
+                    {
+                        "type": "section",
+                        "text": {"type": "mrkdwn", "text": f"*Description:*\n{alert.description[:500]}"}
+                    }
+                ]
+            }
+
+            if alert.recommended_actions:
+                actions_text = "\n".join([f"• {action}" for action in alert.recommended_actions[:5]])
+                payload["blocks"].append({
+                    "type": "section",
+                    "text": {"type": "mrkdwn", "text": f"*Recommended Actions:*\n{actions_text}"}
+                })
+
+            headers = {
+                "Authorization": f"Bearer {self.slack_client['token']}",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.post(
+                self.slack_client["api_url"],
+                json=payload,
+                headers=headers,
+                timeout=30
+            )
+
+            if response.status_code == 200 and response.json().get("ok"):
+                self.logger.info(f"💬 Slack alert sent to {channel}")
+            else:
+                self.logger.error(f"❌ Slack API error: {response.text}")
+
+        except Exception as e:
+            self.logger.error(f"❌ Failed to send Slack alert: {e}")
+
+    async def _send_teams_alert(self, alert: IntelligentAlert, stakeholder: str):
+        """Send Microsoft Teams alert via webhook"""
+        if not self.teams_client:
+            self.logger.debug(f"Teams skipped for {stakeholder} - not configured")
+            return
+
+        try:
+            severity_color = {"CRITICAL": "FF0000", "HIGH": "FFA500", "MEDIUM": "FFFF00", "LOW": "00FF00"}.get(alert.severity.name, "808080")
+
+            # Build Teams Adaptive Card
+            payload = {
+                "@type": "MessageCard",
+                "@context": "http://schema.org/extensions",
+                "themeColor": severity_color,
+                "summary": alert.title,
+                "sections": [{
+                    "activityTitle": f"🚨 {alert.title}",
+                    "facts": [
+                        {"name": "Severity", "value": alert.severity.name},
+                        {"name": "Category", "value": alert.category},
+                        {"name": "Time", "value": alert.timestamp.strftime('%Y-%m-%d %H:%M')},
+                        {"name": "Impact", "value": str(alert.business_impact)}
+                    ],
+                    "text": alert.description[:1000]
+                }]
+            }
+
+            if alert.recommended_actions:
+                payload["sections"][0]["facts"].append({
+                    "name": "Recommended Actions",
+                    "value": " | ".join(alert.recommended_actions[:3])
+                })
+
+            response = requests.post(
+                self.teams_client["webhook_url"],
+                json=payload,
+                timeout=30
+            )
+
+            if response.status_code == 200:
+                self.logger.info(f"📢 Teams alert sent for {stakeholder}")
+            else:
+                self.logger.error(f"❌ Teams webhook error: {response.status_code}")
+
+        except Exception as e:
+            self.logger.error(f"❌ Failed to send Teams alert: {e}")
 
 
 class ComprehensiveContextBuilder:

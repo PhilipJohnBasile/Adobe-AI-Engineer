@@ -159,8 +159,9 @@ class RealtimeDashboard:
                 alert_time = datetime.fromisoformat(alert.get("timestamp", ""))
                 if alert_time > recent_threshold:
                     recent_count += 1
-            except:
-                pass
+            except (ValueError, TypeError):
+                # Invalid timestamp format, skip this alert for recent count
+                continue
         
         return {
             "total": len(alerts),
@@ -195,8 +196,9 @@ class RealtimeDashboard:
                     completed_time = datetime.now()
                     processing_time = (completed_time - detected_time).total_seconds() / 3600
                     processing_times.append(processing_time)
-                except:
-                    pass
+                except (ValueError, TypeError):
+                    # Invalid timestamp, skip this campaign for processing time calculation
+                    continue
             
             total_variants += data.get("variants_found", 0)
         

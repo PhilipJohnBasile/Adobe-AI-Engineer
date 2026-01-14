@@ -205,8 +205,9 @@ class PredictiveAssetFlagger:
             try:
                 deadline_dt = datetime.fromisoformat(data["deadline"])
                 data["time_remaining"] = deadline_dt - current_time
-            except:
-                pass
+            except (ValueError, TypeError):
+                # Invalid deadline format, skip time remaining calculation
+                data["time_remaining"] = None
         
         return data
     

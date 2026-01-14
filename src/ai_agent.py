@@ -711,8 +711,8 @@ Next Update: {(datetime.now() + timedelta(hours=1)).isoformat()}
                     daily_cost = costs.get("total_cost", 0) / max(len(recent_campaigns), 1)
                     if daily_cost > 0:
                         recent_costs.append(daily_cost)
-        except:
-            pass
+        except Exception as e:
+            self.logger.debug(f"Could not read cost data: {e}")
         
         if recent_costs:
             avg_daily_cost = sum(recent_costs) / len(recent_costs)

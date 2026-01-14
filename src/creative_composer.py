@@ -8,7 +8,10 @@ from typing import Dict, Any, Tuple, Optional
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import textwrap
 
-from .utils import calculate_dimensions, sanitize_filename
+try:
+    from .utils import calculate_dimensions, sanitize_filename
+except ImportError:
+    from utils import calculate_dimensions, sanitize_filename
 
 logger = logging.getLogger(__name__)
 

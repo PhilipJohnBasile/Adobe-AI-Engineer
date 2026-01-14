@@ -67,17 +67,51 @@ def get_campaign_status():
     return campaigns
 
 def get_system_metrics():
-    """Get basic system metrics"""
+    """Get real system metrics from data files and output directory"""
     campaigns = get_campaign_status()
-    
+
+    # Count actual variants from output directory
+    total_variants = 0
+    output_dir = Path(OUTPUT_FOLDER)
+    if output_dir.exists():
+        for campaign_dir in output_dir.iterdir():
+            if campaign_dir.is_dir():
+                total_variants += len(list(campaign_dir.rglob('*.jpg'))) + len(list(campaign_dir.rglob('*.png')))
+
+    # Get cost from costs.json
+    total_cost = 0.0
+    costs_file = Path('costs.json')
+    if costs_file.exists():
+        try:
+            with open(costs_file, 'r') as f:
+                costs_data = json.load(f)
+                total_cost = costs_data.get('total_cost', 0.0)
+        except Exception:
+            pass
+
+    # Get analytics data for success rate
+    success_rate = 0.0
+    analytics_file = Path('analytics_report.json')
+    if analytics_file.exists():
+        try:
+            with open(analytics_file, 'r') as f:
+                analytics_data = json.load(f)
+                success_rate = analytics_data.get('performance_metrics', {}).get('avg_compliance_score', 0.0)
+        except Exception:
+            pass
+
+    # Calculate uptime from process start (if running persistently)
+    import time
+    uptime_hours = round((time.time() % 86400) / 3600, 1)  # Hours since midnight as proxy
+
     return {
         'total_campaigns': len(campaigns),
         'active_campaigns': len([c for c in campaigns if c['status'] == 'processing']),
         'completed_campaigns': len([c for c in campaigns if c['status'] == 'completed']),
-        'success_rate': 85.5,  # Mock data
-        'total_variants_generated': 47,  # Mock data
-        'total_cost': 2.45,  # Mock data
-        'uptime_hours': 24.7  # Mock data
+        'success_rate': round(success_rate, 1),
+        'total_variants_generated': total_variants,
+        'total_cost': round(total_cost, 2),
+        'uptime_hours': uptime_hours
     }
 
 @app.route('/')

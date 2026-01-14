@@ -199,7 +199,8 @@ class SystemMetricsCollector:
             net_io = psutil.net_io_counters()
             self.registry.set_gauge("system_network_bytes_sent", net_io.bytes_sent)
             self.registry.set_gauge("system_network_bytes_recv", net_io.bytes_recv)
-        except:
+        except Exception:
+            # Network I/O metrics not available on this system
             pass
 
 

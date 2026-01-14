@@ -10,7 +10,10 @@ import requests
 from PIL import Image
 import openai
 
-from .utils import update_cost_tracking, sanitize_filename
+try:
+    from .utils import update_cost_tracking, sanitize_filename
+except ImportError:
+    from utils import update_cost_tracking, sanitize_filename
 
 logger = logging.getLogger(__name__)
 
