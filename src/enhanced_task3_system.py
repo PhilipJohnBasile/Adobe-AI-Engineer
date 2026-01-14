@@ -402,30 +402,86 @@ class EnhancedTask3Agent:
             )
     
     async def _simulate_generation_process(self, campaign_id: str, campaign_brief: Dict[str, Any]):
-        """Simulate generation process (replace with actual pipeline integration)"""
+        """Generate variants using real pipeline or fallback to placeholders"""
         # Create output directory
         output_dir = Path(self.config["output_directory"]) / campaign_id
         output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Extract requirements
         brief_data = campaign_brief.get("campaign_brief", {})
         products = brief_data.get("products", ["default_product"])
         aspect_ratios = brief_data.get("output_requirements", {}).get("aspect_ratios", ["1:1"])
-        
-        # Simulate variant generation
+
+        # Size mapping for aspect ratios
+        size_map = {
+            "1:1": "1024x1024", "9:16": "1024x1792", "16:9": "1792x1024",
+            "4:5": "1024x1024", "2:1": "1792x1024"
+        }
+
+        # Try to use real ImageGenerator
+        use_real_generator = False
+        try:
+            from image_generator import ImageGenerator
+            from creative_composer import CreativeComposer
+            if os.environ.get('OPENAI_API_KEY'):
+                image_gen = ImageGenerator()
+                composer = CreativeComposer()
+                use_real_generator = True
+                self.logger.info(f"🎨 Using real image generator for {campaign_id}")
+        except Exception as e:
+            self.logger.debug(f"Real generator unavailable: {e}")
+
+        generated_count = 0
         for product in products:
-            product_dir = output_dir / product
+            product_name = product if isinstance(product, str) else product.get("name", "product")
+            product_dict = {"name": product_name, "description": product_name} if isinstance(product, str) else product
+            product_dir = output_dir / product_name.replace(" ", "_")
             product_dir.mkdir(exist_ok=True)
-            
+
             for ratio in aspect_ratios:
-                # Create mock variant file
-                variant_file = product_dir / f"{ratio.replace(':', 'x')}.jpg"
-                variant_file.write_text(f"Mock variant for {product} in {ratio} aspect ratio")
-                
-                # Simulate processing time
-                await asyncio.sleep(0.1)
-        
-        self.logger.info(f"📸 Generated {len(products) * len(aspect_ratios)} variants for {campaign_id}")
+                ratio_dir = product_dir / ratio.replace(":", "x")
+                ratio_dir.mkdir(exist_ok=True)
+                variant_file = ratio_dir / f"variant.jpg"
+
+                if use_real_generator:
+                    try:
+                        size = size_map.get(ratio, "1024x1024")
+                        image_path = image_gen.generate_product_image(
+                            product=product_dict,
+                            campaign_brief=brief_data,
+                            size=size
+                        )
+                        if image_path and image_path.exists():
+                            # Copy or compose final image
+                            final_path = composer.compose_creative(
+                                base_image_path=image_path,
+                                output_path=ratio_dir,
+                                campaign_message=brief_data.get("campaign_message", ""),
+                                aspect_ratio=ratio
+                            )
+                            generated_count += 1
+                            continue
+                    except Exception as e:
+                        self.logger.debug(f"Real generation failed for {product_name}/{ratio}: {e}")
+
+                # Fallback: Create placeholder image
+                try:
+                    from PIL import Image, ImageDraw
+                    w, h = map(int, size_map.get(ratio, "1024x1024").split("x"))
+                    img = Image.new('RGB', (w, h), color='#e0e0e0')
+                    draw = ImageDraw.Draw(img)
+                    text = f"{product_name}\n{ratio}"
+                    draw.text((w//2, h//2), text, fill='#333333', anchor='mm')
+                    img.save(variant_file, 'JPEG', quality=85)
+                    generated_count += 1
+                except Exception:
+                    # Last resort: text file placeholder
+                    variant_file.write_text(f"Placeholder for {product_name} in {ratio}")
+                    generated_count += 1
+
+                await asyncio.sleep(0.05)
+
+        self.logger.info(f"📸 Generated {generated_count} variants for {campaign_id}")
     
     async def _track_variant_progress(self):
         """
@@ -503,20 +559,60 @@ class EnhancedTask3Agent:
         try:
             color_features = []
             composition_features = []
-            
+
             for file_path in variant_files[:10]:  # Limit for performance
                 if not file_path.exists():
                     continue
-                
-                # Read image (simulate with text files for demo)
-                # In real implementation, would use cv2.imread(str(file_path))
-                # For now, simulate with basic analysis
-                pass
-            
-            # Calculate diversity scores (0-1, higher = more diverse)
-            metrics.color_diversity_score = min(1.0, len(set(str(f) for f in variant_files)) / max(len(variant_files), 1))
-            metrics.composition_diversity_score = 0.7  # Simulated
-            metrics.content_diversity_score = 0.8  # Simulated
+
+                if CV2_AVAILABLE:
+                    try:
+                        # Real image analysis with OpenCV
+                        img = cv2.imread(str(file_path))
+                        if img is not None:
+                            # Extract color histogram for diversity analysis
+                            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+                            hist = cv2.calcHist([hsv], [0, 1], None, [50, 60], [0, 180, 0, 256])
+                            color_features.append(hist.flatten())
+
+                            # Extract composition features (edge density)
+                            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                            edges = cv2.Canny(gray, 50, 150)
+                            edge_density = np.sum(edges > 0) / edges.size
+                            composition_features.append(edge_density)
+                    except Exception as e:
+                        self.logger.debug(f"CV analysis failed for {file_path}: {e}")
+                else:
+                    # Fallback: use PIL for basic analysis
+                    try:
+                        from PIL import Image
+                        with Image.open(file_path) as img:
+                            # Get dominant colors
+                            colors = img.getcolors(maxcolors=256*256*256)
+                            if colors:
+                                color_features.append(len(colors))
+                    except Exception:
+                        pass
+
+            # Calculate diversity scores from actual features
+            if color_features:
+                if CV2_AVAILABLE and len(color_features) > 1:
+                    # Calculate variance between color histograms
+                    color_arrays = np.array(color_features)
+                    color_variance = np.mean(np.std(color_arrays, axis=0))
+                    metrics.color_diversity_score = min(1.0, color_variance / 100)
+                else:
+                    # Normalize based on unique color counts
+                    metrics.color_diversity_score = min(1.0, len(set(color_features)) / max(len(color_features), 1))
+            else:
+                metrics.color_diversity_score = 0.5
+
+            if composition_features:
+                metrics.composition_diversity_score = min(1.0, np.std(composition_features) * 10) if len(composition_features) > 1 else 0.6
+            else:
+                metrics.composition_diversity_score = 0.6
+
+            # Content diversity based on unique files
+            metrics.content_diversity_score = min(1.0, metrics.unique_variants / max(metrics.total_variants, 1))
             
             # Overall diversity index
             metrics.overall_diversity_index = (

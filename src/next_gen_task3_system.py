@@ -926,40 +926,60 @@ class AdvancedDiversityAnalyst(BaseAgent):
         }
     
     def _analyze_resolution_diversity(self, variant_files: List[Path]) -> Dict[str, Any]:
-        """Analyze resolution diversity"""
-        
-        # Simulated resolution analysis
-        # In production, would read actual image dimensions
-        
-        num_variants = len(variant_files)
-        
-        # Generate simulated resolution data
-        common_resolutions = ["1920x1080", "1080x1080", "1080x1920", "800x600"]
-        used_resolutions = common_resolutions[:min(len(common_resolutions), max(1, num_variants // 2))]
-        
+        """Analyze resolution diversity by reading actual image dimensions"""
+        from PIL import Image
+
+        resolutions = set()
+        resolution_list = []
+
+        for file_path in variant_files:
+            if file_path.exists() and file_path.suffix.lower() in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                try:
+                    with Image.open(file_path) as img:
+                        width, height = img.size
+                        resolution = f"{width}x{height}"
+                        resolutions.add(resolution)
+                        resolution_list.append(resolution)
+                except Exception as e:
+                    self.logger.debug(f"Could not read image {file_path}: {e}")
+
+        # Calculate aspect ratio variety
+        aspect_ratios = set()
+        for res in resolutions:
+            w, h = map(int, res.split('x'))
+            if h > 0:
+                ratio = round(w / h, 2)
+                aspect_ratios.add(ratio)
+
         return {
-            "unique_resolutions": len(used_resolutions),
-            "resolution_list": used_resolutions,
-            "aspect_ratio_variety": min(1.0, len(used_resolutions) * 0.4)
+            "unique_resolutions": len(resolutions),
+            "resolution_list": list(resolutions),
+            "aspect_ratio_variety": min(1.0, len(aspect_ratios) * 0.33),
+            "total_images_analyzed": len(resolution_list)
         }
     
     def _analyze_file_size_diversity(self, variant_files: List[Path]) -> Dict[str, Any]:
-        """Analyze file size diversity"""
-        
+        """Analyze file size diversity from actual files"""
+
         file_sizes = []
         for file_path in variant_files:
             if file_path.exists():
-                file_sizes.append(file_path.stat().st_size)
-            else:
-                file_sizes.append(1024)  # Default size for mock files
-        
+                try:
+                    file_sizes.append(file_path.stat().st_size)
+                except OSError:
+                    continue  # Skip files we can't stat
+
         if not file_sizes:
-            return {"size_variance": 0.0, "average_size": 0}
-        
+            return {"size_variance": 0.0, "average_size": 0, "files_analyzed": 0}
+
+        avg_size = np.mean(file_sizes)
         return {
-            "size_variance": np.std(file_sizes) / max(np.mean(file_sizes), 1),
-            "average_size": int(np.mean(file_sizes)),
-            "size_range": f"{min(file_sizes)}-{max(file_sizes)} bytes"
+            "size_variance": float(np.std(file_sizes) / max(avg_size, 1)),
+            "average_size": int(avg_size),
+            "min_size": min(file_sizes),
+            "max_size": max(file_sizes),
+            "size_range": f"{min(file_sizes):,}-{max(file_sizes):,} bytes",
+            "files_analyzed": len(file_sizes)
         }
     
     def _calculate_technical_compliance(self, variant_files: List[Path]) -> float:

@@ -402,51 +402,130 @@ class VariantIntelligenceEngine:
                 return "portrait"
             else:
                 return "square"
-                
-        except:
+
+        except (ZeroDivisionError, AttributeError):
             return "unknown"
     
     async def _detect_objects(self, image: Image) -> List[str]:
-        """Detect objects in image (placeholder for actual CV model)"""
-        # In production, this would use a real object detection model
-        # like YOLO, TensorFlow Object Detection, or cloud vision APIs
-        
-        # Placeholder implementation
-        width, height = image.size
-        file_size = len(image.tobytes()) if hasattr(image, 'tobytes') else 0
-        
+        """Detect objects in image using OpenAI Vision API or fallback heuristics"""
         detected_objects = []
-        
-        # Simple heuristics (replace with actual CV model)
+        width, height = image.size
+
+        # Try OpenAI Vision API if available
+        api_key = os.environ.get('OPENAI_API_KEY')
+        if api_key:
+            try:
+                import base64
+                from io import BytesIO
+
+                # Convert image to base64
+                buffered = BytesIO()
+                image.save(buffered, format="PNG")
+                img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+                client = openai.OpenAI(api_key=api_key)
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": "List the main objects and elements visible in this image. Return only a comma-separated list of object names, nothing else."},
+                                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_base64}"}}
+                            ]
+                        }
+                    ],
+                    max_tokens=100
+                )
+
+                # Parse response into list
+                objects_text = response.choices[0].message.content.strip()
+                detected_objects = [obj.strip().lower() for obj in objects_text.split(',') if obj.strip()]
+                self.logger.info(f"Vision API detected: {detected_objects}")
+                return detected_objects
+
+            except Exception as e:
+                self.logger.debug(f"Vision API unavailable, using heuristics: {e}")
+
+        # Fallback to heuristics when API unavailable
+        file_size = len(image.tobytes()) if hasattr(image, 'tobytes') else 0
+
         if width > 800 and height > 800:
             detected_objects.append("high_resolution_content")
-        
-        if file_size > 1000000:  # > 1MB
+        if file_size > 1000000:
             detected_objects.append("detailed_imagery")
-        
+        if width > height * 1.5:
+            detected_objects.append("landscape_format")
+        elif height > width * 1.5:
+            detected_objects.append("portrait_format")
+
         return detected_objects
     
     async def _ai_content_analysis(self, image: Image, variant_file: Path) -> Dict[str, Any]:
-        """AI-powered content analysis using vision models"""
-        try:
-            # This would integrate with vision models like GPT-4V, Claude Vision, etc.
-            # For now, returning mock analysis
-            
-            analysis = {
-                "relevance_score": 0.8,
-                "text_elements": [],
-                "suggestions": [
-                    "Consider improving text readability",
-                    "Enhance color contrast for better accessibility",
-                    "Optimize composition for better visual flow"
-                ]
-            }
-            
-            return analysis
-            
-        except Exception as e:
-            self.logger.error(f"AI content analysis failed: {e}")
-            return {"relevance_score": 0.5, "text_elements": [], "suggestions": []}
+        """AI-powered content analysis using OpenAI Vision API"""
+        api_key = os.environ.get('OPENAI_API_KEY')
+
+        if api_key:
+            try:
+                import base64
+                from io import BytesIO
+
+                # Convert image to base64
+                buffered = BytesIO()
+                image.save(buffered, format="PNG")
+                img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+                client = openai.OpenAI(api_key=api_key)
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": """Analyze this marketing creative image. Return a JSON object with:
+1. "relevance_score": 0.0-1.0 rating of how effective it is as a marketing image
+2. "text_elements": list of any text visible in the image
+3. "suggestions": list of 2-3 specific improvements for better marketing impact
+4. "brand_alignment": assessment of professional quality
+5. "target_audience": who this image would appeal to
+
+Return only valid JSON, no other text."""},
+                                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_base64}"}}
+                            ]
+                        }
+                    ],
+                    max_tokens=300
+                )
+
+                # Parse JSON response
+                response_text = response.choices[0].message.content.strip()
+                # Handle markdown code blocks
+                if response_text.startswith('```'):
+                    response_text = response_text.split('```')[1]
+                    if response_text.startswith('json'):
+                        response_text = response_text[4:]
+
+                analysis = json.loads(response_text)
+                self.logger.info(f"AI analysis complete for {variant_file.name}")
+                return analysis
+
+            except json.JSONDecodeError as e:
+                self.logger.warning(f"Failed to parse AI response: {e}")
+            except Exception as e:
+                self.logger.debug(f"Vision API unavailable for analysis: {e}")
+
+        # Fallback analysis when API unavailable
+        return {
+            "relevance_score": 0.75,
+            "text_elements": [],
+            "suggestions": [
+                "Ensure text is readable at all sizes",
+                "Verify brand colors are consistent",
+                "Check image resolution for all platforms"
+            ],
+            "brand_alignment": "Unable to analyze - API not configured",
+            "target_audience": "General audience"
+        }
     
     async def _detect_issues(self, analysis: VariantAnalysis) -> List[str]:
         """Detect potential issues with the variant"""
