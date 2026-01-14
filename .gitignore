@@ -81,3 +81,10 @@ task2/*.log
 # Temporary files
 *.tmp
 *.temp
+
+# Log files
+*.log
+src/*.log
+
+# Generated output (can be large)
+output/

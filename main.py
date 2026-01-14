@@ -3161,7 +3161,7 @@ def collaborate(
             try:
                 project_result = platform.create_campaign_project(project_name, username)
                 project_id = project_result['project_id']
-            except:
+            except (KeyError, TypeError, ValueError) as e:
                 # Assume project exists, use dummy ID
                 project_id = "demo_project_123"
             

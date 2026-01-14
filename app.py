@@ -86,8 +86,8 @@ def get_system_metrics():
             with open(costs_file, 'r') as f:
                 costs_data = json.load(f)
                 total_cost = costs_data.get('total_cost', 0.0)
-        except Exception:
-            pass
+        except (json.JSONDecodeError, IOError, KeyError):
+            pass  # Use default value if file is corrupted or inaccessible
 
     # Get analytics data for success rate
     success_rate = 0.0
@@ -97,8 +97,8 @@ def get_system_metrics():
             with open(analytics_file, 'r') as f:
                 analytics_data = json.load(f)
                 success_rate = analytics_data.get('performance_metrics', {}).get('avg_compliance_score', 0.0)
-        except Exception:
-            pass
+        except (json.JSONDecodeError, IOError, KeyError):
+            pass  # Use default value if file is corrupted or inaccessible
 
     # Calculate uptime from process start (if running persistently)
     import time

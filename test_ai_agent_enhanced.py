@@ -85,8 +85,8 @@ class EnhancedAIAgentTester:
         try:
             shutil.rmtree(self.temp_dir)
             print("🧹 Test environment cleaned up")
-        except:
-            pass
+        except (OSError, IOError, FileNotFoundError):
+            pass  # Cleanup failure is acceptable in tests
     
     async def test_circuit_breaker_functionality(self):
         """Test circuit breaker pattern implementation"""

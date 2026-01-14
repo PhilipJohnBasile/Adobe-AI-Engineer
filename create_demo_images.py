@@ -23,7 +23,7 @@ def create_demo_image(filename, width=512, height=512, colors=None, text="DEMO")
     # Add text
     try:
         font = ImageFont.truetype("Arial.ttf", 48)
-    except:
+    except (OSError, IOError):
         font = ImageFont.load_default()
     
     bbox = draw.textbbox((0, 0), text, font=font)
