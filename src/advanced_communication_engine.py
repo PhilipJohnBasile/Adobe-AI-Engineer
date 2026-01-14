@@ -13,6 +13,15 @@ from dataclasses import dataclass
 from enum import Enum
 import logging
 
+try:
+    from .notification_service import (
+        get_notification_service, NotificationPriority, NotificationResult
+    )
+except ImportError:
+    from notification_service import (
+        get_notification_service, NotificationPriority, NotificationResult
+    )
+
 class CommunicationType(Enum):
     PROACTIVE_UPDATE = "proactive_update"
     ISSUE_ALERT = "issue_alert"
@@ -852,8 +861,8 @@ class AdvancedCommunicationEngine:
                     stakeholder, communication_type, context, urgency
                 )
                 
-                # Simulate sending (in real implementation, would integrate with email/Slack/etc.)
-                send_result = await self._simulate_send_communication(stakeholder, communication)
+                # Send real communication via NotificationService
+                send_result = await self._send_communication(stakeholder, communication)
                 
                 # Log communication
                 await self._log_communication(stakeholder, communication, send_result)
@@ -881,28 +890,108 @@ class AdvancedCommunicationEngine:
             "timestamp": datetime.now().isoformat()
         }
     
-    async def _simulate_send_communication(self, 
-                                         stakeholder: Stakeholder, 
-                                         communication: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulate sending communication (replace with real implementation)"""
-        
-        # Simulate delivery delay based on optimal timing
+    async def _send_communication(self,
+                                  stakeholder: Stakeholder,
+                                  communication: Dict[str, Any]) -> Dict[str, Any]:
+        """Send real communication via NotificationService (email, Slack, Teams)"""
+
         optimal_delivery = communication["optimal_delivery"]
-        delay_minutes = optimal_delivery["delay_minutes"]
-        
-        # Simulate success/failure based on stakeholder patterns
-        success_probability = stakeholder.response_patterns.get("response_rate", 0.8)
-        import random
-        success = random.random() < success_probability
-        
+        delay_minutes = optimal_delivery.get("delay_minutes", 0)
+
+        # Map urgency to notification priority
+        urgency_map = {
+            "critical": NotificationPriority.CRITICAL,
+            "high": NotificationPriority.HIGH,
+            "medium": NotificationPriority.MEDIUM,
+            "low": NotificationPriority.LOW
+        }
+        priority = urgency_map.get(communication.get("urgency_level", "medium"), NotificationPriority.MEDIUM)
+
+        # Get notification service
+        notification_service = get_notification_service()
+
+        # Prepare message content
+        subject = communication.get("subject", "Campaign Update")
+        content = communication.get("content", "")
+
+        # Determine preferred channel from stakeholder preferences
+        preferred_channel = stakeholder.preferences.get("preferred_channel", "email")
+
+        results = []
+        success = False
+        channels_used = []
+
+        try:
+            # Send via email (primary for most stakeholders)
+            if stakeholder.email and preferred_channel in ["email", "all"]:
+                email_result = await notification_service.send_email(
+                    to=stakeholder.email,
+                    subject=subject,
+                    body=content,
+                    html=True,
+                    priority=priority
+                )
+                results.append(email_result)
+                if email_result.success:
+                    success = True
+                    channels_used.append("email")
+
+            # Send via Slack if configured
+            slack_id = stakeholder.preferences.get("slack_id")
+            if slack_id and preferred_channel in ["slack", "all"]:
+                slack_result = await notification_service.send_slack(
+                    message=content,
+                    channel=slack_id,
+                    title=subject,
+                    priority=priority
+                )
+                results.append(slack_result)
+                if slack_result.success:
+                    success = True
+                    channels_used.append("slack")
+
+            # Send via Teams if configured
+            teams_enabled = stakeholder.preferences.get("teams_enabled", False)
+            if teams_enabled and preferred_channel in ["teams", "all"]:
+                teams_result = await notification_service.send_teams(
+                    message=content,
+                    title=subject,
+                    priority=priority
+                )
+                results.append(teams_result)
+                if teams_result.success:
+                    success = True
+                    channels_used.append("teams")
+
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Failed to send communication to {stakeholder.name}: {e}")
+            return {
+                "success": False,
+                "delivery_time": datetime.now().isoformat(),
+                "delay_minutes": delay_minutes,
+                "channel": "none",
+                "delivery_id": f"msg_{int(datetime.now().timestamp())}_{stakeholder.id}",
+                "status": "failed",
+                "error": str(e)
+            }
+
         return {
             "success": success,
-            "delivery_time": optimal_delivery["optimal_delivery_time"],
+            "delivery_time": optimal_delivery.get("optimal_delivery_time", datetime.now().isoformat()),
             "delay_minutes": delay_minutes,
-            "channel": "email",  # Could be email, Slack, SMS, etc.
+            "channel": ",".join(channels_used) if channels_used else "none",
             "delivery_id": f"msg_{int(datetime.now().timestamp())}_{stakeholder.id}",
-            "status": "delivered" if success else "failed"
+            "status": "delivered" if success else "failed",
+            "channels_attempted": len(results),
+            "channels_succeeded": len(channels_used)
         }
+
+    # Keep legacy method name for backwards compatibility
+    async def _simulate_send_communication(self,
+                                         stakeholder: Stakeholder,
+                                         communication: Dict[str, Any]) -> Dict[str, Any]:
+        """Legacy method - redirects to real implementation"""
+        return await self._send_communication(stakeholder, communication)
     
     async def _log_communication(self, 
                                stakeholder: Stakeholder,

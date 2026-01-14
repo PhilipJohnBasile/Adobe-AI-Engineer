@@ -14,6 +14,13 @@ from pathlib import Path
 import logging
 import yaml
 
+try:
+    from .image_generator import ImageGenerator
+    from .creative_composer import CreativeComposer
+except ImportError:
+    from image_generator import ImageGenerator
+    from creative_composer import CreativeComposer
+
 class PipelineIntegration:
     """Real pipeline integration for triggering automated generation tasks"""
     
@@ -276,34 +283,96 @@ class PipelineIntegration:
             "estimated_completion": datetime.now().isoformat()
         }
     
-    async def _simulate_generation(self, campaign_id: str, params: Dict[str, Any], job_id: str):
-        """Simulate generation process for demo"""
-        
-        self.logger.info(f"🎭 Simulating generation for {campaign_id}")
-        
-        # Simulate generation time
-        generation_time = params["expected_variants"] * 2  # 2 seconds per variant
-        await asyncio.sleep(min(generation_time, 10))  # Cap at 10 seconds for demo
-        
-        # Create simulated output
+    async def _run_direct_generation(self, campaign_id: str, params: Dict[str, Any], job_id: str):
+        """Run generation directly using ImageGenerator and CreativeComposer"""
+
+        self.logger.info(f"🎨 Running direct generation for {campaign_id}")
+
         output_dir = Path(f"output/{campaign_id}")
         output_dir.mkdir(parents=True, exist_ok=True)
-        
-        for i, product in enumerate(params["products"]):
-            for j, aspect_ratio in enumerate(params["aspect_ratios"]):
-                variant_name = f"{product}_{aspect_ratio.replace(':', 'x')}_variant.jpg"
-                variant_file = output_dir / variant_name
-                
-                # Create dummy file
-                variant_file.write_text(f"Simulated variant: {product} {aspect_ratio}\nGenerated at: {datetime.now()}")
-        
-        self.logger.info(f"✅ Simulation completed for {campaign_id}: {params['expected_variants']} variants")
-        
-        return {
-            "status": "completed",
-            "variants_generated": params["expected_variants"],
-            "output_path": str(output_dir)
-        }
+
+        generated_files = []
+        variants_count = 0
+
+        try:
+            # Initialize generators
+            image_generator = ImageGenerator()
+            creative_composer = CreativeComposer()
+
+            # Build campaign brief dict
+            brief_dict = {
+                'campaign_id': campaign_id,
+                'campaign_name': campaign_id,
+                'campaign_message': params.get('message', ''),
+                'brand_guidelines': params.get('brand_guidelines', {}),
+                'creative_requirements': params.get('creative_requirements', {})
+            }
+
+            # Generate for each product and aspect ratio
+            for product_name in params.get("products", []):
+                product = {
+                    'name': product_name,
+                    'description': params.get('product_descriptions', {}).get(product_name, ''),
+                    'category': params.get('category', 'product')
+                }
+
+                try:
+                    # Generate base image using DALL-E
+                    base_image_path = image_generator.generate_product_image(
+                        product=product,
+                        campaign_brief=brief_dict
+                    )
+
+                    # Compose variants for each aspect ratio
+                    for aspect_ratio in params.get("aspect_ratios", ['1:1']):
+                        try:
+                            composed = creative_composer.compose_creative(
+                                base_image_path=base_image_path,
+                                campaign_brief=brief_dict,
+                                product=product,
+                                aspect_ratio=aspect_ratio
+                            )
+
+                            # Save composed image
+                            safe_name = product_name.replace(' ', '_').lower()
+                            safe_ratio = aspect_ratio.replace(':', 'x')
+                            output_filename = f"{safe_name}_{safe_ratio}_variant.png"
+                            output_path = output_dir / output_filename
+
+                            composed.save(output_path, 'PNG')
+                            generated_files.append(str(output_path))
+                            variants_count += 1
+
+                            self.logger.info(f"Generated: {output_path}")
+
+                        except Exception as e:
+                            self.logger.warning(f"Failed to compose {product_name} {aspect_ratio}: {e}")
+
+                except Exception as e:
+                    self.logger.error(f"Failed to generate base image for {product_name}: {e}")
+
+            self.logger.info(f"✅ Direct generation completed for {campaign_id}: {variants_count} variants")
+
+            return {
+                "status": "completed",
+                "variants_generated": variants_count,
+                "output_files": generated_files,
+                "output_path": str(output_dir)
+            }
+
+        except Exception as e:
+            self.logger.error(f"❌ Direct generation failed for {campaign_id}: {e}")
+            return {
+                "status": "failed",
+                "error": str(e),
+                "variants_generated": variants_count,
+                "output_path": str(output_dir)
+            }
+
+    # Keep legacy method name for backwards compatibility
+    async def _simulate_generation(self, campaign_id: str, params: Dict[str, Any], job_id: str):
+        """Legacy method - now runs real generation"""
+        return await self._run_direct_generation(campaign_id, params, job_id)
     
     async def monitor_active_jobs(self) -> Dict[str, Any]:
         """Monitor status of active generation jobs"""

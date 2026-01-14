@@ -20,6 +20,7 @@ class RealtimeDashboard:
         self.dashboard_data = {}
         self.update_interval = 5  # seconds
         self.running = False
+        self.start_time = datetime.now()  # Track actual start time
     
     async def start_dashboard(self, agent):
         """Start real-time dashboard updates"""
@@ -257,14 +258,71 @@ class RealtimeDashboard:
             }
     
     async def _calculate_trends(self) -> Dict[str, Any]:
-        """Calculate trend data"""
-        
-        # This would analyze historical data in a real implementation
+        """Calculate trend data based on historical metrics"""
+
+        # Initialize history if not exists
+        if not hasattr(self, 'metrics_history'):
+            self.metrics_history = []
+
+        # Get current metrics
+        current = {
+            'campaigns_active': self.dashboard_data.get('campaigns', {}).get('active', 0),
+            'alerts_pending': self.dashboard_data.get('alerts', {}).get('pending', 0),
+            'success_rate': self.dashboard_data.get('campaigns', {}).get('success_rate', 0),
+            'timestamp': datetime.now()
+        }
+
+        # Add to history (keep last 10 data points)
+        self.metrics_history.append(current)
+        if len(self.metrics_history) > 10:
+            self.metrics_history = self.metrics_history[-10:]
+
+        def calculate_trend(values: list) -> str:
+            if len(values) < 2:
+                return "stable"
+            recent = values[-3:] if len(values) >= 3 else values
+            if len(recent) < 2:
+                return "stable"
+
+            avg_change = (recent[-1] - recent[0]) / max(len(recent) - 1, 1)
+            if avg_change > 0.05:
+                return "increasing"
+            elif avg_change < -0.05:
+                return "decreasing"
+            else:
+                return "stable"
+
+        # Calculate trends from history
+        campaigns_values = [h.get('campaigns_active', 0) for h in self.metrics_history]
+        alerts_values = [h.get('alerts_pending', 0) for h in self.metrics_history]
+        success_values = [h.get('success_rate', 0) for h in self.metrics_history]
+
+        campaigns_trend = calculate_trend(campaigns_values)
+        alerts_trend = calculate_trend(alerts_values)
+
+        # Performance trend based on success rate
+        if len(success_values) >= 2:
+            if success_values[-1] > success_values[0] + 0.02:
+                performance_trend = "improving"
+            elif success_values[-1] < success_values[0] - 0.02:
+                performance_trend = "declining"
+            else:
+                performance_trend = "stable"
+        else:
+            performance_trend = "stable"
+
+        # Efficiency based on alerts vs campaigns ratio
+        if campaigns_values and campaigns_values[-1] > 0:
+            current_efficiency = 1 - (alerts_values[-1] / (campaigns_values[-1] * 10))
+            efficiency_trend = "improving" if current_efficiency > 0.7 else "stable" if current_efficiency > 0.4 else "declining"
+        else:
+            efficiency_trend = "stable"
+
         return {
-            "campaigns_trend": "stable",
-            "alerts_trend": "increasing",
-            "performance_trend": "improving",
-            "efficiency_trend": "stable"
+            "campaigns_trend": campaigns_trend,
+            "alerts_trend": alerts_trend,
+            "performance_trend": performance_trend,
+            "efficiency_trend": efficiency_trend
         }
     
     async def _display_dashboard(self):
@@ -348,9 +406,23 @@ class RealtimeDashboard:
             self.logger.error(f"Error saving dashboard state: {e}")
     
     def _calculate_uptime(self) -> str:
-        """Calculate system uptime"""
-        # This is a simplified version - would track actual start time in production
-        return "2h 15m"
+        """Calculate system uptime from actual start time"""
+        if not hasattr(self, 'start_time'):
+            self.start_time = datetime.now()
+
+        uptime = datetime.now() - self.start_time
+        total_seconds = int(uptime.total_seconds())
+
+        days = total_seconds // 86400
+        hours = (total_seconds % 86400) // 3600
+        minutes = (total_seconds % 3600) // 60
+
+        if days > 0:
+            return f"{days}d {hours}h {minutes}m"
+        elif hours > 0:
+            return f"{hours}h {minutes}m"
+        else:
+            return f"{minutes}m"
     
     def _assess_overall_status(self, campaigns: Dict[str, Any], alerts: Dict[str, Any], 
                              system: Dict[str, Any]) -> str:

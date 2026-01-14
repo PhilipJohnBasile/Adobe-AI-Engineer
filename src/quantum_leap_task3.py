@@ -1092,26 +1092,71 @@ class AutonomousGoalAchievementSystem:
         return execution_result
     
     async def _check_adaptation_needs(self, phase: Dict[str, Any], situation: Dict[str, Any]) -> bool:
-        """Check if adaptation is needed during execution"""
-        
-        # Simulate adaptation trigger assessment
-        # In real implementation, would check actual metrics
-        
-        import random
-        return random.random() < 0.3  # 30% chance of needing adaptation
+        """Check if adaptation is needed during execution based on real conditions"""
+
+        # Check actual conditions that would trigger adaptation
+        needs_adaptation = False
+
+        # Factor 1: Phase has many actions that might encounter issues
+        action_count = len(phase.get("actions", []))
+        if action_count > 3:
+            needs_adaptation = True
+
+        # Factor 2: Campaign complexity from situation
+        campaign_brief = situation.get("campaign_brief", {})
+        product_count = len(campaign_brief.get("products", []))
+        if product_count > 5:
+            needs_adaptation = True
+
+        # Factor 3: Time pressure - if deadline is tight
+        deadline_str = campaign_brief.get("deadline", "")
+        if deadline_str:
+            try:
+                from dateutil import parser
+                deadline = parser.parse(deadline_str)
+                days_until = (deadline - datetime.now()).days
+                if days_until < 3:
+                    needs_adaptation = True
+            except (ValueError, ImportError):
+                pass
+
+        # Factor 4: Reasoning engine confidence is low
+        if self.reasoning_engine.cognitive_state.confidence_level < 0.6:
+            needs_adaptation = True
+
+        return needs_adaptation
     
     async def _adapt_execution(self, phase: Dict[str, Any], situation: Dict[str, Any]) -> Dict[str, Any]:
-        """Adapt execution based on current situation"""
-        
-        adaptations = [
-            {"description": "Increased quality validation frequency", "impact": "positive"},
-            {"description": "Adjusted stakeholder communication timing", "impact": "positive"},
-            {"description": "Optimized resource allocation", "impact": "positive"}
-        ]
-        
-        # Return random adaptation for demo
-        import random
-        return random.choice(adaptations)
+        """Adapt execution based on current situation analysis"""
+
+        # Analyze situation to determine most appropriate adaptation
+        campaign_brief = situation.get("campaign_brief", {})
+        cognitive_state = self.reasoning_engine.cognitive_state
+
+        # Determine adaptation based on actual conditions
+        if cognitive_state.confidence_level < 0.6:
+            # Low confidence - need more validation
+            return {"description": "Increased quality validation frequency", "impact": "positive"}
+
+        product_count = len(campaign_brief.get("products", []))
+        if product_count > 5:
+            # Complex campaign - optimize resources
+            return {"description": "Optimized resource allocation", "impact": "positive"}
+
+        # Check for deadline pressure
+        deadline_str = campaign_brief.get("deadline", "")
+        if deadline_str:
+            try:
+                from dateutil import parser
+                deadline = parser.parse(deadline_str)
+                days_until = (deadline - datetime.now()).days
+                if days_until < 5:
+                    return {"description": "Adjusted stakeholder communication timing", "impact": "positive"}
+            except (ValueError, ImportError):
+                pass
+
+        # Default: communication timing for standard cases
+        return {"description": "Adjusted stakeholder communication timing", "impact": "positive"}
 
 class QuantumLeapTask3System:
     """The quantum leap Task 3 system with true cognitive reasoning"""

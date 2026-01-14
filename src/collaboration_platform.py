@@ -12,6 +12,7 @@ Free technologies used:
 - pathlib for file management
 """
 
+import asyncio
 import logging
 import json
 import sqlite3
@@ -22,6 +23,8 @@ from datetime import datetime, timedelta
 from enum import Enum
 import shutil
 import uuid
+
+from .notification_service import get_notification_service, NotificationPriority
 
 logger = logging.getLogger(__name__)
 
@@ -707,30 +710,106 @@ class ApprovalWorkflow:
 
 
 class NotificationSystem:
-    """Manages notifications and communications."""
-    
+    """Manages notifications and communications with real email delivery."""
+
     def __init__(self, db: CollaborationDatabase):
         self.db = db
-    
+        self._notification_service = None
+
+    @property
+    def notification_service(self):
+        """Lazy-load notification service"""
+        if self._notification_service is None:
+            self._notification_service = get_notification_service()
+        return self._notification_service
+
     def send_notification(self, user_id: str, title: str, message: str,
-                         notification_type: str = 'info', related_id: str = None) -> str:
-        """Send notification to user."""
+                         notification_type: str = 'info', related_id: str = None,
+                         send_email: bool = True) -> str:
+        """Send notification to user with optional email delivery."""
         notification_id = str(uuid.uuid4())
-        
+
+        # Store in database
         conn = sqlite3.connect(self.db.db_path)
         cursor = conn.cursor()
-        
+
         cursor.execute('''
             INSERT INTO notifications (notification_id, user_id, title, message,
                                      notification_type, related_id)
             VALUES (?, ?, ?, ?, ?, ?)
         ''', (notification_id, user_id, title, message, notification_type, related_id))
-        
+
         conn.commit()
+
+        # Get user email for delivery
+        user_email = None
+        if send_email:
+            cursor.execute('SELECT email FROM users WHERE user_id = ?', (user_id,))
+            row = cursor.fetchone()
+            if row and row[0]:
+                user_email = row[0]
+
         conn.close()
-        
+
+        # Send email notification if user has email configured
+        if user_email and send_email:
+            self._send_email_notification(user_email, title, message, notification_type)
+
         logger.info(f"Sent notification to user {user_id}: {title}")
         return notification_id
+
+    def _send_email_notification(self, email: str, title: str, message: str,
+                                  notification_type: str):
+        """Send email notification asynchronously"""
+        # Map notification type to priority
+        priority_map = {
+            'critical': NotificationPriority.CRITICAL,
+            'warning': NotificationPriority.HIGH,
+            'info': NotificationPriority.MEDIUM,
+            'success': NotificationPriority.LOW
+        }
+        priority = priority_map.get(notification_type, NotificationPriority.MEDIUM)
+
+        # Build HTML email body
+        html_body = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333;">{title}</h2>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <p style="margin: 0; color: #555;">{message}</p>
+            </div>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+            <p style="color: #888; font-size: 12px;">
+                This notification was sent from the Creative Automation Platform.
+            </p>
+        </div>
+        """
+
+        # Send asynchronously without blocking
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(
+                    self.notification_service.send_email(
+                        to=email,
+                        subject=f"[Creative Platform] {title}",
+                        body=html_body,
+                        html=True,
+                        priority=priority
+                    )
+                )
+            else:
+                # Fallback for sync context
+                asyncio.run(
+                    self.notification_service.send_email(
+                        to=email,
+                        subject=f"[Creative Platform] {title}",
+                        body=html_body,
+                        html=True,
+                        priority=priority
+                    )
+                )
+        except Exception as e:
+            logger.warning(f"Failed to send email notification to {email}: {e}")
     
     def get_user_notifications(self, user_id: str, unread_only: bool = False) -> List[Dict]:
         """Get notifications for user."""

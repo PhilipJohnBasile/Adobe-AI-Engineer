@@ -16,6 +16,15 @@ from pathlib import Path
 from dataclasses import dataclass, asdict
 from enum import Enum
 
+try:
+    from .image_generator import ImageGenerator
+    from .creative_composer import CreativeComposer
+    from .utils import calculate_dimensions
+except ImportError:
+    from image_generator import ImageGenerator
+    from creative_composer import CreativeComposer
+    from utils import calculate_dimensions
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -468,37 +477,112 @@ class ProductionAIMonitorAgent:
                 context={"error": str(e)}
             )
     
-    async def _simulate_generation_process(self, campaign_brief: CampaignBrief) -> Dict[str, Any]:
+    async def _run_generation_process(self, campaign_brief: CampaignBrief) -> Dict[str, Any]:
         """
-        Simulate the generation process (replace with actual implementation)
-        This is where you'd integrate with your actual generation pipeline
+        Run the actual generation process using ImageGenerator and CreativeComposer.
+        Generates real images using DALL-E and composes them with text overlays.
         """
-        # Simulate processing time
-        await asyncio.sleep(2)
-        
-        # Simulate success/failure and variant generation
-        import random
-        success_probability = 0.85  # 85% success rate
-        
-        if random.random() < success_probability:
-            # Successful generation
-            variants_generated = random.randint(2, 6)  # Random number of variants
-            
-            return {
-                "success": True,
-                "variants_generated": variants_generated,
-                "output_files": [f"{campaign_brief.campaign_id}_variant_{i}.jpg" for i in range(variants_generated)],
-                "processing_time": 2.0,
-                "cost": variants_generated * 15.50
+        start_time = time.time()
+        output_files = []
+        total_cost = 0.0
+
+        try:
+            # Initialize generators
+            image_generator = ImageGenerator()
+            creative_composer = CreativeComposer()
+
+            # Get products and aspect ratios from campaign requirements
+            products = campaign_brief.products
+            aspect_ratios = campaign_brief.requirements.get('aspect_ratios', ['1:1', '16:9', '9:16'])
+
+            # Build campaign brief dict for generator
+            brief_dict = {
+                'campaign_id': campaign_brief.campaign_id,
+                'campaign_name': campaign_brief.campaign_name,
+                'campaign_message': campaign_brief.requirements.get('message', ''),
+                'brand_guidelines': campaign_brief.requirements.get('brand_guidelines', {}),
+                'creative_requirements': campaign_brief.requirements.get('creative_requirements', {})
             }
-        else:
-            # Failed generation
+
+            # Create output directory
+            output_dir = Path('output') / campaign_brief.campaign_id
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+            # Generate images for each product and aspect ratio
+            for product_name in products:
+                product = {
+                    'name': product_name,
+                    'description': campaign_brief.requirements.get('product_descriptions', {}).get(product_name, ''),
+                    'category': campaign_brief.requirements.get('category', 'product')
+                }
+
+                # Generate base image
+                try:
+                    base_image_path = image_generator.generate_product_image(
+                        product=product,
+                        campaign_brief=brief_dict
+                    )
+                    total_cost += 0.040  # DALL-E 3 standard pricing
+
+                    # Compose variants for each aspect ratio
+                    for aspect_ratio in aspect_ratios:
+                        try:
+                            composed = creative_composer.compose_creative(
+                                base_image_path=base_image_path,
+                                campaign_brief=brief_dict,
+                                product=product,
+                                aspect_ratio=aspect_ratio
+                            )
+
+                            # Save composed image
+                            safe_name = product_name.replace(' ', '_').lower()
+                            safe_ratio = aspect_ratio.replace(':', 'x')
+                            output_filename = f"{safe_name}_{safe_ratio}.png"
+                            output_path = output_dir / output_filename
+
+                            composed.save(output_path, 'PNG')
+                            output_files.append(str(output_path))
+                            self.logger.info(f"Generated: {output_path}")
+
+                        except Exception as e:
+                            self.logger.warning(f"Failed to compose {product_name} {aspect_ratio}: {e}")
+
+                except Exception as e:
+                    self.logger.error(f"Failed to generate base image for {product_name}: {e}")
+
+            processing_time = time.time() - start_time
+
+            if output_files:
+                return {
+                    "success": True,
+                    "variants_generated": len(output_files),
+                    "output_files": output_files,
+                    "processing_time": processing_time,
+                    "cost": total_cost
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": "No variants generated",
+                    "variants_generated": 0,
+                    "processing_time": processing_time,
+                    "cost": total_cost
+                }
+
+        except Exception as e:
+            self.logger.error(f"Generation process failed: {e}")
             return {
                 "success": False,
-                "error": "API rate limit exceeded",
+                "error": str(e),
                 "variants_generated": 0,
-                "processing_time": 2.0
+                "processing_time": time.time() - start_time,
+                "cost": total_cost
             }
+
+    # Keep legacy method for backwards compatibility
+    async def _simulate_generation_process(self, campaign_brief: CampaignBrief) -> Dict[str, Any]:
+        """Legacy method - now runs real generation"""
+        return await self._run_generation_process(campaign_brief)
     
     async def _track_variants(self, campaign_id: str, generation_result: Dict[str, Any]):
         """

@@ -18,9 +18,14 @@ from typing import Dict, List, Any, Optional
 import logging
 
 # Import our individual task systems
-from production_ai_agent import ProductionAIAgent
-from image_generator import ImageGenerator
-from creative_composer import CreativeComposer
+try:
+    from .production_ai_agent import ProductionAIAgent
+    from .image_generator import ImageGenerator
+    from .creative_composer import CreativeComposer
+except ImportError:
+    from production_ai_agent import ProductionAIAgent
+    from image_generator import ImageGenerator
+    from creative_composer import CreativeComposer
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -308,13 +313,63 @@ class UnifiedTask123System:
                         failed += 1
 
         except Exception as e:
-            logger.warning(f"⚠️ Image generator not available, using fallback: {e}")
-            # Fallback to simulated results if generator fails to initialize
-            await asyncio.sleep(1)
-            successful = len(products) * len(aspect_ratios)
-            total_cost = successful * 0.04
-            api_calls = successful
-            generated_files = [f"simulated_{p.get('name', 'product')}_{r}.jpg" for p in products for r in aspect_ratios]
+            logger.warning(f"⚠️ Image generator not available, creating placeholder images: {e}")
+            # Create actual placeholder images when generator fails
+            from PIL import Image, ImageDraw, ImageFont
+
+            output_dir = Path(f"output/{self.campaign_id}")
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+            for product in products:
+                for ratio in aspect_ratios:
+                    try:
+                        # Determine size based on aspect ratio
+                        if ratio == '1:1':
+                            width, height = 1024, 1024
+                        elif ratio == '9:16':
+                            width, height = 1024, 1792
+                        elif ratio == '16:9':
+                            width, height = 1792, 1024
+                        elif ratio == '4:5':
+                            width, height = 1024, 1280
+                        else:
+                            width, height = 1024, 1024
+
+                        # Create placeholder image
+                        img = Image.new('RGB', (width, height), color='#f0f0f0')
+                        draw = ImageDraw.Draw(img)
+
+                        # Add product name text
+                        product_name = product.get('name', 'Product')
+                        text = f"{product_name}\n{ratio}\nPlaceholder Image"
+
+                        # Center text
+                        try:
+                            font = ImageFont.load_default()
+                        except:
+                            font = None
+
+                        bbox = draw.textbbox((0, 0), text, font=font)
+                        text_x = (width - (bbox[2] - bbox[0])) // 2
+                        text_y = (height - (bbox[3] - bbox[1])) // 2
+                        draw.text((text_x, text_y), text, fill='#666666', font=font)
+
+                        # Save placeholder
+                        safe_name = product_name.replace(' ', '_').lower()
+                        safe_ratio = ratio.replace(':', 'x')
+                        filename = f"{safe_name}_{safe_ratio}_placeholder.png"
+                        filepath = output_dir / filename
+                        img.save(filepath, 'PNG')
+
+                        generated_files.append(str(filepath))
+                        successful += 1
+
+                    except Exception as img_err:
+                        logger.error(f"Failed to create placeholder: {img_err}")
+                        failed += 1
+
+            total_cost = 0.0  # No API cost for placeholders
+            api_calls = 0
 
         processing_time = time.time() - start_time
         total_variants = successful + failed

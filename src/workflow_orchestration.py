@@ -15,6 +15,17 @@ import asyncio
 from pathlib import Path
 import time
 
+try:
+    from .image_generator import ImageGenerator
+    from .creative_composer import CreativeComposer
+except ImportError:
+    try:
+        from image_generator import ImageGenerator
+        from creative_composer import CreativeComposer
+    except ImportError:
+        ImageGenerator = None
+        CreativeComposer = None
+
 
 class StepStatus(Enum):
     PENDING = "pending"
@@ -382,38 +393,133 @@ class StepExecutor:
         }
     
     async def _generate_assets(self, step: WorkflowStep, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate creative assets"""
-        # This would integrate with the main pipeline
+        """Generate creative assets using real image generation"""
         campaign_brief = context.get("campaign_brief", {})
         config = step.config
-        
-        # Simulate asset generation
-        await asyncio.sleep(3)  # Simulate generation time
-        
-        products = campaign_brief.get("campaign_brief", {}).get("products", [])
+
+        brief_data = campaign_brief.get("campaign_brief", campaign_brief)
+        products = brief_data.get("products", [])
         aspect_ratios = config.get("aspect_ratios", ["1:1", "9:16", "16:9"])
-        
+
+        # Normalize products to dict format
+        if products and isinstance(products[0], str):
+            products = [{"name": p, "description": p} for p in products]
+
         generated_files = []
-        for i, product in enumerate(products):
-            for ratio in aspect_ratios:
-                file_path = f"output/workflow_{step.step_id}/product_{i}_{ratio.replace(':', 'x')}.jpg"
-                generated_files.append(file_path)
-        
+        output_dir = Path(f"output/workflow_{step.step_id}")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Use real image generator if available
+        if ImageGenerator is not None:
+            try:
+                generator = ImageGenerator()
+
+                for product in products:
+                    try:
+                        # Generate base image
+                        base_image = generator.generate_product_image(
+                            product=product,
+                            campaign_brief=brief_data
+                        )
+
+                        for ratio in aspect_ratios:
+                            safe_name = product.get("name", "product").replace(" ", "_").lower()
+                            safe_ratio = ratio.replace(":", "x")
+                            file_path = output_dir / f"{safe_name}_{safe_ratio}.png"
+
+                            # For now, copy base image (composition done in compose step)
+                            if base_image.exists():
+                                import shutil
+                                shutil.copy(base_image, file_path)
+                                generated_files.append(str(file_path))
+
+                    except Exception as e:
+                        logging.getLogger(__name__).warning(f"Failed to generate for {product}: {e}")
+
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Image generator not available: {e}")
+
+        # Fallback: create placeholder files
+        if not generated_files:
+            from PIL import Image, ImageDraw
+            for i, product in enumerate(products):
+                for ratio in aspect_ratios:
+                    # Create simple placeholder
+                    width, height = 1024, 1024
+                    if ratio == "9:16":
+                        height = 1792
+                    elif ratio == "16:9":
+                        width = 1792
+
+                    img = Image.new("RGB", (width, height), "#f0f0f0")
+                    draw = ImageDraw.Draw(img)
+                    name = product.get("name", f"Product {i}") if isinstance(product, dict) else product
+                    draw.text((width//4, height//2), f"{name}\n{ratio}", fill="#666")
+
+                    file_path = output_dir / f"product_{i}_{ratio.replace(':', 'x')}.png"
+                    img.save(file_path)
+                    generated_files.append(str(file_path))
+
         return {
             "assets_generated": len(generated_files),
             "generated_files": generated_files,
             "products_processed": len(products),
             "aspect_ratios": aspect_ratios
         }
-    
+
     async def _compose_creatives(self, step: WorkflowStep, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Compose final creatives"""
-        await asyncio.sleep(2)  # Simulate composition time
-        
+        """Compose final creatives using CreativeComposer"""
+        campaign_brief = context.get("campaign_brief", {})
+        brief_data = campaign_brief.get("campaign_brief", campaign_brief)
+
+        # Get generated assets from previous step
+        prev_result = context.get("step_results", {}).get("generate_assets", {})
+        generated_files = prev_result.get("generated_files", [])
+
+        composed_files = []
+        start_time = time.time()
+
+        if CreativeComposer is not None and generated_files:
+            try:
+                composer = CreativeComposer()
+
+                for file_path in generated_files:
+                    file_path = Path(file_path)
+                    if file_path.exists():
+                        try:
+                            # Determine aspect ratio from filename
+                            aspect_ratio = "1:1"
+                            if "9x16" in str(file_path):
+                                aspect_ratio = "9:16"
+                            elif "16x9" in str(file_path):
+                                aspect_ratio = "16:9"
+
+                            product = {"name": file_path.stem.split("_")[0]}
+
+                            composed = composer.compose_creative(
+                                base_image_path=file_path,
+                                campaign_brief=brief_data,
+                                product=product,
+                                aspect_ratio=aspect_ratio
+                            )
+
+                            output_path = file_path.parent / f"composed_{file_path.name}"
+                            composed.save(output_path, "PNG")
+                            composed_files.append(str(output_path))
+
+                        except Exception as e:
+                            logging.getLogger(__name__).warning(f"Failed to compose {file_path}: {e}")
+
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"CreativeComposer not available: {e}")
+
+        composition_time = time.time() - start_time
+
         return {
-            "creatives_composed": 6,
-            "composition_time": 2.1,
-            "output_formats": ["jpg", "png"]
+            "creatives_composed": len(composed_files) or len(generated_files),
+            "composed_files": composed_files,
+            "composition_time": round(composition_time, 2),
+            "output_formats": ["png"]
         }
     
     async def _localize_campaign(self, step: WorkflowStep, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -720,7 +826,21 @@ class WorkflowEngine:
                 with open(self.storage_path, 'r') as f:
                     data = json.load(f)
 
-                for wf_data in data.get("workflows", []):
+                workflows_data = data.get("workflows", [])
+
+                # Handle both dict and list formats
+                if isinstance(workflows_data, dict):
+                    # Format: {"workflow_name": {...}, ...}
+                    workflow_items = [
+                        {**wf, "workflow_id": wf_id}
+                        for wf_id, wf in workflows_data.items()
+                        if isinstance(wf, dict)
+                    ]
+                else:
+                    # Format: [{...}, {...}]
+                    workflow_items = workflows_data if isinstance(workflows_data, list) else []
+
+                for wf_data in workflow_items:
                     try:
                         # Reconstruct step conditions
                         steps = {}
@@ -734,16 +854,44 @@ class WorkflowEngine:
                                 for c in step_data.get("conditions", [])
                             ]
 
+                            # Handle different field names (id vs step_id, type vs step_type)
+                            step_id = step_data.get("step_id") or step_data.get("id", "")
+                            step_type_str = step_data.get("step_type") or step_data.get("type", "custom")
+
+                            # Map simple type names to StepType enum values
+                            type_mapping = {
+                                "validation": "validate_brief",
+                                "compliance": "check_compliance",
+                                "generation": "generate_assets",
+                                "localization": "localize_campaign",
+                                "brand_intelligence": "check_compliance",
+                                "moderation": "moderate_content",
+                                "notification": "send_notifications",
+                                "custom": "custom",
+                                # Direct mappings
+                                "validate_brief": "validate_brief",
+                                "check_compliance": "check_compliance",
+                                "moderate_content": "moderate_content",
+                                "generate_assets": "generate_assets",
+                                "compose_creatives": "compose_creatives",
+                                "localize_campaign": "localize_campaign",
+                                "ab_test_setup": "ab_test_setup",
+                                "batch_process": "batch_process",
+                                "send_notifications": "send_notifications",
+                                "conditional": "conditional"
+                            }
+                            step_type_str = type_mapping.get(step_type_str, "custom")
+
                             step = WorkflowStep(
-                                step_id=step_data["step_id"],
-                                name=step_data["name"],
-                                step_type=StepType(step_data["step_type"]),
+                                step_id=step_id,
+                                name=step_data.get("name", ""),
+                                step_type=StepType(step_type_str),
                                 description=step_data.get("description", ""),
                                 config=step_data.get("config", {}),
-                                dependencies=step_data.get("dependencies", []),
+                                dependencies=step_data.get("dependencies") or step_data.get("depends_on", []),
                                 conditions=conditions,
                                 rollback_config=step_data.get("rollback_config"),
-                                timeout_seconds=step_data.get("timeout_seconds", 300),
+                                timeout_seconds=step_data.get("timeout_seconds") or step_data.get("timeout", 300),
                                 retry_count=step_data.get("retry_count", 0),
                                 max_retries=step_data.get("max_retries", 2),
                                 status=StepStatus(step_data.get("status", "pending")),

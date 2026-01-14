@@ -486,10 +486,32 @@ class PerformancePredictionEngine:
             return 'F'
     
     def _calculate_confidence(self, predictions: Dict[str, float]) -> float:
-        """Calculate prediction confidence based on model performance."""
-        # Simplified confidence calculation
-        # In practice, this would use model uncertainty estimation
-        return 0.75 + np.random.uniform(-0.1, 0.1)  # 65-85% confidence
+        """Calculate prediction confidence based on model performance and prediction consistency."""
+        # Calculate confidence based on prediction quality metrics
+        base_confidence = 0.75
+
+        # Factor 1: Model availability (more models = higher confidence)
+        models_available = sum(1 for m in self.model.models.values() if m is not None)
+        model_factor = models_available / 4.0 * 0.1  # Up to 0.1 bonus
+
+        # Factor 2: Prediction value consistency (similar predictions = more confident)
+        prediction_values = list(predictions.values())
+        if len(prediction_values) > 1:
+            # Normalized variance - lower variance = higher confidence
+            normalized_scores = [v / max(prediction_values) for v in prediction_values if max(prediction_values) > 0]
+            consistency = 1.0 - np.var(normalized_scores) if normalized_scores else 0.5
+            consistency_factor = consistency * 0.05  # Up to 0.05 bonus
+        else:
+            consistency_factor = 0
+
+        # Factor 3: Prediction magnitude reasonableness
+        ctr = predictions.get('ctr', 0)
+        cvr = predictions.get('conversion_rate', 0)
+        reasonable = 0.5 < ctr < 4.0 and 0.01 < cvr < 0.3
+        reasonableness_factor = 0.05 if reasonable else -0.05
+
+        confidence = base_confidence + model_factor + consistency_factor + reasonableness_factor
+        return min(0.95, max(0.5, confidence))
     
     def get_performance_report(self) -> Dict:
         """Generate performance prediction report."""

@@ -21,6 +21,13 @@ from enum import Enum
 import base64
 from urllib.parse import urljoin
 
+try:
+    from .image_generator import ImageGenerator
+    from .creative_composer import CreativeComposer
+except ImportError:
+    from image_generator import ImageGenerator
+    from creative_composer import CreativeComposer
+
 # Enterprise monitoring and metrics
 try:
     import prometheus_client
@@ -1040,34 +1047,117 @@ class EnterpriseAIMonitorAgent:
                 context={"error": str(e)}
             )
     
-    async def _simulate_enterprise_generation(self, campaign_brief: CampaignBrief) -> GenerationResult:
-        """Simulate enterprise generation when APIs not available"""
-        await asyncio.sleep(2)  # Simulate processing time
-        
-        import random
-        success = random.random() > 0.15  # 85% success rate
-        
-        if success:
-            variants = random.randint(2, min(6, campaign_brief.target_variants))
-            return GenerationResult(
-                success=True,
-                variants_generated=variants,
-                output_files=[f"{campaign_brief.campaign_id}_sim_{i}.png" for i in range(variants)],
-                api_provider=APIProvider.OPENAI,
-                processing_time=2.0,
-                cost=variants * 0.08,
-                quality_scores=[random.uniform(0.7, 0.95) for _ in range(variants)]
-            )
-        else:
+    async def _run_enterprise_generation(self, campaign_brief: CampaignBrief) -> GenerationResult:
+        """Run real enterprise generation using ImageGenerator and CreativeComposer"""
+        start_time = time.time()
+        output_files = []
+        quality_scores = []
+        total_cost = 0.0
+
+        try:
+            # Initialize generators
+            image_generator = ImageGenerator()
+            creative_composer = CreativeComposer()
+
+            # Get products and aspect ratios
+            products = campaign_brief.products
+            aspect_ratios = campaign_brief.requirements.get('aspect_ratios', ['1:1', '16:9', '9:16'])
+
+            # Build campaign brief dict
+            brief_dict = {
+                'campaign_id': campaign_brief.campaign_id,
+                'campaign_name': campaign_brief.campaign_name,
+                'campaign_message': campaign_brief.requirements.get('message', ''),
+                'brand_guidelines': campaign_brief.requirements.get('brand_guidelines', {}),
+                'creative_requirements': campaign_brief.requirements.get('creative_requirements', {})
+            }
+
+            # Create output directory
+            output_dir = Path('output') / campaign_brief.campaign_id
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+            # Generate for each product
+            for product_name in products:
+                product = {
+                    'name': product_name,
+                    'description': campaign_brief.requirements.get('product_descriptions', {}).get(product_name, ''),
+                    'category': campaign_brief.requirements.get('category', 'product')
+                }
+
+                try:
+                    # Generate base image
+                    base_image_path = image_generator.generate_product_image(
+                        product=product,
+                        campaign_brief=brief_dict
+                    )
+                    total_cost += 0.040  # DALL-E 3 cost
+
+                    # Compose for each aspect ratio
+                    for aspect_ratio in aspect_ratios:
+                        try:
+                            composed = creative_composer.compose_creative(
+                                base_image_path=base_image_path,
+                                campaign_brief=brief_dict,
+                                product=product,
+                                aspect_ratio=aspect_ratio
+                            )
+
+                            # Save composed image
+                            safe_name = product_name.replace(' ', '_').lower()
+                            safe_ratio = aspect_ratio.replace(':', 'x')
+                            output_filename = f"{safe_name}_{safe_ratio}.png"
+                            output_path = output_dir / output_filename
+
+                            composed.save(output_path, 'PNG')
+                            output_files.append(str(output_path))
+                            quality_scores.append(0.85)  # Base quality score
+                            self.logger.info(f"Generated: {output_path}")
+
+                        except Exception as e:
+                            self.logger.warning(f"Failed to compose {product_name} {aspect_ratio}: {e}")
+
+                except Exception as e:
+                    self.logger.error(f"Failed to generate base image for {product_name}: {e}")
+
+            processing_time = time.time() - start_time
+
+            if output_files:
+                return GenerationResult(
+                    success=True,
+                    variants_generated=len(output_files),
+                    output_files=output_files,
+                    api_provider=APIProvider.OPENAI,
+                    processing_time=processing_time,
+                    cost=total_cost,
+                    quality_scores=quality_scores
+                )
+            else:
+                return GenerationResult(
+                    success=False,
+                    variants_generated=0,
+                    output_files=[],
+                    api_provider=APIProvider.OPENAI,
+                    processing_time=processing_time,
+                    cost=total_cost,
+                    error_message="No variants generated"
+                )
+
+        except Exception as e:
+            self.logger.error(f"Enterprise generation failed: {e}")
             return GenerationResult(
                 success=False,
                 variants_generated=0,
                 output_files=[],
                 api_provider=APIProvider.OPENAI,
-                processing_time=2.0,
-                cost=0.0,
-                error_message="Simulated API failure"
+                processing_time=time.time() - start_time,
+                cost=total_cost,
+                error_message=str(e)
             )
+
+    # Keep legacy method for backwards compatibility
+    async def _simulate_enterprise_generation(self, campaign_brief: CampaignBrief) -> GenerationResult:
+        """Legacy method - now runs real generation"""
+        return await self._run_enterprise_generation(campaign_brief)
     
     async def _track_enterprise_variants(self, campaign_id: str, generation_result: GenerationResult):
         """REQUIREMENT 3: Track variants with enterprise analytics"""

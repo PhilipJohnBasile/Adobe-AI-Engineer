@@ -18,6 +18,14 @@ from enum import Enum
 import logging
 import concurrent.futures
 from abc import ABC, abstractmethod
+from collections import Counter
+
+# Image analysis
+try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
 
 # ML and AI imports
 try:
@@ -736,45 +744,245 @@ class AdvancedDiversityAnalyst(BaseAgent):
         }
     
     async def _analyze_color_diversity(self, variant_files: List[Path]) -> Dict[str, Any]:
-        """Analyze color palette diversity across variants"""
-        
-        # Simulated color analysis
-        # In production, would extract actual color palettes
-        
+        """Analyze color palette diversity across variants using real image analysis"""
+
         num_variants = len(variant_files)
-        
+
+        if not PIL_AVAILABLE:
+            # Fallback to estimated values if PIL not available
+            return {
+                "primary_color_variance": min(0.95, num_variants * 0.15),
+                "color_temperature_range": "warm_to_cool" if num_variants > 3 else "limited",
+                "saturation_diversity": min(1.0, num_variants * 0.12),
+                "color_harmony_score": 0.8 + (min(num_variants, 5) * 0.04),
+                "dominant_color_families": ["blue", "red", "green", "neutral"][:min(4, num_variants)]
+            }
+
+        # Real color analysis using PIL
+        all_dominant_colors = []
+        color_temperatures = []
+        saturation_values = []
+
+        for variant_file in variant_files:
+            try:
+                img = Image.open(variant_file)
+                img = img.convert('RGB')
+
+                # Resize for faster processing
+                img_small = img.resize((100, 100))
+                pixels = list(img_small.getdata())
+
+                # Get dominant colors
+                color_counts = Counter(pixels)
+                dominant = color_counts.most_common(5)
+                all_dominant_colors.extend([c[0] for c in dominant])
+
+                # Calculate color temperature (warm vs cool)
+                avg_r = sum(p[0] for p in pixels) / len(pixels)
+                avg_b = sum(p[2] for p in pixels) / len(pixels)
+                temp = (avg_r - avg_b) / 255.0  # -1 (cool) to 1 (warm)
+                color_temperatures.append(temp)
+
+                # Calculate saturation
+                for r, g, b in pixels[:1000]:  # Sample
+                    max_c = max(r, g, b)
+                    min_c = min(r, g, b)
+                    if max_c > 0:
+                        sat = (max_c - min_c) / max_c
+                        saturation_values.append(sat)
+
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Error analyzing {variant_file}: {e}")
+
+        # Calculate diversity metrics
+        color_variance = len(set(all_dominant_colors)) / max(len(all_dominant_colors), 1) if all_dominant_colors else 0
+        temp_range = max(color_temperatures) - min(color_temperatures) if color_temperatures else 0
+        sat_diversity = np.std(saturation_values) if saturation_values else 0
+
+        # Determine dominant color families
+        color_families = []
+        for r, g, b in set(all_dominant_colors):
+            if r > g and r > b:
+                color_families.append("red")
+            elif g > r and g > b:
+                color_families.append("green")
+            elif b > r and b > g:
+                color_families.append("blue")
+            elif abs(r - g) < 30 and abs(g - b) < 30:
+                color_families.append("neutral")
+            else:
+                color_families.append("mixed")
+
         return {
-            "primary_color_variance": min(0.95, num_variants * 0.15),
-            "color_temperature_range": "warm_to_cool" if num_variants > 3 else "limited",
-            "saturation_diversity": min(1.0, num_variants * 0.12),
-            "color_harmony_score": 0.8 + (min(num_variants, 5) * 0.04),
-            "dominant_color_families": ["blue", "red", "green", "neutral"][:min(4, num_variants)]
+            "primary_color_variance": min(1.0, color_variance),
+            "color_temperature_range": "warm_to_cool" if temp_range > 0.3 else ("warm" if np.mean(color_temperatures) > 0 else "cool") if color_temperatures else "unknown",
+            "saturation_diversity": min(1.0, sat_diversity * 3),
+            "color_harmony_score": 0.7 + (0.3 * color_variance),
+            "dominant_color_families": list(set(color_families))[:4]
         }
     
     async def _analyze_composition_diversity(self, variant_files: List[Path]) -> Dict[str, Any]:
-        """Analyze composition and layout diversity"""
-        
+        """Analyze composition and layout diversity using real image analysis"""
+
         num_variants = len(variant_files)
-        
+
+        if not PIL_AVAILABLE:
+            return {
+                "layout_variety_score": min(0.9, num_variants * 0.18),
+                "focal_point_distribution": "varied" if num_variants > 2 else "limited",
+                "symmetry_balance": min(1.0, num_variants * 0.11),
+                "rule_of_thirds_compliance": 0.7 + (min(num_variants, 4) * 0.075),
+                "composition_styles": ["centered", "asymmetric", "dynamic", "minimal"][:min(4, num_variants)]
+            }
+
+        # Real composition analysis
+        focal_points = []
+        symmetry_scores = []
+        brightness_distributions = []
+
+        for variant_file in variant_files:
+            try:
+                img = Image.open(variant_file)
+                img_gray = img.convert('L')  # Grayscale
+                img_small = img_gray.resize((50, 50))
+                pixels = np.array(img_small)
+
+                # Find brightness-based focal point (brightest region)
+                max_brightness_idx = np.unravel_index(np.argmax(pixels), pixels.shape)
+                focal_y = max_brightness_idx[0] / pixels.shape[0]
+                focal_x = max_brightness_idx[1] / pixels.shape[1]
+                focal_points.append((focal_x, focal_y))
+
+                # Calculate symmetry (compare left/right halves)
+                left_half = pixels[:, :pixels.shape[1]//2]
+                right_half = np.fliplr(pixels[:, pixels.shape[1]//2:])
+                # Ensure same size
+                min_width = min(left_half.shape[1], right_half.shape[1])
+                left_half = left_half[:, :min_width]
+                right_half = right_half[:, :min_width]
+                symmetry = 1 - np.mean(np.abs(left_half.astype(float) - right_half.astype(float))) / 255
+                symmetry_scores.append(symmetry)
+
+                # Brightness distribution (for layout type)
+                brightness_distributions.append(np.mean(pixels))
+
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Error analyzing composition {variant_file}: {e}")
+
+        # Analyze focal point diversity
+        if focal_points:
+            focal_variance = np.var([p[0] for p in focal_points]) + np.var([p[1] for p in focal_points])
+            focal_distribution = "varied" if focal_variance > 0.05 else "centered"
+        else:
+            focal_distribution = "unknown"
+
+        # Calculate rule of thirds compliance
+        thirds_scores = []
+        for fx, fy in focal_points:
+            # Check if focal point is near 1/3 or 2/3 lines
+            x_thirds = min(abs(fx - 0.33), abs(fx - 0.67), abs(fx - 0.5))
+            y_thirds = min(abs(fy - 0.33), abs(fy - 0.67), abs(fy - 0.5))
+            thirds_scores.append(1 - min(1, x_thirds + y_thirds))
+
+        # Determine composition styles based on analysis
+        styles = []
+        for (fx, fy), sym in zip(focal_points, symmetry_scores) if focal_points else []:
+            if sym > 0.8 and abs(fx - 0.5) < 0.1:
+                styles.append("centered")
+            elif sym < 0.6:
+                styles.append("asymmetric")
+            elif abs(fx - 0.33) < 0.1 or abs(fx - 0.67) < 0.1:
+                styles.append("dynamic")
+            else:
+                styles.append("balanced")
+
         return {
-            "layout_variety_score": min(0.9, num_variants * 0.18),
-            "focal_point_distribution": "varied" if num_variants > 2 else "limited",
-            "symmetry_balance": min(1.0, num_variants * 0.11),
-            "rule_of_thirds_compliance": 0.7 + (min(num_variants, 4) * 0.075),
-            "composition_styles": ["centered", "asymmetric", "dynamic", "minimal"][:min(4, num_variants)]
+            "layout_variety_score": min(1.0, np.var(brightness_distributions) * 10) if brightness_distributions else 0.5,
+            "focal_point_distribution": focal_distribution,
+            "symmetry_balance": np.mean(symmetry_scores) if symmetry_scores else 0.5,
+            "rule_of_thirds_compliance": np.mean(thirds_scores) if thirds_scores else 0.5,
+            "composition_styles": list(set(styles))[:4] if styles else ["varied"]
         }
     
     async def _analyze_style_diversity(self, variant_files: List[Path]) -> Dict[str, Any]:
-        """Analyze artistic style diversity"""
-        
+        """Analyze artistic style diversity using real image analysis"""
+
         num_variants = len(variant_files)
-        
+
+        if not PIL_AVAILABLE:
+            return {
+                "style_variety_score": min(0.85, num_variants * 0.16),
+                "artistic_techniques": ["photorealistic", "illustrated", "abstract"][:min(3, max(1, num_variants // 2))],
+                "visual_complexity_range": f"simple_to_{'complex' if num_variants > 3 else 'moderate'}",
+                "brand_consistency_score": max(0.6, 1.0 - (num_variants * 0.05)),
+                "innovation_factor": min(0.8, num_variants * 0.13)
+            }
+
+        # Real style analysis
+        edge_densities = []
+        color_counts_list = []
+        contrast_values = []
+
+        for variant_file in variant_files:
+            try:
+                img = Image.open(variant_file)
+                img_gray = img.convert('L')
+                pixels = np.array(img_gray)
+
+                # Edge density (complexity indicator)
+                # Simple edge detection using gradient
+                grad_x = np.abs(np.diff(pixels.astype(float), axis=1))
+                grad_y = np.abs(np.diff(pixels.astype(float), axis=0))
+                edge_density = (np.mean(grad_x) + np.mean(grad_y)) / 2
+                edge_densities.append(edge_density)
+
+                # Color count (unique colors = more realistic/complex)
+                img_rgb = img.convert('RGB').resize((50, 50))
+                unique_colors = len(set(img_rgb.getdata()))
+                color_counts_list.append(unique_colors)
+
+                # Contrast
+                contrast = np.std(pixels)
+                contrast_values.append(contrast)
+
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Error analyzing style {variant_file}: {e}")
+
+        # Determine artistic techniques based on analysis
+        techniques = []
+        for edge, colors in zip(edge_densities, color_counts_list) if edge_densities else []:
+            if colors > 1000 and edge > 20:
+                techniques.append("photorealistic")
+            elif colors < 500:
+                techniques.append("illustrated")
+            elif edge < 10:
+                techniques.append("minimal")
+            else:
+                techniques.append("mixed")
+
+        # Determine complexity range
+        if edge_densities:
+            min_edge = min(edge_densities)
+            max_edge = max(edge_densities)
+            if max_edge - min_edge > 15:
+                complexity_range = "simple_to_complex"
+            elif np.mean(edge_densities) > 20:
+                complexity_range = "moderate_to_complex"
+            else:
+                complexity_range = "simple_to_moderate"
+        else:
+            complexity_range = "unknown"
+
+        # Brand consistency based on color variance
+        color_variance = np.var(color_counts_list) if color_counts_list else 0
+        brand_consistency = max(0.5, 1.0 - (color_variance / 100000))
+
         return {
-            "style_variety_score": min(0.85, num_variants * 0.16),
-            "artistic_techniques": ["photorealistic", "illustrated", "abstract"][:min(3, max(1, num_variants // 2))],
-            "visual_complexity_range": f"simple_to_{'complex' if num_variants > 3 else 'moderate'}",
-            "brand_consistency_score": max(0.6, 1.0 - (num_variants * 0.05)),
-            "innovation_factor": min(0.8, num_variants * 0.13)
+            "style_variety_score": min(1.0, np.std(edge_densities) / 10) if edge_densities else 0.5,
+            "artistic_techniques": list(set(techniques))[:3] if techniques else ["varied"],
+            "visual_complexity_range": complexity_range,
+            "brand_consistency_score": brand_consistency,
+            "innovation_factor": min(1.0, np.mean(edge_densities) / 30) if edge_densities else 0.5
         }
     
     async def _identify_similarity_clusters(self, variant_files: List[Path]) -> List[Dict[str, Any]]:
@@ -803,19 +1011,50 @@ class AdvancedDiversityAnalyst(BaseAgent):
         return clusters
     
     async def _calculate_uniqueness_scores(self, variant_files: List[Path]) -> Dict[str, float]:
-        """Calculate uniqueness score for each variant"""
-        
+        """Calculate uniqueness score for each variant based on file properties"""
+
         scores = {}
         num_variants = len(variant_files)
-        
+
+        # Build file signatures for comparison
+        file_signatures = []
+        for variant_file in variant_files:
+            try:
+                stat = variant_file.stat()
+                signature = {
+                    'size': stat.st_size,
+                    'name_hash': hash(variant_file.name) % 1000,
+                    'parent': variant_file.parent.name
+                }
+                file_signatures.append(signature)
+            except OSError:
+                file_signatures.append({'size': 0, 'name_hash': 0, 'parent': ''})
+
         for i, variant_file in enumerate(variant_files):
-            # Simulated uniqueness calculation
             base_score = 0.6
             position_factor = i / max(1, num_variants - 1)  # Later variants often more unique
-            uniqueness = base_score + (position_factor * 0.4) + (np.random.random() * 0.1)
-            
+
+            # Calculate uniqueness based on how different this file is from others
+            if file_signatures:
+                current_sig = file_signatures[i]
+                size_differences = []
+                for j, other_sig in enumerate(file_signatures):
+                    if i != j:
+                        size_diff = abs(current_sig['size'] - other_sig['size'])
+                        size_differences.append(size_diff)
+
+                if size_differences:
+                    # Normalize size difference to 0-0.2 range
+                    avg_diff = sum(size_differences) / len(size_differences)
+                    uniqueness_factor = min(0.2, avg_diff / 50000)  # Normalize by expected max diff
+                else:
+                    uniqueness_factor = 0.1
+            else:
+                uniqueness_factor = 0.1
+
+            uniqueness = base_score + (position_factor * 0.3) + uniqueness_factor
             scores[str(variant_file)] = min(1.0, uniqueness)
-        
+
         return scores
     
     async def _analyze_semantic_diversity(self, output_dir: Path) -> Dict[str, Any]:
@@ -995,21 +1234,44 @@ class AdvancedDiversityAnalyst(BaseAgent):
         return min(1.0, base_compliance + variant_bonus)
     
     async def _assess_variant_quality(self, output_dir: Path) -> Dict[str, Any]:
-        """AI-powered quality assessment of variants"""
-        
+        """AI-powered quality assessment of variants using image analysis"""
+
         variant_files = list(output_dir.rglob("*.jpg")) + list(output_dir.rglob("*.png"))
-        
+
         quality_scores = {}
         quality_factors = []
-        
+
         for variant_file in variant_files:
-            # Simulated quality assessment
-            # In production, would use actual quality assessment AI models
-            
+            # Quality assessment based on actual file and image properties
             base_quality = 0.75
-            random_factor = np.random.random() * 0.2
-            quality_score = min(1.0, base_quality + random_factor)
-            
+            quality_bonus = 0.0
+
+            try:
+                # Factor 1: File size indicates image detail
+                file_size = variant_file.stat().st_size
+                if file_size > 100000:  # >100KB indicates good detail
+                    quality_bonus += 0.05
+                if file_size > 500000:  # >500KB indicates high detail
+                    quality_bonus += 0.05
+
+                # Factor 2: Try to analyze image properties
+                try:
+                    from PIL import Image
+                    with Image.open(variant_file) as img:
+                        width, height = img.size
+                        # Larger images typically higher quality
+                        if width >= 1024 or height >= 1024:
+                            quality_bonus += 0.05
+                        # Check aspect ratio is reasonable
+                        aspect_ratio = width / height if height > 0 else 1
+                        if 0.5 <= aspect_ratio <= 2.0:
+                            quality_bonus += 0.03
+                except ImportError:
+                    pass
+            except OSError:
+                pass
+
+            quality_score = min(1.0, base_quality + quality_bonus)
             quality_scores[str(variant_file)] = quality_score
         
         average_quality = np.mean(list(quality_scores.values())) if quality_scores else 0.0

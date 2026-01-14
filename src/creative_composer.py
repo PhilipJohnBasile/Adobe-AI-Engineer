@@ -41,9 +41,8 @@ class CreativeComposer:
         # Add campaign message overlay
         creative = self._add_text_overlay(creative, campaign_brief, product)
         
-        # Add brand elements if specified
-        if campaign_brief.get('brand_guidelines', {}).get('logo_required'):
-            creative = self._add_logo_placeholder(creative)
+        # Add logo if available (check campaign brief or default locations)
+        creative = self._add_logo(creative, campaign_brief)
         
         # Apply brand colors if specified
         creative = self._apply_brand_styling(creative, campaign_brief)
@@ -279,34 +278,100 @@ class CreativeComposer:
         self.font_cache[cache_key] = font
         return font
     
+    def _find_logo_file(self, campaign_brief: Dict[str, Any] = None) -> Optional[Path]:
+        """Find logo file from campaign brief or default locations."""
+        # Check if logo path is specified in campaign brief
+        if campaign_brief:
+            brand_guidelines = campaign_brief.get('brand_guidelines', {})
+            logo_path = brand_guidelines.get('logo_path')
+            if logo_path and Path(logo_path).exists():
+                return Path(logo_path)
+
+        # Search for logo in common locations
+        search_patterns = [
+            'assets/logo.png',
+            'assets/logo.jpg',
+            'assets/logos/logo.png',
+            'assets/logos/company_logo.png',
+            'assets/brand/logo.png',
+            'logo.png',
+            'logo.jpg'
+        ]
+
+        for pattern in search_patterns:
+            logo_path = Path(pattern)
+            if logo_path.exists():
+                return logo_path
+
+        # Try glob patterns
+        for glob_pattern in ['assets/**/logo*.png', 'assets/**/logo*.jpg', '**/brand_logo*']:
+            matches = list(Path('.').glob(glob_pattern))
+            if matches:
+                return matches[0]
+
+        return None
+
+    def _add_logo(self, image: Image.Image, campaign_brief: Dict[str, Any] = None,
+                  position: str = 'top-right', max_size_ratio: float = 0.15) -> Image.Image:
+        """Add logo to image from file or campaign brief settings."""
+        # Get position from campaign brief if specified
+        if campaign_brief:
+            brand_guidelines = campaign_brief.get('brand_guidelines', {})
+            position = brand_guidelines.get('logo_position', position)
+            max_size_ratio = brand_guidelines.get('logo_size_ratio', max_size_ratio)
+
+        # Find logo file
+        logo_path = self._find_logo_file(campaign_brief)
+
+        if not logo_path:
+            logger.debug("No logo file found, skipping logo placement")
+            return image
+
+        try:
+            # Load logo image
+            logo = Image.open(logo_path)
+
+            # Convert to RGBA for transparency support
+            if logo.mode != 'RGBA':
+                logo = logo.convert('RGBA')
+
+            # Calculate size (proportional to image width)
+            max_width = int(image.width * max_size_ratio)
+            if logo.width > max_width:
+                ratio = max_width / logo.width
+                new_size = (max_width, int(logo.height * ratio))
+                logo = logo.resize(new_size, Image.Resampling.LANCZOS)
+
+            # Calculate position
+            padding = 20
+            positions = {
+                'top-right': (image.width - logo.width - padding, padding),
+                'top-left': (padding, padding),
+                'bottom-right': (image.width - logo.width - padding, image.height - logo.height - padding),
+                'bottom-left': (padding, image.height - logo.height - padding),
+                'center': ((image.width - logo.width) // 2, (image.height - logo.height) // 2)
+            }
+            pos = positions.get(position, positions['top-right'])
+
+            # Create a copy to avoid modifying original
+            result = image.copy()
+
+            # Composite logo onto image with alpha channel
+            if logo.mode == 'RGBA':
+                result.paste(logo, pos, logo)
+            else:
+                result.paste(logo, pos)
+
+            logger.info(f"Added logo from {logo_path} at position {position}")
+            return result
+
+        except Exception as e:
+            logger.warning(f"Failed to add logo from {logo_path}: {e}")
+            return image
+
     def _add_logo_placeholder(self, image: Image.Image) -> Image.Image:
-        """Add a placeholder logo area."""
-        
-        draw = ImageDraw.Draw(image)
-        width, height = image.size
-        
-        # Logo placement (top-right corner)
-        logo_size = min(width, height) // 8
-        logo_x = width - logo_size - 20
-        logo_y = 20
-        
-        # Draw logo placeholder
-        logo_rect = [logo_x, logo_y, logo_x + logo_size, logo_y + logo_size]
-        draw.rectangle(logo_rect, fill='white', outline='gray', width=2)
-        
-        # Add "LOGO" text
-        font = self._get_font(logo_size // 4, 'bold')
-        text = "LOGO"
-        bbox = draw.textbbox((0, 0), text, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-        
-        text_x = logo_x + (logo_size - text_width) // 2
-        text_y = logo_y + (logo_size - text_height) // 2
-        
-        draw.text((text_x, text_y), text, font=font, fill='gray')
-        
-        return image
+        """Legacy method - redirects to _add_logo for backwards compatibility."""
+        return self._add_logo(image)
     
     def _apply_brand_styling(self, image: Image.Image, campaign_brief: Dict[str, Any]) -> Image.Image:
         """Apply brand-specific styling adjustments."""

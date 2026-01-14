@@ -1,28 +1,305 @@
 """
 Adobe Ecosystem Integration
 
-Mock integration with Adobe Creative Cloud APIs, Firefly Services, and Adobe Stock.
-Simulates real Adobe ecosystem connectivity using free tools and libraries.
+Real integration with Adobe Creative Cloud APIs, Firefly Services, and Adobe Stock.
+Falls back to simulation when API credentials are not available.
 
-Free technologies used:
-- requests for HTTP simulation
+Technologies used:
+- requests for HTTP/API calls
 - Pillow for image processing
-- google-fonts-downloader for font management
 - json for data handling
 """
 
 import logging
+import os
 import json
 import requests
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime
+from datetime import datetime, timedelta
 import hashlib
 import base64
 from PIL import Image, ImageDraw, ImageFont
 import io
 
 logger = logging.getLogger(__name__)
+
+
+# =============================================================================
+# REAL ADOBE API CLIENTS
+# =============================================================================
+
+class AdobeStockClient:
+    """Real Adobe Stock API client for asset discovery and licensing."""
+
+    BASE_URL = "https://stock.adobe.io/Rest/Media/1"
+
+    def __init__(self):
+        self.api_key = os.getenv('ADOBE_STOCK_API_KEY')
+        self.client_id = os.getenv('ADOBE_CLIENT_ID')
+
+        if not self.api_key:
+            raise ValueError("ADOBE_STOCK_API_KEY not configured")
+
+        self.headers = {
+            'x-api-key': self.api_key,
+            'x-product': 'CreativeAutomationPipeline/1.0'
+        }
+        if self.client_id:
+            self.headers['x-client-id'] = self.client_id
+
+        logger.info("Adobe Stock API client initialized")
+
+    def search_assets(self, query: str, category: str = None, limit: int = 10) -> List[Dict]:
+        """Search Adobe Stock for assets using real API."""
+        if not query or not query.strip():
+            return []
+
+        logger.info(f"Searching Adobe Stock API for: {query}")
+
+        params = {
+            'search_parameters[words]': query,
+            'search_parameters[limit]': limit,
+            'result_columns[]': ['id', 'title', 'thumbnail_url', 'thumbnail_220_url',
+                                'comp_url', 'keywords', 'category', 'width', 'height']
+        }
+
+        if category:
+            # Map category names to Adobe Stock category IDs
+            category_map = {
+                'business': 1, 'technology': 2, 'science': 3, 'transportation': 4,
+                'food': 5, 'building': 6, 'nature': 7, 'people': 8, 'religion': 9,
+                'sports': 10, 'animals': 11, 'industry': 12, 'travel': 13,
+                'graphic': 14, 'editorial': 15
+            }
+            cat_id = category_map.get(category.lower())
+            if cat_id:
+                params['search_parameters[filters][category]'] = cat_id
+
+        try:
+            response = requests.get(
+                f"{self.BASE_URL}/Search/Files",
+                headers=self.headers,
+                params=params,
+                timeout=30
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            files = data.get('files', [])
+
+            # Format results
+            results = []
+            for file in files:
+                results.append({
+                    'id': str(file.get('id')),
+                    'title': file.get('title', 'Untitled'),
+                    'keywords': file.get('keywords', []),
+                    'category': file.get('category', {}).get('name', 'Unknown'),
+                    'thumbnail_url': file.get('thumbnail_url') or file.get('thumbnail_220_url'),
+                    'preview_url': file.get('comp_url'),
+                    'dimensions': f"{file.get('width', 0)}x{file.get('height', 0)}",
+                    'relevance_score': 1.0
+                })
+
+            logger.info(f"Found {len(results)} assets from Adobe Stock API")
+            return results
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Adobe Stock API error: {e}")
+            raise
+
+    def get_asset_details(self, asset_id: str) -> Optional[Dict]:
+        """Get detailed information about a specific asset."""
+        params = {
+            'ids': asset_id,
+            'result_columns[]': ['id', 'title', 'thumbnail_url', 'comp_url',
+                                'keywords', 'category', 'width', 'height',
+                                'creator_name', 'creation_date']
+        }
+
+        try:
+            response = requests.get(
+                f"{self.BASE_URL}/Files",
+                headers=self.headers,
+                params=params,
+                timeout=30
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            files = data.get('files', [])
+            return files[0] if files else None
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Adobe Stock API error getting asset details: {e}")
+            return None
+
+    def license_asset(self, asset_id: str, license_type: str = 'standard') -> Dict:
+        """License an asset (requires full Adobe Stock subscription)."""
+        # Note: Full licensing requires Adobe Stock subscription and more complex OAuth
+        logger.info(f"License request for asset {asset_id} (type: {license_type})")
+
+        return {
+            'asset_id': asset_id,
+            'license_type': license_type,
+            'licensed_at': datetime.now().isoformat(),
+            'status': 'pending_subscription',
+            'message': 'Full licensing requires Adobe Stock subscription'
+        }
+
+
+class AdobeFireflyClient:
+    """Real Adobe Firefly Services API client for AI-powered generation."""
+
+    BASE_URL = "https://firefly-api.adobe.io"
+
+    def __init__(self):
+        self.api_key = os.getenv('ADOBE_FIREFLY_API_KEY')
+        self.client_id = os.getenv('ADOBE_CLIENT_ID')
+        self.access_token = os.getenv('ADOBE_ACCESS_TOKEN')
+
+        if not self.api_key:
+            raise ValueError("ADOBE_FIREFLY_API_KEY not configured")
+
+        self.headers = {
+            'x-api-key': self.api_key,
+            'Content-Type': 'application/json'
+        }
+        if self.access_token:
+            self.headers['Authorization'] = f'Bearer {self.access_token}'
+        if self.client_id:
+            self.headers['x-client-id'] = self.client_id
+
+        self.generation_history = []
+        logger.info("Adobe Firefly API client initialized")
+
+    def text_to_image(self, prompt: str, style: str = 'photo',
+                     aspect_ratio: str = '1:1', quality: str = 'standard') -> Dict:
+        """Generate image using Adobe Firefly API."""
+        logger.info(f"Generating image with Firefly API: {prompt[:50]}...")
+
+        # Parse aspect ratio to dimensions
+        ratio_map = {
+            '1:1': {'width': 1024, 'height': 1024},
+            '16:9': {'width': 1792, 'height': 1024},
+            '9:16': {'width': 1024, 'height': 1792},
+            '4:3': {'width': 1344, 'height': 1024},
+            '3:4': {'width': 1024, 'height': 1344}
+        }
+        size = ratio_map.get(aspect_ratio, ratio_map['1:1'])
+
+        payload = {
+            'prompt': prompt,
+            'n': 1,
+            'size': size,
+            'contentClass': 'photo' if style == 'photographic' else 'art'
+        }
+
+        try:
+            response = requests.post(
+                f"{self.BASE_URL}/v2/images/generate",
+                headers=self.headers,
+                json=payload,
+                timeout=60
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            images = data.get('outputs', [{}])
+            image_data = images[0] if images else {}
+
+            result = {
+                'generation_id': data.get('jobId', hashlib.md5(prompt.encode()).hexdigest()[:12]),
+                'prompt': prompt,
+                'style': style,
+                'aspect_ratio': aspect_ratio,
+                'status': 'completed',
+                'created_at': datetime.now().isoformat(),
+                'image_url': image_data.get('image', {}).get('url'),
+                'seed': image_data.get('seed'),
+                'model_version': 'firefly-v3',
+                'usage_rights': 'commercial'
+            }
+
+            self.generation_history.append(result)
+            return result
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Firefly API error: {e}")
+            raise
+
+    def generative_fill(self, base_image_path: str, mask_prompt: str,
+                       fill_prompt: str) -> Dict:
+        """Perform generative fill using Firefly API."""
+        logger.info(f"Generative fill: {fill_prompt[:50]}...")
+
+        # For generative fill, we need to upload the image first
+        # This is a simplified implementation
+        try:
+            with open(base_image_path, 'rb') as f:
+                image_data = base64.b64encode(f.read()).decode()
+
+            payload = {
+                'image': image_data,
+                'prompt': fill_prompt,
+                'mask': {'prompt': mask_prompt}
+            }
+
+            response = requests.post(
+                f"{self.BASE_URL}/v2/images/fill",
+                headers=self.headers,
+                json=payload,
+                timeout=60
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            return {
+                'generation_id': data.get('jobId'),
+                'status': 'completed',
+                'result_image_url': data.get('outputs', [{}])[0].get('image', {}).get('url')
+            }
+
+        except Exception as e:
+            logger.error(f"Firefly generative fill error: {e}")
+            raise
+
+    def text_effects(self, text: str, effect_style: str = 'metallic') -> Dict:
+        """Generate text effects using Firefly API."""
+        logger.info(f"Text effects for: {text}")
+
+        payload = {
+            'text': text,
+            'style': effect_style
+        }
+
+        try:
+            response = requests.post(
+                f"{self.BASE_URL}/v2/text-effects",
+                headers=self.headers,
+                json=payload,
+                timeout=60
+            )
+            response.raise_for_status()
+
+            data = response.json()
+            return {
+                'generation_id': data.get('jobId'),
+                'text': text,
+                'effect_style': effect_style,
+                'status': 'completed',
+                'image_url': data.get('outputs', [{}])[0].get('image', {}).get('url')
+            }
+
+        except Exception as e:
+            logger.error(f"Firefly text effects error: {e}")
+            raise
+
+
+# =============================================================================
+# SIMULATOR CLASSES (Fallback when APIs unavailable)
+# =============================================================================
 
 
 class AdobeStockSimulator:
@@ -469,15 +746,49 @@ class AdobeCreativeSDKSimulator:
 
 
 class AdobeEcosystemIntegration:
-    """Main integration class for Adobe ecosystem services."""
-    
+    """Main integration class for Adobe ecosystem services.
+
+    Automatically uses real Adobe APIs when credentials are available,
+    falls back to simulation otherwise.
+    """
+
     def __init__(self):
-        self.stock = AdobeStockSimulator()
+        self.using_real_apis = {
+            'stock': False,
+            'firefly': False,
+            'fonts': False,
+            'creative_sdk': False
+        }
+
+        # Try to initialize real Adobe Stock client
+        try:
+            self.stock = AdobeStockClient()
+            self.using_real_apis['stock'] = True
+            logger.info("Using real Adobe Stock API")
+        except (ValueError, Exception) as e:
+            self.stock = AdobeStockSimulator()
+            logger.info(f"Using Adobe Stock simulator: {e}")
+
+        # Try to initialize real Adobe Firefly client
+        try:
+            self.firefly = AdobeFireflyClient()
+            self.using_real_apis['firefly'] = True
+            logger.info("Using real Adobe Firefly API")
+        except (ValueError, Exception) as e:
+            self.firefly = AdobeFireflySimulator()
+            logger.info(f"Using Adobe Firefly simulator: {e}")
+
+        # Fonts always uses simulator (Adobe Fonts requires web integration)
         self.fonts = AdobeFontsSimulator()
-        self.firefly = AdobeFireflySimulator()
+        logger.info("Using Adobe Fonts simulator")
+
+        # Creative SDK always uses simulator (requires Adobe SDK)
         self.creative_sdk = AdobeCreativeSDKSimulator()
-        
-        logger.info("Adobe Ecosystem Integration initialized")
+        logger.info("Using Adobe Creative SDK simulator")
+
+        # Log overall status
+        real_count = sum(self.using_real_apis.values())
+        logger.info(f"Adobe Ecosystem Integration initialized ({real_count}/4 real APIs)")
     
     def smart_asset_recommendation(self, campaign_brief: Dict) -> Dict:
         """Provide intelligent asset recommendations based on campaign brief."""
@@ -579,13 +890,25 @@ class AdobeEcosystemIntegration:
     
     def get_ecosystem_status(self) -> Dict:
         """Get status of all Adobe ecosystem integrations."""
+        # Determine status for each API
+        stock_status = 'real_api' if self.using_real_apis['stock'] else 'simulated'
+        firefly_status = 'real_api' if self.using_real_apis['firefly'] else 'simulated'
+        fonts_status = 'real_api' if self.using_real_apis['fonts'] else 'simulated'
+        creative_sdk_status = 'real_api' if self.using_real_apis['creative_sdk'] else 'simulated'
+
+        # Count real vs simulated
+        real_count = sum(self.using_real_apis.values())
+        total_count = len(self.using_real_apis)
+
         return {
-            'stock_api': 'connected',
-            'fonts_api': 'connected', 
-            'firefly_api': 'connected',
-            'creative_sdk': 'connected',
+            'stock_api': stock_status,
+            'fonts_api': fonts_status,
+            'firefly_api': firefly_status,
+            'creative_sdk': creative_sdk_status,
+            'using_real_apis': self.using_real_apis,
+            'real_api_count': f"{real_count}/{total_count}",
             'last_sync': datetime.now().isoformat(),
             'total_assets_synced': len(self.creative_sdk.sync_history),
             'total_firefly_generations': len(self.firefly.generation_history),
-            'service_status': 'all_systems_operational'
+            'service_status': 'fully_operational' if real_count == total_count else 'partial_simulation'
         }

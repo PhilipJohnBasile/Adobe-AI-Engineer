@@ -13,10 +13,12 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 import logging
-# Email functionality - simplified for demo
-# import smtplib
-# from email.mime.text import MimeText
-# from email.mime.multipart import MimeMultipart
+
+# Real notification service
+try:
+    from .notification_service import get_notification_service, NotificationPriority
+except ImportError:
+    from notification_service import get_notification_service, NotificationPriority
 
 # Set up logging
 logging.basicConfig(
@@ -122,26 +124,68 @@ class Task3Agent:
                 )
     
     async def trigger_generation(self, campaign_id: str, brief_content: Dict[str, Any]):
-        """REQUIREMENT 2: Trigger automated generation tasks"""
+        """REQUIREMENT 2: Trigger automated generation tasks via real pipeline"""
         self.logger.info(f"🚀 Triggering generation for campaign: {campaign_id}")
-        
+
         try:
             # Mark generation as triggered
             self.campaign_tracking[campaign_id]["generation_triggered"] = True
             self.campaign_tracking[campaign_id]["status"] = "generating"
             self.campaign_tracking[campaign_id]["generation_started"] = datetime.now()
-            
-            # Here we would integrate with the actual pipeline orchestrator
-            # For now, we'll simulate by checking for output files
-            self.logger.info(f"✅ Generation triggered for {campaign_id}")
-            
+
+            # Trigger real pipeline integration
+            try:
+                from .pipeline_integration import PipelineIntegration
+                pipeline = PipelineIntegration()
+
+                # Trigger generation via pipeline
+                result = await pipeline.trigger_generation(campaign_id, brief_content)
+                self.logger.info(f"✅ Pipeline triggered for {campaign_id}: {result.get('job_id', 'unknown')}")
+
+                # Store job info for tracking
+                self.campaign_tracking[campaign_id]["pipeline_job"] = result
+
+            except ImportError:
+                self.logger.warning("Pipeline integration not available - using fallback")
+                # Fallback: try to use image generator directly
+                try:
+                    from .image_generator import ImageGenerator
+                    from .creative_composer import CreativeComposer
+
+                    generator = ImageGenerator()
+                    composer = CreativeComposer()
+
+                    output_dir = Path(self.config["output_directory"]) / campaign_id
+                    output_dir.mkdir(parents=True, exist_ok=True)
+
+                    brief_data = brief_content.get("campaign_brief", brief_content)
+                    products = brief_data.get("products", [])
+                    aspect_ratios = brief_data.get("output_requirements", {}).get("aspect_ratios", ["1:1"])
+
+                    for product in products:
+                        if isinstance(product, str):
+                            product = {"name": product}
+
+                        base_image = generator.generate_product_image(product, brief_data)
+
+                        for ratio in aspect_ratios:
+                            composed = composer.compose_creative(base_image, brief_data, product, ratio)
+                            safe_name = product.get("name", "product").replace(" ", "_").lower()
+                            output_path = output_dir / f"{safe_name}_{ratio.replace(':', 'x')}.png"
+                            composed.save(output_path, "PNG")
+
+                    self.logger.info(f"✅ Direct generation completed for {campaign_id}")
+
+                except Exception as gen_err:
+                    self.logger.error(f"Direct generation failed: {gen_err}")
+
             # Log the trigger event
             await self._log_event("generation_triggered", {
                 "campaign_id": campaign_id,
                 "expected_variants": self.campaign_tracking[campaign_id]["expected_variants"],
                 "timestamp": datetime.now().isoformat()
             })
-            
+
         except Exception as e:
             self.logger.error(f"❌ Generation trigger failed for {campaign_id}: {e}")
             await self.create_alert(
@@ -499,14 +543,71 @@ Alert ID: {alert['id']}
 """
     
     async def send_email_alert(self, alert: Dict[str, Any], message: str):
-        """Send email alert to stakeholders"""
-        # This would integrate with actual email system
-        # For demo, we'll save to file
-        email_file = f"logs/email_alert_{alert['id']}.txt"
+        """Send email alert to stakeholders via real notification service"""
+        notification_service = get_notification_service()
+
+        # Map alert severity to notification priority
+        severity_map = {
+            "critical": NotificationPriority.CRITICAL,
+            "high": NotificationPriority.HIGH,
+            "medium": NotificationPriority.MEDIUM,
+            "low": NotificationPriority.LOW
+        }
+        priority = severity_map.get(alert.get("severity", "medium"), NotificationPriority.MEDIUM)
+
+        # Get recipients from config or environment
+        recipients = self.config.get("alert_recipients", [])
+        if not recipients:
+            recipients = [
+                os.getenv("ALERT_EMAIL", ""),
+                os.getenv("LEADERSHIP_EMAIL", ""),
+                os.getenv("CREATIVE_EMAIL", "")
+            ]
+            recipients = [r for r in recipients if r]  # Filter empty
+
+        subject = f"[{alert.get('severity', 'INFO').upper()}] Campaign Alert: {alert.get('type', 'Unknown')}"
+
+        # Send via notification service
+        results = []
+        sent_count = 0
+
+        # Try email if recipients available
+        if recipients:
+            for recipient in recipients:
+                try:
+                    result = await notification_service.send_email(
+                        to=recipient,
+                        subject=subject,
+                        body=message,
+                        html=False,
+                        priority=priority
+                    )
+                    results.append(result)
+                    if result.success:
+                        sent_count += 1
+                except Exception as e:
+                    self.logger.warning(f"Failed to send email to {recipient}: {e}")
+
+        # Also send to Slack/Teams if configured
+        try:
+            slack_result = await notification_service.send_slack(
+                message=message[:3000],  # Slack message limit
+                title=subject,
+                priority=priority
+            )
+            if slack_result.success:
+                sent_count += 1
+        except Exception as e:
+            self.logger.debug(f"Slack notification skipped: {e}")
+
+        # Save copy to file as backup
+        log_dir = Path("logs")
+        log_dir.mkdir(exist_ok=True)
+        email_file = log_dir / f"email_alert_{alert['id']}.txt"
         with open(email_file, 'w') as f:
             f.write(message)
-        
-        self.logger.info(f"📧 Email alert saved to {email_file}")
+
+        self.logger.info(f"📧 Alert sent to {sent_count} channels, backup saved to {email_file}")
     
     def _calculate_expected_variants(self, brief_content: Dict[str, Any]) -> int:
         """Calculate expected number of variants from brief"""

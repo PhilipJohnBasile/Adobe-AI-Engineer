@@ -497,9 +497,27 @@ class IntelligentBriefMonitor:
             "timestamp": datetime.now().isoformat()
         }
         
-        # Here you would integrate with your campaign processing system
-        # For now, we'll just log the event
+        # Trigger campaign processing via pipeline integration
         self.logger.info(f"📋 Brief processing triggered: {processing_event}")
+
+        # Try to trigger via pipeline integration
+        try:
+            from .pipeline_integration import PipelineIntegration
+            pipeline = PipelineIntegration()
+
+            # Create campaign ID from brief
+            campaign_id = content.get("campaign_id") or f"brief_{hashlib.md5(json.dumps(content, sort_keys=True).encode()).hexdigest()[:8]}"
+
+            # Trigger generation asynchronously
+            asyncio.create_task(
+                pipeline.trigger_generation(campaign_id, content)
+            )
+            self.logger.info(f"🚀 Pipeline triggered for campaign: {campaign_id}")
+
+        except ImportError:
+            self.logger.warning("Pipeline integration not available - brief logged but not processed")
+        except Exception as e:
+            self.logger.error(f"Failed to trigger pipeline: {e}")
     
     def _load_email_config(self) -> List[Dict[str, str]]:
         """Load email monitoring configuration"""

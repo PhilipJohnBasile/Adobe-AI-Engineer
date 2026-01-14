@@ -390,9 +390,53 @@ class ComprehensiveContextProtocol:
             return "low"
     
     async def _calculate_daily_costs(self) -> float:
-        """Calculate estimated daily costs"""
-        # This would integrate with actual cost tracking
-        return 185.50
+        """Calculate estimated daily costs from tracking files"""
+        total_cost = 0.0
+        today = datetime.now().strftime("%Y-%m-%d")
+
+        # Check cost tracking files
+        cost_files = [
+            Path("logs/costs.json"),
+            Path("costs.json"),
+            Path("output/cost_tracking.json")
+        ]
+
+        for cost_file in cost_files:
+            if cost_file.exists():
+                try:
+                    with open(cost_file, 'r') as f:
+                        cost_data = json.load(f)
+
+                    # Handle different cost file formats
+                    if isinstance(cost_data, dict):
+                        # Format: {"daily_costs": {"2024-01-01": 50.00, ...}}
+                        if "daily_costs" in cost_data:
+                            total_cost += cost_data["daily_costs"].get(today, 0)
+                        # Format: {"total": 100.00, "dalle": 50.00, ...}
+                        elif "total" in cost_data:
+                            total_cost += cost_data.get("total", 0)
+                        # Format: {"dalle": 50.00, "api": 30.00}
+                        else:
+                            total_cost += sum(v for v in cost_data.values() if isinstance(v, (int, float)))
+
+                    elif isinstance(cost_data, list):
+                        # Format: [{"date": "2024-01-01", "cost": 50.00}, ...]
+                        for entry in cost_data:
+                            if entry.get("date") == today:
+                                total_cost += entry.get("cost", 0)
+
+                except (json.JSONDecodeError, KeyError, TypeError) as e:
+                    self.logger.warning(f"Error reading cost file {cost_file}: {e}")
+
+        # If no cost files found, estimate based on output directory
+        if total_cost == 0:
+            output_dir = Path("output")
+            if output_dir.exists():
+                # Estimate: $0.04 per generated image
+                image_count = len(list(output_dir.rglob("*.png"))) + len(list(output_dir.rglob("*.jpg")))
+                total_cost = image_count * 0.04
+
+        return round(total_cost, 2)
     
     def _get_current_season(self) -> str:
         """Get current business season"""
@@ -426,12 +470,73 @@ class ComprehensiveContextProtocol:
         expires_at = self.context_cache[cache_key]["expires_at"]
         return datetime.now() < expires_at
     
-    # Additional helper methods would be implemented here...
+    # Additional helper methods with real implementations
     async def _get_compute_utilization(self) -> Dict[str, Any]:
-        return {"cpu": 68.4, "memory": 72.1, "gpu": 45.3}
-    
+        """Get real compute utilization from system metrics"""
+        try:
+            cpu_percent = psutil.cpu_percent(interval=0.1)
+            memory = psutil.virtual_memory()
+
+            utilization = {
+                "cpu": round(cpu_percent, 1),
+                "memory": round(memory.percent, 1),
+                "gpu": 0.0  # Default for systems without GPU
+            }
+
+            # Try to get GPU utilization if nvidia-smi is available
+            try:
+                import subprocess
+                result = subprocess.run(
+                    ['nvidia-smi', '--query-gpu=utilization.gpu', '--format=csv,noheader,nounits'],
+                    capture_output=True, text=True, timeout=2
+                )
+                if result.returncode == 0 and result.stdout.strip():
+                    utilization["gpu"] = float(result.stdout.strip().split('\n')[0])
+            except (FileNotFoundError, subprocess.TimeoutExpired, ValueError):
+                pass  # No GPU or nvidia-smi not available
+
+            return utilization
+        except Exception as e:
+            self.logger.warning(f"Error getting compute utilization: {e}")
+            return {"cpu": 0.0, "memory": 0.0, "gpu": 0.0}
+
     async def _check_api_quotas(self) -> Dict[str, Any]:
-        return {"openai": {"remaining": 8500, "limit": 10000, "reset_time": "2024-01-01T00:00:00Z"}}
+        """Check API quotas from environment and tracking files"""
+        quotas = {}
+
+        # Check OpenAI quota from environment or tracking
+        openai_key = os.environ.get("OPENAI_API_KEY", "")
+        openai_quota = {
+            "remaining": 10000,  # Default
+            "limit": 10000,
+            "reset_time": (datetime.now().replace(hour=0, minute=0, second=0) + timedelta(days=1)).isoformat()
+        }
+
+        # Try to read actual usage from tracking file
+        usage_files = [Path("logs/api_usage.json"), Path("api_usage.json")]
+        for usage_file in usage_files:
+            if usage_file.exists():
+                try:
+                    with open(usage_file, 'r') as f:
+                        usage_data = json.load(f)
+                    if "openai" in usage_data:
+                        openai_quota["remaining"] = usage_data["openai"].get("remaining", 10000)
+                        openai_quota["limit"] = usage_data["openai"].get("limit", 10000)
+                    elif "requests_today" in usage_data:
+                        # Calculate remaining from usage
+                        used = usage_data.get("requests_today", 0)
+                        openai_quota["remaining"] = max(0, openai_quota["limit"] - used)
+                    break
+                except (json.JSONDecodeError, KeyError):
+                    pass
+
+        # Check if key is present (affects available quota)
+        if not openai_key:
+            openai_quota["remaining"] = 0
+            openai_quota["note"] = "API key not configured"
+
+        quotas["openai"] = openai_quota
+        return quotas
     
     # ... (additional helper methods)
 

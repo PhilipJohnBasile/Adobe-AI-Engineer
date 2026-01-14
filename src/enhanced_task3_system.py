@@ -18,6 +18,17 @@ from dataclasses import dataclass, field
 from enum import Enum
 import concurrent.futures
 
+# Real notification service
+try:
+    from .notification_service import get_notification_service, NotificationPriority
+except ImportError:
+    try:
+        from notification_service import get_notification_service, NotificationPriority
+    except ImportError:
+        # Fallback if notification service not available
+        get_notification_service = None
+        NotificationPriority = None
+
 # Enhanced monitoring with real-time file system events
 try:
     from watchdog.observers import Observer
@@ -820,13 +831,58 @@ class EnhancedTask3Agent:
             json.dump(alert_copy, f, indent=2)
     
     async def _trigger_alert_escalation(self, alert: Dict[str, Any]):
-        """Trigger appropriate escalation based on severity"""
+        """Trigger appropriate escalation based on severity via real notification channels"""
         severity = alert["severity"]
         escalation_rules = self.config["escalation_rules"].get(severity, {})
-        
-        for timeframe, recipients in escalation_rules.items():
-            self.logger.info(f"📞 Escalation scheduled: {severity} alert to {recipients} in {timeframe}")
-            # In production, would integrate with notification systems
+
+        # Map severity to notification priority
+        if get_notification_service is not None:
+            priority_map = {
+                "critical": NotificationPriority.CRITICAL,
+                "high": NotificationPriority.HIGH,
+                "medium": NotificationPriority.MEDIUM,
+                "low": NotificationPriority.LOW
+            }
+            priority = priority_map.get(severity, NotificationPriority.MEDIUM)
+
+            notification_service = get_notification_service()
+
+            # Build escalation message
+            message = f"""
+🚨 ESCALATION ALERT - {severity.upper()}
+
+Alert Type: {alert.get('type', 'Unknown')}
+Campaign: {alert.get('campaign_id', 'N/A')}
+Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+Details: {alert.get('message', 'No details available')}
+
+This alert has been escalated according to severity rules.
+"""
+
+            # Send to all configured channels
+            for timeframe, recipients in escalation_rules.items():
+                self.logger.info(f"📞 Sending escalation: {severity} alert to {recipients}")
+
+                try:
+                    # Broadcast to all available channels
+                    await notification_service.broadcast(
+                        message=message,
+                        title=f"[ESCALATION] {severity.upper()} Alert",
+                        priority=priority,
+                        fields={
+                            "Severity": severity.upper(),
+                            "Campaign": alert.get('campaign_id', 'N/A'),
+                            "Type": alert.get('type', 'Unknown')
+                        }
+                    )
+                except Exception as e:
+                    self.logger.error(f"Failed to send escalation: {e}")
+
+        else:
+            # Fallback to logging only
+            for timeframe, recipients in escalation_rules.items():
+                self.logger.info(f"📞 Escalation scheduled: {severity} alert to {recipients} in {timeframe}")
     
     async def _process_alerts(self):
         """Process pending alerts and generate communications"""

@@ -17,6 +17,11 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 import openai
 
+from .notification_service import (
+    NotificationService, NotificationPriority, NotificationResult,
+    get_notification_service
+)
+
 # Enhanced data structures
 class Priority(Enum):
     CRITICAL = "critical"
@@ -632,7 +637,96 @@ class EnhancedCreativeAutomationAgent:
         self.logger.info(f"Created enhanced alert {alert_id}: {alert_type} ({severity})")
         
         return alert
-    
+
+    async def _determine_alert_recipients(self, alert: Dict[str, Any]) -> List[str]:
+        """Determine which stakeholders should receive this alert based on severity and type"""
+        severity = alert.get("severity", "medium")
+        alert_type = alert.get("type", "general")
+
+        # Define stakeholder routing rules
+        stakeholder_rules = {
+            "critical": ["executive", "operations", "creative", "technical"],
+            "high": ["operations", "creative", "technical"],
+            "medium": ["operations", "creative"],
+            "low": ["operations"]
+        }
+
+        # Get base recipients
+        recipients = stakeholder_rules.get(severity, ["operations"])
+
+        # Add type-specific recipients
+        if "compliance" in alert_type.lower():
+            if "legal" not in recipients:
+                recipients.append("legal")
+        if "cost" in alert_type.lower():
+            if "finance" not in recipients:
+                recipients.append("finance")
+
+        return recipients
+
+    async def _route_alert_to_stakeholders(self, alert: Dict[str, Any], stakeholders: List[str]):
+        """Route alerts to stakeholders via real notification channels (Slack, Teams, Email)"""
+        notification_service = get_notification_service()
+
+        # Map severity to notification priority
+        severity_map = {
+            "critical": NotificationPriority.CRITICAL,
+            "high": NotificationPriority.HIGH,
+            "medium": NotificationPriority.MEDIUM,
+            "low": NotificationPriority.LOW
+        }
+        priority = severity_map.get(alert.get("severity", "medium"), NotificationPriority.MEDIUM)
+
+        # Build notification content
+        title = f"[{alert.get('severity', 'ALERT').upper()}] {alert.get('type', 'Alert')}"
+        message = alert.get("message", "No message provided")
+
+        # Add context fields
+        fields = {
+            "Campaign": alert.get("campaign_id", "N/A"),
+            "Severity": alert.get("severity", "unknown").upper(),
+            "Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        if alert.get("metadata"):
+            for key, value in list(alert["metadata"].items())[:3]:
+                fields[key.replace("_", " ").title()] = str(value)
+
+        # Send to all configured channels
+        results = await notification_service.broadcast(
+            message=message,
+            title=title,
+            priority=priority,
+            fields=fields,
+            email_recipients=self._get_stakeholder_emails(stakeholders)
+        )
+
+        # Log results
+        successful = sum(1 for r in results if r.success)
+        self.logger.info(f"Alert {alert.get('id')} sent to {successful}/{len(results)} channels")
+
+        return results
+
+    def _get_stakeholder_emails(self, stakeholders: List[str]) -> List[str]:
+        """Get email addresses for stakeholders"""
+        # Stakeholder email mapping - can be configured via environment or config file
+        email_map = {
+            "executive": os.getenv("STAKEHOLDER_EMAIL_EXECUTIVE"),
+            "operations": os.getenv("STAKEHOLDER_EMAIL_OPERATIONS"),
+            "creative": os.getenv("STAKEHOLDER_EMAIL_CREATIVE"),
+            "technical": os.getenv("STAKEHOLDER_EMAIL_TECHNICAL"),
+            "legal": os.getenv("STAKEHOLDER_EMAIL_LEGAL"),
+            "finance": os.getenv("STAKEHOLDER_EMAIL_FINANCE")
+        }
+
+        emails = []
+        for stakeholder in stakeholders:
+            email = email_map.get(stakeholder)
+            if email:
+                emails.append(email)
+
+        return emails
+
     # REQUIREMENT 6: Enhanced Model Context Protocol
     async def _build_comprehensive_alert_context(self, alert: Dict[str, Any]) -> Dict[str, Any]:
         """ENHANCED: Build comprehensive business context with real-time data, market intelligence, and predictive insights"""
