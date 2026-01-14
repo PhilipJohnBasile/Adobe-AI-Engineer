@@ -522,8 +522,8 @@ class EnhancedCreativeAutomationAgent:
                 try:
                     file_stats = variant_file.stat()
                     generation_times.append(file_stats.st_mtime)
-                except:
-                    pass
+                except OSError:
+                    pass  # Skip files we can't stat
         
         # Calculate additional metrics
         if generation_times:

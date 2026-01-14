@@ -746,7 +746,7 @@ class Task3ComprehensiveTester:
                 await agent.trigger_enhanced_generation(
                     "error_test", None, {"priority": "invalid"}
                 )
-            except:
+            except Exception:
                 pass  # Expected to handle gracefully
             
             # Test system continues to function
@@ -781,8 +781,8 @@ class Task3ComprehensiveTester:
         try:
             shutil.rmtree(self.temp_dir)
             print("🧹 Test environment cleaned up")
-        except:
-            pass
+        except OSError:
+            pass  # Cleanup is best-effort
     
     def print_comprehensive_results(self):
         """Print comprehensive test results"""
