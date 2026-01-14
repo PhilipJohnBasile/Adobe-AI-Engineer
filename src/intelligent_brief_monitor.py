@@ -8,18 +8,15 @@ import json
 import os
 import hashlib
 import yaml
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
-import openai
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import email
 import imaplib
 import requests
-from concurrent.futures import ThreadPoolExecutor
 import logging
 
 class BriefSource(Enum):

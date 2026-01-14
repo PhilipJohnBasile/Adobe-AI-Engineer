@@ -26,8 +26,6 @@ import openai
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import psutil
-import threading
-import queue
 
 # Production-grade logging configuration
 logging.basicConfig(

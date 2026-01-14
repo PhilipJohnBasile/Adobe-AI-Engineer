@@ -8,7 +8,6 @@ Complete creative automation pipeline combining all three tasks:
 This is what normal users interact with through the web UI.
 """
 import sys
-import os
 import json
 import yaml
 import asyncio
