@@ -4,6 +4,7 @@ Provides real-time alerts and notifications for creative automation events
 """
 
 import json
+import os
 import requests
 import asyncio
 from datetime import datetime, timedelta
@@ -529,4 +530,3 @@ def example_webhook_receiver():
 
 
 # CLI integration will be added to main.py
-import os
