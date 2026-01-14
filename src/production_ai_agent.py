@@ -20,8 +20,8 @@ from PIL import Image
 import cv2
 import requests
 import smtplib
-from email.mime.text import MimeText
-from email.mime.multipart import MimeMultipart
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import openai
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -150,7 +150,7 @@ class ProductionAIAgent:
         self.logger = logging.getLogger(__name__)
         
         # Core systems
-        self.brief_monitor = EnterpriseeBriefMonitor()
+        self.brief_monitor = EnterpriseBriefMonitor()
         self.generation_orchestrator = IntelligentGenerationOrchestrator()
         self.variant_analyzer = MLVariantAnalyzer()
         self.asset_flagger = PredictiveAssetFlagger()
@@ -536,7 +536,19 @@ class EnterpriseBriefMonitor:
         
         self.watchdog_observer.start()
         self.logger.info("📁 Real-time file monitoring started")
-    
+
+    def _load_email_configs(self) -> Dict[str, Any]:
+        """Load email source configurations"""
+        return {}
+
+    def _load_api_endpoints(self) -> Dict[str, Any]:
+        """Load API endpoint configurations"""
+        return {}
+
+    def _load_cloud_configs(self) -> Dict[str, Any]:
+        """Load cloud storage configurations"""
+        return {}
+
     async def detect_new_briefs(self) -> List[CampaignBrief]:
         """Detect new briefs from all sources"""
         new_briefs = []
@@ -795,7 +807,27 @@ class EnterpriseAlertSystem:
         
         # Stakeholder configurations
         self.stakeholder_configs = self._load_stakeholder_configs()
-    
+
+    def _setup_email_client(self):
+        """Setup email client for alerts"""
+        return None  # Email client not configured
+
+    def _setup_slack_client(self):
+        """Setup Slack client for alerts"""
+        return None  # Slack client not configured
+
+    def _setup_teams_client(self):
+        """Setup Microsoft Teams client for alerts"""
+        return None  # Teams client not configured
+
+    def _load_stakeholder_configs(self) -> Dict[str, Any]:
+        """Load stakeholder notification configurations"""
+        return {
+            "leadership": {"email": "leadership@company.com", "preferred_channels": ["email"]},
+            "creative_lead": {"email": "creative@company.com", "preferred_channels": ["email"]},
+            "ad_ops": {"email": "adops@company.com", "preferred_channels": ["email"]}
+        }
+
     async def route_alert(self, alert: IntelligentAlert):
         """Route alert to appropriate stakeholders via multiple channels"""
         
@@ -830,7 +862,7 @@ class EnterpriseAlertSystem:
         body = await self._generate_email_body(alert, stakeholder)
         
         # Send email
-        msg = MimeText(body, 'html')
+        msg = MIMEText(body, 'html')
         msg['Subject'] = subject
         msg['From'] = "ai-agent@company.com"
         msg['To'] = self.stakeholder_configs[stakeholder]["email"]

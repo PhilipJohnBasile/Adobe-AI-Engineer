@@ -19,8 +19,7 @@ from typing import Dict, List, Any, Optional
 import logging
 
 # Import our individual task systems
-from production_task3_system import ProductionTask3Agent
-from enterprise_task3_system import EnterpriseTask3Agent
+from production_ai_agent import ProductionAIAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -169,7 +168,7 @@ class UnifiedTask123System:
         
         try:
             # Use the production Task 3 agent
-            agent = ProductionTask3Agent(config)
+            agent = ProductionAIAgent()
             
             # Monitor this specific campaign
             monitoring_result = await self._run_ai_monitoring(agent)
