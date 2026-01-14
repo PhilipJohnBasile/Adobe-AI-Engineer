@@ -201,7 +201,7 @@ class PipelineIntegration:
         
         try:
             # Run the synchronous orchestrator in executor
-            loop = asyncio.get_event_loop()
+            loop = asyncio.get_running_loop()
             result = await loop.run_in_executor(
                 None,
                 orchestrator.process_campaign_sync,

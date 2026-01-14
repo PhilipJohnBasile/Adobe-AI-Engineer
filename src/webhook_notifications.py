@@ -205,7 +205,7 @@ class WebhookNotificationSystem:
         try:
             async with asyncio.timeout(endpoint.timeout):
                 # Use aiohttp in production for better async support
-                response = await asyncio.get_event_loop().run_in_executor(
+                response = await asyncio.get_running_loop().run_in_executor(
                     None,
                     lambda: requests.post(
                         endpoint.url,

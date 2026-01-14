@@ -247,7 +247,7 @@ class HealthCheckManager:
                 # Run check with timeout
                 start_time = time.time()
                 check_result = await asyncio.wait_for(
-                    asyncio.get_event_loop().run_in_executor(None, check.check_function),
+                    asyncio.get_running_loop().run_in_executor(None, check.check_function),
                     timeout=check.timeout
                 )
                 duration = time.time() - start_time

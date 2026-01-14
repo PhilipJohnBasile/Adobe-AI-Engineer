@@ -119,7 +119,7 @@ class PipelineOrchestrator:
             from main import process_campaign_brief
             
             # Process the campaign
-            result = await asyncio.get_event_loop().run_in_executor(
+            result = await asyncio.get_running_loop().run_in_executor(
                 None,
                 process_campaign_brief,
                 brief_path,
