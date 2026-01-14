@@ -4,6 +4,8 @@ Enables performance testing of different creative approaches
 """
 
 import json
+import logging
+import os
 import uuid
 from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional, Tuple
@@ -11,6 +13,8 @@ from dataclasses import dataclass, asdict
 import random
 import math
 from enum import Enum
+
+logger = logging.getLogger(__name__)
 
 
 class TestStatus(Enum):
@@ -483,7 +487,7 @@ class ABTestManager:
             with open(self.storage_path, 'w') as f:
                 json.dump(serializable_tests, f, indent=2)
         except Exception as e:
-            print(f"Error saving tests: {e}")
+            logger.error(f"Error saving tests: {e}")
     
     def load_tests(self):
         """Load tests from storage"""
@@ -531,7 +535,7 @@ class ABTestManager:
                     
                     self.tests[test_id] = test
         except Exception as e:
-            print(f"Error loading tests: {e}")
+            logger.error(f"Error loading tests: {e}")
     
     def simulate_test_data(self, test_id: str, days: int = 7) -> bool:
         """Simulate test data for demonstration purposes"""
