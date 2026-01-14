@@ -99,7 +99,10 @@ class AdobeStockSimulator:
     def search_assets(self, query: str, category: str = None, limit: int = 10) -> List[Dict]:
         """Search Adobe Stock assets by query and category."""
         logger.info(f"Searching Adobe Stock for: {query} (category: {category})")
-        
+
+        if not query or not query.strip():
+            return []
+
         results = []
         query_words = query.lower().split()
         
