@@ -951,8 +951,8 @@ def api_explorer_data(section):
                                 'timestamp': log_data.get('timestamp', ''),
                                 'message': log_data.get('message', str(log_data))[:200]
                             })
-                    except:
-                        pass
+                    except (json.JSONDecodeError, IOError, KeyError) as e:
+                        logger.debug(f"Could not parse log file {log_file}: {e}")
             
             # Add recent pipeline activity as logs
             output_path = Path(OUTPUT_FOLDER)
@@ -970,8 +970,8 @@ def api_explorer_data(section):
                                         'timestamp': report_data.get('generated_at', ''),
                                         'message': f"Campaign '{report_data.get('campaign_id', campaign_dir.name)}' generated {len(report_data.get('generated_files', []))} assets"
                                     })
-                            except:
-                                pass
+                            except (json.JSONDecodeError, IOError, KeyError) as e:
+                                logger.debug(f"Could not parse report file {report_file}: {e}")
                         else:
                             # Fallback to directory modification time
                             logs.append({
@@ -998,8 +998,8 @@ def api_explorer_data(section):
                                 'severity': alert_data.get('severity', 'info'),
                                 'timestamp': alert_data.get('timestamp', '')
                             })
-                    except:
-                        pass
+                    except (json.JSONDecodeError, IOError, KeyError) as e:
+                        logger.debug(f"Could not parse alert file {alert_file}: {e}")
             
             # Generate system status alerts
             output_path = Path(OUTPUT_FOLDER)
@@ -1026,8 +1026,8 @@ def api_explorer_data(section):
                                             'severity': 'error',
                                             'timestamp': datetime.fromtimestamp(compliance_file.stat().st_mtime).isoformat()
                                         })
-                            except:
-                                pass
+                            except (IOError, OSError) as e:
+                                logger.debug(f"Could not read compliance file {compliance_file}: {e}")
             
             # Add system health alerts
             current_time = datetime.now()

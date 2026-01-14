@@ -173,7 +173,7 @@ class ImageGenerator:
                 try:
                     font_size = min(width, height) // 20
                     font = ImageFont.truetype("/System/Library/Fonts/Arial.ttf", font_size)
-                except:
+                except (OSError, IOError):
                     font = ImageFont.load_default()
                 
                 text = f"PLACEHOLDER\n{product_name}"

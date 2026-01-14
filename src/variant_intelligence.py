@@ -338,7 +338,7 @@ class VariantIntelligenceEngine:
                 for chunk in iter(lambda: f.read(4096), b""):
                     hasher.update(chunk)
             return hasher.hexdigest()
-        except:
+        except (OSError, IOError):
             return f"error_{file_path.name}_{time.time()}"
     
     def _calculate_aspect_ratio(self, size: Tuple[int, int]) -> str:
@@ -600,10 +600,10 @@ class QualityAnalyzer:
             resolution_score = min((width * height) / (1920 * 1080), 1.0)
             
             aesthetic_score = (ratio_score * 0.4 + resolution_score * 0.6)
-            
+
             return min(max(aesthetic_score, 0.0), 1.0)
-            
-        except:
+
+        except (ValueError, TypeError, ZeroDivisionError, AttributeError):
             return 0.5
 
 

@@ -99,7 +99,7 @@ class AdvancedML:
             try:
                 hour = datetime.fromisoformat(campaign.get("detected_at", "")).hour
                 hourly_counts[hour] = hourly_counts.get(hour, 0) + 1
-            except:
+            except (ValueError, TypeError, AttributeError):
                 continue
                 
         current_hour = datetime.now().hour
@@ -243,7 +243,7 @@ class ComputerVisionAnalyst:
                 if img is not None:
                     hist = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
                     color_histograms.append(hist.flatten())
-            except:
+            except (cv2.error, ValueError, TypeError):
                 continue
                 
         if len(color_histograms) < 2:
@@ -274,7 +274,7 @@ class ComputerVisionAnalyst:
                     h, w = img.shape[:2]
                     aspect_ratio = w / h
                     compositions.append([aspect_ratio, w, h])
-            except:
+            except (cv2.error, ValueError, TypeError, AttributeError):
                 continue
                 
         if len(compositions) < 2:
@@ -298,7 +298,7 @@ class ComputerVisionAnalyst:
             try:
                 size = Path(img_path).stat().st_size
                 file_sizes.append(size)
-            except:
+            except (OSError, IOError):
                 continue
                 
         if not file_sizes:
@@ -349,7 +349,7 @@ class SemanticAnalyzer:
                     try:
                         sentiment = self.sentiment_analyzer(text[:500])  # Limit text length
                         sentiments.append(sentiment[0]["label"])
-                    except:
+                    except (KeyError, IndexError, TypeError, RuntimeError):
                         sentiments.append("neutral")
                         
                 # Extract basic themes (keywords)
@@ -672,10 +672,10 @@ class RevolutionaryAIAgent:
                 dt = datetime.fromisoformat(campaign.get("detected_at", ""))
                 hour = dt.hour
                 day = dt.strftime("%A")
-                
+
                 hourly_distribution[hour] = hourly_distribution.get(hour, 0) + 1
                 daily_distribution[day] = daily_distribution.get(day, 0) + 1
-            except:
+            except (ValueError, TypeError, AttributeError):
                 continue
         
         # Identify peak patterns

@@ -83,7 +83,7 @@ class StepCondition:
                 return field_value is not None
             else:
                 return False
-        except:
+        except (KeyError, TypeError, ValueError, AttributeError):
             return False
     
     def _get_nested_value(self, data: Dict[str, Any], path: str) -> Any:
@@ -719,26 +719,126 @@ class WorkflowEngine:
             if Path(self.storage_path).exists():
                 with open(self.storage_path, 'r') as f:
                     data = json.load(f)
-                
+
                 for wf_data in data.get("workflows", []):
-                    # Reconstruct workflow object
-                    # This is simplified - would need full serialization/deserialization
-                    pass
-        except Exception as e:
+                    try:
+                        # Reconstruct step conditions
+                        steps = {}
+                        for step_data in wf_data.get("steps", []):
+                            conditions = [
+                                StepCondition(
+                                    field=c["field"],
+                                    operator=c["operator"],
+                                    value=c["value"]
+                                )
+                                for c in step_data.get("conditions", [])
+                            ]
+
+                            step = WorkflowStep(
+                                step_id=step_data["step_id"],
+                                name=step_data["name"],
+                                step_type=StepType(step_data["step_type"]),
+                                description=step_data.get("description", ""),
+                                config=step_data.get("config", {}),
+                                dependencies=step_data.get("dependencies", []),
+                                conditions=conditions,
+                                rollback_config=step_data.get("rollback_config"),
+                                timeout_seconds=step_data.get("timeout_seconds", 300),
+                                retry_count=step_data.get("retry_count", 0),
+                                max_retries=step_data.get("max_retries", 2),
+                                status=StepStatus(step_data.get("status", "pending")),
+                                started_at=step_data.get("started_at"),
+                                completed_at=step_data.get("completed_at"),
+                                duration_seconds=step_data.get("duration_seconds"),
+                                output=step_data.get("output"),
+                                error=step_data.get("error")
+                            )
+                            steps[step.step_id] = step
+
+                        # Reconstruct workflow
+                        workflow = Workflow(
+                            workflow_id=wf_data["workflow_id"],
+                            name=wf_data["name"],
+                            description=wf_data.get("description", ""),
+                            version=wf_data.get("version", "1.0"),
+                            steps=steps,
+                            global_config=wf_data.get("global_config", {}),
+                            status=WorkflowStatus(wf_data.get("status", "draft")),
+                            created_at=wf_data.get("created_at"),
+                            started_at=wf_data.get("started_at"),
+                            completed_at=wf_data.get("completed_at"),
+                            context=wf_data.get("context", {})
+                        )
+
+                        self.workflows[workflow.workflow_id] = workflow
+                        self.logger.info(f"Loaded workflow: {workflow.name}")
+
+                    except (KeyError, ValueError) as e:
+                        self.logger.warning(f"Could not load workflow: {e}")
+
+        except (json.JSONDecodeError, IOError) as e:
             self.logger.error(f"Error loading workflows: {e}")
     
     def _save_workflows(self):
         """Save workflows to storage"""
         try:
-            # Simplified save - would implement full serialization
+            workflows_data = []
+
+            for workflow in self.workflows.values():
+                # Serialize steps
+                steps_data = []
+                for step in workflow.steps.values():
+                    step_dict = {
+                        "step_id": step.step_id,
+                        "name": step.name,
+                        "step_type": step.step_type.value,
+                        "description": step.description,
+                        "config": step.config,
+                        "dependencies": step.dependencies,
+                        "conditions": [
+                            {"field": c.field, "operator": c.operator, "value": c.value}
+                            for c in step.conditions
+                        ],
+                        "rollback_config": step.rollback_config,
+                        "timeout_seconds": step.timeout_seconds,
+                        "retry_count": step.retry_count,
+                        "max_retries": step.max_retries,
+                        "status": step.status.value,
+                        "started_at": step.started_at,
+                        "completed_at": step.completed_at,
+                        "duration_seconds": step.duration_seconds,
+                        "output": step.output,
+                        "error": step.error
+                    }
+                    steps_data.append(step_dict)
+
+                # Serialize workflow
+                workflow_dict = {
+                    "workflow_id": workflow.workflow_id,
+                    "name": workflow.name,
+                    "description": workflow.description,
+                    "version": workflow.version,
+                    "steps": steps_data,
+                    "global_config": workflow.global_config,
+                    "status": workflow.status.value,
+                    "created_at": workflow.created_at,
+                    "started_at": workflow.started_at,
+                    "completed_at": workflow.completed_at,
+                    "context": workflow.context
+                }
+                workflows_data.append(workflow_dict)
+
             data = {
-                "workflows": [],
+                "workflows": workflows_data,
                 "saved_at": datetime.now().isoformat()
             }
-            
+
             with open(self.storage_path, 'w') as f:
                 json.dump(data, f, indent=2)
-        except Exception as e:
+
+            self.logger.info(f"Saved {len(workflows_data)} workflows to storage")
+
+        except (IOError, TypeError) as e:
             self.logger.error(f"Error saving workflows: {e}")
 
 

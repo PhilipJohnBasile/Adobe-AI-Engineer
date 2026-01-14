@@ -427,7 +427,7 @@ class IntelligentOrchestrator:
                 return 0.6  # Moderate pressure
             else:
                 return 0.3  # Low pressure
-        except:
+        except (ValueError, TypeError, KeyError, AttributeError):
             return 0.3
     
     def _parse_deadline(self, timeline: Dict[str, Any]) -> Optional[datetime]:
@@ -437,7 +437,7 @@ class IntelligentOrchestrator:
         
         try:
             return datetime.fromisoformat(timeline["deadline"])
-        except:
+        except (ValueError, TypeError, KeyError):
             return None
 
 

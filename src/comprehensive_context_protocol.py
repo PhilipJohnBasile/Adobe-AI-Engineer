@@ -371,7 +371,7 @@ class ComprehensiveContextProtocol:
             current_time = datetime.now()
             delta = current_time - detected_time
             return delta.total_seconds() / 3600
-        except:
+        except (ValueError, TypeError, AttributeError):
             return 0.0
     
     def _assess_campaign_priority(self, campaign_data: Dict[str, Any]) -> str:

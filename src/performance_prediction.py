@@ -356,7 +356,7 @@ class PerformancePredictionModel:
         budget_str = campaign_brief.get('budget', '$10,000')
         try:
             budget = float(budget_str.replace('$', '').replace(',', ''))
-        except:
+        except (ValueError, AttributeError):
             budget = 10000.0
         features['campaign_budget'] = budget
         
@@ -382,7 +382,7 @@ class PerformancePredictionModel:
                 try:
                     value = encoded_features.get(feature, 'US' if feature == 'market' else ('26-35' if feature == 'audience_age' else 'Tech'))
                     encoded_features[f'{feature}_encoded'] = self.label_encoders[feature].transform([value])[0]
-                except:
+                except (ValueError, KeyError, IndexError):
                     # Handle unknown categories
                     encoded_features[f'{feature}_encoded'] = 0
             else:

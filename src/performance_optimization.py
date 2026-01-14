@@ -96,7 +96,7 @@ class MemoryCache:
             try:
                 serialized = pickle.dumps(value)
                 size_bytes = len(serialized)
-            except:
+            except (pickle.PicklingError, TypeError, AttributeError):
                 return False
             
             # Check if we need to evict

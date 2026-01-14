@@ -255,7 +255,7 @@ class ProductionAIAgent:
             if "timeline" in content and "deadline" in content["timeline"]:
                 try:
                     brief.deadline = datetime.fromisoformat(content["timeline"]["deadline"])
-                except:
+                except (ValueError, TypeError):
                     self.logger.warning(f"Invalid deadline format in brief {brief.id}")
             
             self.campaigns[brief.id] = brief

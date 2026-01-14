@@ -273,7 +273,7 @@ class CreativeComposer:
         if font is None:
             try:
                 font = ImageFont.load_default()
-            except:
+            except (OSError, IOError):
                 font = ImageFont.load_default()
         
         self.font_cache[cache_key] = font

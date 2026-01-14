@@ -453,7 +453,7 @@ class IntelligentBriefMonitor:
             size = file_path.stat().st_size
             if size < self.detection_settings["min_file_size"] or size > self.detection_settings["max_file_size"]:
                 return False
-        except:
+        except (OSError, IOError):
             return False
         
         return True
@@ -466,7 +466,7 @@ class IntelligentBriefMonitor:
                 for chunk in iter(lambda: f.read(4096), b""):
                     hasher.update(chunk)
             return hasher.hexdigest()
-        except:
+        except (OSError, IOError):
             return f"error_{file_path.name}_{datetime.now().timestamp()}"
     
     async def _load_brief_content(self, file_path: Path) -> Optional[Dict[str, Any]]:

@@ -449,7 +449,7 @@ Next Update: {(datetime.now() + timedelta(hours=1)).isoformat()}
                 with open("costs.json", 'r') as f:
                     costs = json.load(f)
                     total_cost = costs.get("total_cost", 0)
-        except:
+        except (json.JSONDecodeError, IOError, KeyError):
             total_cost = 0
         
         # Performance metrics

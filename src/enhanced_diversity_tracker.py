@@ -218,7 +218,7 @@ class EnhancedDiversityTracker:
                 for chunk in iter(lambda: f.read(4096), b""):
                     hasher.update(chunk)
             return hasher.hexdigest()
-        except:
+        except (OSError, IOError):
             return f"error_{file_path.name}_{datetime.now().timestamp()}"
     
     def _classify_aspect_ratio(self, width: int, height: int) -> str:
