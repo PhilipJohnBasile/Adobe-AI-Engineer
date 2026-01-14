@@ -28,7 +28,6 @@ from watchdog.events import FileSystemEventHandler
 import psutil
 import threading
 import queue
-import schedule
 
 # Production-grade logging configuration
 logging.basicConfig(
