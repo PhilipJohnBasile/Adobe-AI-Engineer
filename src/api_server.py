@@ -4,16 +4,14 @@ Provides REST endpoints for system integration
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks, UploadFile, File
-from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
-import asyncio
 import json
 import os
 import uuid
 from datetime import datetime
-import tempfile
 import yaml
 
 from .pipeline_orchestrator import PipelineOrchestrator

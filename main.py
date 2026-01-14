@@ -10,7 +10,7 @@ import json
 import logging
 import time
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List
 from datetime import datetime, timedelta
 
 import typer
@@ -750,7 +750,7 @@ def ab_test(
 ):
     """A/B testing framework for creative variants"""
     try:
-        from src.ab_testing import ABTestManager, TestStatus
+        from src.ab_testing import ABTestManager
         
         manager = ABTestManager()
         
@@ -1214,7 +1214,7 @@ def monitor(
 ):
     """Advanced monitoring and observability system"""
     try:
-        from src.monitoring import MonitoringSystem, monitoring_system
+        from src.monitoring import monitoring_system
         
         if action == "start":
             console.print("🔍 Starting monitoring system...")
@@ -1376,10 +1376,7 @@ def moderate(
 ):
     """Content moderation and brand safety validation"""
     try:
-        from src.content_moderation import (
-            ComprehensiveContentModerator, TextModerator, ImageModerator, 
-            BrandSafetyValidator, ContentRisk
-        )
+        from src.content_moderation import ComprehensiveContentModerator
         
         moderator = ComprehensiveContentModerator()
         
@@ -1609,10 +1606,7 @@ def tenant(
 ):
     """Multi-tenant architecture management for enterprise isolation"""
     try:
-        from src.multi_tenant import (
-            TenantManager, tenant_manager, TenantStatus, ResourceType,
-            Permission, TenantUser
-        )
+        from src.multi_tenant import tenant_manager, Permission
         
         if action == "create":
             if not tenant_name:
@@ -1823,8 +1817,7 @@ def workflow(
     """Workflow orchestration with visual pipeline designer"""
     try:
         from src.workflow_orchestration import (
-            WorkflowEngine, workflow_engine, WorkflowTemplates,
-            WorkflowStatus, StepStatus
+            workflow_engine, WorkflowTemplates
         )
         
         if action == "create":
@@ -2082,7 +2075,7 @@ def optimize(
     """Performance optimization with caching and image optimization"""
     try:
         from src.performance_optimization import (
-            PerformanceOptimizer, performance_optimizer, ImageOptimizer, CDNSimulator
+            performance_optimizer, ImageOptimizer, CDNSimulator
         )
         
         if action == "cache":
@@ -2311,7 +2304,6 @@ def serve(
     """Start the API server for system integration"""
     try:
         import uvicorn
-        from src.api_server import app as api_app
         
         console.print(f"🚀 Starting Creative Automation API server on {host}:{port}")
         console.print("📍 API Documentation: http://localhost:8000/docs")
@@ -3124,7 +3116,7 @@ def collaborate(
 ):
     """👥 Enterprise Collaboration Platform"""
     try:
-        from src.collaboration_platform import CollaborationPlatform, UserRole
+        from src.collaboration_platform import CollaborationPlatform
         
         console.print("👥 [bold blue]Enterprise Collaboration Platform[/bold blue]")
         
